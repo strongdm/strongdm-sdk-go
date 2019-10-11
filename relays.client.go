@@ -45,26 +45,51 @@ func (r *Relays) init() {
 
 // Create adds a new relay, and returns the new relay
 func (r *Relays) Create(ctx context.Context, req RelayCreateRequest) (RelayCreateResponse, error) {
+	// Host: http://app.strongdm.com/
+	// BasePath: 
+	// Dial to /v1/relays by POST
+	// Body: *
+	// ResponseBody: 
 	panic("not implemented")
 }
 
 // Update modifies an existing relay
 func (r *Relays) Update(ctx context.Context, req RelayUpdateRequest) (RelayUpdateResponse, error) {
+	// Host: http://app.strongdm.com/
+	// BasePath: 
+	// Dial to /v1/relays/{relay.id} by POST
+	// Body: *
+	// ResponseBody: 
 	panic("not implemented")
 }
 
 // Delete removes an existing relay
 func (r *Relays) Delete(ctx context.Context, req RelayDeleteRequest) (RelayDeleteResponse, error) {
+	// Host: http://app.strongdm.com/
+	// BasePath: 
+	// Dial to /v1/relays/{id} by DELETE
+	// Body: 
+	// ResponseBody: 
 	panic("not implemented")
 }
 
 // List returns all existing relays
 func (r *Relays) List(ctx context.Context, req RelayListRequest) (RelayListResponse, error) {
+	// Host: http://app.strongdm.com/
+	// BasePath: 
+	// Dial to /v1/relays by GET
+	// Body: 
+	// ResponseBody: 
 	panic("not implemented")
 }
 
 // Get finds a sandwich by id
 func (r *Relays) Get(ctx context.Context, req RelayGetRequest) (RelayGetResponse, error) {
+	// Host: http://app.strongdm.com/
+	// BasePath: 
+	// Dial to /v1/relays/{id} by GET
+	// Body: 
+	// ResponseBody: 
 	panic("not implemented")
 }
 
