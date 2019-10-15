@@ -45,7 +45,7 @@ func (r *Relays) init() {
 
 // Create adds a new relay, and returns the new relay
 func (r *Relays) Create(ctx context.Context, req RelayCreateRequest) (RelayCreateResponse, error) {
-	// Host: http://app.strongdm.com/
+	// Host: app.strongdm.com
 	// BasePath: 
 	// Dial to /v1/relays by POST
 	// Body: *
@@ -55,9 +55,9 @@ func (r *Relays) Create(ctx context.Context, req RelayCreateRequest) (RelayCreat
 
 // Update modifies an existing relay
 func (r *Relays) Update(ctx context.Context, req RelayUpdateRequest) (RelayUpdateResponse, error) {
-	// Host: http://app.strongdm.com/
+	// Host: app.strongdm.com
 	// BasePath: 
-	// Dial to /v1/relays/{relay.id} by POST
+	// Dial to /v1/relays/{node.id} by POST
 	// Body: *
 	// ResponseBody: 
 	panic("not implemented")
@@ -65,7 +65,7 @@ func (r *Relays) Update(ctx context.Context, req RelayUpdateRequest) (RelayUpdat
 
 // Delete removes an existing relay
 func (r *Relays) Delete(ctx context.Context, req RelayDeleteRequest) (RelayDeleteResponse, error) {
-	// Host: http://app.strongdm.com/
+	// Host: app.strongdm.com
 	// BasePath: 
 	// Dial to /v1/relays/{id} by DELETE
 	// Body: 
@@ -75,7 +75,7 @@ func (r *Relays) Delete(ctx context.Context, req RelayDeleteRequest) (RelayDelet
 
 // List returns all existing relays
 func (r *Relays) List(ctx context.Context, req RelayListRequest) (RelayListResponse, error) {
-	// Host: http://app.strongdm.com/
+	// Host: app.strongdm.com
 	// BasePath: 
 	// Dial to /v1/relays by GET
 	// Body: 
@@ -85,40 +85,12 @@ func (r *Relays) List(ctx context.Context, req RelayListRequest) (RelayListRespo
 
 // Get finds a sandwich by id
 func (r *Relays) Get(ctx context.Context, req RelayGetRequest) (RelayGetResponse, error) {
-	// Host: http://app.strongdm.com/
+	// Host: app.strongdm.com
 	// BasePath: 
 	// Dial to /v1/relays/{id} by GET
 	// Body: 
 	// ResponseBody: 
 	panic("not implemented")
-}
-
-// This is relay2 service
-type Relays2 struct {
-	initOnce sync.Once
-	httpClient *http.Client
-	reqModifier func(*http.Request)
-}
-
-func NewRelays2(opts ...ClientOption) *Relays2 {
-	c:= &Relays2{}
-	c.init()
-	for _, opt := range opts {
-		if opt.HTTPClient != nil {
-			c.httpClient = opt.HTTPClient
-		}
-		if opt.Token != "" {
-			c.reqModifier = addTokenHeader(opt.Token)
-		}
-	}
-	return c
-}
-
-func (r *Relays2) init() {
-	r.initOnce.Do(func(){
-		r.httpClient = http.DefaultClient
-		r.reqModifier = func(*http.Request){}
-	})
 }
 // RequestMetadata
 type RequestMetadata struct {
@@ -134,22 +106,22 @@ type ResponseMetadata struct {
 
 type RelayCreateRequest struct {
 	Metadata RequestMetadata `json:"metadata"`
-	Relay Relay `json:"relay"`
+	Node Node `json:"node"`
 }
 
 type RelayCreateResponse struct {
 	Metadata ResponseMetadata `json:"metadata"`
-	Relay Relay `json:"relay"`
+	Node Node `json:"node"`
 }
 
 type RelayUpdateRequest struct {
 	Metadata RequestMetadata `json:"metadata"`
-	Relay Relay `json:"relay"`
+	Node Node `json:"node"`
 }
 
 type RelayUpdateResponse struct {
 	Metadata ResponseMetadata `json:"metadata"`
-	Relay Relay `json:"relay"`
+	Node Node `json:"node"`
 }
 
 type RelayDeleteRequest struct {
@@ -167,7 +139,7 @@ type RelayListRequest struct {
 
 type RelayListResponse struct {
 	Metadata ResponseMetadata `json:"metadata"`
-	Relays Relay `json:"relays"`
+	Nodes Node `json:"nodes"`
 }
 
 type RelayGetRequest struct {
@@ -177,19 +149,31 @@ type RelayGetRequest struct {
 
 type RelayGetResponse struct {
 	Metadata ResponseMetadata `json:"metadata"`
-	Relay Relay `json:"relay"`
+	Node Node `json:"node"`
 }
 
 type ErrorDetail struct {
 	Message string `json:"message"`
 }
 
-// Relay is a domain object.
-type Relay struct {
+// Node is a domain object.
+type Node struct {
 	// id is the unique ID for this relay.
 	ID string `json:"id"`
+	Relay Relay `json:"relay"`
+	Gateway Gateway `json:"gateway"`
+}
+
+type Relay struct {
 	// name is the human readable unique name for this relay.
 	Name string `json:"name"`
+}
+
+type Gateway struct {
+	// name is the human readable unique name for this relay.
+	Name string `json:"name"`
+	// listen_address represents the network address to which nodes should dial to.
+	ListenAddress string `json:"listenAddress"`
 }
 
 func addTokenHeader(t string) func(*http.Request) {
