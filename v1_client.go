@@ -20,7 +20,7 @@ type Client struct {
 	grpcConn *grpc.ClientConn
 
 
-		// Nodes are proxies in strongDM responsible to communicate with servers
+	// Nodes are proxies in strongDM responsible to communicate with servers
 	// (relays) and clients (gateways).
 	Nodes *Nodes
 
