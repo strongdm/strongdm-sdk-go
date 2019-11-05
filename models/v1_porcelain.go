@@ -43,8 +43,8 @@ type ListResponseMetadata struct {
 // communicate partial successes or failures.
 type NodeCreateResponse struct {
 	Meta CreateResponseMetadata
-	Nodes Node
-	Tokens Token
+	Nodes []Node
+	Tokens []Token
 }
 	
 // NodeGetResponse returns a requested node.
@@ -68,14 +68,14 @@ type NodeDeleteResponse struct {
 // NodeListResponse returns a list of nodes that meet the criteria of a
 // NodeListRequest.
 type NodeListResponse struct {
-	Nodes Node
+	Nodes []Node
 }
 	
 // NodeBatchUpdateResponse returns a list of nodes updated via
 // NodeBatchUpdateRequest.
 type NodeBatchUpdateResponse struct {
 	Meta BatchUpdateResponseMetadata
-	Nodes Node
+	Nodes []Node
 }
 	
 // NodeBatchDeleteResponse returns information about nodes deleted via a
