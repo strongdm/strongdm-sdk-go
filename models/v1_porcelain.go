@@ -68,7 +68,7 @@ type NodeDeleteResponse struct {
 // NodeListResponse returns a list of nodes that meet the criteria of a
 // NodeListRequest.
 type NodeListResponse struct {
-	Nodes []Node
+	Nodes NodeIterator
 }
 	
 // NodeBatchUpdateResponse returns a list of nodes updated via
@@ -111,3 +111,8 @@ type Token struct {
 	Token string
 }
 	
+type NodeIterator interface {
+	Next() bool
+	Value() Node
+	Err() error
+}

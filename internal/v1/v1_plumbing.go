@@ -326,13 +326,11 @@ func RepeatedNodeDeleteResponseToPorcelain(plumbings []*NodeDeleteResponse) []mo
 
 func NodeListResponseToPorcelain(plumbing *NodeListResponse) models.NodeListResponse {
     porcelain := models.NodeListResponse{}
-    porcelain.Nodes = RepeatedNodeToPorcelain(plumbing.Nodes)
     return porcelain
 }
 
 func NodeListResponseToPlumbing(porcelain models.NodeListResponse) *NodeListResponse {
     plumbing := &NodeListResponse{}
-    plumbing.Nodes = RepeatedNodeToPlumbing(porcelain.Nodes)
     return plumbing
 }
 
@@ -544,3 +542,43 @@ func RepeatedTokenToPorcelain(plumbings []*Token) []models.Token {
     return items
 }
 
+
+type NodeIteratorImplFetchFunc func() ([]models.Node, bool, error)
+type NodeIteratorImpl struct {
+	buffer []models.Node
+    index int
+    hasNextPage bool
+    err error
+    fetch NodeIteratorImplFetchFunc
+}
+
+func NewNodeIteratorImpl(f NodeIteratorImplFetchFunc) *NodeIteratorImpl {
+    return &NodeIteratorImpl{
+        hasNextPage: true,
+        fetch: f,
+    }
+}
+
+func (n *NodeIteratorImpl) Next() bool {
+    if n.index < len(n.buffer) - 1 {
+        n.index++
+        return true
+    }
+
+    // reached end of buffer
+    if !n.hasNextPage {
+        return false
+    }
+
+    n.index = 0
+    n.buffer, n.hasNextPage, n.err = n.fetch()
+    return len(n.buffer) > 0
+}
+
+func (n *NodeIteratorImpl) Value() models.Node {
+    return n.buffer[n.index]
+}
+
+func (n *NodeIteratorImpl) Err() error {
+    return n.err
+}
