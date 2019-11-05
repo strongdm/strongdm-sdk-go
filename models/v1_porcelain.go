@@ -33,12 +33,6 @@ type BatchDeleteResponseMetadata struct {
 	Affected int64
 }
 	
-// ListResponseMetadata
-type ListResponseMetadata struct {
-	NextPage string
-	Found int64
-}
-	
 // NodeCreateResponse reports how the nodes were created in the system. It can
 // communicate partial successes or failures.
 type NodeCreateResponse struct {

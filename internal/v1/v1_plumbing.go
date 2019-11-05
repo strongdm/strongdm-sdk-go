@@ -174,36 +174,6 @@ func RepeatedBatchDeleteResponseMetadataToPorcelain(plumbings []*BatchDeleteResp
     return items
 }
 
-func ListResponseMetadataToPorcelain(plumbing *ListResponseMetadata) models.ListResponseMetadata {
-    porcelain := models.ListResponseMetadata{}
-    porcelain.NextPage = plumbing.NextPage
-    porcelain.Found = plumbing.Found
-    return porcelain
-}
-
-func ListResponseMetadataToPlumbing(porcelain models.ListResponseMetadata) *ListResponseMetadata {
-    plumbing := &ListResponseMetadata{}
-    plumbing.NextPage = porcelain.NextPage
-    plumbing.Found = porcelain.Found
-    return plumbing
-}
-
-func RepeatedListResponseMetadataToPlumbing(porcelains []models.ListResponseMetadata) []*ListResponseMetadata {
-    var items []*ListResponseMetadata
-    for _, porcelain := range porcelains {
-        items = append(items, ListResponseMetadataToPlumbing(porcelain))
-    }
-    return items
-}
-
-func RepeatedListResponseMetadataToPorcelain(plumbings []*ListResponseMetadata) []models.ListResponseMetadata {
-    var items []models.ListResponseMetadata
-    for _, plumbing := range plumbings {
-        items = append(items, ListResponseMetadataToPorcelain(plumbing))
-    }
-    return items
-}
-
 func NodeCreateResponseToPorcelain(plumbing *NodeCreateResponse) models.NodeCreateResponse {
     porcelain := models.NodeCreateResponse{}
     porcelain.Meta = CreateResponseMetadataToPorcelain(plumbing.Meta)
