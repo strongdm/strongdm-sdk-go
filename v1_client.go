@@ -13,6 +13,7 @@ import (
 
 var (
 	host = "app.strongdm.com"
+	_ = metadata.Pairs
 )
 
 // Client is the strongDM API client.
@@ -27,13 +28,14 @@ type Client struct {
 }
 
 // New creates a new strongDM API client.
-func New(token string) (*Client, error) {
-	headers := metadata.Pairs(
-		"Authorization", "Bearer "+token,
-	)
+func New(host string) (*Client, error) {
+
+	var opts []grpc.DialOption
+	opts = append(opts, grpc.WithInsecure())
+	
 	cc, err := grpc.Dial(
 		host,
-		grpc.WithDefaultCallOptions(grpc.Header(&headers)),
+		opts...,
 	)
 	if err != nil {
 		return nil, fmt.Errorf("cannot dial API server: %w", err)
