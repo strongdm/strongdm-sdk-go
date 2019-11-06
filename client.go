@@ -8,7 +8,7 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
-	v1 "github.com/strongdm/strongdm-sdk-go/internal/v1"
+	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 )
 
 var (
@@ -38,13 +38,13 @@ func New(host string) (*Client, error) {
 		opts...,
 	)
 	if err != nil {
-		return nil, v1.ErrorToPorcelain(fmt.Errorf("cannot dial API server: %w", err))
+		return nil, plumbing.ErrorToPorcelain(fmt.Errorf("cannot dial API server: %w", err))
 	}
 	client := &Client{
 		grpcConn: cc,
 	}
 	
-	client.Nodes = &Nodes{client: v1.NewNodesClient(client.grpcConn),}
+	client.Nodes = &Nodes{client: plumbing.NewNodesClient(client.grpcConn),}
 	
 	return client, nil
 }
