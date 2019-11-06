@@ -8,6 +8,7 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
+	"github.com/strongdm/strongdm-sdk-go/errors"
 	v1 "github.com/strongdm/strongdm-sdk-go/internal/v1"
 )
 
@@ -38,7 +39,7 @@ func New(host string) (*Client, error) {
 		opts...,
 	)
 	if err != nil {
-		return nil, fmt.Errorf("cannot dial API server: %w", err)
+		return nil, errors.New(fmt.Errorf("cannot dial API server: %w", err))
 	}
 	client := &Client{
 		grpcConn: cc,
