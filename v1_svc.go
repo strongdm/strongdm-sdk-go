@@ -5,6 +5,7 @@ import (
 
 	v1 "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	models "github.com/strongdm/strongdm-sdk-go/models"
+	errors "github.com/strongdm/strongdm-sdk-go/errors"
 )
 
 
@@ -22,7 +23,7 @@ func (svc *Nodes) Create(ctx context.Context, nodes ...models.Node) (*models.Nod
 	
 	plumbingResponse, err := svc.client.Create(ctx, req)
 	if err != nil {
-		return nil, err
+		return nil, errors.New(err)
 	}
 	resp := &models.NodeCreateResponse{}
 	resp.Meta = v1.CreateResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -38,7 +39,7 @@ func (svc *Nodes) Get(ctx context.Context, id string) (*models.NodeGetResponse, 
 	
 	plumbingResponse, err := svc.client.Get(ctx, req)
 	if err != nil {
-		return nil, err
+		return nil, errors.New(err)
 	}
 	resp := &models.NodeGetResponse{}
 	resp.Meta = v1.GetResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -54,7 +55,7 @@ func (svc *Nodes) Update(ctx context.Context, id string, node models.Node) (*mod
 	
 	plumbingResponse, err := svc.client.Update(ctx, req)
 	if err != nil {
-		return nil, err
+		return nil, errors.New(err)
 	}
 	resp := &models.NodeUpdateResponse{}
 	resp.Meta = v1.UpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -69,7 +70,7 @@ func (svc *Nodes) Delete(ctx context.Context, id string) (*models.NodeDeleteResp
 	
 	plumbingResponse, err := svc.client.Delete(ctx, req)
 	if err != nil {
-		return nil, err
+		return nil, errors.New(err)
 	}
 	resp := &models.NodeDeleteResponse{}
 	resp.Meta = v1.DeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -87,7 +88,7 @@ func (svc *Nodes) List(ctx context.Context, filter string) (*models.NodeListResp
 		func() ([]models.Node, bool, error) {
 			plumbingResponse, err := svc.client.List(ctx, req)
 			if err != nil {
-				return nil, false, err
+				return nil, false, errors.New(err)
 			}
 			var result []models.Node
 			
@@ -108,7 +109,7 @@ func (svc *Nodes) BatchUpdate(ctx context.Context, nodes ...models.Node) (*model
 	
 	plumbingResponse, err := svc.client.BatchUpdate(ctx, req)
 	if err != nil {
-		return nil, err
+		return nil, errors.New(err)
 	}
 	resp := &models.NodeBatchUpdateResponse{}
 	resp.Meta = v1.BatchUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -123,7 +124,7 @@ func (svc *Nodes) BatchDelete(ctx context.Context, ids ...string) (*models.NodeB
 	
 	plumbingResponse, err := svc.client.BatchDelete(ctx, req)
 	if err != nil {
-		return nil, err
+		return nil, errors.New(err)
 	}
 	resp := &models.NodeBatchDeleteResponse{}
 	resp.Meta = v1.BatchDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
