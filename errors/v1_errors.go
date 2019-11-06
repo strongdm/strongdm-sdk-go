@@ -1,10 +1,4 @@
 package errors
-
-import (
-	"google.golang.org/grpc/status"
-
-	v1 "github.com/strongdm/strongdm-sdk-go/internal/v1"
-)
 // AlreadyExistsError is used when an entity already exists in the system
 type AlreadyExistsError struct {
 	Message string
@@ -83,60 +77,4 @@ func (e *RPCError) Error() string {
 
 func (e *RPCError) Unwrap() error {
 	return e.Wrapped
-}
-
-func New(err error) error {
-	if s, ok := status.FromError(err); ok {
-		for _, details := range s.Details() {
-			switch d := details.(type) {
-			// AlreadyExistsError is used when an entity already exists in the system
-			case *v1.AlreadyExistsError:
-				e := &AlreadyExistsError{}
-				e.Message = s.Message()
-				e.Entities = d.Entities
-				return e
-
-			// NotFoundError is used when an entity does not exist in the system
-			case *v1.NotFoundError:
-				e := &NotFoundError{}
-				e.Message = s.Message()
-				e.Entities = d.Entities
-				return e
-
-			// BadRequestError identifies a bad request sent by the client
-			case *v1.BadRequestError:
-				e := &BadRequestError{}
-				e.Message = s.Message()
-				return e
-
-			// AuthenticationError is used to specify an authentication failure condition
-			case *v1.AuthenticationError:
-				e := &AuthenticationError{}
-				e.Message = s.Message()
-				return e
-
-			// PermissionError is used to specify a permissions violation
-			case *v1.PermissionError:
-				e := &PermissionError{}
-				e.Message = s.Message()
-				e.Permission = d.Permission
-				e.Entities = d.Entities
-				return e
-
-			// InternalError is used to specify an internal system error
-			case *v1.InternalError:
-				e := &InternalError{}
-				e.Message = s.Message()
-				return e
-
-			// RateLimitError is used for rate limit excess condition
-			case *v1.RateLimitError:
-				e := &RateLimitError{}
-				e.Message = s.Message()
-				return e
-
-			}
-		}
-	}
-	return &RPCError{Wrapped: err}
 }

@@ -1,6 +1,10 @@
 package v1
 
-import "github.com/strongdm/strongdm-sdk-go/models"
+import (
+	"google.golang.org/grpc/status"
+    "github.com/strongdm/strongdm-sdk-go/models"
+    "github.com/strongdm/strongdm-sdk-go/errors"
+)
 
 func CreateResponseMetadataToPorcelain(plumbing *CreateResponseMetadata) models.CreateResponseMetadata {
     porcelain := models.CreateResponseMetadata{}
@@ -512,6 +516,62 @@ func RepeatedTokenToPorcelain(plumbings []*Token) []models.Token {
     return items
 }
 
+func ErrorToPorcelain(err error) error {
+	if s, ok := status.FromError(err); ok {
+		for _, details := range s.Details() {
+			switch d := details.(type) {
+
+			// AlreadyExistsError is used when an entity already exists in the system
+			case *AlreadyExistsError:
+				e := &errors.AlreadyExistsError{}
+				e.Message = s.Message()
+				e.Entities = d.Entities
+				return e
+
+			// NotFoundError is used when an entity does not exist in the system
+			case *NotFoundError:
+				e := &errors.NotFoundError{}
+				e.Message = s.Message()
+				e.Entities = d.Entities
+				return e
+
+			// BadRequestError identifies a bad request sent by the client
+			case *BadRequestError:
+				e := &errors.BadRequestError{}
+				e.Message = s.Message()
+				return e
+
+			// AuthenticationError is used to specify an authentication failure condition
+			case *AuthenticationError:
+				e := &errors.AuthenticationError{}
+				e.Message = s.Message()
+				return e
+
+			// PermissionError is used to specify a permissions violation
+			case *PermissionError:
+				e := &errors.PermissionError{}
+				e.Message = s.Message()
+				e.Permission = d.Permission
+				e.Entities = d.Entities
+				return e
+
+			// InternalError is used to specify an internal system error
+			case *InternalError:
+				e := &errors.InternalError{}
+				e.Message = s.Message()
+				return e
+
+			// RateLimitError is used for rate limit excess condition
+			case *RateLimitError:
+				e := &errors.RateLimitError{}
+				e.Message = s.Message()
+				return e
+
+			}
+		}
+	}
+	return &errors.RPCError{Wrapped: err}
+}
 
 type NodeIteratorImplFetchFunc func() ([]models.Node, bool, error)
 type NodeIteratorImpl struct {
