@@ -557,7 +557,7 @@ func ErrorToPorcelain(err error) error {
 
 			// InternalError is used to specify an internal system error
 			case *InternalError:
-				e := &errors.KindInternalError{}
+				e := &errors.InternalError{}
 				e.Message = s.Message()
 				return e
 
