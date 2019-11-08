@@ -33,6 +33,43 @@ type BatchDeleteResponseMetadata struct {
 	Affected int64
 }
 	
+// AttachmentCreateResponse reports how the Attachments were created in the system. It can
+// communicate partial successes or failures.
+type AttachmentCreateResponse struct {
+	Meta CreateResponseMetadata
+	Attachments []Attachment
+}
+	
+// AttachmentGetResponse returns a requested Attachment.
+type AttachmentGetResponse struct {
+	Meta GetResponseMetadata
+	Attachment Attachment
+}
+	
+// AttachmentDeleteResponse returns information about a Attachment that was deleted.
+type AttachmentDeleteResponse struct {
+	Meta DeleteResponseMetadata
+}
+	
+// AttachmentListResponse returns a list of Attachments that meet the criteria of a
+// AttachmentListRequest.
+type AttachmentListResponse struct {
+	Attachments AttachmentIterator
+}
+	
+// AttachmentBatchDeleteResponse returns information about Attachments deleted via a
+// AttachmentBatchDeleteRequest.
+type AttachmentBatchDeleteResponse struct {
+	Meta BatchDeleteResponseMetadata
+}
+	
+// Attachment is a domain object --
+type Attachment struct {
+	ID string
+	RoleID string
+	CompositeRoleID string
+}
+	
 // NodeCreateResponse reports how the nodes were created in the system. It can
 // communicate partial successes or failures.
 type NodeCreateResponse struct {
@@ -105,8 +142,70 @@ type Token struct {
 	Token string
 }
 	
+// RoleCreateResponse reports how the Roles were created in the system. It can
+// communicate partial successes or failures.
+type RoleCreateResponse struct {
+	Meta CreateResponseMetadata
+	Roles []Role
+}
+	
+// RoleGetResponse returns a requested Role.
+type RoleGetResponse struct {
+	Meta GetResponseMetadata
+	Role Role
+}
+	
+// RoleUpdateResponse returns the fields of a Role after it has been updated by
+// a RoleUpdateRequest.
+type RoleUpdateResponse struct {
+	Meta UpdateResponseMetadata
+	Role Role
+}
+	
+// RoleDeleteResponse returns information about a Role that was deleted.
+type RoleDeleteResponse struct {
+	Meta DeleteResponseMetadata
+}
+	
+// RoleListResponse returns a list of Roles that meet the criteria of a
+// RoleListRequest.
+type RoleListResponse struct {
+	Roles RoleIterator
+}
+	
+// RoleBatchUpdateResponse returns a list of Roles updated via
+// RoleBatchUpdateRequest.
+type RoleBatchUpdateResponse struct {
+	Meta BatchUpdateResponseMetadata
+	Roles []Role
+}
+	
+// RoleBatchDeleteResponse returns information about Roles deleted via a
+// RoleBatchDeleteRequest.
+type RoleBatchDeleteResponse struct {
+	Meta BatchDeleteResponseMetadata
+}
+	
+// Role is a domain object --
+type Role struct {
+	ID string
+	Name string
+	Composite bool
+	Roles []Role
+}
+	
+type AttachmentIterator interface {
+	Next() bool
+	Value() Attachment
+	Err() error
+}
 type NodeIterator interface {
 	Next() bool
 	Value() Node
+	Err() error
+}
+type RoleIterator interface {
+	Next() bool
+	Value() Role
 	Err() error
 }

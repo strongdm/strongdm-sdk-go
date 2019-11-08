@@ -9,6 +9,96 @@ import (
 
 
 
+// Attachments are links between between a user and role, or a role and a composite role
+type Attachments struct {
+	client plumbing.AttachmentsClient
+}
+
+// Create registers a new attachment.
+func (svc *Attachments) Create(ctx context.Context, attachments ...models.Attachment) (*models.AttachmentCreateResponse, error) {
+	req := &plumbing.AttachmentCreateRequest{}
+	req.Attachments = plumbing.RepeatedAttachmentToPlumbing(attachments)
+	
+	plumbingResponse, err := svc.client.Create(ctx, req)
+	if err != nil {
+		return nil, plumbing.ErrorToPorcelain(err)
+	}
+	resp := &models.AttachmentCreateResponse{}
+	resp.Meta = plumbing.CreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Attachments = plumbing.RepeatedAttachmentToPorcelain(plumbingResponse.Attachments)
+	return resp, nil
+}
+
+// Get reads one attachment by ID.
+func (svc *Attachments) Get(ctx context.Context, id string) (*models.AttachmentGetResponse, error) {
+	req := &plumbing.AttachmentGetRequest{}
+	req.Id = id
+	
+	plumbingResponse, err := svc.client.Get(ctx, req)
+	if err != nil {
+		return nil, plumbing.ErrorToPorcelain(err)
+	}
+	resp := &models.AttachmentGetResponse{}
+	resp.Meta = plumbing.GetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Attachment = plumbing.AttachmentToPorcelain(plumbingResponse.Attachment)
+	return resp, nil
+}
+
+// Delete removes a Attachment by ID.
+func (svc *Attachments) Delete(ctx context.Context, id string) (*models.AttachmentDeleteResponse, error) {
+	req := &plumbing.AttachmentDeleteRequest{}
+	req.Id = id
+	
+	plumbingResponse, err := svc.client.Delete(ctx, req)
+	if err != nil {
+		return nil, plumbing.ErrorToPorcelain(err)
+	}
+	resp := &models.AttachmentDeleteResponse{}
+	resp.Meta = plumbing.DeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	return resp, nil
+}
+
+// List is a batched Get call.
+func (svc *Attachments) List(ctx context.Context, filter string) (*models.AttachmentListResponse) {
+	req := &plumbing.AttachmentListRequest{}
+	req.Filter = filter
+	
+	req.Meta = &plumbing.ListRequestMetadata{}
+	resp := &models.AttachmentListResponse{}
+	iter := plumbing.NewAttachmentIteratorImpl(
+		func() ([]models.Attachment, bool, error) {
+			plumbingResponse, err := svc.client.List(ctx, req)
+			if err != nil {
+				return nil, false, plumbing.ErrorToPorcelain(err)
+			}
+			var result []models.Attachment
+			
+			result = plumbing.RepeatedAttachmentToPorcelain(plumbingResponse.Attachments)
+			
+			req.Meta.Page = plumbingResponse.Meta.NextPage
+			return result, req.Meta.Page != "", nil
+		},
+	)
+	resp.Attachments = iter
+	return resp
+}
+
+// BatchDelete is a batched Delete call.
+func (svc *Attachments) BatchDelete(ctx context.Context, ids ...string) (*models.AttachmentBatchDeleteResponse, error) {
+	req := &plumbing.AttachmentBatchDeleteRequest{}
+	req.Ids = append(req.Ids, ids...)
+	
+	plumbingResponse, err := svc.client.BatchDelete(ctx, req)
+	if err != nil {
+		return nil, plumbing.ErrorToPorcelain(err)
+	}
+	resp := &models.AttachmentBatchDeleteResponse{}
+	resp.Meta = plumbing.BatchDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	return resp, nil
+}
+
+
+
 // Nodes are proxies in strongDM responsible to communicate with servers
 // (relays) and clients (gateways).
 type Nodes struct {
@@ -126,6 +216,127 @@ func (svc *Nodes) BatchDelete(ctx context.Context, ids ...string) (*models.NodeB
 		return nil, plumbing.ErrorToPorcelain(err)
 	}
 	resp := &models.NodeBatchDeleteResponse{}
+	resp.Meta = plumbing.BatchDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	return resp, nil
+}
+
+
+
+// Roles are
+type Roles struct {
+	client plumbing.RolesClient
+}
+
+// Create registers a new role.
+func (svc *Roles) Create(ctx context.Context, roles ...models.Role) (*models.RoleCreateResponse, error) {
+	req := &plumbing.RoleCreateRequest{}
+	req.Roles = plumbing.RepeatedRoleToPlumbing(roles)
+	
+	plumbingResponse, err := svc.client.Create(ctx, req)
+	if err != nil {
+		return nil, plumbing.ErrorToPorcelain(err)
+	}
+	resp := &models.RoleCreateResponse{}
+	resp.Meta = plumbing.CreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Roles = plumbing.RepeatedRoleToPorcelain(plumbingResponse.Roles)
+	return resp, nil
+}
+
+// Get reads one role by ID.
+func (svc *Roles) Get(ctx context.Context, id string) (*models.RoleGetResponse, error) {
+	req := &plumbing.RoleGetRequest{}
+	req.Id = id
+	
+	plumbingResponse, err := svc.client.Get(ctx, req)
+	if err != nil {
+		return nil, plumbing.ErrorToPorcelain(err)
+	}
+	resp := &models.RoleGetResponse{}
+	resp.Meta = plumbing.GetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Role = plumbing.RoleToPorcelain(plumbingResponse.Role)
+	return resp, nil
+}
+
+// Update patches a Role by ID.
+func (svc *Roles) Update(ctx context.Context, id string, role models.Role) (*models.RoleUpdateResponse, error) {
+	req := &plumbing.RoleUpdateRequest{}
+	req.Id = id
+	req.Role = plumbing.RoleToPlumbing(role)
+	
+	plumbingResponse, err := svc.client.Update(ctx, req)
+	if err != nil {
+		return nil, plumbing.ErrorToPorcelain(err)
+	}
+	resp := &models.RoleUpdateResponse{}
+	resp.Meta = plumbing.UpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Role = plumbing.RoleToPorcelain(plumbingResponse.Role)
+	return resp, nil
+}
+
+// Delete removes a Role by ID.
+func (svc *Roles) Delete(ctx context.Context, id string) (*models.RoleDeleteResponse, error) {
+	req := &plumbing.RoleDeleteRequest{}
+	req.Id = id
+	
+	plumbingResponse, err := svc.client.Delete(ctx, req)
+	if err != nil {
+		return nil, plumbing.ErrorToPorcelain(err)
+	}
+	resp := &models.RoleDeleteResponse{}
+	resp.Meta = plumbing.DeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	return resp, nil
+}
+
+// List is a batched Get call.
+func (svc *Roles) List(ctx context.Context, filter string) (*models.RoleListResponse) {
+	req := &plumbing.RoleListRequest{}
+	req.Filter = filter
+	
+	req.Meta = &plumbing.ListRequestMetadata{}
+	resp := &models.RoleListResponse{}
+	iter := plumbing.NewRoleIteratorImpl(
+		func() ([]models.Role, bool, error) {
+			plumbingResponse, err := svc.client.List(ctx, req)
+			if err != nil {
+				return nil, false, plumbing.ErrorToPorcelain(err)
+			}
+			var result []models.Role
+			
+			result = plumbing.RepeatedRoleToPorcelain(plumbingResponse.Roles)
+			
+			req.Meta.Page = plumbingResponse.Meta.NextPage
+			return result, req.Meta.Page != "", nil
+		},
+	)
+	resp.Roles = iter
+	return resp
+}
+
+// BatchUpdate is a batched Update call.
+func (svc *Roles) BatchUpdate(ctx context.Context, roles ...models.Role) (*models.RoleBatchUpdateResponse, error) {
+	req := &plumbing.RoleBatchUpdateRequest{}
+	req.Roles = plumbing.RepeatedRoleToPlumbing(roles)
+	
+	plumbingResponse, err := svc.client.BatchUpdate(ctx, req)
+	if err != nil {
+		return nil, plumbing.ErrorToPorcelain(err)
+	}
+	resp := &models.RoleBatchUpdateResponse{}
+	resp.Meta = plumbing.BatchUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Roles = plumbing.RepeatedRoleToPorcelain(plumbingResponse.Roles)
+	return resp, nil
+}
+
+// BatchDelete is a batched Delete call.
+func (svc *Roles) BatchDelete(ctx context.Context, ids ...string) (*models.RoleBatchDeleteResponse, error) {
+	req := &plumbing.RoleBatchDeleteRequest{}
+	req.Ids = append(req.Ids, ids...)
+	
+	plumbingResponse, err := svc.client.BatchDelete(ctx, req)
+	if err != nil {
+		return nil, plumbing.ErrorToPorcelain(err)
+	}
+	resp := &models.RoleBatchDeleteResponse{}
 	resp.Meta = plumbing.BatchDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	return resp, nil
 }

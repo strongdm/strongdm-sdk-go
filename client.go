@@ -21,9 +21,15 @@ type Client struct {
 	grpcConn *grpc.ClientConn
 
 
+	// Attachments are links between between a user and role, or a role and a composite role
+	Attachments *Attachments
+
 	// Nodes are proxies in strongDM responsible to communicate with servers
 	// (relays) and clients (gateways).
 	Nodes *Nodes
+
+	// Roles are
+	Roles *Roles
 
 }
 
@@ -44,7 +50,11 @@ func New(host string) (*Client, error) {
 		grpcConn: cc,
 	}
 	
+	client.Attachments = &Attachments{client: plumbing.NewAttachmentsClient(client.grpcConn),}
+	
 	client.Nodes = &Nodes{client: plumbing.NewNodesClient(client.grpcConn),}
+	
+	client.Roles = &Roles{client: plumbing.NewRolesClient(client.grpcConn),}
 	
 	return client, nil
 }
