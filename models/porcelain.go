@@ -33,43 +33,6 @@ type BatchDeleteResponseMetadata struct {
 	Affected int64
 }
 	
-// AttachmentCreateResponse reports how the Attachments were created in the system. It can
-// communicate partial successes or failures.
-type AttachmentCreateResponse struct {
-	Meta CreateResponseMetadata
-	Attachments []Attachment
-}
-	
-// AttachmentGetResponse returns a requested Attachment.
-type AttachmentGetResponse struct {
-	Meta GetResponseMetadata
-	Attachment Attachment
-}
-	
-// AttachmentDeleteResponse returns information about a Attachment that was deleted.
-type AttachmentDeleteResponse struct {
-	Meta DeleteResponseMetadata
-}
-	
-// AttachmentListResponse returns a list of Attachments that meet the criteria of a
-// AttachmentListRequest.
-type AttachmentListResponse struct {
-	Attachments AttachmentIterator
-}
-	
-// AttachmentBatchDeleteResponse returns information about Attachments deleted via a
-// AttachmentBatchDeleteRequest.
-type AttachmentBatchDeleteResponse struct {
-	Meta BatchDeleteResponseMetadata
-}
-	
-// Attachment is a domain object --
-type Attachment struct {
-	ID string
-	RoleID string
-	CompositeRoleID string
-}
-	
 // NodeCreateResponse reports how the nodes were created in the system. It can
 // communicate partial successes or failures.
 type NodeCreateResponse struct {
@@ -194,11 +157,6 @@ type Role struct {
 	Roles []Role
 }
 	
-type AttachmentIterator interface {
-	Next() bool
-	Value() Attachment
-	Err() error
-}
 type NodeIterator interface {
 	Next() bool
 	Value() Node
