@@ -9,29 +9,6 @@ import (
 
 
 
-// NodesAPI defines the interface for Nodes.
-type NodesAPI interface {
-    // Create registers a new node.
-	Create(ctx context.Context, nodes ...models.Node) (*models.NodeCreateResponse, error)
-
-    // Get reads one node by ID.
-	Get(ctx context.Context, id string) (*models.NodeGetResponse, error)
-
-    // Update patches a node by ID.
-	Update(ctx context.Context, id string, node models.Node) (*models.NodeUpdateResponse, error)
-
-    // Delete removes a node by ID.
-	Delete(ctx context.Context, id string) (*models.NodeDeleteResponse, error)
-
-    // List is a batched Get call.
-	List(ctx context.Context, filter string) (*models.NodeListResponse)
-
-    // BatchUpdate is a batched Update call.
-	BatchUpdate(ctx context.Context, nodes ...models.Node) (*models.NodeBatchUpdateResponse, error)
-
-    // BatchDelete is a batched Delete call.
-	BatchDelete(ctx context.Context, ids ...string) (*models.NodeBatchDeleteResponse, error)
-}
 
 // Nodes are proxies in strongDM responsible to communicate with servers
 // (relays) and clients (gateways).
@@ -156,29 +133,6 @@ func (svc *Nodes) BatchDelete(ctx context.Context, ids ...string) (*models.NodeB
 
 
 
-// RolesAPI defines the interface for Roles.
-type RolesAPI interface {
-    // Create registers a new role.
-	Create(ctx context.Context, roles ...models.Role) (*models.RoleCreateResponse, error)
-
-    // Get reads one role by ID.
-	Get(ctx context.Context, id string) (*models.RoleGetResponse, error)
-
-    // Update patches a Role by ID.
-	Update(ctx context.Context, id string, role models.Role) (*models.RoleUpdateResponse, error)
-
-    // Delete removes a Role by ID.
-	Delete(ctx context.Context, id string) (*models.RoleDeleteResponse, error)
-
-    // List is a batched Get call.
-	List(ctx context.Context, filter string) (*models.RoleListResponse)
-
-    // BatchUpdate is a batched Update call.
-	BatchUpdate(ctx context.Context, roles ...models.Role) (*models.RoleBatchUpdateResponse, error)
-
-    // BatchDelete is a batched Delete call.
-	BatchDelete(ctx context.Context, ids ...string) (*models.RoleBatchDeleteResponse, error)
-}
 
 // Roles are
 type Roles struct {

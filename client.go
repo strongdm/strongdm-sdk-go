@@ -16,13 +16,6 @@ var (
 	_ = metadata.Pairs
 )
 
-// ClientAPI defines the interface for the strongDM API client.
-type ClientAPI interface {	// Nodes are proxies in strongDM responsible to communicate with servers
-	// (relays) and clients (gateways).
-	Nodes() NodesAPI	// Roles are
-	Roles() RolesAPI
-}
-
 // Client is the strongDM API client implementation.
 type Client struct {
 	grpcConn *grpc.ClientConn
@@ -56,9 +49,9 @@ func New(host string) (*Client, error) {
 	return client, nil
 }
 
-func (c *Client) Nodes() NodesAPI{
+func (c *Client) Nodes() *Nodes{
 	return c.nodes
 }
-func (c *Client) Roles() RolesAPI{
+func (c *Client) Roles() *Roles{
 	return c.roles
 }
