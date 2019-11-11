@@ -16,23 +16,25 @@ var (
 	_ = metadata.Pairs
 )
 
-// Client is the strongDM API client.
+// ClientAPI defines the interface for the strongDM API client.
+type ClientAPI interface {	// Nodes are proxies in strongDM responsible to communicate with servers
+	// (relays) and clients (gateways).
+	Nodes() NodesAPI	// Roles are
+	Roles() RolesAPI
+}
+
+// Client is the strongDM API client implementation.
 type Client struct {
 	grpcConn *grpc.ClientConn
-
-
 	// Nodes are proxies in strongDM responsible to communicate with servers
 	// (relays) and clients (gateways).
-	Nodes *Nodes
-
+	nodes *Nodes
 	// Roles are
-	Roles *Roles
-
+	roles *Roles
 }
 
 // New creates a new strongDM API client.
 func New(host string) (*Client, error) {
-
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithInsecure())
 	
@@ -47,9 +49,16 @@ func New(host string) (*Client, error) {
 		grpcConn: cc,
 	}
 	
-	client.Nodes = &Nodes{client: plumbing.NewNodesClient(client.grpcConn),}
+	client.nodes = &Nodes{client: plumbing.NewNodesClient(client.grpcConn),}
 	
-	client.Roles = &Roles{client: plumbing.NewRolesClient(client.grpcConn),}
+	client.roles = &Roles{client: plumbing.NewRolesClient(client.grpcConn),}
 	
 	return client, nil
+}
+
+func (c *Client) Nodes() NodesAPI{
+	return c.nodes
+}
+func (c *Client) Roles() RolesAPI{
+	return c.roles
 }
