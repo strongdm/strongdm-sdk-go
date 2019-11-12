@@ -97,9 +97,8 @@ func (svc *Nodes) List(ctx context.Context, filter string) (*models.NodeListResp
 			
 			result = plumbing.RepeatedNodeToPorcelain(plumbingResponse.Nodes)
 			
-			lastPage := req.Meta.Cursor == plumbingResponse.Meta.NextCursor
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
-			return result, lastPage, nil
+			return result, req.Meta.Cursor != "", nil
 		},
 	)
 	resp.Nodes = iter
@@ -223,9 +222,8 @@ func (svc *Roles) List(ctx context.Context, filter string) (*models.RoleListResp
 			
 			result = plumbing.RepeatedRoleToPorcelain(plumbingResponse.Roles)
 			
-			lastPage := req.Meta.Cursor == plumbingResponse.Meta.NextCursor
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
-			return result, lastPage, nil
+			return result, req.Meta.Cursor != "", nil
 		},
 	)
 	resp.Roles = iter
