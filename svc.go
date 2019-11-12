@@ -7,6 +7,9 @@ import (
 	models "github.com/strongdm/strongdm-sdk-go/models"
 )
 
+
+
+
 // Nodes are proxies in strongDM responsible to communicate with servers
 // (relays) and clients (gateways).
 type Nodes struct {
@@ -17,7 +20,7 @@ type Nodes struct {
 func (svc *Nodes) Create(ctx context.Context, nodes ...models.Node) (*models.NodeCreateResponse, error) {
 	req := &plumbing.NodeCreateRequest{}
 	req.Nodes = plumbing.RepeatedNodeToPlumbing(nodes)
-
+	
 	plumbingResponse, err := svc.client.Create(ctx, req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
@@ -33,7 +36,7 @@ func (svc *Nodes) Create(ctx context.Context, nodes ...models.Node) (*models.Nod
 func (svc *Nodes) Get(ctx context.Context, id string) (*models.NodeGetResponse, error) {
 	req := &plumbing.NodeGetRequest{}
 	req.Id = id
-
+	
 	plumbingResponse, err := svc.client.Get(ctx, req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
@@ -49,7 +52,7 @@ func (svc *Nodes) Update(ctx context.Context, id string, node models.Node) (*mod
 	req := &plumbing.NodeUpdateRequest{}
 	req.Id = id
 	req.Node = plumbing.NodeToPlumbing(node)
-
+	
 	plumbingResponse, err := svc.client.Update(ctx, req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
@@ -64,7 +67,7 @@ func (svc *Nodes) Update(ctx context.Context, id string, node models.Node) (*mod
 func (svc *Nodes) Delete(ctx context.Context, id string) (*models.NodeDeleteResponse, error) {
 	req := &plumbing.NodeDeleteRequest{}
 	req.Id = id
-
+	
 	plumbingResponse, err := svc.client.Delete(ctx, req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
@@ -75,16 +78,13 @@ func (svc *Nodes) Delete(ctx context.Context, id string) (*models.NodeDeleteResp
 }
 
 // List is a batched Get call.
-func (svc *Nodes) List(ctx context.Context, filter string) *models.NodeListResponse {
+func (svc *Nodes) List(ctx context.Context, filter string) (*models.NodeListResponse) {
 	req := &plumbing.NodeListRequest{}
 	req.Filter = filter
-
-	pi := models.PageInfo{
-		PageNum: 0,
-		Size:    25,
-	}
+	
 	req.Meta = &plumbing.ListRequestMetadata{
-		Page: pi.Marshal(),
+		Page: 0,
+		Limit: 25,
 	}
 	resp := &models.NodeListResponse{}
 	iter := plumbing.NewNodeIteratorImpl(
@@ -94,11 +94,12 @@ func (svc *Nodes) List(ctx context.Context, filter string) *models.NodeListRespo
 				return nil, false, plumbing.ErrorToPorcelain(err)
 			}
 			var result []models.Node
-
+			
 			result = plumbing.RepeatedNodeToPorcelain(plumbingResponse.Nodes)
-
-			req.Meta.Page = plumbingResponse.Meta.NextPage
-			return result, req.Meta.Page != "", nil
+			
+			lastPage := req.Meta.Cursor == plumbingResponse.Meta.NextCursor
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, lastPage, nil
 		},
 	)
 	resp.Nodes = iter
@@ -109,7 +110,7 @@ func (svc *Nodes) List(ctx context.Context, filter string) *models.NodeListRespo
 func (svc *Nodes) BatchUpdate(ctx context.Context, nodes ...models.Node) (*models.NodeBatchUpdateResponse, error) {
 	req := &plumbing.NodeBatchUpdateRequest{}
 	req.Nodes = plumbing.RepeatedNodeToPlumbing(nodes)
-
+	
 	plumbingResponse, err := svc.client.BatchUpdate(ctx, req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
@@ -124,7 +125,7 @@ func (svc *Nodes) BatchUpdate(ctx context.Context, nodes ...models.Node) (*model
 func (svc *Nodes) BatchDelete(ctx context.Context, ids ...string) (*models.NodeBatchDeleteResponse, error) {
 	req := &plumbing.NodeBatchDeleteRequest{}
 	req.Ids = append(req.Ids, ids...)
-
+	
 	plumbingResponse, err := svc.client.BatchDelete(ctx, req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
@@ -133,6 +134,9 @@ func (svc *Nodes) BatchDelete(ctx context.Context, ids ...string) (*models.NodeB
 	resp.Meta = plumbing.BatchDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	return resp, nil
 }
+
+
+
 
 // Roles are
 type Roles struct {
@@ -143,7 +147,7 @@ type Roles struct {
 func (svc *Roles) Create(ctx context.Context, roles ...models.Role) (*models.RoleCreateResponse, error) {
 	req := &plumbing.RoleCreateRequest{}
 	req.Roles = plumbing.RepeatedRoleToPlumbing(roles)
-
+	
 	plumbingResponse, err := svc.client.Create(ctx, req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
@@ -158,7 +162,7 @@ func (svc *Roles) Create(ctx context.Context, roles ...models.Role) (*models.Rol
 func (svc *Roles) Get(ctx context.Context, id string) (*models.RoleGetResponse, error) {
 	req := &plumbing.RoleGetRequest{}
 	req.Id = id
-
+	
 	plumbingResponse, err := svc.client.Get(ctx, req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
@@ -174,7 +178,7 @@ func (svc *Roles) Update(ctx context.Context, id string, role models.Role) (*mod
 	req := &plumbing.RoleUpdateRequest{}
 	req.Id = id
 	req.Role = plumbing.RoleToPlumbing(role)
-
+	
 	plumbingResponse, err := svc.client.Update(ctx, req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
@@ -189,7 +193,7 @@ func (svc *Roles) Update(ctx context.Context, id string, role models.Role) (*mod
 func (svc *Roles) Delete(ctx context.Context, id string) (*models.RoleDeleteResponse, error) {
 	req := &plumbing.RoleDeleteRequest{}
 	req.Id = id
-
+	
 	plumbingResponse, err := svc.client.Delete(ctx, req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
@@ -200,16 +204,13 @@ func (svc *Roles) Delete(ctx context.Context, id string) (*models.RoleDeleteResp
 }
 
 // List is a batched Get call.
-func (svc *Roles) List(ctx context.Context, filter string) *models.RoleListResponse {
+func (svc *Roles) List(ctx context.Context, filter string) (*models.RoleListResponse) {
 	req := &plumbing.RoleListRequest{}
 	req.Filter = filter
-
-	pi := models.PageInfo{
-		PageNum: 0,
-		Size:    25,
-	}
+	
 	req.Meta = &plumbing.ListRequestMetadata{
-		Page: pi.Marshal(),
+		Page: 0,
+		Limit: 25,
 	}
 	resp := &models.RoleListResponse{}
 	iter := plumbing.NewRoleIteratorImpl(
@@ -219,11 +220,12 @@ func (svc *Roles) List(ctx context.Context, filter string) *models.RoleListRespo
 				return nil, false, plumbing.ErrorToPorcelain(err)
 			}
 			var result []models.Role
-
+			
 			result = plumbing.RepeatedRoleToPorcelain(plumbingResponse.Roles)
-
-			req.Meta.Page = plumbingResponse.Meta.NextPage
-			return result, req.Meta.Page != "", nil
+			
+			lastPage := req.Meta.Cursor == plumbingResponse.Meta.NextCursor
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, lastPage, nil
 		},
 	)
 	resp.Roles = iter
@@ -234,7 +236,7 @@ func (svc *Roles) List(ctx context.Context, filter string) *models.RoleListRespo
 func (svc *Roles) BatchUpdate(ctx context.Context, roles ...models.Role) (*models.RoleBatchUpdateResponse, error) {
 	req := &plumbing.RoleBatchUpdateRequest{}
 	req.Roles = plumbing.RepeatedRoleToPlumbing(roles)
-
+	
 	plumbingResponse, err := svc.client.BatchUpdate(ctx, req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
@@ -249,7 +251,7 @@ func (svc *Roles) BatchUpdate(ctx context.Context, roles ...models.Role) (*model
 func (svc *Roles) BatchDelete(ctx context.Context, ids ...string) (*models.RoleBatchDeleteResponse, error) {
 	req := &plumbing.RoleBatchDeleteRequest{}
 	req.Ids = append(req.Ids, ids...)
-
+	
 	plumbingResponse, err := svc.client.BatchDelete(ctx, req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
@@ -258,3 +260,4 @@ func (svc *Roles) BatchDelete(ctx context.Context, ids ...string) (*models.RoleB
 	resp.Meta = plumbing.BatchDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	return resp, nil
 }
+

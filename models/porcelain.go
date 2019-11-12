@@ -1,11 +1,5 @@
 package models
 
-import (
-	"encoding/base64"
-	"encoding/json"
-	"fmt"
-)
-
 
 // CreateResponseMetadata
 type CreateResponseMetadata struct {
@@ -172,34 +166,4 @@ type RoleIterator interface {
 	Next() bool
 	Value() Role
 	Err() error
-}
-
-// PageInfo is the pagination details of a request
-type PageInfo struct {
-	PageNum uint64 `json:"pageNum"`
-	Size    uint64 `json:"size"`
-}
-
-// Marshal returns b64 encoded JSON pageInfo struct
-func (p PageInfo) Marshal() string {
-	data, err := json.Marshal(p)
-	if err != nil {
-		panic(err)
-	}
-	return base64.RawURLEncoding.EncodeToString(data)
-	// TODO: move this to a central part of the API for meta structs
-	// TODO: fill out the meta.Page string with this data
-}
-
-// UnmarshalPageInfo decodes a PageInfo struct from an encoded string
-func UnmarshalPageInfo(s string) (PageInfo, error) {
-	var p PageInfo
-	data, err := base64.RawURLEncoding.DecodeString(s)
-	if err != nil {
-		return p, fmt.Errorf("failed to decode string: %w", err)
-	}
-	if err := json.Unmarshal(data, &p); err != nil {
-		return p, fmt.Errorf("failed to unmarshal decoded string: %w", err)
-	}
-	return p, nil
 }
