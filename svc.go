@@ -101,7 +101,7 @@ func (svc *Nodes) List(ctx context.Context, filter string) (*models.NodeListResp
 			return result, req.Meta.Cursor != "", nil
 		},
 	)
-	resp.Nodes = iter
+	resp.NodeIterator = iter
 	return resp
 }
 
@@ -226,7 +226,7 @@ func (svc *Roles) List(ctx context.Context, filter string) (*models.RoleListResp
 			return result, req.Meta.Cursor != "", nil
 		},
 	)
-	resp.Roles = iter
+	resp.RoleIterator = iter
 	return resp
 }
 

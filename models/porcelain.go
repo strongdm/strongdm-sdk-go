@@ -62,7 +62,7 @@ type NodeDeleteResponse struct {
 // NodeListResponse returns a list of nodes that meet the criteria of a
 // NodeListRequest.
 type NodeListResponse struct {
-	Nodes NodeIterator
+	NodeIterator
 }
 	
 // NodeBatchUpdateResponse returns a list of nodes updated via
@@ -133,7 +133,7 @@ type RoleDeleteResponse struct {
 // RoleListResponse returns a list of Roles that meet the criteria of a
 // RoleListRequest.
 type RoleListResponse struct {
-	Roles RoleIterator
+	RoleIterator
 }
 	
 // RoleBatchUpdateResponse returns a list of Roles updated via
