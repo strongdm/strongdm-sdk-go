@@ -118,79 +118,19 @@ func RepeatedDeleteResponseMetadataToPorcelain(plumbings []*DeleteResponseMetada
     return items
 }
 
-func BatchUpdateResponseMetadataToPorcelain(plumbing *BatchUpdateResponseMetadata) models.BatchUpdateResponseMetadata {
-    porcelain := models.BatchUpdateResponseMetadata{}
-    porcelain.Found = plumbing.Found
-    porcelain.Affected = plumbing.Affected
-    return porcelain
-}
-
-func BatchUpdateResponseMetadataToPlumbing(porcelain models.BatchUpdateResponseMetadata) *BatchUpdateResponseMetadata {
-    plumbing := &BatchUpdateResponseMetadata{}
-    plumbing.Found = porcelain.Found
-    plumbing.Affected = porcelain.Affected
-    return plumbing
-}
-
-func RepeatedBatchUpdateResponseMetadataToPlumbing(porcelains []models.BatchUpdateResponseMetadata) []*BatchUpdateResponseMetadata {
-    var items []*BatchUpdateResponseMetadata
-    for _, porcelain := range porcelains {
-        items = append(items, BatchUpdateResponseMetadataToPlumbing(porcelain))
-    }
-    return items
-}
-
-func RepeatedBatchUpdateResponseMetadataToPorcelain(plumbings []*BatchUpdateResponseMetadata) []models.BatchUpdateResponseMetadata {
-    var items []models.BatchUpdateResponseMetadata
-    for _, plumbing := range plumbings {
-        items = append(items, BatchUpdateResponseMetadataToPorcelain(plumbing))
-    }
-    return items
-}
-
-func BatchDeleteResponseMetadataToPorcelain(plumbing *BatchDeleteResponseMetadata) models.BatchDeleteResponseMetadata {
-    porcelain := models.BatchDeleteResponseMetadata{}
-    porcelain.Found = plumbing.Found
-    porcelain.Affected = plumbing.Affected
-    return porcelain
-}
-
-func BatchDeleteResponseMetadataToPlumbing(porcelain models.BatchDeleteResponseMetadata) *BatchDeleteResponseMetadata {
-    plumbing := &BatchDeleteResponseMetadata{}
-    plumbing.Found = porcelain.Found
-    plumbing.Affected = porcelain.Affected
-    return plumbing
-}
-
-func RepeatedBatchDeleteResponseMetadataToPlumbing(porcelains []models.BatchDeleteResponseMetadata) []*BatchDeleteResponseMetadata {
-    var items []*BatchDeleteResponseMetadata
-    for _, porcelain := range porcelains {
-        items = append(items, BatchDeleteResponseMetadataToPlumbing(porcelain))
-    }
-    return items
-}
-
-func RepeatedBatchDeleteResponseMetadataToPorcelain(plumbings []*BatchDeleteResponseMetadata) []models.BatchDeleteResponseMetadata {
-    var items []models.BatchDeleteResponseMetadata
-    for _, plumbing := range plumbings {
-        items = append(items, BatchDeleteResponseMetadataToPorcelain(plumbing))
-    }
-    return items
-}
-
 func NodeCreateResponseToPorcelain(plumbing *NodeCreateResponse) models.NodeCreateResponse {
     porcelain := models.NodeCreateResponse{}
     porcelain.Meta = CreateResponseMetadataToPorcelain(plumbing.Meta)
-    porcelain.Nodes = RepeatedNodeToPorcelain(plumbing.Nodes)
-    porcelain.Tokens = RepeatedTokenToPorcelain(plumbing.Tokens)
+    porcelain.Node = NodeToPorcelain(plumbing.Node)
+    porcelain.Token = TokenToPorcelain(plumbing.Token)
     return porcelain
 }
 
 func NodeCreateResponseToPlumbing(porcelain models.NodeCreateResponse) *NodeCreateResponse {
     plumbing := &NodeCreateResponse{}
     plumbing.Meta = CreateResponseMetadataToPlumbing(porcelain.Meta)
-    plumbing.Nodes = RepeatedNodeToPlumbing(porcelain.Nodes)
-    plumbing.Tokens = RepeatedTokenToPlumbing(porcelain.Tokens)
+    plumbing.Node = NodeToPlumbing(porcelain.Node)
+    plumbing.Token = TokenToPlumbing(porcelain.Token)
     return plumbing
 }
 
@@ -294,90 +234,6 @@ func RepeatedNodeDeleteResponseToPorcelain(plumbings []*NodeDeleteResponse) []mo
     var items []models.NodeDeleteResponse
     for _, plumbing := range plumbings {
         items = append(items, NodeDeleteResponseToPorcelain(plumbing))
-    }
-    return items
-}
-
-func NodeListResponseToPorcelain(plumbing *NodeListResponse) models.NodeListResponse {
-    porcelain := models.NodeListResponse{}
-    return porcelain
-}
-
-func NodeListResponseToPlumbing(porcelain models.NodeListResponse) *NodeListResponse {
-    plumbing := &NodeListResponse{}
-    return plumbing
-}
-
-func RepeatedNodeListResponseToPlumbing(porcelains []models.NodeListResponse) []*NodeListResponse {
-    var items []*NodeListResponse
-    for _, porcelain := range porcelains {
-        items = append(items, NodeListResponseToPlumbing(porcelain))
-    }
-    return items
-}
-
-func RepeatedNodeListResponseToPorcelain(plumbings []*NodeListResponse) []models.NodeListResponse {
-    var items []models.NodeListResponse
-    for _, plumbing := range plumbings {
-        items = append(items, NodeListResponseToPorcelain(plumbing))
-    }
-    return items
-}
-
-func NodeBatchUpdateResponseToPorcelain(plumbing *NodeBatchUpdateResponse) models.NodeBatchUpdateResponse {
-    porcelain := models.NodeBatchUpdateResponse{}
-    porcelain.Meta = BatchUpdateResponseMetadataToPorcelain(plumbing.Meta)
-    porcelain.Nodes = RepeatedNodeToPorcelain(plumbing.Nodes)
-    return porcelain
-}
-
-func NodeBatchUpdateResponseToPlumbing(porcelain models.NodeBatchUpdateResponse) *NodeBatchUpdateResponse {
-    plumbing := &NodeBatchUpdateResponse{}
-    plumbing.Meta = BatchUpdateResponseMetadataToPlumbing(porcelain.Meta)
-    plumbing.Nodes = RepeatedNodeToPlumbing(porcelain.Nodes)
-    return plumbing
-}
-
-func RepeatedNodeBatchUpdateResponseToPlumbing(porcelains []models.NodeBatchUpdateResponse) []*NodeBatchUpdateResponse {
-    var items []*NodeBatchUpdateResponse
-    for _, porcelain := range porcelains {
-        items = append(items, NodeBatchUpdateResponseToPlumbing(porcelain))
-    }
-    return items
-}
-
-func RepeatedNodeBatchUpdateResponseToPorcelain(plumbings []*NodeBatchUpdateResponse) []models.NodeBatchUpdateResponse {
-    var items []models.NodeBatchUpdateResponse
-    for _, plumbing := range plumbings {
-        items = append(items, NodeBatchUpdateResponseToPorcelain(plumbing))
-    }
-    return items
-}
-
-func NodeBatchDeleteResponseToPorcelain(plumbing *NodeBatchDeleteResponse) models.NodeBatchDeleteResponse {
-    porcelain := models.NodeBatchDeleteResponse{}
-    porcelain.Meta = BatchDeleteResponseMetadataToPorcelain(plumbing.Meta)
-    return porcelain
-}
-
-func NodeBatchDeleteResponseToPlumbing(porcelain models.NodeBatchDeleteResponse) *NodeBatchDeleteResponse {
-    plumbing := &NodeBatchDeleteResponse{}
-    plumbing.Meta = BatchDeleteResponseMetadataToPlumbing(porcelain.Meta)
-    return plumbing
-}
-
-func RepeatedNodeBatchDeleteResponseToPlumbing(porcelains []models.NodeBatchDeleteResponse) []*NodeBatchDeleteResponse {
-    var items []*NodeBatchDeleteResponse
-    for _, porcelain := range porcelains {
-        items = append(items, NodeBatchDeleteResponseToPlumbing(porcelain))
-    }
-    return items
-}
-
-func RepeatedNodeBatchDeleteResponseToPorcelain(plumbings []*NodeBatchDeleteResponse) []models.NodeBatchDeleteResponse {
-    var items []models.NodeBatchDeleteResponse
-    for _, plumbing := range plumbings {
-        items = append(items, NodeBatchDeleteResponseToPorcelain(plumbing))
     }
     return items
 }
@@ -519,14 +375,14 @@ func RepeatedTokenToPorcelain(plumbings []*Token) []models.Token {
 func RoleCreateResponseToPorcelain(plumbing *RoleCreateResponse) models.RoleCreateResponse {
     porcelain := models.RoleCreateResponse{}
     porcelain.Meta = CreateResponseMetadataToPorcelain(plumbing.Meta)
-    porcelain.Roles = RepeatedRoleToPorcelain(plumbing.Roles)
+    porcelain.Role = RoleToPorcelain(plumbing.Role)
     return porcelain
 }
 
 func RoleCreateResponseToPlumbing(porcelain models.RoleCreateResponse) *RoleCreateResponse {
     plumbing := &RoleCreateResponse{}
     plumbing.Meta = CreateResponseMetadataToPlumbing(porcelain.Meta)
-    plumbing.Roles = RepeatedRoleToPlumbing(porcelain.Roles)
+    plumbing.Role = RoleToPlumbing(porcelain.Role)
     return plumbing
 }
 
@@ -630,90 +486,6 @@ func RepeatedRoleDeleteResponseToPorcelain(plumbings []*RoleDeleteResponse) []mo
     var items []models.RoleDeleteResponse
     for _, plumbing := range plumbings {
         items = append(items, RoleDeleteResponseToPorcelain(plumbing))
-    }
-    return items
-}
-
-func RoleListResponseToPorcelain(plumbing *RoleListResponse) models.RoleListResponse {
-    porcelain := models.RoleListResponse{}
-    return porcelain
-}
-
-func RoleListResponseToPlumbing(porcelain models.RoleListResponse) *RoleListResponse {
-    plumbing := &RoleListResponse{}
-    return plumbing
-}
-
-func RepeatedRoleListResponseToPlumbing(porcelains []models.RoleListResponse) []*RoleListResponse {
-    var items []*RoleListResponse
-    for _, porcelain := range porcelains {
-        items = append(items, RoleListResponseToPlumbing(porcelain))
-    }
-    return items
-}
-
-func RepeatedRoleListResponseToPorcelain(plumbings []*RoleListResponse) []models.RoleListResponse {
-    var items []models.RoleListResponse
-    for _, plumbing := range plumbings {
-        items = append(items, RoleListResponseToPorcelain(plumbing))
-    }
-    return items
-}
-
-func RoleBatchUpdateResponseToPorcelain(plumbing *RoleBatchUpdateResponse) models.RoleBatchUpdateResponse {
-    porcelain := models.RoleBatchUpdateResponse{}
-    porcelain.Meta = BatchUpdateResponseMetadataToPorcelain(plumbing.Meta)
-    porcelain.Roles = RepeatedRoleToPorcelain(plumbing.Roles)
-    return porcelain
-}
-
-func RoleBatchUpdateResponseToPlumbing(porcelain models.RoleBatchUpdateResponse) *RoleBatchUpdateResponse {
-    plumbing := &RoleBatchUpdateResponse{}
-    plumbing.Meta = BatchUpdateResponseMetadataToPlumbing(porcelain.Meta)
-    plumbing.Roles = RepeatedRoleToPlumbing(porcelain.Roles)
-    return plumbing
-}
-
-func RepeatedRoleBatchUpdateResponseToPlumbing(porcelains []models.RoleBatchUpdateResponse) []*RoleBatchUpdateResponse {
-    var items []*RoleBatchUpdateResponse
-    for _, porcelain := range porcelains {
-        items = append(items, RoleBatchUpdateResponseToPlumbing(porcelain))
-    }
-    return items
-}
-
-func RepeatedRoleBatchUpdateResponseToPorcelain(plumbings []*RoleBatchUpdateResponse) []models.RoleBatchUpdateResponse {
-    var items []models.RoleBatchUpdateResponse
-    for _, plumbing := range plumbings {
-        items = append(items, RoleBatchUpdateResponseToPorcelain(plumbing))
-    }
-    return items
-}
-
-func RoleBatchDeleteResponseToPorcelain(plumbing *RoleBatchDeleteResponse) models.RoleBatchDeleteResponse {
-    porcelain := models.RoleBatchDeleteResponse{}
-    porcelain.Meta = BatchDeleteResponseMetadataToPorcelain(plumbing.Meta)
-    return porcelain
-}
-
-func RoleBatchDeleteResponseToPlumbing(porcelain models.RoleBatchDeleteResponse) *RoleBatchDeleteResponse {
-    plumbing := &RoleBatchDeleteResponse{}
-    plumbing.Meta = BatchDeleteResponseMetadataToPlumbing(porcelain.Meta)
-    return plumbing
-}
-
-func RepeatedRoleBatchDeleteResponseToPlumbing(porcelains []models.RoleBatchDeleteResponse) []*RoleBatchDeleteResponse {
-    var items []*RoleBatchDeleteResponse
-    for _, porcelain := range porcelains {
-        items = append(items, RoleBatchDeleteResponseToPlumbing(porcelain))
-    }
-    return items
-}
-
-func RepeatedRoleBatchDeleteResponseToPorcelain(plumbings []*RoleBatchDeleteResponse) []models.RoleBatchDeleteResponse {
-    var items []models.RoleBatchDeleteResponse
-    for _, plumbing := range plumbings {
-        items = append(items, RoleBatchDeleteResponseToPorcelain(plumbing))
     }
     return items
 }

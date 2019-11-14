@@ -17,9 +17,9 @@ type Nodes struct {
 }
 
 // Create registers a new node.
-func (svc *Nodes) Create(ctx context.Context, nodes ...models.Node) (*models.NodeCreateResponse, error) {
+func (svc *Nodes) Create(ctx context.Context, node models.Node) (*models.NodeCreateResponse, error) {
 	req := &plumbing.NodeCreateRequest{}
-	req.Nodes = plumbing.RepeatedNodeToPlumbing(nodes)
+	req.Node = plumbing.NodeToPlumbing(node)
 	
 	plumbingResponse, err := svc.client.Create(ctx, req)
 	if err != nil {
@@ -27,8 +27,8 @@ func (svc *Nodes) Create(ctx context.Context, nodes ...models.Node) (*models.Nod
 	}
 	resp := &models.NodeCreateResponse{}
 	resp.Meta = plumbing.CreateResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Nodes = plumbing.RepeatedNodeToPorcelain(plumbingResponse.Nodes)
-	resp.Tokens = plumbing.RepeatedTokenToPorcelain(plumbingResponse.Tokens)
+	resp.Node = plumbing.NodeToPorcelain(plumbingResponse.Node)
+	resp.Token = plumbing.TokenToPorcelain(plumbingResponse.Token)
 	return resp, nil
 }
 
@@ -78,7 +78,7 @@ func (svc *Nodes) Delete(ctx context.Context, id string) (*models.NodeDeleteResp
 }
 
 // List is a batched Get call.
-func (svc *Nodes) List(ctx context.Context, filter string) (*models.NodeListResponse) {
+func (svc *Nodes) List(ctx context.Context, filter string) models.NodeIterator {
 	req := &plumbing.NodeListRequest{}
 	req.Filter = filter
 	
@@ -86,8 +86,7 @@ func (svc *Nodes) List(ctx context.Context, filter string) (*models.NodeListResp
 		Page: 0,
 		Limit: 25,
 	}
-	resp := &models.NodeListResponse{}
-	iter := plumbing.NewNodeIteratorImpl(
+	return plumbing.NewNodeIteratorImpl(
 		func() ([]models.Node, bool, error) {
 			plumbingResponse, err := svc.client.List(ctx, req)
 			if err != nil {
@@ -101,37 +100,6 @@ func (svc *Nodes) List(ctx context.Context, filter string) (*models.NodeListResp
 			return result, req.Meta.Cursor != "", nil
 		},
 	)
-	resp.NodeIterator = iter
-	return resp
-}
-
-// BatchUpdate is a batched Update call.
-func (svc *Nodes) BatchUpdate(ctx context.Context, nodes ...models.Node) (*models.NodeBatchUpdateResponse, error) {
-	req := &plumbing.NodeBatchUpdateRequest{}
-	req.Nodes = plumbing.RepeatedNodeToPlumbing(nodes)
-	
-	plumbingResponse, err := svc.client.BatchUpdate(ctx, req)
-	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(err)
-	}
-	resp := &models.NodeBatchUpdateResponse{}
-	resp.Meta = plumbing.BatchUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Nodes = plumbing.RepeatedNodeToPorcelain(plumbingResponse.Nodes)
-	return resp, nil
-}
-
-// BatchDelete is a batched Delete call.
-func (svc *Nodes) BatchDelete(ctx context.Context, ids ...string) (*models.NodeBatchDeleteResponse, error) {
-	req := &plumbing.NodeBatchDeleteRequest{}
-	req.Ids = append(req.Ids, ids...)
-	
-	plumbingResponse, err := svc.client.BatchDelete(ctx, req)
-	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(err)
-	}
-	resp := &models.NodeBatchDeleteResponse{}
-	resp.Meta = plumbing.BatchDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
-	return resp, nil
 }
 
 
@@ -143,9 +111,9 @@ type Roles struct {
 }
 
 // Create registers a new role.
-func (svc *Roles) Create(ctx context.Context, roles ...models.Role) (*models.RoleCreateResponse, error) {
+func (svc *Roles) Create(ctx context.Context, role models.Role) (*models.RoleCreateResponse, error) {
 	req := &plumbing.RoleCreateRequest{}
-	req.Roles = plumbing.RepeatedRoleToPlumbing(roles)
+	req.Role = plumbing.RoleToPlumbing(role)
 	
 	plumbingResponse, err := svc.client.Create(ctx, req)
 	if err != nil {
@@ -153,7 +121,7 @@ func (svc *Roles) Create(ctx context.Context, roles ...models.Role) (*models.Rol
 	}
 	resp := &models.RoleCreateResponse{}
 	resp.Meta = plumbing.CreateResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Roles = plumbing.RepeatedRoleToPorcelain(plumbingResponse.Roles)
+	resp.Role = plumbing.RoleToPorcelain(plumbingResponse.Role)
 	return resp, nil
 }
 
@@ -203,7 +171,7 @@ func (svc *Roles) Delete(ctx context.Context, id string) (*models.RoleDeleteResp
 }
 
 // List is a batched Get call.
-func (svc *Roles) List(ctx context.Context, filter string) (*models.RoleListResponse) {
+func (svc *Roles) List(ctx context.Context, filter string) models.RoleIterator {
 	req := &plumbing.RoleListRequest{}
 	req.Filter = filter
 	
@@ -211,8 +179,7 @@ func (svc *Roles) List(ctx context.Context, filter string) (*models.RoleListResp
 		Page: 0,
 		Limit: 25,
 	}
-	resp := &models.RoleListResponse{}
-	iter := plumbing.NewRoleIteratorImpl(
+	return plumbing.NewRoleIteratorImpl(
 		func() ([]models.Role, bool, error) {
 			plumbingResponse, err := svc.client.List(ctx, req)
 			if err != nil {
@@ -226,36 +193,5 @@ func (svc *Roles) List(ctx context.Context, filter string) (*models.RoleListResp
 			return result, req.Meta.Cursor != "", nil
 		},
 	)
-	resp.RoleIterator = iter
-	return resp
-}
-
-// BatchUpdate is a batched Update call.
-func (svc *Roles) BatchUpdate(ctx context.Context, roles ...models.Role) (*models.RoleBatchUpdateResponse, error) {
-	req := &plumbing.RoleBatchUpdateRequest{}
-	req.Roles = plumbing.RepeatedRoleToPlumbing(roles)
-	
-	plumbingResponse, err := svc.client.BatchUpdate(ctx, req)
-	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(err)
-	}
-	resp := &models.RoleBatchUpdateResponse{}
-	resp.Meta = plumbing.BatchUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Roles = plumbing.RepeatedRoleToPorcelain(plumbingResponse.Roles)
-	return resp, nil
-}
-
-// BatchDelete is a batched Delete call.
-func (svc *Roles) BatchDelete(ctx context.Context, ids ...string) (*models.RoleBatchDeleteResponse, error) {
-	req := &plumbing.RoleBatchDeleteRequest{}
-	req.Ids = append(req.Ids, ids...)
-	
-	plumbingResponse, err := svc.client.BatchDelete(ctx, req)
-	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(err)
-	}
-	resp := &models.RoleBatchDeleteResponse{}
-	resp.Meta = plumbing.BatchDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
-	return resp, nil
 }
 

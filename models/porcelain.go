@@ -21,24 +21,12 @@ type DeleteResponseMetadata struct {
 	Affected int64
 }
 	
-// BatchUpdateResponseMetadata
-type BatchUpdateResponseMetadata struct {
-	Found int64
-	Affected int64
-}
-	
-// BatchDeleteResponseMetadata
-type BatchDeleteResponseMetadata struct {
-	Found int64
-	Affected int64
-}
-	
 // NodeCreateResponse reports how the nodes were created in the system. It can
 // communicate partial successes or failures.
 type NodeCreateResponse struct {
 	Meta CreateResponseMetadata
-	Nodes []Node
-	Tokens []Token
+	Node Node
+	Token Token
 }
 	
 // NodeGetResponse returns a requested node.
@@ -57,25 +45,6 @@ type NodeUpdateResponse struct {
 // NodeDeleteResponse returns information about a node that was deleted.
 type NodeDeleteResponse struct {
 	Meta DeleteResponseMetadata
-}
-	
-// NodeListResponse returns a list of nodes that meet the criteria of a
-// NodeListRequest.
-type NodeListResponse struct {
-	NodeIterator
-}
-	
-// NodeBatchUpdateResponse returns a list of nodes updated via
-// NodeBatchUpdateRequest.
-type NodeBatchUpdateResponse struct {
-	Meta BatchUpdateResponseMetadata
-	Nodes []Node
-}
-	
-// NodeBatchDeleteResponse returns information about nodes deleted via a
-// NodeBatchDeleteRequest.
-type NodeBatchDeleteResponse struct {
-	Meta BatchDeleteResponseMetadata
 }
 	
 type Node interface {
@@ -109,7 +78,7 @@ type Token struct {
 // communicate partial successes or failures.
 type RoleCreateResponse struct {
 	Meta CreateResponseMetadata
-	Roles []Role
+	Role Role
 }
 	
 // RoleGetResponse returns a requested Role.
@@ -128,25 +97,6 @@ type RoleUpdateResponse struct {
 // RoleDeleteResponse returns information about a Role that was deleted.
 type RoleDeleteResponse struct {
 	Meta DeleteResponseMetadata
-}
-	
-// RoleListResponse returns a list of Roles that meet the criteria of a
-// RoleListRequest.
-type RoleListResponse struct {
-	RoleIterator
-}
-	
-// RoleBatchUpdateResponse returns a list of Roles updated via
-// RoleBatchUpdateRequest.
-type RoleBatchUpdateResponse struct {
-	Meta BatchUpdateResponseMetadata
-	Roles []Role
-}
-	
-// RoleBatchDeleteResponse returns information about Roles deleted via a
-// RoleBatchDeleteRequest.
-type RoleBatchDeleteResponse struct {
-	Meta BatchDeleteResponseMetadata
 }
 	
 // Role is a domain object --
