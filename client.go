@@ -27,7 +27,7 @@ type Client struct {
 }
 
 // New creates a new strongDM API client.
-func New(host string) (*Client, error) {
+func New(host string, key string) (*Client, error) {
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithInsecure())
 	
@@ -42,9 +42,15 @@ func New(host string) (*Client, error) {
 		grpcConn: cc,
 	}
 	
-	client.nodes = &Nodes{client: plumbing.NewNodesClient(client.grpcConn),}
+	client.nodes = &Nodes{
+		apiToken: key,
+		client: plumbing.NewNodesClient(client.grpcConn),
+	}
 	
-	client.roles = &Roles{client: plumbing.NewRolesClient(client.grpcConn),}
+	client.roles = &Roles{
+		apiToken: key,
+		client: plumbing.NewRolesClient(client.grpcConn),
+	}
 	
 	return client, nil
 }

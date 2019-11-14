@@ -1,9 +1,11 @@
 package v1
 
 import (
+    "context"
 	"google.golang.org/grpc/status"
     "github.com/strongdm/strongdm-sdk-go/models"
     "github.com/strongdm/strongdm-sdk-go/errors"
+    "google.golang.org/grpc/metadata"
 )
 
 func CreateResponseMetadataToPorcelain(plumbing *CreateResponseMetadata) models.CreateResponseMetadata {
@@ -658,4 +660,10 @@ func (r *RoleIteratorImpl) Value() models.Role {
 
 func (r *RoleIteratorImpl) Err() error {
     return r.err
+}
+
+func CreateGRPCContext(ctx context.Context, token string) context.Context {
+    return metadata.NewOutgoingContext(ctx, metadata.New(map[string]string{
+		"authorization": token,
+	}))
 }
