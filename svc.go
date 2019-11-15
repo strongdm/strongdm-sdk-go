@@ -53,11 +53,10 @@ func (svc *Nodes) Get(ctx context.Context, id string) (*models.NodeGetResponse, 
 }
 
 // Update patches a node by ID.
-func (svc *Nodes) Update(ctx context.Context, id string, node models.Node) (*models.NodeUpdateResponse, error) {
+func (svc *Nodes) Update(ctx context.Context, node models.Node) (*models.NodeUpdateResponse, error) {
 	req := &plumbing.NodeUpdateRequest{}
 	
 	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
-	req.Id = id
 	req.Node = plumbing.NodeToPlumbing(node)
 	
 	plumbingResponse, err := svc.client.Update(ctx, req)
@@ -157,11 +156,10 @@ func (svc *Roles) Get(ctx context.Context, id string) (*models.RoleGetResponse, 
 }
 
 // Update patches a Role by ID.
-func (svc *Roles) Update(ctx context.Context, id string, role models.Role) (*models.RoleUpdateResponse, error) {
+func (svc *Roles) Update(ctx context.Context, role models.Role) (*models.RoleUpdateResponse, error) {
 	req := &plumbing.RoleUpdateRequest{}
 	
 	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
-	req.Id = id
 	req.Role = plumbing.RoleToPlumbing(role)
 	
 	plumbingResponse, err := svc.client.Update(ctx, req)

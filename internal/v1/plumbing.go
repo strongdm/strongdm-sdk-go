@@ -10,13 +10,11 @@ import (
 
 func CreateResponseMetadataToPorcelain(plumbing *CreateResponseMetadata) models.CreateResponseMetadata {
     porcelain := models.CreateResponseMetadata{}
-    porcelain.Affected = plumbing.Affected
     return porcelain
 }
 
 func CreateResponseMetadataToPlumbing(porcelain models.CreateResponseMetadata) *CreateResponseMetadata {
     plumbing := &CreateResponseMetadata{}
-    plumbing.Affected = porcelain.Affected
     return plumbing
 }
 
@@ -38,13 +36,11 @@ func RepeatedCreateResponseMetadataToPorcelain(plumbings []*CreateResponseMetada
 
 func GetResponseMetadataToPorcelain(plumbing *GetResponseMetadata) models.GetResponseMetadata {
     porcelain := models.GetResponseMetadata{}
-    porcelain.Found = plumbing.Found
     return porcelain
 }
 
 func GetResponseMetadataToPlumbing(porcelain models.GetResponseMetadata) *GetResponseMetadata {
     plumbing := &GetResponseMetadata{}
-    plumbing.Found = porcelain.Found
     return plumbing
 }
 
@@ -66,13 +62,11 @@ func RepeatedGetResponseMetadataToPorcelain(plumbings []*GetResponseMetadata) []
 
 func UpdateResponseMetadataToPorcelain(plumbing *UpdateResponseMetadata) models.UpdateResponseMetadata {
     porcelain := models.UpdateResponseMetadata{}
-    porcelain.Affected = plumbing.Affected
     return porcelain
 }
 
 func UpdateResponseMetadataToPlumbing(porcelain models.UpdateResponseMetadata) *UpdateResponseMetadata {
     plumbing := &UpdateResponseMetadata{}
-    plumbing.Affected = porcelain.Affected
     return plumbing
 }
 
@@ -94,13 +88,11 @@ func RepeatedUpdateResponseMetadataToPorcelain(plumbings []*UpdateResponseMetada
 
 func DeleteResponseMetadataToPorcelain(plumbing *DeleteResponseMetadata) models.DeleteResponseMetadata {
     porcelain := models.DeleteResponseMetadata{}
-    porcelain.Affected = plumbing.Affected
     return porcelain
 }
 
 func DeleteResponseMetadataToPlumbing(porcelain models.DeleteResponseMetadata) *DeleteResponseMetadata {
     plumbing := &DeleteResponseMetadata{}
-    plumbing.Affected = porcelain.Affected
     return plumbing
 }
 

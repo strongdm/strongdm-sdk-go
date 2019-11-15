@@ -3,22 +3,18 @@ package models
 
 // CreateResponseMetadata
 type CreateResponseMetadata struct {
-	Affected int64
 }
 	
 // GetResponseMetadata
 type GetResponseMetadata struct {
-	Found int64
 }
 	
 // UpdateResponseMetadata
 type UpdateResponseMetadata struct {
-	Affected int64
 }
 	
 // DeleteResponseMetadata
 type DeleteResponseMetadata struct {
-	Affected int64
 }
 	
 // NodeCreateResponse reports how the nodes were created in the system. It can
@@ -48,11 +44,14 @@ type NodeDeleteResponse struct {
 }
 	
 type Node interface {
+	GetID() string
 	isOneOf_Node()
 }
 func (*Relay) isOneOf_Node(){}
+func (m *Relay) GetID() string { return m.ID }
 
 func (*Gateway) isOneOf_Node(){}
+func (m *Gateway) GetID() string { return m.ID }
 
 // Relay represents a StrongDM CLI installation running in relay mode.
 type Relay struct {
