@@ -553,8 +553,6 @@ func ErrorToPorcelain(err error) error {
 			case *PermissionError:
 				e := &errors.PermissionError{}
 				e.Message = s.Message()
-				e.Permission = d.Permission
-				e.Entities = d.Entities
 				return e
 
 			// InternalError is used to specify an internal system error

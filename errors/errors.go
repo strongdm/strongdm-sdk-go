@@ -40,8 +40,6 @@ func (e *AuthenticationError) Error() string {
 // PermissionError is used to specify a permissions violation
 type PermissionError struct {
 	Message string
-	Permission string
-	Entities []string
 }
 
 func (e *PermissionError) Error() string {
