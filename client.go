@@ -32,7 +32,6 @@ type Client struct {
 // New creates a new strongDM API client.
 func New(host string, key string) (*Client, error) {
 	var opts []grpc.DialOption
-	opts = append(opts, grpc.WithInsecure())
 	
 	_, port, err := net.SplitHostPort(host)
 	if err != nil {
