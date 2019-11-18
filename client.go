@@ -4,9 +4,12 @@ Package sdm implements an API client to strongDM restful API.
 package sdm
 
 import (
+	"crypto/tls"
+	"net"
 	"fmt"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/metadata"
 	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 )
@@ -31,6 +34,20 @@ func New(host string, key string) (*Client, error) {
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithInsecure())
 	
+	_, port, err := net.SplitHostPort(host)
+	if err != nil {
+		return nil, plumbing.ErrorToPorcelain(fmt.Errorf("cannot parse host and port: %w", err))
+	}
+
+	if port == "443" {
+		tlsOpt := grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{
+			RootCAs:            nil,
+			InsecureSkipVerify: false,
+		}))
+		opts = append(opts, tlsOpt)
+	} else {
+		opts = append(opts, grpc.WithInsecure())
+	}
 	cc, err := grpc.Dial(
 		host,
 		opts...,
