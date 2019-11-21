@@ -261,7 +261,7 @@ func (m *RateLimitError) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RateLimitError proto.InternalMessageInfo
 
-// CreateRequestMetadata
+// CreateRequestMetadata is reserved for future use.
 type CreateRequestMetadata struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -293,7 +293,7 @@ func (m *CreateRequestMetadata) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_CreateRequestMetadata proto.InternalMessageInfo
 
-// CreateResponseMetadata
+// CreateResponseMetadata is reserved for future use.
 type CreateResponseMetadata struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -325,7 +325,7 @@ func (m *CreateResponseMetadata) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_CreateResponseMetadata proto.InternalMessageInfo
 
-// GetRequestMetadata
+// GetRequestMetadata is reserved for future use.
 type GetRequestMetadata struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -357,7 +357,7 @@ func (m *GetRequestMetadata) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetRequestMetadata proto.InternalMessageInfo
 
-// GetResponseMetadata
+// GetResponseMetadata is reserved for future use.
 type GetResponseMetadata struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -389,7 +389,7 @@ func (m *GetResponseMetadata) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_GetResponseMetadata proto.InternalMessageInfo
 
-// UpdateRequestMetadata
+// UpdateRequestMetadata is reserved for future use.
 type UpdateRequestMetadata struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -421,7 +421,7 @@ func (m *UpdateRequestMetadata) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_UpdateRequestMetadata proto.InternalMessageInfo
 
-// UpdateResponseMetadata
+// UpdateResponseMetadata is reserved for future use.
 type UpdateResponseMetadata struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -453,7 +453,7 @@ func (m *UpdateResponseMetadata) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_UpdateResponseMetadata proto.InternalMessageInfo
 
-// DeleteRequestMetadata
+// DeleteRequestMetadata is reserved for future use.
 type DeleteRequestMetadata struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -485,7 +485,7 @@ func (m *DeleteRequestMetadata) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_DeleteRequestMetadata proto.InternalMessageInfo
 
-// DeleteResponseMetadata
+// DeleteResponseMetadata is reserved for future use.
 type DeleteResponseMetadata struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -517,10 +517,19 @@ func (m *DeleteResponseMetadata) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_DeleteResponseMetadata proto.InternalMessageInfo
 
-// ListRequestMetadata
+// ListRequestMetadata specifies paging parameters for listing entities. If this
+// metadata is not provided, the default behavior is to return the first page of
+// entities, along with a cursor which can be used to fetch the remaining pages.
 type ListRequestMetadata struct {
-	Cursor               string   `protobuf:"bytes,1,opt,name=cursor,proto3" json:"cursor,omitempty"`
-	Page                 int32    `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	// The cursor specifies where to start fetching entities in the total list
+	// of all entities. If the cursor is non-empty, the page and limit
+	// parameters are ignored. See ListResponseMetadata.next_cursor.
+	Cursor string `protobuf:"bytes,1,opt,name=cursor,proto3" json:"cursor,omitempty"`
+	// The page number to fetch. Use of this parameter is not recommended. Use
+	// the cursor instead.
+	Page int32 `protobuf:"varint,2,opt,name=page,proto3" json:"page,omitempty"`
+	// The number of entities to fetch in a single page. If not specified, a
+	// default value will be used.
 	Limit                int32    `protobuf:"varint,3,opt,name=limit,proto3" json:"limit,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -573,9 +582,15 @@ func (m *ListRequestMetadata) GetLimit() int32 {
 	return 0
 }
 
-// ListResponseMetadata
+// ListResponseMetadata contains paging information about the remaining entities
+// in a list request.
 type ListResponseMetadata struct {
-	NextCursor           string   `protobuf:"bytes,1,opt,name=next_cursor,json=nextCursor,proto3" json:"next_cursor,omitempty"`
+	// A cursor to fetch the next page. If the cursor is an empty string, there
+	// are no more entities to fetch. If the cursor is non-empty, make another
+	// list request and pass the cursor value in the metadata.
+	NextCursor string `protobuf:"bytes,1,opt,name=next_cursor,json=nextCursor,proto3" json:"next_cursor,omitempty"`
+	// The total count of all entities matching the criteria of a list request.
+	// Note that this value may change between page requests.
 	Found                int32    `protobuf:"varint,2,opt,name=found,proto3" json:"found,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`

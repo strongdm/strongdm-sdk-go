@@ -7,6 +7,7 @@ import (
 	"crypto/tls"
 	"net"
 	"fmt"
+	"sync"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -21,11 +22,18 @@ var (
 
 // Client is the strongDM API client implementation.
 type Client struct {
+	testOptionsMu sync.RWMutex
+	testOptions   map[string]interface{}
+
 	grpcConn *grpc.ClientConn
 	// Nodes are proxies in strongDM responsible to communicate with servers
 	// (relays) and clients (gateways).
 	nodes *Nodes
-	// Roles are
+	// Roles are tools for controlling user access to resources. Each role holds a
+	// list of resources which they grant access to. Composite roles are a special
+	// type of role which have no resource associations of their own, but instead
+	// grant access to the combined resources associated with a set of child roles.
+	// Each user can be a member of one role or composite role.
 	roles *Roles
 }
 
@@ -56,16 +64,19 @@ func New(host string, key string) (*Client, error) {
 	}
 	client := &Client{
 		grpcConn: cc,
+		testOptions: map[string]interface{}{},
 	}
 	
 	client.nodes = &Nodes{
 		apiToken: key,
 		client: plumbing.NewNodesClient(client.grpcConn),
+		parent: client,
 	}
 	
 	client.roles = &Roles{
 		apiToken: key,
 		client: plumbing.NewRolesClient(client.grpcConn),
+		parent: client,
 	}
 	
 	return client, nil
@@ -76,4 +87,11 @@ func (c *Client) Nodes() *Nodes{
 }
 func (c *Client) Roles() *Roles{
 	return c.roles
+}
+
+
+func (c *Client) testOption(key string) interface{} {
+	c.testOptionsMu.RLock()
+	defer c.testOptionsMu.RUnlock()
+	return c.testOptions[key]
 }

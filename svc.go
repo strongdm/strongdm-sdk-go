@@ -13,7 +13,8 @@ import (
 // Nodes are proxies in strongDM responsible to communicate with servers
 // (relays) and clients (gateways).
 type Nodes struct {
-	client plumbing.NodesClient
+	client   plumbing.NodesClient
+	parent   *Client
 	apiToken string
 }
 
@@ -92,9 +93,12 @@ func (svc *Nodes) List(ctx context.Context, filter string) models.NodeIterator {
 	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
 	req.Filter = filter
 	
-	req.Meta = &plumbing.ListRequestMetadata{
-		Page: 0,
-		Limit: 25,
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if value := svc.parent.testOption("PageLimit"); value != nil {
+		v, ok := value.(int)
+		if ok {
+			req.Meta.Limit = int32(v)
+		}
 	}
 	return plumbing.NewNodeIteratorImpl(
 		func() ([]models.Node, bool, error) {
@@ -115,9 +119,14 @@ func (svc *Nodes) List(ctx context.Context, filter string) models.NodeIterator {
 
 
 
-// Roles are
+// Roles are tools for controlling user access to resources. Each role holds a
+// list of resources which they grant access to. Composite roles are a special
+// type of role which have no resource associations of their own, but instead
+// grant access to the combined resources associated with a set of child roles.
+// Each user can be a member of one role or composite role.
 type Roles struct {
-	client plumbing.RolesClient
+	client   plumbing.RolesClient
+	parent   *Client
 	apiToken string
 }
 
@@ -188,16 +197,19 @@ func (svc *Roles) Delete(ctx context.Context, id string) (*models.RoleDeleteResp
 	return resp, nil
 }
 
-// List is a batched Get call.
+// List gets a list of Roles matching a given set of criteria.
 func (svc *Roles) List(ctx context.Context, filter string) models.RoleIterator {
 	req := &plumbing.RoleListRequest{}
 	
 	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
 	req.Filter = filter
 	
-	req.Meta = &plumbing.ListRequestMetadata{
-		Page: 0,
-		Limit: 25,
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if value := svc.parent.testOption("PageLimit"); value != nil {
+		v, ok := value.(int)
+		if ok {
+			req.Meta.Limit = int32(v)
+		}
 	}
 	return plumbing.NewRoleIteratorImpl(
 		func() ([]models.Role, bool, error) {

@@ -1,19 +1,19 @@
 package models
 
 
-// CreateResponseMetadata
+// CreateResponseMetadata is reserved for future use.
 type CreateResponseMetadata struct {
 }
 	
-// GetResponseMetadata
+// GetResponseMetadata is reserved for future use.
 type GetResponseMetadata struct {
 }
 	
-// UpdateResponseMetadata
+// UpdateResponseMetadata is reserved for future use.
 type UpdateResponseMetadata struct {
 }
 	
-// DeleteResponseMetadata
+// DeleteResponseMetadata is reserved for future use.
 type DeleteResponseMetadata struct {
 }
 	
@@ -98,12 +98,13 @@ type RoleDeleteResponse struct {
 	Meta DeleteResponseMetadata
 }
 	
-// Role is a domain object --
+// A Role grants users access to a set of resources. Composite roles have no
+// resource associations of their own, but instead grant access to the combined
+// resources of their child roles.
 type Role struct {
 	ID string
 	Name string
 	Composite bool
-	Roles []Role
 }
 	
 type NodeIterator interface {

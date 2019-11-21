@@ -489,7 +489,6 @@ func RoleToPorcelain(plumbing *Role) models.Role {
     porcelain.ID = plumbing.Id
     porcelain.Name = plumbing.Name
     porcelain.Composite = plumbing.Composite
-    porcelain.Roles = RepeatedRoleToPorcelain(plumbing.Roles)
     return porcelain
 }
 
@@ -498,7 +497,6 @@ func RoleToPlumbing(porcelain models.Role) *Role {
     plumbing.Id = porcelain.ID
     plumbing.Name = porcelain.Name
     plumbing.Composite = porcelain.Composite
-    plumbing.Roles = RepeatedRoleToPlumbing(porcelain.Roles)
     return plumbing
 }
 
