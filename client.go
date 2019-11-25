@@ -4,6 +4,7 @@ Package sdm implements an API client to strongDM restful API.
 package sdm
 
 import (
+	"context"
 	"crypto/tls"
 	"net"
 	"fmt"
@@ -16,7 +17,7 @@ import (
 )
 
 var (
-	host = "app.strongdm.com"
+	host = "api.strongdm.com"
 	_ = metadata.Pairs
 )
 
@@ -25,6 +26,7 @@ type Client struct {
 	testOptionsMu sync.RWMutex
 	testOptions   map[string]interface{}
 
+	apiToken string
 	grpcConn *grpc.ClientConn
 	// Nodes are proxies in strongDM responsible to communicate with servers
 	// (relays) and clients (gateways).
@@ -65,21 +67,24 @@ func New(host string, key string) (*Client, error) {
 	client := &Client{
 		grpcConn: cc,
 		testOptions: map[string]interface{}{},
+		apiToken: key,
 	}
 	
 	client.nodes = &Nodes{
-		apiToken: key,
 		client: plumbing.NewNodesClient(client.grpcConn),
 		parent: client,
 	}
 	
 	client.roles = &Roles{
-		apiToken: key,
 		client: plumbing.NewRolesClient(client.grpcConn),
 		parent: client,
 	}
 	
 	return client, nil
+}
+
+func (c *Client) wrapContext(ctx context.Context) context.Context {
+	return plumbing.CreateGRPCContext(ctx, c.apiToken)
 }
 
 func (c *Client) Nodes() *Nodes{

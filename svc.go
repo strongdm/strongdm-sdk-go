@@ -15,35 +15,30 @@ import (
 type Nodes struct {
 	client   plumbing.NodesClient
 	parent   *Client
-	apiToken string
 }
 
 // Create registers a new node.
 func (svc *Nodes) Create(ctx context.Context, node models.Node) (*models.NodeCreateResponse, error) {
 	req := &plumbing.NodeCreateRequest{}
-	
-	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
 	req.Node = plumbing.NodeToPlumbing(node)
 	
-	plumbingResponse, err := svc.client.Create(ctx, req)
+	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx), req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
 	}
 	resp := &models.NodeCreateResponse{}
 	resp.Meta = plumbing.CreateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Node = plumbing.NodeToPorcelain(plumbingResponse.Node)
-	resp.Token = plumbing.TokenToPorcelain(plumbingResponse.Token)
+	resp.Token = plumbingResponse.Token
 	return resp, nil
 }
 
 // Get reads one node by ID.
 func (svc *Nodes) Get(ctx context.Context, id string) (*models.NodeGetResponse, error) {
 	req := &plumbing.NodeGetRequest{}
-	
-	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
 	req.Id = id
 	
-	plumbingResponse, err := svc.client.Get(ctx, req)
+	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx), req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
 	}
@@ -56,11 +51,9 @@ func (svc *Nodes) Get(ctx context.Context, id string) (*models.NodeGetResponse, 
 // Update patches a node by ID.
 func (svc *Nodes) Update(ctx context.Context, node models.Node) (*models.NodeUpdateResponse, error) {
 	req := &plumbing.NodeUpdateRequest{}
-	
-	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
 	req.Node = plumbing.NodeToPlumbing(node)
 	
-	plumbingResponse, err := svc.client.Update(ctx, req)
+	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx), req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
 	}
@@ -73,11 +66,9 @@ func (svc *Nodes) Update(ctx context.Context, node models.Node) (*models.NodeUpd
 // Delete removes a node by ID.
 func (svc *Nodes) Delete(ctx context.Context, id string) (*models.NodeDeleteResponse, error) {
 	req := &plumbing.NodeDeleteRequest{}
-	
-	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
 	req.Id = id
 	
-	plumbingResponse, err := svc.client.Delete(ctx, req)
+	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx), req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
 	}
@@ -89,8 +80,6 @@ func (svc *Nodes) Delete(ctx context.Context, id string) (*models.NodeDeleteResp
 // List is a batched Get call.
 func (svc *Nodes) List(ctx context.Context, filter string) models.NodeIterator {
 	req := &plumbing.NodeListRequest{}
-	
-	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
 	req.Filter = filter
 	
 	req.Meta = &plumbing.ListRequestMetadata{}
@@ -102,7 +91,7 @@ func (svc *Nodes) List(ctx context.Context, filter string) models.NodeIterator {
 	}
 	return plumbing.NewNodeIteratorImpl(
 		func() ([]models.Node, bool, error) {
-			plumbingResponse, err := svc.client.List(ctx, req)
+			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx), req)
 			if err != nil {
 				return nil, false, plumbing.ErrorToPorcelain(err)
 			}
@@ -127,17 +116,14 @@ func (svc *Nodes) List(ctx context.Context, filter string) models.NodeIterator {
 type Roles struct {
 	client   plumbing.RolesClient
 	parent   *Client
-	apiToken string
 }
 
 // Create registers a new role.
 func (svc *Roles) Create(ctx context.Context, role models.Role) (*models.RoleCreateResponse, error) {
 	req := &plumbing.RoleCreateRequest{}
-	
-	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
 	req.Role = plumbing.RoleToPlumbing(role)
 	
-	plumbingResponse, err := svc.client.Create(ctx, req)
+	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx), req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
 	}
@@ -150,11 +136,9 @@ func (svc *Roles) Create(ctx context.Context, role models.Role) (*models.RoleCre
 // Get reads one role by ID.
 func (svc *Roles) Get(ctx context.Context, id string) (*models.RoleGetResponse, error) {
 	req := &plumbing.RoleGetRequest{}
-	
-	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
 	req.Id = id
 	
-	plumbingResponse, err := svc.client.Get(ctx, req)
+	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx), req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
 	}
@@ -167,11 +151,9 @@ func (svc *Roles) Get(ctx context.Context, id string) (*models.RoleGetResponse, 
 // Update patches a Role by ID.
 func (svc *Roles) Update(ctx context.Context, role models.Role) (*models.RoleUpdateResponse, error) {
 	req := &plumbing.RoleUpdateRequest{}
-	
-	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
 	req.Role = plumbing.RoleToPlumbing(role)
 	
-	plumbingResponse, err := svc.client.Update(ctx, req)
+	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx), req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
 	}
@@ -184,11 +166,9 @@ func (svc *Roles) Update(ctx context.Context, role models.Role) (*models.RoleUpd
 // Delete removes a Role by ID.
 func (svc *Roles) Delete(ctx context.Context, id string) (*models.RoleDeleteResponse, error) {
 	req := &plumbing.RoleDeleteRequest{}
-	
-	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
 	req.Id = id
 	
-	plumbingResponse, err := svc.client.Delete(ctx, req)
+	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx), req)
 	if err != nil {
 		return nil, plumbing.ErrorToPorcelain(err)
 	}
@@ -200,8 +180,6 @@ func (svc *Roles) Delete(ctx context.Context, id string) (*models.RoleDeleteResp
 // List gets a list of Roles matching a given set of criteria.
 func (svc *Roles) List(ctx context.Context, filter string) models.RoleIterator {
 	req := &plumbing.RoleListRequest{}
-	
-	ctx = plumbing.CreateGRPCContext(ctx, svc.apiToken)
 	req.Filter = filter
 	
 	req.Meta = &plumbing.ListRequestMetadata{}
@@ -213,7 +191,7 @@ func (svc *Roles) List(ctx context.Context, filter string) models.RoleIterator {
 	}
 	return plumbing.NewRoleIteratorImpl(
 		func() ([]models.Role, bool, error) {
-			plumbingResponse, err := svc.client.List(ctx, req)
+			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx), req)
 			if err != nil {
 				return nil, false, plumbing.ErrorToPorcelain(err)
 			}

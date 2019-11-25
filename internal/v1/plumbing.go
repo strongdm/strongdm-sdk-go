@@ -3,6 +3,7 @@ package v1
 import (
     "context"
 	"google.golang.org/grpc/status"
+	"google.golang.org/grpc/codes"
     "github.com/strongdm/strongdm-sdk-go/models"
     "github.com/strongdm/strongdm-sdk-go/errors"
     "google.golang.org/grpc/metadata"
@@ -116,7 +117,7 @@ func NodeCreateResponseToPorcelain(plumbing *NodeCreateResponse) models.NodeCrea
     porcelain := models.NodeCreateResponse{}
     porcelain.Meta = CreateResponseMetadataToPorcelain(plumbing.Meta)
     porcelain.Node = NodeToPorcelain(plumbing.Node)
-    porcelain.Token = TokenToPorcelain(plumbing.Token)
+    porcelain.Token = plumbing.Token
     return porcelain
 }
 
@@ -124,7 +125,7 @@ func NodeCreateResponseToPlumbing(porcelain models.NodeCreateResponse) *NodeCrea
     plumbing := &NodeCreateResponse{}
     plumbing.Meta = CreateResponseMetadataToPlumbing(porcelain.Meta)
     plumbing.Node = NodeToPlumbing(porcelain.Node)
-    plumbing.Token = TokenToPlumbing(porcelain.Token)
+    plumbing.Token = porcelain.Token
     return plumbing
 }
 
@@ -336,36 +337,6 @@ func RepeatedGatewayToPorcelain(plumbings []*Gateway) []models.Gateway {
     return items
 }
 
-func TokenToPorcelain(plumbing *Token) models.Token {
-    porcelain := models.Token{}
-    porcelain.ID = plumbing.Id
-    porcelain.Token = plumbing.Token
-    return porcelain
-}
-
-func TokenToPlumbing(porcelain models.Token) *Token {
-    plumbing := &Token{}
-    plumbing.Id = porcelain.ID
-    plumbing.Token = porcelain.Token
-    return plumbing
-}
-
-func RepeatedTokenToPlumbing(porcelains []models.Token) []*Token {
-    var items []*Token
-    for _, porcelain := range porcelains {
-        items = append(items, TokenToPlumbing(porcelain))
-    }
-    return items
-}
-
-func RepeatedTokenToPorcelain(plumbings []*Token) []models.Token {
-    var items []models.Token
-    for _, plumbing := range plumbings {
-        items = append(items, TokenToPorcelain(plumbing))
-    }
-    return items
-}
-
 func RoleCreateResponseToPorcelain(plumbing *RoleCreateResponse) models.RoleCreateResponse {
     porcelain := models.RoleCreateResponse{}
     porcelain.Meta = CreateResponseMetadataToPorcelain(plumbing.Meta)
@@ -516,6 +487,24 @@ func RepeatedRoleToPorcelain(plumbings []*Role) []models.Role {
     return items
 }
 
+
+type rpcError struct {
+	wrapped error
+	code    int
+}
+
+func (e *rpcError) Error() string {
+	return e.wrapped.Error()
+}
+
+func (e *rpcError) Unwrap() error {
+	return e.wrapped
+}
+
+func (e *rpcError) Code() int {
+	return e.code
+}
+
 func ErrorToPorcelain(err error) error {
 	if s, ok := status.FromError(err); ok {
 		for _, details := range s.Details() {
@@ -525,14 +514,14 @@ func ErrorToPorcelain(err error) error {
 			case *AlreadyExistsError:
 				e := &errors.AlreadyExistsError{}
 				e.Message = s.Message()
-				e.Entities = d.Entities
+				e.Entity = d.Entity
 				return e
 
 			// NotFoundError is used when an entity does not exist in the system
 			case *NotFoundError:
 				e := &errors.NotFoundError{}
 				e.Message = s.Message()
-				e.Entities = d.Entities
+				e.Entity = d.Entity
 				return e
 
 			// BadRequestError identifies a bad request sent by the client
@@ -567,8 +556,15 @@ func ErrorToPorcelain(err error) error {
 
 			}
 		}
+        if s.Code() == codes.Canceled {
+            return &errors.ContextCanceledError{Wrapped: err}
+        }
+        if s.Code() == codes.DeadlineExceeded {
+            return &errors.DeadlineExceededError{Wrapped: err}
+        }
+        return &rpcError{wrapped: err, code: int(s.Code())}
 	}
-	return &errors.RPCError{Wrapped: err}
+	return &errors.Error{Wrapped: err}
 }
 
 type NodeIteratorImplFetchFunc func() ([]models.Node, bool, error)

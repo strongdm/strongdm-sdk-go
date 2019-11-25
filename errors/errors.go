@@ -1,8 +1,62 @@
 package errors
+
+// Error is a generic wrapper that indicates an unknown internal error in the SDK.
+type Error struct {
+	Wrapped error
+}
+
+func (e *Error) Error() string {
+	return e.Wrapped.Error()
+}
+
+func (e *Error) Unwrap() error {
+	return e.Wrapped
+}
+
+// RPCError is a generic RPC error indicating something went wrong at the
+// transport layer. Use Code() and Unwrap() to inspect the actual failed
+// condition.
+type RPCError interface {
+	// Code returns the gRPC error code
+	Code() int
+	error
+}
+
+type DeadlineExceededError struct {
+	Wrapped error
+}
+
+func (e *DeadlineExceededError) Error() string {
+	return "deadline exceeded"
+}
+
+func (e *DeadlineExceededError) Unwrap() error {
+	return e.Wrapped
+}
+
+func (e *DeadlineExceededError) Code() int {
+	return 4
+}
+
+type ContextCanceledError struct {
+	Wrapped error
+}
+
+func (e *ContextCanceledError) Error() string {
+	return "context canceled"
+}
+
+func (e *ContextCanceledError) Unwrap() error {
+	return e.Wrapped
+}
+
+func (e *ContextCanceledError) Code() int {
+	return 1
+}
 // AlreadyExistsError is used when an entity already exists in the system
 type AlreadyExistsError struct {
 	Message string
-	Entities []string
+	Entity string
 }
 
 func (e *AlreadyExistsError) Error() string {
@@ -12,7 +66,7 @@ func (e *AlreadyExistsError) Error() string {
 // NotFoundError is used when an entity does not exist in the system
 type NotFoundError struct {
 	Message string
-	Entities []string
+	Entity string
 }
 
 func (e *NotFoundError) Error() string {
@@ -62,17 +116,4 @@ type RateLimitError struct {
 
 func (e *RateLimitError) Error() string {
 	return e.Message
-}
-
-// RPCError is a generic RPC error, use Unwrap to inspect the actual failed condition
-type RPCError struct {
-	Wrapped error
-}
-
-func (e *RPCError) Error() string {
-	return e.Wrapped.Error()
-}
-
-func (e *RPCError) Unwrap() error {
-	return e.Wrapped
 }

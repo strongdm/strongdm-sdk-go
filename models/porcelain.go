@@ -22,7 +22,7 @@ type DeleteResponseMetadata struct {
 type NodeCreateResponse struct {
 	Meta CreateResponseMetadata
 	Node Node
-	Token Token
+	Token string
 }
 	
 // NodeGetResponse returns a requested node.
@@ -65,12 +65,6 @@ type Gateway struct {
 	Name string
 	ListenAddress string
 	BindAddress string
-}
-	
-// Token holds the bearer token used to start up nodes.
-type Token struct {
-	ID string
-	Token string
 }
 	
 // RoleCreateResponse reports how the Roles were created in the system. It can
