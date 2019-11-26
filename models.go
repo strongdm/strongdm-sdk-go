@@ -141,12 +141,10 @@ type Role struct {
 
 // NodeIterator provides read access to a list of Node.
 // Use it like so:
-// ```
-// for iterator.Next() {
-//     node := iterator.Value()
-//     // ...
-// }
-// ```
+//     for iterator.Next() {
+//         node := iterator.Value()
+//         // ...
+//     }
 type NodeIterator interface {
 	// Next advances the iterator to the next item in the list. It returns
 	// true if an item is available to retrieve via the `Value()` function.
@@ -159,12 +157,10 @@ type NodeIterator interface {
 
 // RoleIterator provides read access to a list of Role.
 // Use it like so:
-// ```
-// for iterator.Next() {
-//     role := iterator.Value()
-//     // ...
-// }
-// ```
+//     for iterator.Next() {
+//         role := iterator.Value()
+//         // ...
+//     }
 type RoleIterator interface {
 	// Next advances the iterator to the next item in the list. It returns
 	// true if an item is available to retrieve via the `Value()` function.
