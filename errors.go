@@ -59,10 +59,11 @@ func (e *ContextCanceledError) Unwrap() error {
 func (e *ContextCanceledError) Code() int {
 	return 1
 }
+
 // AlreadyExistsError is used when an entity already exists in the system
 type AlreadyExistsError struct {
 	Message string
-	Entity string
+	Entity  string
 }
 
 func (e *AlreadyExistsError) Error() string {
@@ -76,7 +77,7 @@ func (e *AlreadyExistsError) Code() int {
 // NotFoundError is used when an entity does not exist in the system
 type NotFoundError struct {
 	Message string
-	Entity string
+	Entity  string
 }
 
 func (e *NotFoundError) Error() string {

@@ -1,22 +1,21 @@
 package sdm
 
-
 // CreateResponseMetadata is reserved for future use.
 type CreateResponseMetadata struct {
 }
-	
+
 // GetResponseMetadata is reserved for future use.
 type GetResponseMetadata struct {
 }
-	
+
 // UpdateResponseMetadata is reserved for future use.
 type UpdateResponseMetadata struct {
 }
-	
+
 // DeleteResponseMetadata is reserved for future use.
 type DeleteResponseMetadata struct {
 }
-	
+
 // NodeCreateResponse reports how the Nodes were created in the system.
 type NodeCreateResponse struct {
 	// Reserved for future use.
@@ -27,7 +26,7 @@ type NodeCreateResponse struct {
 	// authenticate with the strongDM API.
 	Token string
 }
-	
+
 // NodeGetResponse returns a requested Node.
 type NodeGetResponse struct {
 	// Reserved for future use.
@@ -35,7 +34,7 @@ type NodeGetResponse struct {
 	// The requested Node.
 	Node Node
 }
-	
+
 // NodeUpdateResponse returns the fields of a Node after it has been updated by
 // a NodeUpdateRequest.
 type NodeUpdateResponse struct {
@@ -44,13 +43,13 @@ type NodeUpdateResponse struct {
 	// The updated Node.
 	Node Node
 }
-	
+
 // NodeDeleteResponse returns information about a Node that was deleted.
 type NodeDeleteResponse struct {
 	// Reserved for future use.
 	Meta *DeleteResponseMetadata
 }
-	
+
 // A Node is a proxy in the strongDM network. They come in two flavors: relays,
 // which communicate with resources, and gateways, which communicate with
 // clients.
@@ -59,11 +58,14 @@ type Node interface {
 	GetID() string
 	isOneOf_Node()
 }
-func (*Relay) isOneOf_Node(){}
+
+func (*Relay) isOneOf_Node() {}
+
 // GetID returns the unique identifier of the Relay.
 func (m *Relay) GetID() string { return m.ID }
 
-func (*Gateway) isOneOf_Node(){}
+func (*Gateway) isOneOf_Node() {}
+
 // GetID returns the unique identifier of the Gateway.
 func (m *Gateway) GetID() string { return m.ID }
 
@@ -77,7 +79,7 @@ type Relay struct {
 	// "restarting", "started", "stopped", "dead", "unknown",
 	State string
 }
-	
+
 // Gateway represents a StrongDM CLI installation running in gateway mode.
 type Gateway struct {
 	// Unique identifier of the Relay.
@@ -92,7 +94,7 @@ type Gateway struct {
 	// The hostname/port tuple which the gateway daemon will bind to.
 	BindAddress string
 }
-	
+
 // RoleCreateResponse reports how the Roles were created in the system. It can
 // communicate partial successes or failures.
 type RoleCreateResponse struct {
@@ -101,7 +103,7 @@ type RoleCreateResponse struct {
 	// The created Role.
 	Role *Role
 }
-	
+
 // RoleGetResponse returns a requested Role.
 type RoleGetResponse struct {
 	// Reserved for future use.
@@ -109,7 +111,7 @@ type RoleGetResponse struct {
 	// The requested Role.
 	Role *Role
 }
-	
+
 // RoleUpdateResponse returns the fields of a Role after it has been updated by
 // a RoleUpdateRequest.
 type RoleUpdateResponse struct {
@@ -118,13 +120,13 @@ type RoleUpdateResponse struct {
 	// The updated Role.
 	Role *Role
 }
-	
+
 // RoleDeleteResponse returns information about a Role that was deleted.
 type RoleDeleteResponse struct {
 	// Reserved for future use.
 	Meta *DeleteResponseMetadata
 }
-	
+
 // A Role grants users access to a set of resources. Composite roles have no
 // resource associations of their own, but instead grant access to the combined
 // resources of their child roles.
@@ -136,7 +138,7 @@ type Role struct {
 	// True if the Role is a composite role.
 	Composite bool
 }
-	
+
 // NodeIterator provides read access to a list of Node.
 // Use it like so:
 // ```
@@ -154,6 +156,7 @@ type NodeIterator interface {
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }
+
 // RoleIterator provides read access to a list of Role.
 // Use it like so:
 // ```
