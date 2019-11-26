@@ -10,14 +10,15 @@ import (
 
 
 
-// Nodes are proxies in strongDM responsible to communicate with servers
-// (relays) and clients (gateways).
+// Nodes are proxies in the strongDM network. They come in two flavors: relays,
+// which communicate with resources, and gateways, which communicate with
+// clients.
 type Nodes struct {
 	client   plumbing.NodesClient
 	parent   *Client
 }
 
-// Create registers a new node.
+// Create registers a new Node.
 func (svc *Nodes) Create(ctx context.Context, node models.Node) (*models.NodeCreateResponse, error) {
 	req := &plumbing.NodeCreateRequest{}
 	req.Node = plumbing.NodeToPlumbing(node)
@@ -33,7 +34,7 @@ func (svc *Nodes) Create(ctx context.Context, node models.Node) (*models.NodeCre
 	return resp, nil
 }
 
-// Get reads one node by ID.
+// Get reads one Node by ID.
 func (svc *Nodes) Get(ctx context.Context, id string) (*models.NodeGetResponse, error) {
 	req := &plumbing.NodeGetRequest{}
 	req.Id = id
@@ -48,7 +49,7 @@ func (svc *Nodes) Get(ctx context.Context, id string) (*models.NodeGetResponse, 
 	return resp, nil
 }
 
-// Update patches a node by ID.
+// Update patches a Node by ID.
 func (svc *Nodes) Update(ctx context.Context, node models.Node) (*models.NodeUpdateResponse, error) {
 	req := &plumbing.NodeUpdateRequest{}
 	req.Node = plumbing.NodeToPlumbing(node)
@@ -63,7 +64,7 @@ func (svc *Nodes) Update(ctx context.Context, node models.Node) (*models.NodeUpd
 	return resp, nil
 }
 
-// Delete removes a node by ID.
+// Delete removes a Node by ID.
 func (svc *Nodes) Delete(ctx context.Context, id string) (*models.NodeDeleteResponse, error) {
 	req := &plumbing.NodeDeleteRequest{}
 	req.Id = id
@@ -77,7 +78,7 @@ func (svc *Nodes) Delete(ctx context.Context, id string) (*models.NodeDeleteResp
 	return resp, nil
 }
 
-// List is a batched Get call.
+// List gets a list of Nodes matching a given set of criteria.
 func (svc *Nodes) List(ctx context.Context, filter string) models.NodeIterator {
 	req := &plumbing.NodeListRequest{}
 	req.Filter = filter
@@ -95,10 +96,7 @@ func (svc *Nodes) List(ctx context.Context, filter string) models.NodeIterator {
 			if err != nil {
 				return nil, false, plumbing.ErrorToPorcelain(err)
 			}
-			var result []models.Node
-			
-			result = plumbing.RepeatedNodeToPorcelain(plumbingResponse.Nodes)
-			
+			result := plumbing.RepeatedNodeToPorcelain(plumbingResponse.Nodes)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -108,18 +106,18 @@ func (svc *Nodes) List(ctx context.Context, filter string) models.NodeIterator {
 
 
 
-// Roles are tools for controlling user access to resources. Each role holds a
+// Roles are tools for controlling user access to resources. Each Role holds a
 // list of resources which they grant access to. Composite roles are a special
-// type of role which have no resource associations of their own, but instead
+// type of Role which have no resource associations of their own, but instead
 // grant access to the combined resources associated with a set of child roles.
-// Each user can be a member of one role or composite role.
+// Each user can be a member of one Role or composite role.
 type Roles struct {
 	client   plumbing.RolesClient
 	parent   *Client
 }
 
-// Create registers a new role.
-func (svc *Roles) Create(ctx context.Context, role models.Role) (*models.RoleCreateResponse, error) {
+// Create registers a new Role.
+func (svc *Roles) Create(ctx context.Context, role *models.Role) (*models.RoleCreateResponse, error) {
 	req := &plumbing.RoleCreateRequest{}
 	req.Role = plumbing.RoleToPlumbing(role)
 	
@@ -133,7 +131,7 @@ func (svc *Roles) Create(ctx context.Context, role models.Role) (*models.RoleCre
 	return resp, nil
 }
 
-// Get reads one role by ID.
+// Get reads one Role by ID.
 func (svc *Roles) Get(ctx context.Context, id string) (*models.RoleGetResponse, error) {
 	req := &plumbing.RoleGetRequest{}
 	req.Id = id
@@ -149,7 +147,7 @@ func (svc *Roles) Get(ctx context.Context, id string) (*models.RoleGetResponse, 
 }
 
 // Update patches a Role by ID.
-func (svc *Roles) Update(ctx context.Context, role models.Role) (*models.RoleUpdateResponse, error) {
+func (svc *Roles) Update(ctx context.Context, role *models.Role) (*models.RoleUpdateResponse, error) {
 	req := &plumbing.RoleUpdateRequest{}
 	req.Role = plumbing.RoleToPlumbing(role)
 	
@@ -190,15 +188,12 @@ func (svc *Roles) List(ctx context.Context, filter string) models.RoleIterator {
 		}
 	}
 	return plumbing.NewRoleIteratorImpl(
-		func() ([]models.Role, bool, error) {
+		func() ([]*models.Role, bool, error) {
 			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx), req)
 			if err != nil {
 				return nil, false, plumbing.ErrorToPorcelain(err)
 			}
-			var result []models.Role
-			
-			result = plumbing.RepeatedRoleToPorcelain(plumbingResponse.Roles)
-			
+			result := plumbing.RepeatedRoleToPorcelain(plumbingResponse.Roles)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},

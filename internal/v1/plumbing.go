@@ -9,17 +9,23 @@ import (
     "google.golang.org/grpc/metadata"
 )
 
-func CreateResponseMetadataToPorcelain(plumbing *CreateResponseMetadata) models.CreateResponseMetadata {
-    porcelain := models.CreateResponseMetadata{}
+func CreateResponseMetadataToPorcelain(plumbing *CreateResponseMetadata) *models.CreateResponseMetadata {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.CreateResponseMetadata{}
     return porcelain
 }
 
-func CreateResponseMetadataToPlumbing(porcelain models.CreateResponseMetadata) *CreateResponseMetadata {
+func CreateResponseMetadataToPlumbing(porcelain *models.CreateResponseMetadata) *CreateResponseMetadata {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &CreateResponseMetadata{}
     return plumbing
 }
 
-func RepeatedCreateResponseMetadataToPlumbing(porcelains []models.CreateResponseMetadata) []*CreateResponseMetadata {
+func RepeatedCreateResponseMetadataToPlumbing(porcelains []*models.CreateResponseMetadata) []*CreateResponseMetadata {
     var items []*CreateResponseMetadata
     for _, porcelain := range porcelains {
         items = append(items, CreateResponseMetadataToPlumbing(porcelain))
@@ -27,25 +33,31 @@ func RepeatedCreateResponseMetadataToPlumbing(porcelains []models.CreateResponse
     return items
 }
 
-func RepeatedCreateResponseMetadataToPorcelain(plumbings []*CreateResponseMetadata) []models.CreateResponseMetadata {
-    var items []models.CreateResponseMetadata
+func RepeatedCreateResponseMetadataToPorcelain(plumbings []*CreateResponseMetadata) []*models.CreateResponseMetadata {
+    var items []*models.CreateResponseMetadata
     for _, plumbing := range plumbings {
         items = append(items, CreateResponseMetadataToPorcelain(plumbing))
     }
     return items
 }
 
-func GetResponseMetadataToPorcelain(plumbing *GetResponseMetadata) models.GetResponseMetadata {
-    porcelain := models.GetResponseMetadata{}
+func GetResponseMetadataToPorcelain(plumbing *GetResponseMetadata) *models.GetResponseMetadata {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.GetResponseMetadata{}
     return porcelain
 }
 
-func GetResponseMetadataToPlumbing(porcelain models.GetResponseMetadata) *GetResponseMetadata {
+func GetResponseMetadataToPlumbing(porcelain *models.GetResponseMetadata) *GetResponseMetadata {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &GetResponseMetadata{}
     return plumbing
 }
 
-func RepeatedGetResponseMetadataToPlumbing(porcelains []models.GetResponseMetadata) []*GetResponseMetadata {
+func RepeatedGetResponseMetadataToPlumbing(porcelains []*models.GetResponseMetadata) []*GetResponseMetadata {
     var items []*GetResponseMetadata
     for _, porcelain := range porcelains {
         items = append(items, GetResponseMetadataToPlumbing(porcelain))
@@ -53,25 +65,31 @@ func RepeatedGetResponseMetadataToPlumbing(porcelains []models.GetResponseMetada
     return items
 }
 
-func RepeatedGetResponseMetadataToPorcelain(plumbings []*GetResponseMetadata) []models.GetResponseMetadata {
-    var items []models.GetResponseMetadata
+func RepeatedGetResponseMetadataToPorcelain(plumbings []*GetResponseMetadata) []*models.GetResponseMetadata {
+    var items []*models.GetResponseMetadata
     for _, plumbing := range plumbings {
         items = append(items, GetResponseMetadataToPorcelain(plumbing))
     }
     return items
 }
 
-func UpdateResponseMetadataToPorcelain(plumbing *UpdateResponseMetadata) models.UpdateResponseMetadata {
-    porcelain := models.UpdateResponseMetadata{}
+func UpdateResponseMetadataToPorcelain(plumbing *UpdateResponseMetadata) *models.UpdateResponseMetadata {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.UpdateResponseMetadata{}
     return porcelain
 }
 
-func UpdateResponseMetadataToPlumbing(porcelain models.UpdateResponseMetadata) *UpdateResponseMetadata {
+func UpdateResponseMetadataToPlumbing(porcelain *models.UpdateResponseMetadata) *UpdateResponseMetadata {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &UpdateResponseMetadata{}
     return plumbing
 }
 
-func RepeatedUpdateResponseMetadataToPlumbing(porcelains []models.UpdateResponseMetadata) []*UpdateResponseMetadata {
+func RepeatedUpdateResponseMetadataToPlumbing(porcelains []*models.UpdateResponseMetadata) []*UpdateResponseMetadata {
     var items []*UpdateResponseMetadata
     for _, porcelain := range porcelains {
         items = append(items, UpdateResponseMetadataToPlumbing(porcelain))
@@ -79,25 +97,31 @@ func RepeatedUpdateResponseMetadataToPlumbing(porcelains []models.UpdateResponse
     return items
 }
 
-func RepeatedUpdateResponseMetadataToPorcelain(plumbings []*UpdateResponseMetadata) []models.UpdateResponseMetadata {
-    var items []models.UpdateResponseMetadata
+func RepeatedUpdateResponseMetadataToPorcelain(plumbings []*UpdateResponseMetadata) []*models.UpdateResponseMetadata {
+    var items []*models.UpdateResponseMetadata
     for _, plumbing := range plumbings {
         items = append(items, UpdateResponseMetadataToPorcelain(plumbing))
     }
     return items
 }
 
-func DeleteResponseMetadataToPorcelain(plumbing *DeleteResponseMetadata) models.DeleteResponseMetadata {
-    porcelain := models.DeleteResponseMetadata{}
+func DeleteResponseMetadataToPorcelain(plumbing *DeleteResponseMetadata) *models.DeleteResponseMetadata {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.DeleteResponseMetadata{}
     return porcelain
 }
 
-func DeleteResponseMetadataToPlumbing(porcelain models.DeleteResponseMetadata) *DeleteResponseMetadata {
+func DeleteResponseMetadataToPlumbing(porcelain *models.DeleteResponseMetadata) *DeleteResponseMetadata {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &DeleteResponseMetadata{}
     return plumbing
 }
 
-func RepeatedDeleteResponseMetadataToPlumbing(porcelains []models.DeleteResponseMetadata) []*DeleteResponseMetadata {
+func RepeatedDeleteResponseMetadataToPlumbing(porcelains []*models.DeleteResponseMetadata) []*DeleteResponseMetadata {
     var items []*DeleteResponseMetadata
     for _, porcelain := range porcelains {
         items = append(items, DeleteResponseMetadataToPlumbing(porcelain))
@@ -105,23 +129,29 @@ func RepeatedDeleteResponseMetadataToPlumbing(porcelains []models.DeleteResponse
     return items
 }
 
-func RepeatedDeleteResponseMetadataToPorcelain(plumbings []*DeleteResponseMetadata) []models.DeleteResponseMetadata {
-    var items []models.DeleteResponseMetadata
+func RepeatedDeleteResponseMetadataToPorcelain(plumbings []*DeleteResponseMetadata) []*models.DeleteResponseMetadata {
+    var items []*models.DeleteResponseMetadata
     for _, plumbing := range plumbings {
         items = append(items, DeleteResponseMetadataToPorcelain(plumbing))
     }
     return items
 }
 
-func NodeCreateResponseToPorcelain(plumbing *NodeCreateResponse) models.NodeCreateResponse {
-    porcelain := models.NodeCreateResponse{}
+func NodeCreateResponseToPorcelain(plumbing *NodeCreateResponse) *models.NodeCreateResponse {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.NodeCreateResponse{}
     porcelain.Meta = CreateResponseMetadataToPorcelain(plumbing.Meta)
     porcelain.Node = NodeToPorcelain(plumbing.Node)
     porcelain.Token = plumbing.Token
     return porcelain
 }
 
-func NodeCreateResponseToPlumbing(porcelain models.NodeCreateResponse) *NodeCreateResponse {
+func NodeCreateResponseToPlumbing(porcelain *models.NodeCreateResponse) *NodeCreateResponse {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &NodeCreateResponse{}
     plumbing.Meta = CreateResponseMetadataToPlumbing(porcelain.Meta)
     plumbing.Node = NodeToPlumbing(porcelain.Node)
@@ -129,7 +159,7 @@ func NodeCreateResponseToPlumbing(porcelain models.NodeCreateResponse) *NodeCrea
     return plumbing
 }
 
-func RepeatedNodeCreateResponseToPlumbing(porcelains []models.NodeCreateResponse) []*NodeCreateResponse {
+func RepeatedNodeCreateResponseToPlumbing(porcelains []*models.NodeCreateResponse) []*NodeCreateResponse {
     var items []*NodeCreateResponse
     for _, porcelain := range porcelains {
         items = append(items, NodeCreateResponseToPlumbing(porcelain))
@@ -137,29 +167,35 @@ func RepeatedNodeCreateResponseToPlumbing(porcelains []models.NodeCreateResponse
     return items
 }
 
-func RepeatedNodeCreateResponseToPorcelain(plumbings []*NodeCreateResponse) []models.NodeCreateResponse {
-    var items []models.NodeCreateResponse
+func RepeatedNodeCreateResponseToPorcelain(plumbings []*NodeCreateResponse) []*models.NodeCreateResponse {
+    var items []*models.NodeCreateResponse
     for _, plumbing := range plumbings {
         items = append(items, NodeCreateResponseToPorcelain(plumbing))
     }
     return items
 }
 
-func NodeGetResponseToPorcelain(plumbing *NodeGetResponse) models.NodeGetResponse {
-    porcelain := models.NodeGetResponse{}
+func NodeGetResponseToPorcelain(plumbing *NodeGetResponse) *models.NodeGetResponse {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.NodeGetResponse{}
     porcelain.Meta = GetResponseMetadataToPorcelain(plumbing.Meta)
     porcelain.Node = NodeToPorcelain(plumbing.Node)
     return porcelain
 }
 
-func NodeGetResponseToPlumbing(porcelain models.NodeGetResponse) *NodeGetResponse {
+func NodeGetResponseToPlumbing(porcelain *models.NodeGetResponse) *NodeGetResponse {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &NodeGetResponse{}
     plumbing.Meta = GetResponseMetadataToPlumbing(porcelain.Meta)
     plumbing.Node = NodeToPlumbing(porcelain.Node)
     return plumbing
 }
 
-func RepeatedNodeGetResponseToPlumbing(porcelains []models.NodeGetResponse) []*NodeGetResponse {
+func RepeatedNodeGetResponseToPlumbing(porcelains []*models.NodeGetResponse) []*NodeGetResponse {
     var items []*NodeGetResponse
     for _, porcelain := range porcelains {
         items = append(items, NodeGetResponseToPlumbing(porcelain))
@@ -167,29 +203,35 @@ func RepeatedNodeGetResponseToPlumbing(porcelains []models.NodeGetResponse) []*N
     return items
 }
 
-func RepeatedNodeGetResponseToPorcelain(plumbings []*NodeGetResponse) []models.NodeGetResponse {
-    var items []models.NodeGetResponse
+func RepeatedNodeGetResponseToPorcelain(plumbings []*NodeGetResponse) []*models.NodeGetResponse {
+    var items []*models.NodeGetResponse
     for _, plumbing := range plumbings {
         items = append(items, NodeGetResponseToPorcelain(plumbing))
     }
     return items
 }
 
-func NodeUpdateResponseToPorcelain(plumbing *NodeUpdateResponse) models.NodeUpdateResponse {
-    porcelain := models.NodeUpdateResponse{}
+func NodeUpdateResponseToPorcelain(plumbing *NodeUpdateResponse) *models.NodeUpdateResponse {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.NodeUpdateResponse{}
     porcelain.Meta = UpdateResponseMetadataToPorcelain(plumbing.Meta)
     porcelain.Node = NodeToPorcelain(plumbing.Node)
     return porcelain
 }
 
-func NodeUpdateResponseToPlumbing(porcelain models.NodeUpdateResponse) *NodeUpdateResponse {
+func NodeUpdateResponseToPlumbing(porcelain *models.NodeUpdateResponse) *NodeUpdateResponse {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &NodeUpdateResponse{}
     plumbing.Meta = UpdateResponseMetadataToPlumbing(porcelain.Meta)
     plumbing.Node = NodeToPlumbing(porcelain.Node)
     return plumbing
 }
 
-func RepeatedNodeUpdateResponseToPlumbing(porcelains []models.NodeUpdateResponse) []*NodeUpdateResponse {
+func RepeatedNodeUpdateResponseToPlumbing(porcelains []*models.NodeUpdateResponse) []*NodeUpdateResponse {
     var items []*NodeUpdateResponse
     for _, porcelain := range porcelains {
         items = append(items, NodeUpdateResponseToPlumbing(porcelain))
@@ -197,27 +239,33 @@ func RepeatedNodeUpdateResponseToPlumbing(porcelains []models.NodeUpdateResponse
     return items
 }
 
-func RepeatedNodeUpdateResponseToPorcelain(plumbings []*NodeUpdateResponse) []models.NodeUpdateResponse {
-    var items []models.NodeUpdateResponse
+func RepeatedNodeUpdateResponseToPorcelain(plumbings []*NodeUpdateResponse) []*models.NodeUpdateResponse {
+    var items []*models.NodeUpdateResponse
     for _, plumbing := range plumbings {
         items = append(items, NodeUpdateResponseToPorcelain(plumbing))
     }
     return items
 }
 
-func NodeDeleteResponseToPorcelain(plumbing *NodeDeleteResponse) models.NodeDeleteResponse {
-    porcelain := models.NodeDeleteResponse{}
+func NodeDeleteResponseToPorcelain(plumbing *NodeDeleteResponse) *models.NodeDeleteResponse {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.NodeDeleteResponse{}
     porcelain.Meta = DeleteResponseMetadataToPorcelain(plumbing.Meta)
     return porcelain
 }
 
-func NodeDeleteResponseToPlumbing(porcelain models.NodeDeleteResponse) *NodeDeleteResponse {
+func NodeDeleteResponseToPlumbing(porcelain *models.NodeDeleteResponse) *NodeDeleteResponse {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &NodeDeleteResponse{}
     plumbing.Meta = DeleteResponseMetadataToPlumbing(porcelain.Meta)
     return plumbing
 }
 
-func RepeatedNodeDeleteResponseToPlumbing(porcelains []models.NodeDeleteResponse) []*NodeDeleteResponse {
+func RepeatedNodeDeleteResponseToPlumbing(porcelains []*models.NodeDeleteResponse) []*NodeDeleteResponse {
     var items []*NodeDeleteResponse
     for _, porcelain := range porcelains {
         items = append(items, NodeDeleteResponseToPlumbing(porcelain))
@@ -225,8 +273,8 @@ func RepeatedNodeDeleteResponseToPlumbing(porcelains []models.NodeDeleteResponse
     return items
 }
 
-func RepeatedNodeDeleteResponseToPorcelain(plumbings []*NodeDeleteResponse) []models.NodeDeleteResponse {
-    var items []models.NodeDeleteResponse
+func RepeatedNodeDeleteResponseToPorcelain(plumbings []*NodeDeleteResponse) []*models.NodeDeleteResponse {
+    var items []*models.NodeDeleteResponse
     for _, plumbing := range plumbings {
         items = append(items, NodeDeleteResponseToPorcelain(plumbing))
     }
@@ -234,25 +282,26 @@ func RepeatedNodeDeleteResponseToPorcelain(plumbings []*NodeDeleteResponse) []mo
 }
 
 func NodeToPlumbing(porcelain models.Node) *Node {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &Node{}
 
     switch v := porcelain.(type) {
     case *models.Relay:
-        plumbing.Node = &Node_Relay{ Relay: RelayToPlumbing(*v) }
+        plumbing.Node = &Node_Relay{ Relay: RelayToPlumbing(v) }
     case *models.Gateway:
-        plumbing.Node = &Node_Gateway{ Gateway: GatewayToPlumbing(*v) }
+        plumbing.Node = &Node_Gateway{ Gateway: GatewayToPlumbing(v) }
     }
     return plumbing
 }
 
 func NodeToPorcelain(plumbing *Node) models.Node {
     if plumbing.GetRelay() != nil {
-        v := RelayToPorcelain(plumbing.GetRelay())
-        return &v
+        return RelayToPorcelain(plumbing.GetRelay())
     }
     if plumbing.GetGateway() != nil {
-        v := GatewayToPorcelain(plumbing.GetGateway())
-        return &v
+        return GatewayToPorcelain(plumbing.GetGateway())
     }
     return nil
 }
@@ -273,21 +322,29 @@ func RepeatedNodeToPorcelain(plumbings []*Node) []models.Node {
     return items
 }
 
-func RelayToPorcelain(plumbing *Relay) models.Relay {
-    porcelain := models.Relay{}
+func RelayToPorcelain(plumbing *Relay) *models.Relay {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.Relay{}
     porcelain.ID = plumbing.Id
     porcelain.Name = plumbing.Name
+    porcelain.State = plumbing.State
     return porcelain
 }
 
-func RelayToPlumbing(porcelain models.Relay) *Relay {
+func RelayToPlumbing(porcelain *models.Relay) *Relay {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &Relay{}
     plumbing.Id = porcelain.ID
     plumbing.Name = porcelain.Name
+    plumbing.State = porcelain.State
     return plumbing
 }
 
-func RepeatedRelayToPlumbing(porcelains []models.Relay) []*Relay {
+func RepeatedRelayToPlumbing(porcelains []*models.Relay) []*Relay {
     var items []*Relay
     for _, porcelain := range porcelains {
         items = append(items, RelayToPlumbing(porcelain))
@@ -295,33 +352,41 @@ func RepeatedRelayToPlumbing(porcelains []models.Relay) []*Relay {
     return items
 }
 
-func RepeatedRelayToPorcelain(plumbings []*Relay) []models.Relay {
-    var items []models.Relay
+func RepeatedRelayToPorcelain(plumbings []*Relay) []*models.Relay {
+    var items []*models.Relay
     for _, plumbing := range plumbings {
         items = append(items, RelayToPorcelain(plumbing))
     }
     return items
 }
 
-func GatewayToPorcelain(plumbing *Gateway) models.Gateway {
-    porcelain := models.Gateway{}
+func GatewayToPorcelain(plumbing *Gateway) *models.Gateway {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.Gateway{}
     porcelain.ID = plumbing.Id
     porcelain.Name = plumbing.Name
+    porcelain.State = plumbing.State
     porcelain.ListenAddress = plumbing.ListenAddress
     porcelain.BindAddress = plumbing.BindAddress
     return porcelain
 }
 
-func GatewayToPlumbing(porcelain models.Gateway) *Gateway {
+func GatewayToPlumbing(porcelain *models.Gateway) *Gateway {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &Gateway{}
     plumbing.Id = porcelain.ID
     plumbing.Name = porcelain.Name
+    plumbing.State = porcelain.State
     plumbing.ListenAddress = porcelain.ListenAddress
     plumbing.BindAddress = porcelain.BindAddress
     return plumbing
 }
 
-func RepeatedGatewayToPlumbing(porcelains []models.Gateway) []*Gateway {
+func RepeatedGatewayToPlumbing(porcelains []*models.Gateway) []*Gateway {
     var items []*Gateway
     for _, porcelain := range porcelains {
         items = append(items, GatewayToPlumbing(porcelain))
@@ -329,29 +394,35 @@ func RepeatedGatewayToPlumbing(porcelains []models.Gateway) []*Gateway {
     return items
 }
 
-func RepeatedGatewayToPorcelain(plumbings []*Gateway) []models.Gateway {
-    var items []models.Gateway
+func RepeatedGatewayToPorcelain(plumbings []*Gateway) []*models.Gateway {
+    var items []*models.Gateway
     for _, plumbing := range plumbings {
         items = append(items, GatewayToPorcelain(plumbing))
     }
     return items
 }
 
-func RoleCreateResponseToPorcelain(plumbing *RoleCreateResponse) models.RoleCreateResponse {
-    porcelain := models.RoleCreateResponse{}
+func RoleCreateResponseToPorcelain(plumbing *RoleCreateResponse) *models.RoleCreateResponse {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.RoleCreateResponse{}
     porcelain.Meta = CreateResponseMetadataToPorcelain(plumbing.Meta)
     porcelain.Role = RoleToPorcelain(plumbing.Role)
     return porcelain
 }
 
-func RoleCreateResponseToPlumbing(porcelain models.RoleCreateResponse) *RoleCreateResponse {
+func RoleCreateResponseToPlumbing(porcelain *models.RoleCreateResponse) *RoleCreateResponse {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &RoleCreateResponse{}
     plumbing.Meta = CreateResponseMetadataToPlumbing(porcelain.Meta)
     plumbing.Role = RoleToPlumbing(porcelain.Role)
     return plumbing
 }
 
-func RepeatedRoleCreateResponseToPlumbing(porcelains []models.RoleCreateResponse) []*RoleCreateResponse {
+func RepeatedRoleCreateResponseToPlumbing(porcelains []*models.RoleCreateResponse) []*RoleCreateResponse {
     var items []*RoleCreateResponse
     for _, porcelain := range porcelains {
         items = append(items, RoleCreateResponseToPlumbing(porcelain))
@@ -359,29 +430,35 @@ func RepeatedRoleCreateResponseToPlumbing(porcelains []models.RoleCreateResponse
     return items
 }
 
-func RepeatedRoleCreateResponseToPorcelain(plumbings []*RoleCreateResponse) []models.RoleCreateResponse {
-    var items []models.RoleCreateResponse
+func RepeatedRoleCreateResponseToPorcelain(plumbings []*RoleCreateResponse) []*models.RoleCreateResponse {
+    var items []*models.RoleCreateResponse
     for _, plumbing := range plumbings {
         items = append(items, RoleCreateResponseToPorcelain(plumbing))
     }
     return items
 }
 
-func RoleGetResponseToPorcelain(plumbing *RoleGetResponse) models.RoleGetResponse {
-    porcelain := models.RoleGetResponse{}
+func RoleGetResponseToPorcelain(plumbing *RoleGetResponse) *models.RoleGetResponse {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.RoleGetResponse{}
     porcelain.Meta = GetResponseMetadataToPorcelain(plumbing.Meta)
     porcelain.Role = RoleToPorcelain(plumbing.Role)
     return porcelain
 }
 
-func RoleGetResponseToPlumbing(porcelain models.RoleGetResponse) *RoleGetResponse {
+func RoleGetResponseToPlumbing(porcelain *models.RoleGetResponse) *RoleGetResponse {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &RoleGetResponse{}
     plumbing.Meta = GetResponseMetadataToPlumbing(porcelain.Meta)
     plumbing.Role = RoleToPlumbing(porcelain.Role)
     return plumbing
 }
 
-func RepeatedRoleGetResponseToPlumbing(porcelains []models.RoleGetResponse) []*RoleGetResponse {
+func RepeatedRoleGetResponseToPlumbing(porcelains []*models.RoleGetResponse) []*RoleGetResponse {
     var items []*RoleGetResponse
     for _, porcelain := range porcelains {
         items = append(items, RoleGetResponseToPlumbing(porcelain))
@@ -389,29 +466,35 @@ func RepeatedRoleGetResponseToPlumbing(porcelains []models.RoleGetResponse) []*R
     return items
 }
 
-func RepeatedRoleGetResponseToPorcelain(plumbings []*RoleGetResponse) []models.RoleGetResponse {
-    var items []models.RoleGetResponse
+func RepeatedRoleGetResponseToPorcelain(plumbings []*RoleGetResponse) []*models.RoleGetResponse {
+    var items []*models.RoleGetResponse
     for _, plumbing := range plumbings {
         items = append(items, RoleGetResponseToPorcelain(plumbing))
     }
     return items
 }
 
-func RoleUpdateResponseToPorcelain(plumbing *RoleUpdateResponse) models.RoleUpdateResponse {
-    porcelain := models.RoleUpdateResponse{}
+func RoleUpdateResponseToPorcelain(plumbing *RoleUpdateResponse) *models.RoleUpdateResponse {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.RoleUpdateResponse{}
     porcelain.Meta = UpdateResponseMetadataToPorcelain(plumbing.Meta)
     porcelain.Role = RoleToPorcelain(plumbing.Role)
     return porcelain
 }
 
-func RoleUpdateResponseToPlumbing(porcelain models.RoleUpdateResponse) *RoleUpdateResponse {
+func RoleUpdateResponseToPlumbing(porcelain *models.RoleUpdateResponse) *RoleUpdateResponse {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &RoleUpdateResponse{}
     plumbing.Meta = UpdateResponseMetadataToPlumbing(porcelain.Meta)
     plumbing.Role = RoleToPlumbing(porcelain.Role)
     return plumbing
 }
 
-func RepeatedRoleUpdateResponseToPlumbing(porcelains []models.RoleUpdateResponse) []*RoleUpdateResponse {
+func RepeatedRoleUpdateResponseToPlumbing(porcelains []*models.RoleUpdateResponse) []*RoleUpdateResponse {
     var items []*RoleUpdateResponse
     for _, porcelain := range porcelains {
         items = append(items, RoleUpdateResponseToPlumbing(porcelain))
@@ -419,27 +502,33 @@ func RepeatedRoleUpdateResponseToPlumbing(porcelains []models.RoleUpdateResponse
     return items
 }
 
-func RepeatedRoleUpdateResponseToPorcelain(plumbings []*RoleUpdateResponse) []models.RoleUpdateResponse {
-    var items []models.RoleUpdateResponse
+func RepeatedRoleUpdateResponseToPorcelain(plumbings []*RoleUpdateResponse) []*models.RoleUpdateResponse {
+    var items []*models.RoleUpdateResponse
     for _, plumbing := range plumbings {
         items = append(items, RoleUpdateResponseToPorcelain(plumbing))
     }
     return items
 }
 
-func RoleDeleteResponseToPorcelain(plumbing *RoleDeleteResponse) models.RoleDeleteResponse {
-    porcelain := models.RoleDeleteResponse{}
+func RoleDeleteResponseToPorcelain(plumbing *RoleDeleteResponse) *models.RoleDeleteResponse {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.RoleDeleteResponse{}
     porcelain.Meta = DeleteResponseMetadataToPorcelain(plumbing.Meta)
     return porcelain
 }
 
-func RoleDeleteResponseToPlumbing(porcelain models.RoleDeleteResponse) *RoleDeleteResponse {
+func RoleDeleteResponseToPlumbing(porcelain *models.RoleDeleteResponse) *RoleDeleteResponse {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &RoleDeleteResponse{}
     plumbing.Meta = DeleteResponseMetadataToPlumbing(porcelain.Meta)
     return plumbing
 }
 
-func RepeatedRoleDeleteResponseToPlumbing(porcelains []models.RoleDeleteResponse) []*RoleDeleteResponse {
+func RepeatedRoleDeleteResponseToPlumbing(porcelains []*models.RoleDeleteResponse) []*RoleDeleteResponse {
     var items []*RoleDeleteResponse
     for _, porcelain := range porcelains {
         items = append(items, RoleDeleteResponseToPlumbing(porcelain))
@@ -447,23 +536,29 @@ func RepeatedRoleDeleteResponseToPlumbing(porcelains []models.RoleDeleteResponse
     return items
 }
 
-func RepeatedRoleDeleteResponseToPorcelain(plumbings []*RoleDeleteResponse) []models.RoleDeleteResponse {
-    var items []models.RoleDeleteResponse
+func RepeatedRoleDeleteResponseToPorcelain(plumbings []*RoleDeleteResponse) []*models.RoleDeleteResponse {
+    var items []*models.RoleDeleteResponse
     for _, plumbing := range plumbings {
         items = append(items, RoleDeleteResponseToPorcelain(plumbing))
     }
     return items
 }
 
-func RoleToPorcelain(plumbing *Role) models.Role {
-    porcelain := models.Role{}
+func RoleToPorcelain(plumbing *Role) *models.Role {
+    if plumbing == nil {
+        return nil
+    }
+    porcelain := &models.Role{}
     porcelain.ID = plumbing.Id
     porcelain.Name = plumbing.Name
     porcelain.Composite = plumbing.Composite
     return porcelain
 }
 
-func RoleToPlumbing(porcelain models.Role) *Role {
+func RoleToPlumbing(porcelain *models.Role) *Role {
+    if porcelain == nil {
+        return nil
+    }
     plumbing := &Role{}
     plumbing.Id = porcelain.ID
     plumbing.Name = porcelain.Name
@@ -471,7 +566,7 @@ func RoleToPlumbing(porcelain models.Role) *Role {
     return plumbing
 }
 
-func RepeatedRoleToPlumbing(porcelains []models.Role) []*Role {
+func RepeatedRoleToPlumbing(porcelains []*models.Role) []*Role {
     var items []*Role
     for _, porcelain := range porcelains {
         items = append(items, RoleToPlumbing(porcelain))
@@ -479,8 +574,8 @@ func RepeatedRoleToPlumbing(porcelains []models.Role) []*Role {
     return items
 }
 
-func RepeatedRoleToPorcelain(plumbings []*Role) []models.Role {
-    var items []models.Role
+func RepeatedRoleToPorcelain(plumbings []*Role) []*models.Role {
+    var items []*models.Role
     for _, plumbing := range plumbings {
         items = append(items, RoleToPorcelain(plumbing))
     }
@@ -600,15 +695,18 @@ func (n *NodeIteratorImpl) Next() bool {
 }
 
 func (n *NodeIteratorImpl) Value() models.Node {
+    if n.index >= len(n.buffer) {
+        return nil
+    }
     return n.buffer[n.index]
 }
 
 func (n *NodeIteratorImpl) Err() error {
     return n.err
 }
-type RoleIteratorImplFetchFunc func() ([]models.Role, bool, error)
+type RoleIteratorImplFetchFunc func() ([]*models.Role, bool, error)
 type RoleIteratorImpl struct {
-	buffer []models.Role
+	buffer []*models.Role
     index int
     hasNextPage bool
     err error
@@ -638,7 +736,10 @@ func (r *RoleIteratorImpl) Next() bool {
     return len(r.buffer) > 0
 }
 
-func (r *RoleIteratorImpl) Value() models.Role {
+func (r *RoleIteratorImpl) Value() *models.Role {
+    if r.index >= len(r.buffer) {
+        return nil
+    }
     return r.buffer[r.index]
 }
 

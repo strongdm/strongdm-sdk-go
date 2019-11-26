@@ -28,14 +28,7 @@ type Client struct {
 
 	apiToken string
 	grpcConn *grpc.ClientConn
-	// Nodes are proxies in strongDM responsible to communicate with servers
-	// (relays) and clients (gateways).
 	nodes *Nodes
-	// Roles are tools for controlling user access to resources. Each role holds a
-	// list of resources which they grant access to. Composite roles are a special
-	// type of role which have no resource associations of their own, but instead
-	// grant access to the combined resources associated with a set of child roles.
-	// Each user can be a member of one role or composite role.
 	roles *Roles
 }
 
@@ -87,9 +80,17 @@ func (c *Client) wrapContext(ctx context.Context) context.Context {
 	return plumbing.CreateGRPCContext(ctx, c.apiToken)
 }
 
+// Nodes are proxies in the strongDM network. They come in two flavors: relays,
+// which communicate with resources, and gateways, which communicate with
+// clients.
 func (c *Client) Nodes() *Nodes{
 	return c.nodes
 }
+// Roles are tools for controlling user access to resources. Each Role holds a
+// list of resources which they grant access to. Composite roles are a special
+// type of Role which have no resource associations of their own, but instead
+// grant access to the combined resources associated with a set of child roles.
+// Each user can be a member of one Role or composite role.
 func (c *Client) Roles() *Roles{
 	return c.roles
 }

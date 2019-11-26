@@ -32,7 +32,7 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 type RoleCreateRequest struct {
 	// Reserved for future use.
 	Meta *CreateRequestMetadata `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	// Parameters to define the new role.
+	// Parameters to define the new Role.
 	Role                 *Role    `protobuf:"bytes,2,opt,name=role,proto3" json:"role,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -83,7 +83,7 @@ func (m *RoleCreateRequest) GetRole() *Role {
 type RoleCreateResponse struct {
 	// Reserved for future use.
 	Meta *CreateResponseMetadata `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	// The created role.
+	// The created Role.
 	Role                 *Role    `protobuf:"bytes,2,opt,name=role,proto3" json:"role,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -133,7 +133,7 @@ func (m *RoleCreateResponse) GetRole() *Role {
 type RoleGetRequest struct {
 	// Reserved for future use.
 	Meta *GetRequestMetadata `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	// The unique identifier of the role to retrieve.
+	// The unique identifier of the Role to retrieve.
 	Id                   string   `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -183,7 +183,7 @@ func (m *RoleGetRequest) GetId() string {
 type RoleGetResponse struct {
 	// Reserved for future use.
 	Meta *GetResponseMetadata `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	// The requested role.
+	// The requested Role.
 	Role                 *Role    `protobuf:"bytes,2,opt,name=role,proto3" json:"role,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -234,9 +234,11 @@ func (m *RoleGetResponse) GetRole() *Role {
 type RoleUpdateRequest struct {
 	// Reserved for future use.
 	Meta *UpdateRequestMetadata `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	// The unique identifier of the role to update.
+	// The unique identifier of the Role to update. If an ID is already
+	// specified in the `role` field, this field is not required. If an ID is
+	// specified in both places, they must match.
 	Id string `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
-	// Parameters to overwrite the specified role.
+	// Parameters to overwrite the specified Role.
 	Role                 *Role    `protobuf:"bytes,3,opt,name=role,proto3" json:"role,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -294,7 +296,7 @@ func (m *RoleUpdateRequest) GetRole() *Role {
 type RoleUpdateResponse struct {
 	// Reserved for future use.
 	Meta *UpdateResponseMetadata `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	// The updated role.
+	// The updated Role.
 	Role                 *Role    `protobuf:"bytes,2,opt,name=role,proto3" json:"role,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -344,7 +346,7 @@ func (m *RoleUpdateResponse) GetRole() *Role {
 type RoleDeleteRequest struct {
 	// Reserved for future use.
 	Meta *DeleteRequestMetadata `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
-	// The unique identifier of the role to delete.
+	// The unique identifier of the Role to delete.
 	Id                   string   `protobuf:"bytes,2,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -536,11 +538,11 @@ func (m *RoleListResponse) GetRoles() []*Role {
 // resource associations of their own, but instead grant access to the combined
 // resources of their child roles.
 type Role struct {
-	// Unique identifier of the role.
+	// Unique identifier of the Role.
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the role.
+	// Unique human-readable name of the Role.
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the role is a composite role.
+	// True if the Role is a composite role.
 	Composite            bool     `protobuf:"varint,3,opt,name=composite,proto3" json:"composite,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -675,9 +677,9 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type RolesClient interface {
-	// Create registers a new role.
+	// Create registers a new Role.
 	Create(ctx context.Context, in *RoleCreateRequest, opts ...grpc.CallOption) (*RoleCreateResponse, error)
-	// Get reads one role by ID.
+	// Get reads one Role by ID.
 	Get(ctx context.Context, in *RoleGetRequest, opts ...grpc.CallOption) (*RoleGetResponse, error)
 	// Update patches a Role by ID.
 	Update(ctx context.Context, in *RoleUpdateRequest, opts ...grpc.CallOption) (*RoleUpdateResponse, error)
@@ -742,9 +744,9 @@ func (c *rolesClient) List(ctx context.Context, in *RoleListRequest, opts ...grp
 
 // RolesServer is the server API for Roles service.
 type RolesServer interface {
-	// Create registers a new role.
+	// Create registers a new Role.
 	Create(context.Context, *RoleCreateRequest) (*RoleCreateResponse, error)
-	// Get reads one role by ID.
+	// Get reads one Role by ID.
 	Get(context.Context, *RoleGetRequest) (*RoleGetResponse, error)
 	// Update patches a Role by ID.
 	Update(context.Context, *RoleUpdateRequest) (*RoleUpdateResponse, error)
