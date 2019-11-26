@@ -1,4 +1,4 @@
-package errors
+package sdm
 
 // Error is a generic wrapper that indicates an unknown internal error in the SDK.
 type Error struct {

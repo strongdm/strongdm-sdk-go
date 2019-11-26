@@ -4,7 +4,6 @@ import (
 	"context"
 
 	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
-	models "github.com/strongdm/strongdm-sdk-go/models"
 )
 
 
@@ -19,67 +18,67 @@ type Nodes struct {
 }
 
 // Create registers a new Node.
-func (svc *Nodes) Create(ctx context.Context, node models.Node) (*models.NodeCreateResponse, error) {
+func (svc *Nodes) Create(ctx context.Context, node Node) (*NodeCreateResponse, error) {
 	req := &plumbing.NodeCreateRequest{}
-	req.Node = plumbing.NodeToPlumbing(node)
+	req.Node = nodeToPlumbing(node)
 	
 	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx), req)
 	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(err)
+		return nil, errorToPorcelain(err)
 	}
-	resp := &models.NodeCreateResponse{}
-	resp.Meta = plumbing.CreateResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Node = plumbing.NodeToPorcelain(plumbingResponse.Node)
+	resp := &NodeCreateResponse{}
+	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Node = nodeToPorcelain(plumbingResponse.Node)
 	resp.Token = plumbingResponse.Token
 	return resp, nil
 }
 
 // Get reads one Node by ID.
-func (svc *Nodes) Get(ctx context.Context, id string) (*models.NodeGetResponse, error) {
+func (svc *Nodes) Get(ctx context.Context, id string) (*NodeGetResponse, error) {
 	req := &plumbing.NodeGetRequest{}
 	req.Id = id
 	
 	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx), req)
 	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(err)
+		return nil, errorToPorcelain(err)
 	}
-	resp := &models.NodeGetResponse{}
-	resp.Meta = plumbing.GetResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Node = plumbing.NodeToPorcelain(plumbingResponse.Node)
+	resp := &NodeGetResponse{}
+	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Node = nodeToPorcelain(plumbingResponse.Node)
 	return resp, nil
 }
 
 // Update patches a Node by ID.
-func (svc *Nodes) Update(ctx context.Context, node models.Node) (*models.NodeUpdateResponse, error) {
+func (svc *Nodes) Update(ctx context.Context, node Node) (*NodeUpdateResponse, error) {
 	req := &plumbing.NodeUpdateRequest{}
-	req.Node = plumbing.NodeToPlumbing(node)
+	req.Node = nodeToPlumbing(node)
 	
 	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx), req)
 	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(err)
+		return nil, errorToPorcelain(err)
 	}
-	resp := &models.NodeUpdateResponse{}
-	resp.Meta = plumbing.UpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Node = plumbing.NodeToPorcelain(plumbingResponse.Node)
+	resp := &NodeUpdateResponse{}
+	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Node = nodeToPorcelain(plumbingResponse.Node)
 	return resp, nil
 }
 
 // Delete removes a Node by ID.
-func (svc *Nodes) Delete(ctx context.Context, id string) (*models.NodeDeleteResponse, error) {
+func (svc *Nodes) Delete(ctx context.Context, id string) (*NodeDeleteResponse, error) {
 	req := &plumbing.NodeDeleteRequest{}
 	req.Id = id
 	
 	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx), req)
 	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(err)
+		return nil, errorToPorcelain(err)
 	}
-	resp := &models.NodeDeleteResponse{}
-	resp.Meta = plumbing.DeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp := &NodeDeleteResponse{}
+	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	return resp, nil
 }
 
 // List gets a list of Nodes matching a given set of criteria.
-func (svc *Nodes) List(ctx context.Context, filter string) models.NodeIterator {
+func (svc *Nodes) List(ctx context.Context, filter string) NodeIterator {
 	req := &plumbing.NodeListRequest{}
 	req.Filter = filter
 	
@@ -90,13 +89,13 @@ func (svc *Nodes) List(ctx context.Context, filter string) models.NodeIterator {
 			req.Meta.Limit = int32(v)
 		}
 	}
-	return plumbing.NewNodeIteratorImpl(
-		func() ([]models.Node, bool, error) {
+	return newNodeIteratorImpl(
+		func() ([]Node, bool, error) {
 			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx), req)
 			if err != nil {
-				return nil, false, plumbing.ErrorToPorcelain(err)
+				return nil, false, errorToPorcelain(err)
 			}
-			result := plumbing.RepeatedNodeToPorcelain(plumbingResponse.Nodes)
+			result := repeatedNodeToPorcelain(plumbingResponse.Nodes)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -117,66 +116,66 @@ type Roles struct {
 }
 
 // Create registers a new Role.
-func (svc *Roles) Create(ctx context.Context, role *models.Role) (*models.RoleCreateResponse, error) {
+func (svc *Roles) Create(ctx context.Context, role *Role) (*RoleCreateResponse, error) {
 	req := &plumbing.RoleCreateRequest{}
-	req.Role = plumbing.RoleToPlumbing(role)
+	req.Role = roleToPlumbing(role)
 	
 	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx), req)
 	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(err)
+		return nil, errorToPorcelain(err)
 	}
-	resp := &models.RoleCreateResponse{}
-	resp.Meta = plumbing.CreateResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Role = plumbing.RoleToPorcelain(plumbingResponse.Role)
+	resp := &RoleCreateResponse{}
+	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Role = roleToPorcelain(plumbingResponse.Role)
 	return resp, nil
 }
 
 // Get reads one Role by ID.
-func (svc *Roles) Get(ctx context.Context, id string) (*models.RoleGetResponse, error) {
+func (svc *Roles) Get(ctx context.Context, id string) (*RoleGetResponse, error) {
 	req := &plumbing.RoleGetRequest{}
 	req.Id = id
 	
 	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx), req)
 	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(err)
+		return nil, errorToPorcelain(err)
 	}
-	resp := &models.RoleGetResponse{}
-	resp.Meta = plumbing.GetResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Role = plumbing.RoleToPorcelain(plumbingResponse.Role)
+	resp := &RoleGetResponse{}
+	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Role = roleToPorcelain(plumbingResponse.Role)
 	return resp, nil
 }
 
 // Update patches a Role by ID.
-func (svc *Roles) Update(ctx context.Context, role *models.Role) (*models.RoleUpdateResponse, error) {
+func (svc *Roles) Update(ctx context.Context, role *Role) (*RoleUpdateResponse, error) {
 	req := &plumbing.RoleUpdateRequest{}
-	req.Role = plumbing.RoleToPlumbing(role)
+	req.Role = roleToPlumbing(role)
 	
 	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx), req)
 	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(err)
+		return nil, errorToPorcelain(err)
 	}
-	resp := &models.RoleUpdateResponse{}
-	resp.Meta = plumbing.UpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Role = plumbing.RoleToPorcelain(plumbingResponse.Role)
+	resp := &RoleUpdateResponse{}
+	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Role = roleToPorcelain(plumbingResponse.Role)
 	return resp, nil
 }
 
 // Delete removes a Role by ID.
-func (svc *Roles) Delete(ctx context.Context, id string) (*models.RoleDeleteResponse, error) {
+func (svc *Roles) Delete(ctx context.Context, id string) (*RoleDeleteResponse, error) {
 	req := &plumbing.RoleDeleteRequest{}
 	req.Id = id
 	
 	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx), req)
 	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(err)
+		return nil, errorToPorcelain(err)
 	}
-	resp := &models.RoleDeleteResponse{}
-	resp.Meta = plumbing.DeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp := &RoleDeleteResponse{}
+	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	return resp, nil
 }
 
 // List gets a list of Roles matching a given set of criteria.
-func (svc *Roles) List(ctx context.Context, filter string) models.RoleIterator {
+func (svc *Roles) List(ctx context.Context, filter string) RoleIterator {
 	req := &plumbing.RoleListRequest{}
 	req.Filter = filter
 	
@@ -187,13 +186,13 @@ func (svc *Roles) List(ctx context.Context, filter string) models.RoleIterator {
 			req.Meta.Limit = int32(v)
 		}
 	}
-	return plumbing.NewRoleIteratorImpl(
-		func() ([]*models.Role, bool, error) {
+	return newRoleIteratorImpl(
+		func() ([]*Role, bool, error) {
 			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx), req)
 			if err != nil {
-				return nil, false, plumbing.ErrorToPorcelain(err)
+				return nil, false, errorToPorcelain(err)
 			}
-			result := plumbing.RepeatedRoleToPorcelain(plumbingResponse.Roles)
+			result := repeatedRoleToPorcelain(plumbingResponse.Roles)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},

@@ -38,7 +38,7 @@ func New(host string, key string) (*Client, error) {
 	
 	_, port, err := net.SplitHostPort(host)
 	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(fmt.Errorf("cannot parse host and port: %w", err))
+		return nil, errorToPorcelain(fmt.Errorf("cannot parse host and port: %w", err))
 	}
 
 	if port == "443" {
@@ -55,7 +55,7 @@ func New(host string, key string) (*Client, error) {
 		opts...,
 	)
 	if err != nil {
-		return nil, plumbing.ErrorToPorcelain(fmt.Errorf("cannot dial API server: %w", err))
+		return nil, errorToPorcelain(fmt.Errorf("cannot dial API server: %w", err))
 	}
 	client := &Client{
 		grpcConn: cc,
@@ -77,7 +77,7 @@ func New(host string, key string) (*Client, error) {
 }
 
 func (c *Client) wrapContext(ctx context.Context) context.Context {
-	return plumbing.CreateGRPCContext(ctx, c.apiToken)
+	return createGRPCContext(ctx, c.apiToken)
 }
 
 // Nodes are proxies in the strongDM network. They come in two flavors: relays,
