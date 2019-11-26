@@ -1,27 +1,32 @@
 package sdm
 
-// Error is a generic wrapper that indicates an unknown internal error in the SDK.
-type Error struct {
-	Wrapped error
-}
-
-func (e *Error) Error() string {
-	return e.Wrapped.Error()
-}
-
-func (e *Error) Unwrap() error {
-	return e.Wrapped
-}
-
-// RPCError is a generic RPC error indicating something went wrong at the
+// Error is a generic RPC error indicating something went wrong at the
 // transport layer. Use Code() and Unwrap() to inspect the actual failed
 // condition.
-type RPCError interface {
+type Error interface {
 	// Code returns the gRPC error code
 	Code() int
 	error
 }
 
+// UnknownError is a generic wrapper that indicates an unknown internal error in the SDK.
+type UnknownError struct {
+	Wrapped error
+}
+
+func (e *UnknownError) Error() string {
+	return e.Wrapped.Error()
+}
+
+func (e *UnknownError) Unwrap() error {
+	return e.Wrapped
+}
+
+func (e *UnknownError) Code() int {
+	return 2 // Unknown
+}
+
+// DeadlineExceededError indicates a timeout occurred.
 type DeadlineExceededError struct {
 	Wrapped error
 }
@@ -38,6 +43,7 @@ func (e *DeadlineExceededError) Code() int {
 	return 4
 }
 
+// ContextCanceledError indicates an operation was canceled.
 type ContextCanceledError struct {
 	Wrapped error
 }
@@ -63,6 +69,10 @@ func (e *AlreadyExistsError) Error() string {
 	return e.Message
 }
 
+func (e *AlreadyExistsError) Code() int {
+	return 6
+}
+
 // NotFoundError is used when an entity does not exist in the system
 type NotFoundError struct {
 	Message string
@@ -71,6 +81,10 @@ type NotFoundError struct {
 
 func (e *NotFoundError) Error() string {
 	return e.Message
+}
+
+func (e *NotFoundError) Code() int {
+	return 5
 }
 
 // BadRequestError identifies a bad request sent by the client
@@ -82,6 +96,10 @@ func (e *BadRequestError) Error() string {
 	return e.Message
 }
 
+func (e *BadRequestError) Code() int {
+	return 3
+}
+
 // AuthenticationError is used to specify an authentication failure condition
 type AuthenticationError struct {
 	Message string
@@ -89,6 +107,10 @@ type AuthenticationError struct {
 
 func (e *AuthenticationError) Error() string {
 	return e.Message
+}
+
+func (e *AuthenticationError) Code() int {
+	return 16
 }
 
 // PermissionError is used to specify a permissions violation
@@ -100,6 +122,10 @@ func (e *PermissionError) Error() string {
 	return e.Message
 }
 
+func (e *PermissionError) Code() int {
+	return 7
+}
+
 // InternalError is used to specify an internal system error
 type InternalError struct {
 	Message string
@@ -109,6 +135,10 @@ func (e *InternalError) Error() string {
 	return e.Message
 }
 
+func (e *InternalError) Code() int {
+	return 13
+}
+
 // RateLimitError is used for rate limit excess condition
 type RateLimitError struct {
 	Message string
@@ -116,4 +146,8 @@ type RateLimitError struct {
 
 func (e *RateLimitError) Error() string {
 	return e.Message
+}
+
+func (e *RateLimitError) Code() int {
+	return 8
 }

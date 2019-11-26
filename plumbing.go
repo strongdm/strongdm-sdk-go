@@ -658,7 +658,7 @@ func errorToPorcelain(err error) error {
         }
         return &rpcError{wrapped: err, code: int(s.Code())}
 	}
-	return &Error{Wrapped: err}
+	return &UnknownError{Wrapped: err}
 }
 
 type nodeIteratorImplFetchFunc func() ([]Node, bool, error)
