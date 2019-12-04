@@ -2,19 +2,29 @@ package sdm
 
 import (
 	"context"
+	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	proto "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
+	"time"
 )
 
-func timestampToPorcelain(t *timestamp.Timestamp) *timestamp.Timestamp {
-	return t
+func timestampToPorcelain(t *timestamp.Timestamp) time.Time {
+	if t == nil {
+		return time.Time{}
+	}
+	res, _ := ptypes.Timestamp(t)
+	return res
 }
 
-func timestampToPlumbing(t *timestamp.Timestamp) *timestamp.Timestamp {
-	return t
+func timestampToPlumbing(t time.Time) *timestamp.Timestamp {
+	res, err := ptypes.TimestampProto(t)
+	if err != nil {
+		return nil
+	}
+	return res
 }
 
 func createResponseMetadataToPorcelain(plumbing *proto.CreateResponseMetadata) *CreateResponseMetadata {

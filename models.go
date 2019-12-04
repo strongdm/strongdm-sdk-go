@@ -1,10 +1,8 @@
 package sdm
 
 import (
-	"github.com/golang/protobuf/ptypes/timestamp"
+	"time"
 )
-
-type Timestamp = timestamp.Timestamp
 
 // CreateResponseMetadata is reserved for future use.
 type CreateResponseMetadata struct {
@@ -31,7 +29,7 @@ type RateLimitMetadata struct {
 	// How many remaining requests out of the limit are still avaialable.
 	Remaining int64
 	// The time when remaining will be reset to limit.
-	ResetAt *Timestamp
+	ResetAt time.Time
 	// The bucket this user/token is associated with, which may be shared between
 	// multiple users/tokens.
 	Bucket string
