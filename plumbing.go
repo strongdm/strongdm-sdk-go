@@ -9,11 +9,11 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func timestampTimestampToPorcelain(t *timestamp.Timestamp) *timestamp.Timestamp {
+func timestampToPorcelain(t *timestamp.Timestamp) *timestamp.Timestamp {
 	return t
 }
 
-func timestampTimestampToPlumbing(t *timestamp.Timestamp) *timestamp.Timestamp {
+func timestampToPlumbing(t *timestamp.Timestamp) *timestamp.Timestamp {
 	return t
 }
 
@@ -152,7 +152,7 @@ func rateLimitMetadataToPorcelain(plumbing *proto.RateLimitMetadata) *RateLimitM
 	porcelain := &RateLimitMetadata{}
 	porcelain.Limit = plumbing.Limit
 	porcelain.Remaining = plumbing.Remaining
-	porcelain.ResetAt = timestampTimestampToPorcelain(plumbing.ResetAt)
+	porcelain.ResetAt = timestampToPorcelain(plumbing.ResetAt)
 	porcelain.Bucket = plumbing.Bucket
 	return porcelain
 }
@@ -164,7 +164,7 @@ func rateLimitMetadataToPlumbing(porcelain *RateLimitMetadata) *proto.RateLimitM
 	plumbing := &proto.RateLimitMetadata{}
 	plumbing.Limit = porcelain.Limit
 	plumbing.Remaining = porcelain.Remaining
-	plumbing.ResetAt = timestampTimestampToPlumbing(porcelain.ResetAt)
+	plumbing.ResetAt = timestampToPlumbing(porcelain.ResetAt)
 	plumbing.Bucket = porcelain.Bucket
 	return plumbing
 }
