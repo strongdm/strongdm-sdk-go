@@ -27,6 +27,7 @@ func (svc *Nodes) Create(ctx context.Context, node Node) (*NodeCreateResponse, e
 	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Node = nodeToPorcelain(plumbingResponse.Node)
 	resp.Token = plumbingResponse.Token
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -42,6 +43,7 @@ func (svc *Nodes) Get(ctx context.Context, id string) (*NodeGetResponse, error) 
 	resp := &NodeGetResponse{}
 	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Node = nodeToPorcelain(plumbingResponse.Node)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -57,6 +59,7 @@ func (svc *Nodes) Update(ctx context.Context, node Node) (*NodeUpdateResponse, e
 	resp := &NodeUpdateResponse{}
 	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Node = nodeToPorcelain(plumbingResponse.Node)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -71,6 +74,7 @@ func (svc *Nodes) Delete(ctx context.Context, id string) (*NodeDeleteResponse, e
 	}
 	resp := &NodeDeleteResponse{}
 	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -121,6 +125,7 @@ func (svc *Roles) Create(ctx context.Context, role *Role) (*RoleCreateResponse, 
 	resp := &RoleCreateResponse{}
 	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Role = roleToPorcelain(plumbingResponse.Role)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -136,6 +141,7 @@ func (svc *Roles) Get(ctx context.Context, id string) (*RoleGetResponse, error) 
 	resp := &RoleGetResponse{}
 	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Role = roleToPorcelain(plumbingResponse.Role)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -151,6 +157,7 @@ func (svc *Roles) Update(ctx context.Context, role *Role) (*RoleUpdateResponse, 
 	resp := &RoleUpdateResponse{}
 	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Role = roleToPorcelain(plumbingResponse.Role)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -165,6 +172,7 @@ func (svc *Roles) Delete(ctx context.Context, id string) (*RoleDeleteResponse, e
 	}
 	resp := &RoleDeleteResponse{}
 	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 

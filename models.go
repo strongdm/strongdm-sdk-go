@@ -16,6 +16,11 @@ type UpdateResponseMetadata struct {
 type DeleteResponseMetadata struct {
 }
 
+// RateLimitMetadata contains information about remaining requests avaialable
+// to the user over some timeframe.
+type RateLimitMetadata struct {
+}
+
 // NodeCreateResponse reports how the Nodes were created in the system.
 type NodeCreateResponse struct {
 	// Reserved for future use.
@@ -25,6 +30,8 @@ type NodeCreateResponse struct {
 	// The auth token generated for the Node. The Node will use this token to
 	// authenticate with the strongDM API.
 	Token string
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
 }
 
 // NodeGetResponse returns a requested Node.
@@ -33,6 +40,8 @@ type NodeGetResponse struct {
 	Meta *GetResponseMetadata
 	// The requested Node.
 	Node Node
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
 }
 
 // NodeUpdateResponse returns the fields of a Node after it has been updated by
@@ -42,12 +51,16 @@ type NodeUpdateResponse struct {
 	Meta *UpdateResponseMetadata
 	// The updated Node.
 	Node Node
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
 }
 
 // NodeDeleteResponse returns information about a Node that was deleted.
 type NodeDeleteResponse struct {
 	// Reserved for future use.
 	Meta *DeleteResponseMetadata
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
 }
 
 // A Node is a proxy in the strongDM network. They come in two flavors: relays,
@@ -102,6 +115,8 @@ type RoleCreateResponse struct {
 	Meta *CreateResponseMetadata
 	// The created Role.
 	Role *Role
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
 }
 
 // RoleGetResponse returns a requested Role.
@@ -110,6 +125,8 @@ type RoleGetResponse struct {
 	Meta *GetResponseMetadata
 	// The requested Role.
 	Role *Role
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
 }
 
 // RoleUpdateResponse returns the fields of a Role after it has been updated by
@@ -119,12 +136,16 @@ type RoleUpdateResponse struct {
 	Meta *UpdateResponseMetadata
 	// The updated Role.
 	Role *Role
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
 }
 
 // RoleDeleteResponse returns information about a Role that was deleted.
 type RoleDeleteResponse struct {
 	// Reserved for future use.
 	Meta *DeleteResponseMetadata
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
 }
 
 // A Role grants users access to a set of resources. Composite roles have no

@@ -136,6 +136,38 @@ func repeatedDeleteResponseMetadataToPorcelain(plumbings []*proto.DeleteResponse
 	return items
 }
 
+func rateLimitMetadataToPorcelain(plumbing *proto.RateLimitMetadata) *RateLimitMetadata {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &RateLimitMetadata{}
+	return porcelain
+}
+
+func rateLimitMetadataToPlumbing(porcelain *RateLimitMetadata) *proto.RateLimitMetadata {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RateLimitMetadata{}
+	return plumbing
+}
+
+func repeatedRateLimitMetadataToPlumbing(porcelains []*RateLimitMetadata) []*proto.RateLimitMetadata {
+	var items []*proto.RateLimitMetadata
+	for _, porcelain := range porcelains {
+		items = append(items, rateLimitMetadataToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedRateLimitMetadataToPorcelain(plumbings []*proto.RateLimitMetadata) []*RateLimitMetadata {
+	var items []*RateLimitMetadata
+	for _, plumbing := range plumbings {
+		items = append(items, rateLimitMetadataToPorcelain(plumbing))
+	}
+	return items
+}
+
 func nodeCreateResponseToPorcelain(plumbing *proto.NodeCreateResponse) *NodeCreateResponse {
 	if plumbing == nil {
 		return nil
@@ -144,6 +176,7 @@ func nodeCreateResponseToPorcelain(plumbing *proto.NodeCreateResponse) *NodeCrea
 	porcelain.Meta = createResponseMetadataToPorcelain(plumbing.Meta)
 	porcelain.Node = nodeToPorcelain(plumbing.Node)
 	porcelain.Token = plumbing.Token
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
 	return porcelain
 }
 
@@ -155,6 +188,7 @@ func nodeCreateResponseToPlumbing(porcelain *NodeCreateResponse) *proto.NodeCrea
 	plumbing.Meta = createResponseMetadataToPlumbing(porcelain.Meta)
 	plumbing.Node = nodeToPlumbing(porcelain.Node)
 	plumbing.Token = porcelain.Token
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
 
@@ -181,6 +215,7 @@ func nodeGetResponseToPorcelain(plumbing *proto.NodeGetResponse) *NodeGetRespons
 	porcelain := &NodeGetResponse{}
 	porcelain.Meta = getResponseMetadataToPorcelain(plumbing.Meta)
 	porcelain.Node = nodeToPorcelain(plumbing.Node)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
 	return porcelain
 }
 
@@ -191,6 +226,7 @@ func nodeGetResponseToPlumbing(porcelain *NodeGetResponse) *proto.NodeGetRespons
 	plumbing := &proto.NodeGetResponse{}
 	plumbing.Meta = getResponseMetadataToPlumbing(porcelain.Meta)
 	plumbing.Node = nodeToPlumbing(porcelain.Node)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
 
@@ -217,6 +253,7 @@ func nodeUpdateResponseToPorcelain(plumbing *proto.NodeUpdateResponse) *NodeUpda
 	porcelain := &NodeUpdateResponse{}
 	porcelain.Meta = updateResponseMetadataToPorcelain(plumbing.Meta)
 	porcelain.Node = nodeToPorcelain(plumbing.Node)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
 	return porcelain
 }
 
@@ -227,6 +264,7 @@ func nodeUpdateResponseToPlumbing(porcelain *NodeUpdateResponse) *proto.NodeUpda
 	plumbing := &proto.NodeUpdateResponse{}
 	plumbing.Meta = updateResponseMetadataToPlumbing(porcelain.Meta)
 	plumbing.Node = nodeToPlumbing(porcelain.Node)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
 
@@ -252,6 +290,7 @@ func nodeDeleteResponseToPorcelain(plumbing *proto.NodeDeleteResponse) *NodeDele
 	}
 	porcelain := &NodeDeleteResponse{}
 	porcelain.Meta = deleteResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
 	return porcelain
 }
 
@@ -261,6 +300,7 @@ func nodeDeleteResponseToPlumbing(porcelain *NodeDeleteResponse) *proto.NodeDele
 	}
 	plumbing := &proto.NodeDeleteResponse{}
 	plumbing.Meta = deleteResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
 
@@ -408,6 +448,7 @@ func roleCreateResponseToPorcelain(plumbing *proto.RoleCreateResponse) *RoleCrea
 	porcelain := &RoleCreateResponse{}
 	porcelain.Meta = createResponseMetadataToPorcelain(plumbing.Meta)
 	porcelain.Role = roleToPorcelain(plumbing.Role)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
 	return porcelain
 }
 
@@ -418,6 +459,7 @@ func roleCreateResponseToPlumbing(porcelain *RoleCreateResponse) *proto.RoleCrea
 	plumbing := &proto.RoleCreateResponse{}
 	plumbing.Meta = createResponseMetadataToPlumbing(porcelain.Meta)
 	plumbing.Role = roleToPlumbing(porcelain.Role)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
 
@@ -444,6 +486,7 @@ func roleGetResponseToPorcelain(plumbing *proto.RoleGetResponse) *RoleGetRespons
 	porcelain := &RoleGetResponse{}
 	porcelain.Meta = getResponseMetadataToPorcelain(plumbing.Meta)
 	porcelain.Role = roleToPorcelain(plumbing.Role)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
 	return porcelain
 }
 
@@ -454,6 +497,7 @@ func roleGetResponseToPlumbing(porcelain *RoleGetResponse) *proto.RoleGetRespons
 	plumbing := &proto.RoleGetResponse{}
 	plumbing.Meta = getResponseMetadataToPlumbing(porcelain.Meta)
 	plumbing.Role = roleToPlumbing(porcelain.Role)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
 
@@ -480,6 +524,7 @@ func roleUpdateResponseToPorcelain(plumbing *proto.RoleUpdateResponse) *RoleUpda
 	porcelain := &RoleUpdateResponse{}
 	porcelain.Meta = updateResponseMetadataToPorcelain(plumbing.Meta)
 	porcelain.Role = roleToPorcelain(plumbing.Role)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
 	return porcelain
 }
 
@@ -490,6 +535,7 @@ func roleUpdateResponseToPlumbing(porcelain *RoleUpdateResponse) *proto.RoleUpda
 	plumbing := &proto.RoleUpdateResponse{}
 	plumbing.Meta = updateResponseMetadataToPlumbing(porcelain.Meta)
 	plumbing.Role = roleToPlumbing(porcelain.Role)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
 
@@ -515,6 +561,7 @@ func roleDeleteResponseToPorcelain(plumbing *proto.RoleDeleteResponse) *RoleDele
 	}
 	porcelain := &RoleDeleteResponse{}
 	porcelain.Meta = deleteResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
 	return porcelain
 }
 
@@ -524,6 +571,7 @@ func roleDeleteResponseToPlumbing(porcelain *RoleDeleteResponse) *proto.RoleDele
 	}
 	plumbing := &proto.RoleDeleteResponse{}
 	plumbing.Meta = deleteResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
 
