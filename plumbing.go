@@ -2,11 +2,20 @@ package sdm
 
 import (
 	"context"
+	"github.com/golang/protobuf/ptypes/timestamp"
 	proto "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 )
+
+func timestampTimestampToPorcelain(t *timestamp.Timestamp) *timestamp.Timestamp {
+	return t
+}
+
+func timestampTimestampToPlumbing(t *timestamp.Timestamp) *timestamp.Timestamp {
+	return t
+}
 
 func createResponseMetadataToPorcelain(plumbing *proto.CreateResponseMetadata) *CreateResponseMetadata {
 	if plumbing == nil {
@@ -141,6 +150,10 @@ func rateLimitMetadataToPorcelain(plumbing *proto.RateLimitMetadata) *RateLimitM
 		return nil
 	}
 	porcelain := &RateLimitMetadata{}
+	porcelain.Limit = plumbing.Limit
+	porcelain.Remaining = plumbing.Remaining
+	porcelain.ResetAt = timestampTimestampToPorcelain(plumbing.ResetAt)
+	porcelain.Bucket = plumbing.Bucket
 	return porcelain
 }
 
@@ -149,6 +162,10 @@ func rateLimitMetadataToPlumbing(porcelain *RateLimitMetadata) *proto.RateLimitM
 		return nil
 	}
 	plumbing := &proto.RateLimitMetadata{}
+	plumbing.Limit = porcelain.Limit
+	plumbing.Remaining = porcelain.Remaining
+	plumbing.ResetAt = timestampTimestampToPlumbing(porcelain.ResetAt)
+	plumbing.Bucket = porcelain.Bucket
 	return plumbing
 }
 

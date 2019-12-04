@@ -1,5 +1,9 @@
 package sdm
 
+import (
+	"github.com/golang/protobuf/ptypes/timestamp"
+)
+
 // CreateResponseMetadata is reserved for future use.
 type CreateResponseMetadata struct {
 }
@@ -19,6 +23,16 @@ type DeleteResponseMetadata struct {
 // RateLimitMetadata contains information about remaining requests avaialable
 // to the user over some timeframe.
 type RateLimitMetadata struct {
+	// How many total requests the user/token is authorized to make before being
+	// rate limited.
+	Limit int64
+	// How many remaining requests out of the limit are still avaialable.
+	Remaining int64
+	// The time when remaining will be reset to limit.
+	ResetAt *timestamp.Timestamp
+	// The bucket this user/token is associated with, which may be shared between
+	// multiple users/tokens.
+	Bucket string
 }
 
 // NodeCreateResponse reports how the Nodes were created in the system.
