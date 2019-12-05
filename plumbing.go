@@ -720,6 +720,7 @@ func errorToPorcelain(err error) error {
 			case *proto.RateLimitError:
 				e := &RateLimitError{}
 				e.Message = s.Message()
+				e.RateLimit = *rateLimitMetadataToPorcelain(d.RateLimit)
 				return e
 
 			}
