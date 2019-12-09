@@ -675,56 +675,58 @@ func (e *rpcError) Code() int {
 
 func errorToPorcelain(err error) error {
 	if s, ok := status.FromError(err); ok {
-		for _, details := range s.Details() {
-			switch d := details.(type) {
+		switch s.Code() {
 
-			// AlreadyExistsError is used when an entity already exists in the system
-			case *proto.AlreadyExistsError:
-				e := &AlreadyExistsError{}
-				e.Message = s.Message()
-				e.Entity = d.Entity
-				return e
+		// AlreadyExistsError is used when an entity already exists in the system
+		case 6:
+			e := &AlreadyExistsError{Message: s.Message()}
 
-			// NotFoundError is used when an entity does not exist in the system
-			case *proto.NotFoundError:
-				e := &NotFoundError{}
-				e.Message = s.Message()
-				e.Entity = d.Entity
-				return e
+			return e
 
-			// BadRequestError identifies a bad request sent by the client
-			case *proto.BadRequestError:
-				e := &BadRequestError{}
-				e.Message = s.Message()
-				return e
+		// NotFoundError is used when an entity does not exist in the system
+		case 5:
+			e := &NotFoundError{Message: s.Message()}
 
-			// AuthenticationError is used to specify an authentication failure condition
-			case *proto.AuthenticationError:
-				e := &AuthenticationError{}
-				e.Message = s.Message()
-				return e
+			return e
 
-			// PermissionError is used to specify a permissions violation
-			case *proto.PermissionError:
-				e := &PermissionError{}
-				e.Message = s.Message()
-				return e
+		// BadRequestError identifies a bad request sent by the client
+		case 3:
+			e := &BadRequestError{Message: s.Message()}
 
-			// InternalError is used to specify an internal system error
-			case *proto.InternalError:
-				e := &InternalError{}
-				e.Message = s.Message()
-				return e
+			return e
 
-			// RateLimitError is used for rate limit excess condition
-			case *proto.RateLimitError:
-				e := &RateLimitError{}
-				e.Message = s.Message()
-				e.RateLimit = *rateLimitMetadataToPorcelain(d.RateLimit)
-				return e
+		// AuthenticationError is used to specify an authentication failure condition
+		case 16:
+			e := &AuthenticationError{Message: s.Message()}
 
+			return e
+
+		// PermissionError is used to specify a permissions violation
+		case 7:
+			e := &PermissionError{Message: s.Message()}
+
+			return e
+
+		// InternalError is used to specify an internal system error
+		case 13:
+			e := &InternalError{Message: s.Message()}
+
+			return e
+
+		// RateLimitError is used for rate limit excess condition
+		case 8:
+			e := &RateLimitError{Message: s.Message()}
+
+			for _, d := range s.Details() {
+				if d, ok := d.(*proto.RateLimitMetadata); ok {
+					e.RateLimit = *rateLimitMetadataToPorcelain(d)
+				}
 			}
+
+			return e
+
 		}
+
 		if s.Code() == codes.Canceled {
 			return &ContextCanceledError{Wrapped: err}
 		}
