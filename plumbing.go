@@ -693,13 +693,11 @@ func errorToPorcelain(err error) error {
 		case codes.Internal:
 			return &InternalError{Message: s.Message()}
 		case codes.ResourceExhausted:
-			e := &RateLimitError{Message: s.Message()}
 			for _, d := range s.Details() {
 				if d, ok := d.(*proto.RateLimitMetadata); ok {
-					e.RateLimit = rateLimitMetadataToPorcelain(d)
+					return &RateLimitError{Message: s.Message(), RateLimit: rateLimitMetadataToPorcelain(d)}
 				}
 			}
-			return e
 		}
 		return &rpcError{wrapped: err, code: int(s.Code())}
 	}
