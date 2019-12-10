@@ -63,28 +63,26 @@ func (e *ContextCanceledError) Code() int {
 // AlreadyExistsError is used when an entity already exists in the system
 type AlreadyExistsError struct {
 	Message string
-	Entity  string
 }
 
-func (e *AlreadyExistsError) Error() string {
+func (e AlreadyExistsError) Error() string {
 	return e.Message
 }
 
-func (e *AlreadyExistsError) Code() int {
+func (e AlreadyExistsError) Code() int {
 	return 6
 }
 
 // NotFoundError is used when an entity does not exist in the system
 type NotFoundError struct {
 	Message string
-	Entity  string
 }
 
-func (e *NotFoundError) Error() string {
+func (e NotFoundError) Error() string {
 	return e.Message
 }
 
-func (e *NotFoundError) Code() int {
+func (e NotFoundError) Code() int {
 	return 5
 }
 
@@ -93,11 +91,11 @@ type BadRequestError struct {
 	Message string
 }
 
-func (e *BadRequestError) Error() string {
+func (e BadRequestError) Error() string {
 	return e.Message
 }
 
-func (e *BadRequestError) Code() int {
+func (e BadRequestError) Code() int {
 	return 3
 }
 
@@ -106,11 +104,11 @@ type AuthenticationError struct {
 	Message string
 }
 
-func (e *AuthenticationError) Error() string {
+func (e AuthenticationError) Error() string {
 	return e.Message
 }
 
-func (e *AuthenticationError) Code() int {
+func (e AuthenticationError) Code() int {
 	return 16
 }
 
@@ -119,11 +117,11 @@ type PermissionError struct {
 	Message string
 }
 
-func (e *PermissionError) Error() string {
+func (e PermissionError) Error() string {
 	return e.Message
 }
 
-func (e *PermissionError) Code() int {
+func (e PermissionError) Code() int {
 	return 7
 }
 
@@ -132,24 +130,24 @@ type InternalError struct {
 	Message string
 }
 
-func (e *InternalError) Error() string {
+func (e InternalError) Error() string {
 	return e.Message
 }
 
-func (e *InternalError) Code() int {
+func (e InternalError) Code() int {
 	return 13
 }
 
 // RateLimitError is used for rate limit excess condition
 type RateLimitError struct {
 	Message   string
-	RateLimit RateLimitMetadata
+	RateLimit *RateLimitMetadata
 }
 
-func (e *RateLimitError) Error() string {
+func (e RateLimitError) Error() string {
 	return e.Message
 }
 
-func (e *RateLimitError) Code() int {
+func (e RateLimitError) Code() int {
 	return 8
 }

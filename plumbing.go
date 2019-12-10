@@ -676,62 +676,30 @@ func (e *rpcError) Code() int {
 func errorToPorcelain(err error) error {
 	if s, ok := status.FromError(err); ok {
 		switch s.Code() {
-
-		// AlreadyExistsError is used when an entity already exists in the system
-		case 6:
-			e := &AlreadyExistsError{Message: s.Message()}
-
-			return e
-
-		// NotFoundError is used when an entity does not exist in the system
-		case 5:
-			e := &NotFoundError{Message: s.Message()}
-
-			return e
-
-		// BadRequestError identifies a bad request sent by the client
-		case 3:
-			e := &BadRequestError{Message: s.Message()}
-
-			return e
-
-		// AuthenticationError is used to specify an authentication failure condition
-		case 16:
-			e := &AuthenticationError{Message: s.Message()}
-
-			return e
-
-		// PermissionError is used to specify a permissions violation
-		case 7:
-			e := &PermissionError{Message: s.Message()}
-
-			return e
-
-		// InternalError is used to specify an internal system error
-		case 13:
-			e := &InternalError{Message: s.Message()}
-
-			return e
-
-		// RateLimitError is used for rate limit excess condition
-		case 8:
+		case codes.Canceled:
+			return &ContextCanceledError{Wrapped: err}
+		case codes.DeadlineExceeded:
+			return &DeadlineExceededError{Wrapped: err}
+		case codes.AlreadyExists:
+			return &AlreadyExistsError{Message: s.Message()}
+		case codes.NotFound:
+			return &NotFoundError{Message: s.Message()}
+		case codes.InvalidArgument:
+			return &BadRequestError{Message: s.Message()}
+		case codes.Unauthenticated:
+			return &AuthenticationError{Message: s.Message()}
+		case codes.PermissionDenied:
+			return &PermissionError{Message: s.Message()}
+		case codes.Internal:
+			return &InternalError{Message: s.Message()}
+		case codes.ResourceExhausted:
 			e := &RateLimitError{Message: s.Message()}
-
 			for _, d := range s.Details() {
 				if d, ok := d.(*proto.RateLimitMetadata); ok {
-					e.RateLimit = *rateLimitMetadataToPorcelain(d)
+					e.RateLimit = rateLimitMetadataToPorcelain(d)
 				}
 			}
-
 			return e
-
-		}
-
-		if s.Code() == codes.Canceled {
-			return &ContextCanceledError{Wrapped: err}
-		}
-		if s.Code() == codes.DeadlineExceeded {
-			return &DeadlineExceededError{Wrapped: err}
 		}
 		return &rpcError{wrapped: err, code: int(s.Code())}
 	}
