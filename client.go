@@ -5,11 +5,16 @@ package sdm
 
 import (
 	"context"
+	"crypto/hmac"
+	"crypto/sha256"
 	"crypto/tls"
+	"encoding/base64"
 	"fmt"
 	"net"
 	"sync"
+	"time"
 
+	"github.com/golang/protobuf/proto"
 	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -26,19 +31,25 @@ type Client struct {
 	testOptionsMu sync.RWMutex
 	testOptions   map[string]interface{}
 
-	apiToken string
-	grpcConn *grpc.ClientConn
-	nodes    *Nodes
-	roles    *Roles
+	apiToken  string
+	apiSecret []byte
+	grpcConn  *grpc.ClientConn
+	nodes     *Nodes
+	roles     *Roles
 }
 
 // New creates a new strongDM API client.
-func New(host string, key string) (*Client, error) {
+func New(host, token, secret string) (*Client, error) {
 	var opts []grpc.DialOption
 
 	_, port, err := net.SplitHostPort(host)
 	if err != nil {
 		return nil, errorToPorcelain(fmt.Errorf("cannot parse host and port: %w", err))
+	}
+
+	decodedSecret, err := base64.StdEncoding.DecodeString(secret)
+	if err != nil {
+		return nil, errorToPorcelain(fmt.Errorf("invalid secret: %w", err))
 	}
 
 	if port == "443" {
@@ -60,7 +71,8 @@ func New(host string, key string) (*Client, error) {
 	client := &Client{
 		grpcConn:    cc,
 		testOptions: map[string]interface{}{},
-		apiToken:    key,
+		apiToken:    token,
+		apiSecret:   decodedSecret,
 	}
 
 	client.nodes = &Nodes{
@@ -74,10 +86,6 @@ func New(host string, key string) (*Client, error) {
 	}
 
 	return client, nil
-}
-
-func (c *Client) wrapContext(ctx context.Context) context.Context {
-	return createGRPCContext(ctx, c.apiToken)
 }
 
 // Nodes are proxies in the strongDM network. They come in two flavors: relays,
@@ -94,6 +102,36 @@ func (c *Client) Nodes() *Nodes {
 // Each user can be a member of one Role or composite role.
 func (c *Client) Roles() *Roles {
 	return c.roles
+}
+
+// Sign returns the signature for the given byte array
+func (c *Client) Sign(message []byte) string {
+	// Current UTC date
+	y, m, d := time.Now().Date()
+	currentDate := time.Date(y, m, d, 0, 0, 0, 0, time.UTC).Format(time.RFC3339)
+
+	signingKey := hmacHelper(c.apiSecret, []byte(currentDate))
+	signingKey = hmacHelper(signingKey, []byte("sdm_api_v1"))
+
+	hash := sha256.New()
+	hash.Write(message)
+	hashedMessage := hash.Sum(nil)
+
+	return base64.StdEncoding.EncodeToString(hmacHelper(signingKey, hashedMessage))
+}
+
+func hmacHelper(key, msg []byte) []byte {
+	mac := hmac.New(sha256.New, key)
+	mac.Write(msg)
+	return mac.Sum(nil)
+}
+
+func (c *Client) wrapContext(ctx context.Context, req proto.Message) context.Context {
+	msg, _ := proto.Marshal(req)
+	return metadata.NewOutgoingContext(ctx, metadata.New(map[string]string{
+		"authorization":   c.apiToken,
+		"x-sdm-signature": c.Sign(msg),
+	}))
 }
 
 func (c *Client) testOption(key string) interface{} {

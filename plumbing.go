@@ -1,12 +1,10 @@
 package sdm
 
 import (
-	"context"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	proto "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 	"time"
 )
@@ -788,10 +786,4 @@ func (r *roleIteratorImpl) Value() *Role {
 
 func (r *roleIteratorImpl) Err() error {
 	return r.err
-}
-
-func createGRPCContext(ctx context.Context, token string) context.Context {
-	return metadata.NewOutgoingContext(ctx, metadata.New(map[string]string{
-		"authorization": token,
-	}))
 }

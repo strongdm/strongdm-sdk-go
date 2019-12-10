@@ -19,7 +19,7 @@ func (svc *Nodes) Create(ctx context.Context, node Node) (*NodeCreateResponse, e
 	req := &plumbing.NodeCreateRequest{}
 	req.Node = nodeToPlumbing(node)
 
-	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx), req)
+	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req), req)
 	if err != nil {
 		return nil, errorToPorcelain(err)
 	}
@@ -36,7 +36,7 @@ func (svc *Nodes) Get(ctx context.Context, id string) (*NodeGetResponse, error) 
 	req := &plumbing.NodeGetRequest{}
 	req.Id = id
 
-	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx), req)
+	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx, req), req)
 	if err != nil {
 		return nil, errorToPorcelain(err)
 	}
@@ -52,7 +52,7 @@ func (svc *Nodes) Update(ctx context.Context, node Node) (*NodeUpdateResponse, e
 	req := &plumbing.NodeUpdateRequest{}
 	req.Node = nodeToPlumbing(node)
 
-	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx), req)
+	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx, req), req)
 	if err != nil {
 		return nil, errorToPorcelain(err)
 	}
@@ -68,7 +68,7 @@ func (svc *Nodes) Delete(ctx context.Context, id string) (*NodeDeleteResponse, e
 	req := &plumbing.NodeDeleteRequest{}
 	req.Id = id
 
-	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx), req)
+	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx, req), req)
 	if err != nil {
 		return nil, errorToPorcelain(err)
 	}
@@ -92,7 +92,7 @@ func (svc *Nodes) List(ctx context.Context, filter string) NodeIterator {
 	}
 	return newNodeIteratorImpl(
 		func() ([]Node, bool, error) {
-			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx), req)
+			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx, req), req)
 			if err != nil {
 				return nil, false, errorToPorcelain(err)
 			}
@@ -118,7 +118,7 @@ func (svc *Roles) Create(ctx context.Context, role *Role) (*RoleCreateResponse, 
 	req := &plumbing.RoleCreateRequest{}
 	req.Role = roleToPlumbing(role)
 
-	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx), req)
+	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req), req)
 	if err != nil {
 		return nil, errorToPorcelain(err)
 	}
@@ -134,7 +134,7 @@ func (svc *Roles) Get(ctx context.Context, id string) (*RoleGetResponse, error) 
 	req := &plumbing.RoleGetRequest{}
 	req.Id = id
 
-	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx), req)
+	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx, req), req)
 	if err != nil {
 		return nil, errorToPorcelain(err)
 	}
@@ -150,7 +150,7 @@ func (svc *Roles) Update(ctx context.Context, role *Role) (*RoleUpdateResponse, 
 	req := &plumbing.RoleUpdateRequest{}
 	req.Role = roleToPlumbing(role)
 
-	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx), req)
+	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx, req), req)
 	if err != nil {
 		return nil, errorToPorcelain(err)
 	}
@@ -166,7 +166,7 @@ func (svc *Roles) Delete(ctx context.Context, id string) (*RoleDeleteResponse, e
 	req := &plumbing.RoleDeleteRequest{}
 	req.Id = id
 
-	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx), req)
+	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx, req), req)
 	if err != nil {
 		return nil, errorToPorcelain(err)
 	}
@@ -190,7 +190,7 @@ func (svc *Roles) List(ctx context.Context, filter string) RoleIterator {
 	}
 	return newRoleIteratorImpl(
 		func() ([]*Role, bool, error) {
-			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx), req)
+			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx, req), req)
 			if err != nil {
 				return nil, false, errorToPorcelain(err)
 			}
