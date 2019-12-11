@@ -27,8 +27,7 @@ var _ = math.Inf
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
 // RoleCreateRequest specifies what kind of Roles that should be registered in
-// the organizations fleet. Note that a Role must be either a Relay or a
-// Gateway.
+// the organizations fleet.
 type RoleCreateRequest struct {
 	// Reserved for future use.
 	Meta *CreateRequestMetadata `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`

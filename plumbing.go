@@ -193,6 +193,156 @@ func repeatedRateLimitMetadataToPorcelain(plumbings []*proto.RateLimitMetadata) 
 	return items
 }
 
+func attachmentCreateResponseToPorcelain(plumbing *proto.AttachmentCreateResponse) *AttachmentCreateResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AttachmentCreateResponse{}
+	porcelain.Meta = createResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.Attachment = attachmentToPorcelain(plumbing.Attachment)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func attachmentCreateResponseToPlumbing(porcelain *AttachmentCreateResponse) *proto.AttachmentCreateResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AttachmentCreateResponse{}
+	plumbing.Meta = createResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.Attachment = attachmentToPlumbing(porcelain.Attachment)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+
+func repeatedAttachmentCreateResponseToPlumbing(porcelains []*AttachmentCreateResponse) []*proto.AttachmentCreateResponse {
+	var items []*proto.AttachmentCreateResponse
+	for _, porcelain := range porcelains {
+		items = append(items, attachmentCreateResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAttachmentCreateResponseToPorcelain(plumbings []*proto.AttachmentCreateResponse) []*AttachmentCreateResponse {
+	var items []*AttachmentCreateResponse
+	for _, plumbing := range plumbings {
+		items = append(items, attachmentCreateResponseToPorcelain(plumbing))
+	}
+	return items
+}
+
+func attachmentGetResponseToPorcelain(plumbing *proto.AttachmentGetResponse) *AttachmentGetResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AttachmentGetResponse{}
+	porcelain.Meta = getResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.Attachment = attachmentToPorcelain(plumbing.Attachment)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func attachmentGetResponseToPlumbing(porcelain *AttachmentGetResponse) *proto.AttachmentGetResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AttachmentGetResponse{}
+	plumbing.Meta = getResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.Attachment = attachmentToPlumbing(porcelain.Attachment)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+
+func repeatedAttachmentGetResponseToPlumbing(porcelains []*AttachmentGetResponse) []*proto.AttachmentGetResponse {
+	var items []*proto.AttachmentGetResponse
+	for _, porcelain := range porcelains {
+		items = append(items, attachmentGetResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAttachmentGetResponseToPorcelain(plumbings []*proto.AttachmentGetResponse) []*AttachmentGetResponse {
+	var items []*AttachmentGetResponse
+	for _, plumbing := range plumbings {
+		items = append(items, attachmentGetResponseToPorcelain(plumbing))
+	}
+	return items
+}
+
+func attachmentDeleteResponseToPorcelain(plumbing *proto.AttachmentDeleteResponse) *AttachmentDeleteResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AttachmentDeleteResponse{}
+	porcelain.Meta = deleteResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func attachmentDeleteResponseToPlumbing(porcelain *AttachmentDeleteResponse) *proto.AttachmentDeleteResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AttachmentDeleteResponse{}
+	plumbing.Meta = deleteResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+
+func repeatedAttachmentDeleteResponseToPlumbing(porcelains []*AttachmentDeleteResponse) []*proto.AttachmentDeleteResponse {
+	var items []*proto.AttachmentDeleteResponse
+	for _, porcelain := range porcelains {
+		items = append(items, attachmentDeleteResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAttachmentDeleteResponseToPorcelain(plumbings []*proto.AttachmentDeleteResponse) []*AttachmentDeleteResponse {
+	var items []*AttachmentDeleteResponse
+	for _, plumbing := range plumbings {
+		items = append(items, attachmentDeleteResponseToPorcelain(plumbing))
+	}
+	return items
+}
+
+func attachmentToPorcelain(plumbing *proto.Attachment) *Attachment {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Attachment{}
+	porcelain.ID = plumbing.Id
+	porcelain.CompositeRoleID = plumbing.CompositeRoleId
+	porcelain.AttachedRoleID = plumbing.AttachedRoleId
+	return porcelain
+}
+
+func attachmentToPlumbing(porcelain *Attachment) *proto.Attachment {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Attachment{}
+	plumbing.Id = porcelain.ID
+	plumbing.CompositeRoleId = porcelain.CompositeRoleID
+	plumbing.AttachedRoleId = porcelain.AttachedRoleID
+	return plumbing
+}
+
+func repeatedAttachmentToPlumbing(porcelains []*Attachment) []*proto.Attachment {
+	var items []*proto.Attachment
+	for _, porcelain := range porcelains {
+		items = append(items, attachmentToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAttachmentToPorcelain(plumbings []*proto.Attachment) []*Attachment {
+	var items []*Attachment
+	for _, plumbing := range plumbings {
+		items = append(items, attachmentToPorcelain(plumbing))
+	}
+	return items
+}
+
 func nodeCreateResponseToPorcelain(plumbing *proto.NodeCreateResponse) *NodeCreateResponse {
 	if plumbing == nil {
 		return nil
@@ -700,6 +850,49 @@ func errorToPorcelain(err error) error {
 		return &rpcError{wrapped: err, code: int(s.Code())}
 	}
 	return &UnknownError{Wrapped: err}
+}
+
+type attachmentIteratorImplFetchFunc func() ([]*Attachment, bool, error)
+type attachmentIteratorImpl struct {
+	buffer      []*Attachment
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       attachmentIteratorImplFetchFunc
+}
+
+func newAttachmentIteratorImpl(f attachmentIteratorImplFetchFunc) *attachmentIteratorImpl {
+	return &attachmentIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (a *attachmentIteratorImpl) Next() bool {
+	if a.index < len(a.buffer)-1 {
+		a.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !a.hasNextPage {
+		return false
+	}
+
+	a.index = 0
+	a.buffer, a.hasNextPage, a.err = a.fetch()
+	return len(a.buffer) > 0
+}
+
+func (a *attachmentIteratorImpl) Value() *Attachment {
+	if a.index >= len(a.buffer) {
+		return nil
+	}
+	return a.buffer[a.index]
+}
+
+func (a *attachmentIteratorImpl) Err() error {
+	return a.err
 }
 
 type nodeIteratorImplFetchFunc func() ([]Node, bool, error)
