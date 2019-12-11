@@ -59,9 +59,10 @@ func (svc *Attachments) Delete(ctx context.Context, id string) (*AttachmentDelet
 }
 
 // List gets a list of Attachments matching a given set of criteria.
-func (svc *Attachments) List(ctx context.Context, filter string) AttachmentIterator {
+func (svc *Attachments) List(ctx context.Context, filter string, composite_role_id string) AttachmentIterator {
 	req := &plumbing.AttachmentListRequest{}
 	req.Filter = filter
+	req.CompositeRoleId = composite_role_id
 
 	req.Meta = &plumbing.ListRequestMetadata{}
 	if value := svc.parent.testOption("PageLimit"); value != nil {
