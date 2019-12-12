@@ -115,15 +115,17 @@ func (c *Client) Roles() *Roles {
 }
 
 // Sign returns the signature for the given byte array
-func (c *Client) Sign(message []byte) string {
+func (c *Client) Sign(methodName string, message []byte) string {
 	// Current UTC date
 	y, m, d := time.Now().Date()
-	currentDate := time.Date(y, m, d, 0, 0, 0, 0, time.UTC).Format(time.RFC3339)
+	currentDate := fmt.Sprintf("%04d-%02d-%02d", y, m, d)
 
 	signingKey := hmacHelper(c.apiSecret, []byte(currentDate))
 	signingKey = hmacHelper(signingKey, []byte("sdm_api_v1"))
 
 	hash := sha256.New()
+	hash.Write([]byte(methodName))
+	hash.Write([]byte{'\n'})
 	hash.Write(message)
 	hashedMessage := hash.Sum(nil)
 
@@ -136,11 +138,11 @@ func hmacHelper(key, msg []byte) []byte {
 	return mac.Sum(nil)
 }
 
-func (c *Client) wrapContext(ctx context.Context, req proto.Message) context.Context {
+func (c *Client) wrapContext(ctx context.Context, req proto.Message, methodName string) context.Context {
 	msg, _ := proto.Marshal(req)
 	return metadata.NewOutgoingContext(ctx, metadata.New(map[string]string{
-		"authorization":   c.apiToken,
-		"x-sdm-signature": c.Sign(msg),
+		"x-sdm-authentication": c.apiToken,
+		"x-sdm-signature":      c.Sign(methodName, msg),
 	}))
 }
 
