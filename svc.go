@@ -108,8 +108,7 @@ type RoleAttachments struct {
 func (svc *RoleAttachments) Create(ctx context.Context, role_attachment *RoleAttachment) (*RoleAttachmentCreateResponse, error) {
 	req := &plumbing.RoleAttachmentCreateRequest{}
 	req.RoleAttachment = roleAttachmentToPlumbing(role_attachment)
-
-	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req), req)
+	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req, "RoleAttachments.Create"), req)
 	if err != nil {
 		return nil, errorToPorcelain(err)
 	}
@@ -124,8 +123,7 @@ func (svc *RoleAttachments) Create(ctx context.Context, role_attachment *RoleAtt
 func (svc *RoleAttachments) Get(ctx context.Context, id string) (*RoleAttachmentGetResponse, error) {
 	req := &plumbing.RoleAttachmentGetRequest{}
 	req.Id = id
-
-	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx, req), req)
+	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx, req, "RoleAttachments.Get"), req)
 	if err != nil {
 		return nil, errorToPorcelain(err)
 	}
@@ -140,8 +138,7 @@ func (svc *RoleAttachments) Get(ctx context.Context, id string) (*RoleAttachment
 func (svc *RoleAttachments) Delete(ctx context.Context, id string) (*RoleAttachmentDeleteResponse, error) {
 	req := &plumbing.RoleAttachmentDeleteRequest{}
 	req.Id = id
-
-	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx, req), req)
+	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx, req, "RoleAttachments.Delete"), req)
 	if err != nil {
 		return nil, errorToPorcelain(err)
 	}
@@ -166,7 +163,7 @@ func (svc *RoleAttachments) List(ctx context.Context, filter string, composite_r
 	}
 	return newRoleAttachmentIteratorImpl(
 		func() ([]*RoleAttachment, bool, error) {
-			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx, req), req)
+			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx, req, "RoleAttachments.List"), req)
 			if err != nil {
 				return nil, false, errorToPorcelain(err)
 			}
