@@ -35,43 +35,6 @@ type RateLimitMetadata struct {
 	Bucket string
 }
 
-// AttachmentCreateResponse reports how the Attachments were created in the system.
-type AttachmentCreateResponse struct {
-	// Reserved for future use.
-	Meta *CreateResponseMetadata
-	// The created Attachment.
-	Attachment *Attachment
-	// Rate limit information.
-	RateLimit *RateLimitMetadata
-}
-
-// AttachmentGetResponse returns a requested Attachment.
-type AttachmentGetResponse struct {
-	// Reserved for future use.
-	Meta *GetResponseMetadata
-	// The requested Attachment.
-	Attachment *Attachment
-	// Rate limit information.
-	RateLimit *RateLimitMetadata
-}
-
-// AttachmentDeleteResponse returns information about a Attachment that was deleted.
-type AttachmentDeleteResponse struct {
-	// Reserved for future use.
-	Meta *DeleteResponseMetadata
-	// Rate limit information.
-	RateLimit *RateLimitMetadata
-}
-
-type Attachment struct {
-	// Unique identifier of the Attachment.
-	ID string
-
-	CompositeRoleID string
-
-	AttachedRoleID string
-}
-
 // NodeCreateResponse reports how the Nodes were created in the system.
 type NodeCreateResponse struct {
 	// Reserved for future use.
@@ -159,6 +122,43 @@ type Gateway struct {
 	BindAddress string
 }
 
+// RoleAttachmentCreateResponse reports how the RoleAttachments were created in the system.
+type RoleAttachmentCreateResponse struct {
+	// Reserved for future use.
+	Meta *CreateResponseMetadata
+	// The created RoleAttachment.
+	RoleAttachment *RoleAttachment
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// RoleAttachmentGetResponse returns a requested RoleAttachment.
+type RoleAttachmentGetResponse struct {
+	// Reserved for future use.
+	Meta *GetResponseMetadata
+	// The requested RoleAttachment.
+	RoleAttachment *RoleAttachment
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// RoleAttachmentDeleteResponse returns information about a RoleAttachment that was deleted.
+type RoleAttachmentDeleteResponse struct {
+	// Reserved for future use.
+	Meta *DeleteResponseMetadata
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+type RoleAttachment struct {
+	// Unique identifier of the RoleAttachment.
+	ID string
+
+	CompositeRoleID string
+
+	AttachedRoleID string
+}
+
 // RoleCreateResponse reports how the Roles were created in the system. It can
 // communicate partial successes or failures.
 type RoleCreateResponse struct {
@@ -211,22 +211,6 @@ type Role struct {
 	Composite bool
 }
 
-// AttachmentIterator provides read access to a list of Attachment.
-// Use it like so:
-//     for iterator.Next() {
-//         attachment := iterator.Value()
-//         // ...
-//     }
-type AttachmentIterator interface {
-	// Next advances the iterator to the next item in the list. It returns
-	// true if an item is available to retrieve via the `Value()` function.
-	Next() bool
-	// Value returns the current item, if one is available.
-	Value() *Attachment
-	// Err returns the first error encountered during iteration, if any.
-	Err() error
-}
-
 // NodeIterator provides read access to a list of Node.
 // Use it like so:
 //     for iterator.Next() {
@@ -239,6 +223,22 @@ type NodeIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() Node
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// RoleAttachmentIterator provides read access to a list of RoleAttachment.
+// Use it like so:
+//     for iterator.Next() {
+//         roleAttachment := iterator.Value()
+//         // ...
+//     }
+type RoleAttachmentIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *RoleAttachment
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }

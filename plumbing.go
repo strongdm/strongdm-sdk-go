@@ -193,156 +193,6 @@ func repeatedRateLimitMetadataToPorcelain(plumbings []*proto.RateLimitMetadata) 
 	return items
 }
 
-func attachmentCreateResponseToPorcelain(plumbing *proto.AttachmentCreateResponse) *AttachmentCreateResponse {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &AttachmentCreateResponse{}
-	porcelain.Meta = createResponseMetadataToPorcelain(plumbing.Meta)
-	porcelain.Attachment = attachmentToPorcelain(plumbing.Attachment)
-	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
-	return porcelain
-}
-
-func attachmentCreateResponseToPlumbing(porcelain *AttachmentCreateResponse) *proto.AttachmentCreateResponse {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.AttachmentCreateResponse{}
-	plumbing.Meta = createResponseMetadataToPlumbing(porcelain.Meta)
-	plumbing.Attachment = attachmentToPlumbing(porcelain.Attachment)
-	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
-	return plumbing
-}
-
-func repeatedAttachmentCreateResponseToPlumbing(porcelains []*AttachmentCreateResponse) []*proto.AttachmentCreateResponse {
-	var items []*proto.AttachmentCreateResponse
-	for _, porcelain := range porcelains {
-		items = append(items, attachmentCreateResponseToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedAttachmentCreateResponseToPorcelain(plumbings []*proto.AttachmentCreateResponse) []*AttachmentCreateResponse {
-	var items []*AttachmentCreateResponse
-	for _, plumbing := range plumbings {
-		items = append(items, attachmentCreateResponseToPorcelain(plumbing))
-	}
-	return items
-}
-
-func attachmentGetResponseToPorcelain(plumbing *proto.AttachmentGetResponse) *AttachmentGetResponse {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &AttachmentGetResponse{}
-	porcelain.Meta = getResponseMetadataToPorcelain(plumbing.Meta)
-	porcelain.Attachment = attachmentToPorcelain(plumbing.Attachment)
-	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
-	return porcelain
-}
-
-func attachmentGetResponseToPlumbing(porcelain *AttachmentGetResponse) *proto.AttachmentGetResponse {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.AttachmentGetResponse{}
-	plumbing.Meta = getResponseMetadataToPlumbing(porcelain.Meta)
-	plumbing.Attachment = attachmentToPlumbing(porcelain.Attachment)
-	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
-	return plumbing
-}
-
-func repeatedAttachmentGetResponseToPlumbing(porcelains []*AttachmentGetResponse) []*proto.AttachmentGetResponse {
-	var items []*proto.AttachmentGetResponse
-	for _, porcelain := range porcelains {
-		items = append(items, attachmentGetResponseToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedAttachmentGetResponseToPorcelain(plumbings []*proto.AttachmentGetResponse) []*AttachmentGetResponse {
-	var items []*AttachmentGetResponse
-	for _, plumbing := range plumbings {
-		items = append(items, attachmentGetResponseToPorcelain(plumbing))
-	}
-	return items
-}
-
-func attachmentDeleteResponseToPorcelain(plumbing *proto.AttachmentDeleteResponse) *AttachmentDeleteResponse {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &AttachmentDeleteResponse{}
-	porcelain.Meta = deleteResponseMetadataToPorcelain(plumbing.Meta)
-	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
-	return porcelain
-}
-
-func attachmentDeleteResponseToPlumbing(porcelain *AttachmentDeleteResponse) *proto.AttachmentDeleteResponse {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.AttachmentDeleteResponse{}
-	plumbing.Meta = deleteResponseMetadataToPlumbing(porcelain.Meta)
-	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
-	return plumbing
-}
-
-func repeatedAttachmentDeleteResponseToPlumbing(porcelains []*AttachmentDeleteResponse) []*proto.AttachmentDeleteResponse {
-	var items []*proto.AttachmentDeleteResponse
-	for _, porcelain := range porcelains {
-		items = append(items, attachmentDeleteResponseToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedAttachmentDeleteResponseToPorcelain(plumbings []*proto.AttachmentDeleteResponse) []*AttachmentDeleteResponse {
-	var items []*AttachmentDeleteResponse
-	for _, plumbing := range plumbings {
-		items = append(items, attachmentDeleteResponseToPorcelain(plumbing))
-	}
-	return items
-}
-
-func attachmentToPorcelain(plumbing *proto.Attachment) *Attachment {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &Attachment{}
-	porcelain.ID = plumbing.Id
-	porcelain.CompositeRoleID = plumbing.CompositeRoleId
-	porcelain.AttachedRoleID = plumbing.AttachedRoleId
-	return porcelain
-}
-
-func attachmentToPlumbing(porcelain *Attachment) *proto.Attachment {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.Attachment{}
-	plumbing.Id = porcelain.ID
-	plumbing.CompositeRoleId = porcelain.CompositeRoleID
-	plumbing.AttachedRoleId = porcelain.AttachedRoleID
-	return plumbing
-}
-
-func repeatedAttachmentToPlumbing(porcelains []*Attachment) []*proto.Attachment {
-	var items []*proto.Attachment
-	for _, porcelain := range porcelains {
-		items = append(items, attachmentToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedAttachmentToPorcelain(plumbings []*proto.Attachment) []*Attachment {
-	var items []*Attachment
-	for _, plumbing := range plumbings {
-		items = append(items, attachmentToPorcelain(plumbing))
-	}
-	return items
-}
-
 func nodeCreateResponseToPorcelain(plumbing *proto.NodeCreateResponse) *NodeCreateResponse {
 	if plumbing == nil {
 		return nil
@@ -616,6 +466,156 @@ func repeatedGatewayToPorcelain(plumbings []*proto.Gateway) []*Gateway {
 	return items
 }
 
+func roleAttachmentCreateResponseToPorcelain(plumbing *proto.RoleAttachmentCreateResponse) *RoleAttachmentCreateResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &RoleAttachmentCreateResponse{}
+	porcelain.Meta = createResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RoleAttachment = roleAttachmentToPorcelain(plumbing.RoleAttachment)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func roleAttachmentCreateResponseToPlumbing(porcelain *RoleAttachmentCreateResponse) *proto.RoleAttachmentCreateResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RoleAttachmentCreateResponse{}
+	plumbing.Meta = createResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RoleAttachment = roleAttachmentToPlumbing(porcelain.RoleAttachment)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+
+func repeatedRoleAttachmentCreateResponseToPlumbing(porcelains []*RoleAttachmentCreateResponse) []*proto.RoleAttachmentCreateResponse {
+	var items []*proto.RoleAttachmentCreateResponse
+	for _, porcelain := range porcelains {
+		items = append(items, roleAttachmentCreateResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedRoleAttachmentCreateResponseToPorcelain(plumbings []*proto.RoleAttachmentCreateResponse) []*RoleAttachmentCreateResponse {
+	var items []*RoleAttachmentCreateResponse
+	for _, plumbing := range plumbings {
+		items = append(items, roleAttachmentCreateResponseToPorcelain(plumbing))
+	}
+	return items
+}
+
+func roleAttachmentGetResponseToPorcelain(plumbing *proto.RoleAttachmentGetResponse) *RoleAttachmentGetResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &RoleAttachmentGetResponse{}
+	porcelain.Meta = getResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RoleAttachment = roleAttachmentToPorcelain(plumbing.RoleAttachment)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func roleAttachmentGetResponseToPlumbing(porcelain *RoleAttachmentGetResponse) *proto.RoleAttachmentGetResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RoleAttachmentGetResponse{}
+	plumbing.Meta = getResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RoleAttachment = roleAttachmentToPlumbing(porcelain.RoleAttachment)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+
+func repeatedRoleAttachmentGetResponseToPlumbing(porcelains []*RoleAttachmentGetResponse) []*proto.RoleAttachmentGetResponse {
+	var items []*proto.RoleAttachmentGetResponse
+	for _, porcelain := range porcelains {
+		items = append(items, roleAttachmentGetResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedRoleAttachmentGetResponseToPorcelain(plumbings []*proto.RoleAttachmentGetResponse) []*RoleAttachmentGetResponse {
+	var items []*RoleAttachmentGetResponse
+	for _, plumbing := range plumbings {
+		items = append(items, roleAttachmentGetResponseToPorcelain(plumbing))
+	}
+	return items
+}
+
+func roleAttachmentDeleteResponseToPorcelain(plumbing *proto.RoleAttachmentDeleteResponse) *RoleAttachmentDeleteResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &RoleAttachmentDeleteResponse{}
+	porcelain.Meta = deleteResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func roleAttachmentDeleteResponseToPlumbing(porcelain *RoleAttachmentDeleteResponse) *proto.RoleAttachmentDeleteResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RoleAttachmentDeleteResponse{}
+	plumbing.Meta = deleteResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+
+func repeatedRoleAttachmentDeleteResponseToPlumbing(porcelains []*RoleAttachmentDeleteResponse) []*proto.RoleAttachmentDeleteResponse {
+	var items []*proto.RoleAttachmentDeleteResponse
+	for _, porcelain := range porcelains {
+		items = append(items, roleAttachmentDeleteResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedRoleAttachmentDeleteResponseToPorcelain(plumbings []*proto.RoleAttachmentDeleteResponse) []*RoleAttachmentDeleteResponse {
+	var items []*RoleAttachmentDeleteResponse
+	for _, plumbing := range plumbings {
+		items = append(items, roleAttachmentDeleteResponseToPorcelain(plumbing))
+	}
+	return items
+}
+
+func roleAttachmentToPorcelain(plumbing *proto.RoleAttachment) *RoleAttachment {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &RoleAttachment{}
+	porcelain.ID = plumbing.Id
+	porcelain.CompositeRoleID = plumbing.CompositeRoleId
+	porcelain.AttachedRoleID = plumbing.AttachedRoleId
+	return porcelain
+}
+
+func roleAttachmentToPlumbing(porcelain *RoleAttachment) *proto.RoleAttachment {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RoleAttachment{}
+	plumbing.Id = porcelain.ID
+	plumbing.CompositeRoleId = porcelain.CompositeRoleID
+	plumbing.AttachedRoleId = porcelain.AttachedRoleID
+	return plumbing
+}
+
+func repeatedRoleAttachmentToPlumbing(porcelains []*RoleAttachment) []*proto.RoleAttachment {
+	var items []*proto.RoleAttachment
+	for _, porcelain := range porcelains {
+		items = append(items, roleAttachmentToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedRoleAttachmentToPorcelain(plumbings []*proto.RoleAttachment) []*RoleAttachment {
+	var items []*RoleAttachment
+	for _, plumbing := range plumbings {
+		items = append(items, roleAttachmentToPorcelain(plumbing))
+	}
+	return items
+}
+
 func roleCreateResponseToPorcelain(plumbing *proto.RoleCreateResponse) *RoleCreateResponse {
 	if plumbing == nil {
 		return nil
@@ -852,49 +852,6 @@ func errorToPorcelain(err error) error {
 	return &UnknownError{Wrapped: err}
 }
 
-type attachmentIteratorImplFetchFunc func() ([]*Attachment, bool, error)
-type attachmentIteratorImpl struct {
-	buffer      []*Attachment
-	index       int
-	hasNextPage bool
-	err         error
-	fetch       attachmentIteratorImplFetchFunc
-}
-
-func newAttachmentIteratorImpl(f attachmentIteratorImplFetchFunc) *attachmentIteratorImpl {
-	return &attachmentIteratorImpl{
-		hasNextPage: true,
-		fetch:       f,
-	}
-}
-
-func (a *attachmentIteratorImpl) Next() bool {
-	if a.index < len(a.buffer)-1 {
-		a.index++
-		return true
-	}
-
-	// reached end of buffer
-	if !a.hasNextPage {
-		return false
-	}
-
-	a.index = 0
-	a.buffer, a.hasNextPage, a.err = a.fetch()
-	return len(a.buffer) > 0
-}
-
-func (a *attachmentIteratorImpl) Value() *Attachment {
-	if a.index >= len(a.buffer) {
-		return nil
-	}
-	return a.buffer[a.index]
-}
-
-func (a *attachmentIteratorImpl) Err() error {
-	return a.err
-}
-
 type nodeIteratorImplFetchFunc func() ([]Node, bool, error)
 type nodeIteratorImpl struct {
 	buffer      []Node
@@ -936,6 +893,49 @@ func (n *nodeIteratorImpl) Value() Node {
 
 func (n *nodeIteratorImpl) Err() error {
 	return n.err
+}
+
+type roleAttachmentIteratorImplFetchFunc func() ([]*RoleAttachment, bool, error)
+type roleAttachmentIteratorImpl struct {
+	buffer      []*RoleAttachment
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       roleAttachmentIteratorImplFetchFunc
+}
+
+func newRoleAttachmentIteratorImpl(f roleAttachmentIteratorImplFetchFunc) *roleAttachmentIteratorImpl {
+	return &roleAttachmentIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *roleAttachmentIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *roleAttachmentIteratorImpl) Value() *RoleAttachment {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *roleAttachmentIteratorImpl) Err() error {
+	return r.err
 }
 
 type roleIteratorImplFetchFunc func() ([]*Role, bool, error)

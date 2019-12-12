@@ -6,84 +6,6 @@ import (
 	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 )
 
-type Attachments struct {
-	client plumbing.AttachmentsClient
-	parent *Client
-}
-
-// Create registers a new Attachment.
-func (svc *Attachments) Create(ctx context.Context, attachment *Attachment) (*AttachmentCreateResponse, error) {
-	req := &plumbing.AttachmentCreateRequest{}
-	req.Attachment = attachmentToPlumbing(attachment)
-
-	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
-	}
-	resp := &AttachmentCreateResponse{}
-	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Attachment = attachmentToPorcelain(plumbingResponse.Attachment)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
-}
-
-// Get reads one Attachment by ID.
-func (svc *Attachments) Get(ctx context.Context, id string) (*AttachmentGetResponse, error) {
-	req := &plumbing.AttachmentGetRequest{}
-	req.Id = id
-
-	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx, req), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
-	}
-	resp := &AttachmentGetResponse{}
-	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Attachment = attachmentToPorcelain(plumbingResponse.Attachment)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
-}
-
-// Delete removes an Attachment by ID.
-func (svc *Attachments) Delete(ctx context.Context, id string) (*AttachmentDeleteResponse, error) {
-	req := &plumbing.AttachmentDeleteRequest{}
-	req.Id = id
-
-	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx, req), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
-	}
-	resp := &AttachmentDeleteResponse{}
-	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
-}
-
-// List gets a list of Attachments matching a given set of criteria.
-func (svc *Attachments) List(ctx context.Context, filter string, composite_role_id string) AttachmentIterator {
-	req := &plumbing.AttachmentListRequest{}
-	req.Filter = filter
-	req.CompositeRoleId = composite_role_id
-
-	req.Meta = &plumbing.ListRequestMetadata{}
-	if value := svc.parent.testOption("PageLimit"); value != nil {
-		v, ok := value.(int)
-		if ok {
-			req.Meta.Limit = int32(v)
-		}
-	}
-	return newAttachmentIteratorImpl(
-		func() ([]*Attachment, bool, error) {
-			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx, req), req)
-			if err != nil {
-				return nil, false, errorToPorcelain(err)
-			}
-			result := repeatedAttachmentToPorcelain(plumbingResponse.Attachments)
-			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
-			return result, req.Meta.Cursor != "", nil
-		},
-	)
-}
-
 // Nodes are proxies in the strongDM network. They come in two flavors: relays,
 // which communicate with resources, and gateways, which communicate with
 // clients.
@@ -175,6 +97,84 @@ func (svc *Nodes) List(ctx context.Context, filter string) NodeIterator {
 				return nil, false, errorToPorcelain(err)
 			}
 			result := repeatedNodeToPorcelain(plumbingResponse.Nodes)
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	)
+}
+
+type RoleAttachments struct {
+	client plumbing.RoleAttachmentsClient
+	parent *Client
+}
+
+// Create registers a new RoleAttachment.
+func (svc *RoleAttachments) Create(ctx context.Context, role_attachment *RoleAttachment) (*RoleAttachmentCreateResponse, error) {
+	req := &plumbing.RoleAttachmentCreateRequest{}
+	req.RoleAttachment = roleAttachmentToPlumbing(role_attachment)
+
+	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req), req)
+	if err != nil {
+		return nil, errorToPorcelain(err)
+	}
+	resp := &RoleAttachmentCreateResponse{}
+	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RoleAttachment = roleAttachmentToPorcelain(plumbingResponse.RoleAttachment)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Get reads one RoleAttachment by ID.
+func (svc *RoleAttachments) Get(ctx context.Context, id string) (*RoleAttachmentGetResponse, error) {
+	req := &plumbing.RoleAttachmentGetRequest{}
+	req.Id = id
+
+	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx, req), req)
+	if err != nil {
+		return nil, errorToPorcelain(err)
+	}
+	resp := &RoleAttachmentGetResponse{}
+	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RoleAttachment = roleAttachmentToPorcelain(plumbingResponse.RoleAttachment)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Delete removes an RoleAttachment by ID.
+func (svc *RoleAttachments) Delete(ctx context.Context, id string) (*RoleAttachmentDeleteResponse, error) {
+	req := &plumbing.RoleAttachmentDeleteRequest{}
+	req.Id = id
+
+	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx, req), req)
+	if err != nil {
+		return nil, errorToPorcelain(err)
+	}
+	resp := &RoleAttachmentDeleteResponse{}
+	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// List gets a list of RoleAttachments matching a given set of criteria.
+func (svc *RoleAttachments) List(ctx context.Context, filter string, composite_role_id string) RoleAttachmentIterator {
+	req := &plumbing.RoleAttachmentListRequest{}
+	req.Filter = filter
+	req.CompositeRoleId = composite_role_id
+
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if value := svc.parent.testOption("PageLimit"); value != nil {
+		v, ok := value.(int)
+		if ok {
+			req.Meta.Limit = int32(v)
+		}
+	}
+	return newRoleAttachmentIteratorImpl(
+		func() ([]*RoleAttachment, bool, error) {
+			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx, req), req)
+			if err != nil {
+				return nil, false, errorToPorcelain(err)
+			}
+			result := repeatedRoleAttachmentToPorcelain(plumbingResponse.RoleAttachments)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},

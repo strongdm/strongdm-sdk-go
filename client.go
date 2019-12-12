@@ -31,12 +31,12 @@ type Client struct {
 	testOptionsMu sync.RWMutex
 	testOptions   map[string]interface{}
 
-	apiToken    string
-	apiSecret   []byte
-	grpcConn    *grpc.ClientConn
-	attachments *Attachments
-	nodes       *Nodes
-	roles       *Roles
+	apiToken        string
+	apiSecret       []byte
+	grpcConn        *grpc.ClientConn
+	nodes           *Nodes
+	roleAttachments *RoleAttachments
+	roles           *Roles
 }
 
 // New creates a new strongDM API client.
@@ -76,13 +76,13 @@ func New(host, token, secret string) (*Client, error) {
 		apiSecret:   decodedSecret,
 	}
 
-	client.attachments = &Attachments{
-		client: plumbing.NewAttachmentsClient(client.grpcConn),
+	client.nodes = &Nodes{
+		client: plumbing.NewNodesClient(client.grpcConn),
 		parent: client,
 	}
 
-	client.nodes = &Nodes{
-		client: plumbing.NewNodesClient(client.grpcConn),
+	client.roleAttachments = &RoleAttachments{
+		client: plumbing.NewRoleAttachmentsClient(client.grpcConn),
 		parent: client,
 	}
 
@@ -94,15 +94,15 @@ func New(host, token, secret string) (*Client, error) {
 	return client, nil
 }
 
-func (c *Client) Attachments() *Attachments {
-	return c.attachments
-}
-
 // Nodes are proxies in the strongDM network. They come in two flavors: relays,
 // which communicate with resources, and gateways, which communicate with
 // clients.
 func (c *Client) Nodes() *Nodes {
 	return c.nodes
+}
+
+func (c *Client) RoleAttachments() *RoleAttachments {
+	return c.roleAttachments
 }
 
 // Roles are tools for controlling user access to resources. Each Role holds a
