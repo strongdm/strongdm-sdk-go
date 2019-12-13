@@ -150,12 +150,14 @@ type RoleAttachmentDeleteResponse struct {
 	RateLimit *RateLimitMetadata
 }
 
+// A RoleAttachment connects a composite role to another role, granting members
+// of the composite role the permissions granted to the attached role.
 type RoleAttachment struct {
 	// Unique identifier of the RoleAttachment.
 	ID string
-
+	// The id of the composite role of this RoleAttachment.
 	CompositeRoleID string
-
+	// The id of the attached role of this RoleAttachment.
 	AttachedRoleID string
 }
 

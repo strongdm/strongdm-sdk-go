@@ -99,6 +99,10 @@ func (svc *Nodes) List(ctx context.Context, filter string) NodeIterator {
 	)
 }
 
+// RoleAttachments represent relationships between composite roles and the roles
+// that make up those composite roles. When a composite role is attached to another
+// role, the permissions granted to members of the composite role are augmented to
+// include the permissions granted to members of the attached role.
 type RoleAttachments struct {
 	client plumbing.RoleAttachmentsClient
 	parent *Client
@@ -134,7 +138,7 @@ func (svc *RoleAttachments) Get(ctx context.Context, id string) (*RoleAttachment
 	return resp, nil
 }
 
-// Delete removes an RoleAttachment by ID.
+// Delete removes a RoleAttachment by ID.
 func (svc *RoleAttachments) Delete(ctx context.Context, id string) (*RoleAttachmentDeleteResponse, error) {
 	req := &plumbing.RoleAttachmentDeleteRequest{}
 	req.Id = id
