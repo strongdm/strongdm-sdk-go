@@ -149,10 +149,9 @@ func (svc *RoleAttachments) Delete(ctx context.Context, id string) (*RoleAttachm
 }
 
 // List gets a list of RoleAttachments matching a given set of criteria.
-func (svc *RoleAttachments) List(ctx context.Context, filter string, composite_role_id string) RoleAttachmentIterator {
+func (svc *RoleAttachments) List(ctx context.Context, filter string) RoleAttachmentIterator {
 	req := &plumbing.RoleAttachmentListRequest{}
 	req.Filter = filter
-	req.CompositeRoleId = composite_role_id
 
 	req.Meta = &plumbing.ListRequestMetadata{}
 	if value := svc.parent.testOption("PageLimit"); value != nil {
