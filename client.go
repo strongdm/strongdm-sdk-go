@@ -121,10 +121,10 @@ func (c *Client) Roles() *Roles {
 // Sign returns the signature for the given byte array
 func (c *Client) Sign(methodName string, message []byte) string {
 	// Current UTC date
-	y, m, d := time.Now().Date()
-	currentDate := fmt.Sprintf("%04d-%02d-%02d", y, m, d)
+	y, m, d := time.Now().UTC().Date()
+	currentUTCDate := fmt.Sprintf("%04d-%02d-%02d", y, m, d)
 
-	signingKey := hmacHelper(c.apiSecret, []byte(currentDate))
+	signingKey := hmacHelper(c.apiSecret, []byte(currentUTCDate))
 	signingKey = hmacHelper(signingKey, []byte("sdm_api_v1"))
 
 	hash := sha256.New()
