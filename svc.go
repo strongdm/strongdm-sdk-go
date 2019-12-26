@@ -99,6 +99,95 @@ func (svc *Nodes) List(ctx context.Context, filter string) NodeIterator {
 	)
 }
 
+type Resources struct {
+	client plumbing.ResourcesClient
+	parent *Client
+}
+
+// Create registers a new Resource.
+func (svc *Resources) Create(ctx context.Context, driver Driver) (*ResourceCreateResponse, error) {
+	req := &plumbing.ResourceCreateRequest{}
+	req.Driver = driverToPlumbing(driver)
+	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req, "Resources.Create"), req)
+	if err != nil {
+		return nil, errorToPorcelain(err)
+	}
+	resp := &ResourceCreateResponse{}
+	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Resource = resourceToPorcelain(plumbingResponse.Resource)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Get reads one Resource by ID.
+func (svc *Resources) Get(ctx context.Context, id string) (*ResourceGetResponse, error) {
+	req := &plumbing.ResourceGetRequest{}
+	req.Id = id
+	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx, req, "Resources.Get"), req)
+	if err != nil {
+		return nil, errorToPorcelain(err)
+	}
+	resp := &ResourceGetResponse{}
+	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Resource = resourceToPorcelain(plumbingResponse.Resource)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Update patches a Resource by ID.
+func (svc *Resources) Update(ctx context.Context, resource *Resource) (*ResourceUpdateResponse, error) {
+	req := &plumbing.ResourceUpdateRequest{}
+	req.Resource = resourceToPlumbing(resource)
+	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx, req, "Resources.Update"), req)
+	if err != nil {
+		return nil, errorToPorcelain(err)
+	}
+	resp := &ResourceUpdateResponse{}
+	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Resource = resourceToPorcelain(plumbingResponse.Resource)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Delete removes a Resource by ID.
+func (svc *Resources) Delete(ctx context.Context, id string) (*ResourceDeleteResponse, error) {
+	req := &plumbing.ResourceDeleteRequest{}
+	req.Id = id
+	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx, req, "Resources.Delete"), req)
+	if err != nil {
+		return nil, errorToPorcelain(err)
+	}
+	resp := &ResourceDeleteResponse{}
+	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// List gets a list of Resources matching a given set of criteria.
+func (svc *Resources) List(ctx context.Context, filter string) ResourceIterator {
+	req := &plumbing.ResourceListRequest{}
+	req.Filter = filter
+
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if value := svc.parent.testOption("PageLimit"); value != nil {
+		v, ok := value.(int)
+		if ok {
+			req.Meta.Limit = int32(v)
+		}
+	}
+	return newResourceIteratorImpl(
+		func() ([]*Resource, bool, error) {
+			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx, req, "Resources.List"), req)
+			if err != nil {
+				return nil, false, errorToPorcelain(err)
+			}
+			result := repeatedResourceToPorcelain(plumbingResponse.Resources)
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	)
+}
+
 // RoleAttachments represent relationships between composite roles and the roles
 // that make up those composite roles. When a composite role is attached to another
 // role, the permissions granted to members of the composite role are augmented to

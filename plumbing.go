@@ -25,6 +25,82 @@ func timestampToPlumbing(t time.Time) *timestamp.Timestamp {
 	return res
 }
 
+func driverToPlumbing(porcelain Driver) *proto.Driver {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Driver{}
+
+	switch v := porcelain.(type) {
+	case *Mysql:
+		plumbing.Driver = &proto.Driver_Mysql{Mysql: mysqlToPlumbing(v)}
+	}
+	return plumbing
+}
+
+func driverToPorcelain(plumbing *proto.Driver) Driver {
+	if plumbing.GetMysql() != nil {
+		return mysqlToPorcelain(plumbing.GetMysql())
+	}
+	return nil
+}
+
+func repeatedDriverToPlumbing(porcelains []Driver) []*proto.Driver {
+	var items []*proto.Driver
+	for _, porcelain := range porcelains {
+		items = append(items, driverToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedDriverToPorcelain(plumbings []*proto.Driver) []Driver {
+	var items []Driver
+	for _, plumbing := range plumbings {
+		items = append(items, driverToPorcelain(plumbing))
+	}
+	return items
+}
+
+func mysqlToPorcelain(plumbing *proto.Mysql) *Mysql {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Mysql{}
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Database = plumbing.Database
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func mysqlToPlumbing(porcelain *Mysql) *proto.Mysql {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Mysql{}
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Database = porcelain.Database
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+
+func repeatedMysqlToPlumbing(porcelains []*Mysql) []*proto.Mysql {
+	var items []*proto.Mysql
+	for _, porcelain := range porcelains {
+		items = append(items, mysqlToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedMysqlToPorcelain(plumbings []*proto.Mysql) []*Mysql {
+	var items []*Mysql
+	for _, plumbing := range plumbings {
+		items = append(items, mysqlToPorcelain(plumbing))
+	}
+	return items
+}
+
 func createResponseMetadataToPorcelain(plumbing *proto.CreateResponseMetadata) *CreateResponseMetadata {
 	if plumbing == nil {
 		return nil
@@ -466,6 +542,198 @@ func repeatedGatewayToPorcelain(plumbings []*proto.Gateway) []*Gateway {
 	return items
 }
 
+func resourceCreateResponseToPorcelain(plumbing *proto.ResourceCreateResponse) *ResourceCreateResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &ResourceCreateResponse{}
+	porcelain.Meta = createResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.Resource = resourceToPorcelain(plumbing.Resource)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func resourceCreateResponseToPlumbing(porcelain *ResourceCreateResponse) *proto.ResourceCreateResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ResourceCreateResponse{}
+	plumbing.Meta = createResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.Resource = resourceToPlumbing(porcelain.Resource)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+
+func repeatedResourceCreateResponseToPlumbing(porcelains []*ResourceCreateResponse) []*proto.ResourceCreateResponse {
+	var items []*proto.ResourceCreateResponse
+	for _, porcelain := range porcelains {
+		items = append(items, resourceCreateResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedResourceCreateResponseToPorcelain(plumbings []*proto.ResourceCreateResponse) []*ResourceCreateResponse {
+	var items []*ResourceCreateResponse
+	for _, plumbing := range plumbings {
+		items = append(items, resourceCreateResponseToPorcelain(plumbing))
+	}
+	return items
+}
+
+func resourceGetResponseToPorcelain(plumbing *proto.ResourceGetResponse) *ResourceGetResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &ResourceGetResponse{}
+	porcelain.Meta = getResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.Resource = resourceToPorcelain(plumbing.Resource)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func resourceGetResponseToPlumbing(porcelain *ResourceGetResponse) *proto.ResourceGetResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ResourceGetResponse{}
+	plumbing.Meta = getResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.Resource = resourceToPlumbing(porcelain.Resource)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+
+func repeatedResourceGetResponseToPlumbing(porcelains []*ResourceGetResponse) []*proto.ResourceGetResponse {
+	var items []*proto.ResourceGetResponse
+	for _, porcelain := range porcelains {
+		items = append(items, resourceGetResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedResourceGetResponseToPorcelain(plumbings []*proto.ResourceGetResponse) []*ResourceGetResponse {
+	var items []*ResourceGetResponse
+	for _, plumbing := range plumbings {
+		items = append(items, resourceGetResponseToPorcelain(plumbing))
+	}
+	return items
+}
+
+func resourceUpdateResponseToPorcelain(plumbing *proto.ResourceUpdateResponse) *ResourceUpdateResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &ResourceUpdateResponse{}
+	porcelain.Meta = updateResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.Resource = resourceToPorcelain(plumbing.Resource)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func resourceUpdateResponseToPlumbing(porcelain *ResourceUpdateResponse) *proto.ResourceUpdateResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ResourceUpdateResponse{}
+	plumbing.Meta = updateResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.Resource = resourceToPlumbing(porcelain.Resource)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+
+func repeatedResourceUpdateResponseToPlumbing(porcelains []*ResourceUpdateResponse) []*proto.ResourceUpdateResponse {
+	var items []*proto.ResourceUpdateResponse
+	for _, porcelain := range porcelains {
+		items = append(items, resourceUpdateResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedResourceUpdateResponseToPorcelain(plumbings []*proto.ResourceUpdateResponse) []*ResourceUpdateResponse {
+	var items []*ResourceUpdateResponse
+	for _, plumbing := range plumbings {
+		items = append(items, resourceUpdateResponseToPorcelain(plumbing))
+	}
+	return items
+}
+
+func resourceDeleteResponseToPorcelain(plumbing *proto.ResourceDeleteResponse) *ResourceDeleteResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &ResourceDeleteResponse{}
+	porcelain.Meta = deleteResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func resourceDeleteResponseToPlumbing(porcelain *ResourceDeleteResponse) *proto.ResourceDeleteResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ResourceDeleteResponse{}
+	plumbing.Meta = deleteResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+
+func repeatedResourceDeleteResponseToPlumbing(porcelains []*ResourceDeleteResponse) []*proto.ResourceDeleteResponse {
+	var items []*proto.ResourceDeleteResponse
+	for _, porcelain := range porcelains {
+		items = append(items, resourceDeleteResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedResourceDeleteResponseToPorcelain(plumbings []*proto.ResourceDeleteResponse) []*ResourceDeleteResponse {
+	var items []*ResourceDeleteResponse
+	for _, plumbing := range plumbings {
+		items = append(items, resourceDeleteResponseToPorcelain(plumbing))
+	}
+	return items
+}
+
+func resourceToPorcelain(plumbing *proto.Resource) *Resource {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Resource{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Driver = driverToPorcelain(plumbing.Driver)
+	return porcelain
+}
+
+func resourceToPlumbing(porcelain *Resource) *proto.Resource {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Resource{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Driver = driverToPlumbing(porcelain.Driver)
+	return plumbing
+}
+
+func repeatedResourceToPlumbing(porcelains []*Resource) []*proto.Resource {
+	var items []*proto.Resource
+	for _, porcelain := range porcelains {
+		items = append(items, resourceToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedResourceToPorcelain(plumbings []*proto.Resource) []*Resource {
+	var items []*Resource
+	for _, plumbing := range plumbings {
+		items = append(items, resourceToPorcelain(plumbing))
+	}
+	return items
+}
+
 func roleAttachmentCreateResponseToPorcelain(plumbing *proto.RoleAttachmentCreateResponse) *RoleAttachmentCreateResponse {
 	if plumbing == nil {
 		return nil
@@ -893,6 +1161,49 @@ func (n *nodeIteratorImpl) Value() Node {
 
 func (n *nodeIteratorImpl) Err() error {
 	return n.err
+}
+
+type resourceIteratorImplFetchFunc func() ([]*Resource, bool, error)
+type resourceIteratorImpl struct {
+	buffer      []*Resource
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       resourceIteratorImplFetchFunc
+}
+
+func newResourceIteratorImpl(f resourceIteratorImplFetchFunc) *resourceIteratorImpl {
+	return &resourceIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *resourceIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *resourceIteratorImpl) Value() *Resource {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *resourceIteratorImpl) Err() error {
+	return r.err
 }
 
 type roleAttachmentIteratorImplFetchFunc func() ([]*RoleAttachment, bool, error)

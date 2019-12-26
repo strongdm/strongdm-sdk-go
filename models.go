@@ -4,6 +4,22 @@ import (
 	"time"
 )
 
+type Driver interface {
+	isOneOf_Driver()
+}
+
+func (*Mysql) isOneOf_Driver() {}
+
+type Mysql struct {
+	Username string
+
+	Password string
+
+	Database string
+
+	Port string
+}
+
 // CreateResponseMetadata is reserved for future use.
 type CreateResponseMetadata struct {
 }
@@ -122,6 +138,61 @@ type Gateway struct {
 	BindAddress string
 }
 
+// ResourceCreateResponse reports how the Resources were created in the system.
+type ResourceCreateResponse struct {
+	// Reserved for future use.
+	Meta *CreateResponseMetadata
+	// The created Resource.
+	Resource *Resource
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// ResourceGetResponse returns a requested Resource.
+type ResourceGetResponse struct {
+	// Reserved for future use.
+	Meta *GetResponseMetadata
+	// The requested Resource.
+	Resource *Resource
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// ResourceUpdateResponse returns the fields of a Resource after it has been updated by
+// a ResourceUpdateRequest.
+type ResourceUpdateResponse struct {
+	// Reserved for future use.
+	Meta *UpdateResponseMetadata
+	// The updated Resource.
+	Resource *Resource
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// ResourceDeleteResponse returns information about a Resource that was deleted.
+type ResourceDeleteResponse struct {
+	// Reserved for future use.
+	Meta *DeleteResponseMetadata
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// A Resource is a proxy in the strongDM network. They come in two flavors: relays,
+// which communicate with resources, and gateways, which communicate with
+// clients.
+type Resource struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+	// Fields for connecting to the resource.
+	Driver Driver
+}
+
 // RoleAttachmentCreateResponse reports how the RoleAttachments were created in the system.
 type RoleAttachmentCreateResponse struct {
 	// Reserved for future use.
@@ -225,6 +296,22 @@ type NodeIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() Node
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// ResourceIterator provides read access to a list of Resource.
+// Use it like so:
+//     for iterator.Next() {
+//         resource := iterator.Value()
+//         // ...
+//     }
+type ResourceIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *Resource
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }

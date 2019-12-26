@@ -35,6 +35,7 @@ type Client struct {
 	apiSecret       []byte
 	grpcConn        *grpc.ClientConn
 	nodes           *Nodes
+	resources       *Resources
 	roleAttachments *RoleAttachments
 	roles           *Roles
 }
@@ -81,6 +82,11 @@ func New(host, token, secret string) (*Client, error) {
 		parent: client,
 	}
 
+	client.resources = &Resources{
+		client: plumbing.NewResourcesClient(client.grpcConn),
+		parent: client,
+	}
+
 	client.roleAttachments = &RoleAttachments{
 		client: plumbing.NewRoleAttachmentsClient(client.grpcConn),
 		parent: client,
@@ -99,6 +105,10 @@ func New(host, token, secret string) (*Client, error) {
 // clients.
 func (c *Client) Nodes() *Nodes {
 	return c.nodes
+}
+
+func (c *Client) Resources() *Resources {
+	return c.resources
 }
 
 // RoleAttachments represent relationships between composite roles and the roles
