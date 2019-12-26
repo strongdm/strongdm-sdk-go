@@ -17,7 +17,7 @@ type Mysql struct {
 
 	Database string
 
-	Port string
+	Port int32
 }
 
 // CreateResponseMetadata is reserved for future use.
