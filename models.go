@@ -10,9 +10,65 @@ type Driver interface {
 
 func (*Mysql) isOneOf_Driver() {}
 
+func (*AuroraMysql) isOneOf_Driver() {}
+
+func (*Clustrix) isOneOf_Driver() {}
+
+func (*Maria) isOneOf_Driver() {}
+
+func (*Memsql) isOneOf_Driver() {}
+
 func (*Athena) isOneOf_Driver() {}
 
 type Mysql struct {
+	Hostname string
+
+	Username string
+
+	Password string
+
+	Database string
+
+	Port int32
+}
+
+type AuroraMysql struct {
+	Hostname string
+
+	Username string
+
+	Password string
+
+	Database string
+
+	Port int32
+}
+
+type Clustrix struct {
+	Hostname string
+
+	Username string
+
+	Password string
+
+	Database string
+
+	Port int32
+}
+
+type Maria struct {
+	Hostname string
+
+	Username string
+
+	Password string
+
+	Database string
+
+	Port int32
+}
+
+type Memsql struct {
 	Hostname string
 
 	Username string

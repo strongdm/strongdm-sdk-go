@@ -34,6 +34,14 @@ func driverToPlumbing(porcelain Driver) *proto.Driver {
 	switch v := porcelain.(type) {
 	case *Mysql:
 		plumbing.Driver = &proto.Driver_Mysql{Mysql: mysqlToPlumbing(v)}
+	case *AuroraMysql:
+		plumbing.Driver = &proto.Driver_AuroraMysql{AuroraMysql: auroraMysqlToPlumbing(v)}
+	case *Clustrix:
+		plumbing.Driver = &proto.Driver_Clustrix{Clustrix: clustrixToPlumbing(v)}
+	case *Maria:
+		plumbing.Driver = &proto.Driver_Maria{Maria: mariaToPlumbing(v)}
+	case *Memsql:
+		plumbing.Driver = &proto.Driver_Memsql{Memsql: memsqlToPlumbing(v)}
 	case *Athena:
 		plumbing.Driver = &proto.Driver_Athena{Athena: athenaToPlumbing(v)}
 	}
@@ -43,6 +51,18 @@ func driverToPlumbing(porcelain Driver) *proto.Driver {
 func driverToPorcelain(plumbing *proto.Driver) Driver {
 	if plumbing.GetMysql() != nil {
 		return mysqlToPorcelain(plumbing.GetMysql())
+	}
+	if plumbing.GetAuroraMysql() != nil {
+		return auroraMysqlToPorcelain(plumbing.GetAuroraMysql())
+	}
+	if plumbing.GetClustrix() != nil {
+		return clustrixToPorcelain(plumbing.GetClustrix())
+	}
+	if plumbing.GetMaria() != nil {
+		return mariaToPorcelain(plumbing.GetMaria())
+	}
+	if plumbing.GetMemsql() != nil {
+		return memsqlToPorcelain(plumbing.GetMemsql())
 	}
 	if plumbing.GetAthena() != nil {
 		return athenaToPorcelain(plumbing.GetAthena())
@@ -104,6 +124,174 @@ func repeatedMysqlToPorcelain(plumbings []*proto.Mysql) []*Mysql {
 	var items []*Mysql
 	for _, plumbing := range plumbings {
 		items = append(items, mysqlToPorcelain(plumbing))
+	}
+	return items
+}
+
+func auroraMysqlToPorcelain(plumbing *proto.AuroraMysql) *AuroraMysql {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AuroraMysql{}
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Database = plumbing.Database
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func auroraMysqlToPlumbing(porcelain *AuroraMysql) *proto.AuroraMysql {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AuroraMysql{}
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Database = porcelain.Database
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+
+func repeatedAuroraMysqlToPlumbing(porcelains []*AuroraMysql) []*proto.AuroraMysql {
+	var items []*proto.AuroraMysql
+	for _, porcelain := range porcelains {
+		items = append(items, auroraMysqlToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAuroraMysqlToPorcelain(plumbings []*proto.AuroraMysql) []*AuroraMysql {
+	var items []*AuroraMysql
+	for _, plumbing := range plumbings {
+		items = append(items, auroraMysqlToPorcelain(plumbing))
+	}
+	return items
+}
+
+func clustrixToPorcelain(plumbing *proto.Clustrix) *Clustrix {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Clustrix{}
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Database = plumbing.Database
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func clustrixToPlumbing(porcelain *Clustrix) *proto.Clustrix {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Clustrix{}
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Database = porcelain.Database
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+
+func repeatedClustrixToPlumbing(porcelains []*Clustrix) []*proto.Clustrix {
+	var items []*proto.Clustrix
+	for _, porcelain := range porcelains {
+		items = append(items, clustrixToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedClustrixToPorcelain(plumbings []*proto.Clustrix) []*Clustrix {
+	var items []*Clustrix
+	for _, plumbing := range plumbings {
+		items = append(items, clustrixToPorcelain(plumbing))
+	}
+	return items
+}
+
+func mariaToPorcelain(plumbing *proto.Maria) *Maria {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Maria{}
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Database = plumbing.Database
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func mariaToPlumbing(porcelain *Maria) *proto.Maria {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Maria{}
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Database = porcelain.Database
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+
+func repeatedMariaToPlumbing(porcelains []*Maria) []*proto.Maria {
+	var items []*proto.Maria
+	for _, porcelain := range porcelains {
+		items = append(items, mariaToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedMariaToPorcelain(plumbings []*proto.Maria) []*Maria {
+	var items []*Maria
+	for _, plumbing := range plumbings {
+		items = append(items, mariaToPorcelain(plumbing))
+	}
+	return items
+}
+
+func memsqlToPorcelain(plumbing *proto.Memsql) *Memsql {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Memsql{}
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Database = plumbing.Database
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func memsqlToPlumbing(porcelain *Memsql) *proto.Memsql {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Memsql{}
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Database = porcelain.Database
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+
+func repeatedMemsqlToPlumbing(porcelains []*Memsql) []*proto.Memsql {
+	var items []*proto.Memsql
+	for _, porcelain := range porcelains {
+		items = append(items, memsqlToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedMemsqlToPorcelain(plumbings []*proto.Memsql) []*Memsql {
+	var items []*Memsql
+	for _, plumbing := range plumbings {
+		items = append(items, memsqlToPorcelain(plumbing))
 	}
 	return items
 }
