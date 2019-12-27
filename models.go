@@ -10,6 +10,10 @@ type Driver interface {
 
 func (*HTTPBasicAuth) isOneOf_Driver() {}
 
+func (*HTTPNoAuth) isOneOf_Driver() {}
+
+func (*HTTPAuth) isOneOf_Driver() {}
+
 func (*Mysql) isOneOf_Driver() {}
 
 func (*AuroraMysql) isOneOf_Driver() {}
@@ -30,6 +34,32 @@ type HTTPBasicAuth struct {
 	Username string
 
 	Password string
+
+	HeadersBlacklist string
+
+	DefaultPath string
+
+	Subdomain string
+}
+
+type HTTPNoAuth struct {
+	Url string
+
+	HealthcheckPath string
+
+	HeadersBlacklist string
+
+	DefaultPath string
+
+	Subdomain string
+}
+
+type HTTPAuth struct {
+	Url string
+
+	HealthcheckPath string
+
+	AuthHeader string
 
 	HeadersBlacklist string
 

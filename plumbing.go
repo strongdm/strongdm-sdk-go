@@ -34,6 +34,10 @@ func driverToPlumbing(porcelain Driver) *proto.Driver {
 	switch v := porcelain.(type) {
 	case *HTTPBasicAuth:
 		plumbing.Driver = &proto.Driver_HttpBasicAuth{HttpBasicAuth: httpBasicAuthToPlumbing(v)}
+	case *HTTPNoAuth:
+		plumbing.Driver = &proto.Driver_HttpNoAuth{HttpNoAuth: httpNoAuthToPlumbing(v)}
+	case *HTTPAuth:
+		plumbing.Driver = &proto.Driver_HttpAuth{HttpAuth: httpAuthToPlumbing(v)}
 	case *Mysql:
 		plumbing.Driver = &proto.Driver_Mysql{Mysql: mysqlToPlumbing(v)}
 	case *AuroraMysql:
@@ -53,6 +57,12 @@ func driverToPlumbing(porcelain Driver) *proto.Driver {
 func driverToPorcelain(plumbing *proto.Driver) Driver {
 	if plumbing.GetHttpBasicAuth() != nil {
 		return httpBasicAuthToPorcelain(plumbing.GetHttpBasicAuth())
+	}
+	if plumbing.GetHttpNoAuth() != nil {
+		return httpNoAuthToPorcelain(plumbing.GetHttpNoAuth())
+	}
+	if plumbing.GetHttpAuth() != nil {
+		return httpAuthToPorcelain(plumbing.GetHttpAuth())
 	}
 	if plumbing.GetMysql() != nil {
 		return mysqlToPorcelain(plumbing.GetMysql())
@@ -133,6 +143,92 @@ func repeatedHTTPBasicAuthToPorcelain(plumbings []*proto.HTTPBasicAuth) []*HTTPB
 	var items []*HTTPBasicAuth
 	for _, plumbing := range plumbings {
 		items = append(items, httpBasicAuthToPorcelain(plumbing))
+	}
+	return items
+}
+
+func httpNoAuthToPorcelain(plumbing *proto.HTTPNoAuth) *HTTPNoAuth {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &HTTPNoAuth{}
+	porcelain.Url = plumbing.Url
+	porcelain.HealthcheckPath = plumbing.HealthcheckPath
+	porcelain.HeadersBlacklist = plumbing.HeadersBlacklist
+	porcelain.DefaultPath = plumbing.DefaultPath
+	porcelain.Subdomain = plumbing.Subdomain
+	return porcelain
+}
+
+func httpNoAuthToPlumbing(porcelain *HTTPNoAuth) *proto.HTTPNoAuth {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.HTTPNoAuth{}
+	plumbing.Url = porcelain.Url
+	plumbing.HealthcheckPath = porcelain.HealthcheckPath
+	plumbing.HeadersBlacklist = porcelain.HeadersBlacklist
+	plumbing.DefaultPath = porcelain.DefaultPath
+	plumbing.Subdomain = porcelain.Subdomain
+	return plumbing
+}
+
+func repeatedHTTPNoAuthToPlumbing(porcelains []*HTTPNoAuth) []*proto.HTTPNoAuth {
+	var items []*proto.HTTPNoAuth
+	for _, porcelain := range porcelains {
+		items = append(items, httpNoAuthToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedHTTPNoAuthToPorcelain(plumbings []*proto.HTTPNoAuth) []*HTTPNoAuth {
+	var items []*HTTPNoAuth
+	for _, plumbing := range plumbings {
+		items = append(items, httpNoAuthToPorcelain(plumbing))
+	}
+	return items
+}
+
+func httpAuthToPorcelain(plumbing *proto.HTTPAuth) *HTTPAuth {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &HTTPAuth{}
+	porcelain.Url = plumbing.Url
+	porcelain.HealthcheckPath = plumbing.HealthcheckPath
+	porcelain.AuthHeader = plumbing.AuthHeader
+	porcelain.HeadersBlacklist = plumbing.HeadersBlacklist
+	porcelain.DefaultPath = plumbing.DefaultPath
+	porcelain.Subdomain = plumbing.Subdomain
+	return porcelain
+}
+
+func httpAuthToPlumbing(porcelain *HTTPAuth) *proto.HTTPAuth {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.HTTPAuth{}
+	plumbing.Url = porcelain.Url
+	plumbing.HealthcheckPath = porcelain.HealthcheckPath
+	plumbing.AuthHeader = porcelain.AuthHeader
+	plumbing.HeadersBlacklist = porcelain.HeadersBlacklist
+	plumbing.DefaultPath = porcelain.DefaultPath
+	plumbing.Subdomain = porcelain.Subdomain
+	return plumbing
+}
+
+func repeatedHTTPAuthToPlumbing(porcelains []*HTTPAuth) []*proto.HTTPAuth {
+	var items []*proto.HTTPAuth
+	for _, porcelain := range porcelains {
+		items = append(items, httpAuthToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedHTTPAuthToPorcelain(plumbings []*proto.HTTPAuth) []*HTTPAuth {
+	var items []*HTTPAuth
+	for _, plumbing := range plumbings {
+		items = append(items, httpAuthToPorcelain(plumbing))
 	}
 	return items
 }
