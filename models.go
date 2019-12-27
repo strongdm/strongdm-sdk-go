@@ -10,6 +10,8 @@ type Driver interface {
 
 func (*Mysql) isOneOf_Driver() {}
 
+func (*Athena) isOneOf_Driver() {}
+
 type Mysql struct {
 	Username string
 
@@ -18,6 +20,16 @@ type Mysql struct {
 	Database string
 
 	Port int32
+}
+
+type Athena struct {
+	AccessKey string
+
+	SecretAccessKey string
+
+	Region string
+
+	Output string
 }
 
 // CreateResponseMetadata is reserved for future use.

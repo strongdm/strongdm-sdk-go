@@ -34,6 +34,8 @@ func driverToPlumbing(porcelain Driver) *proto.Driver {
 	switch v := porcelain.(type) {
 	case *Mysql:
 		plumbing.Driver = &proto.Driver_Mysql{Mysql: mysqlToPlumbing(v)}
+	case *Athena:
+		plumbing.Driver = &proto.Driver_Athena{Athena: athenaToPlumbing(v)}
 	}
 	return plumbing
 }
@@ -41,6 +43,9 @@ func driverToPlumbing(porcelain Driver) *proto.Driver {
 func driverToPorcelain(plumbing *proto.Driver) Driver {
 	if plumbing.GetMysql() != nil {
 		return mysqlToPorcelain(plumbing.GetMysql())
+	}
+	if plumbing.GetAthena() != nil {
+		return athenaToPorcelain(plumbing.GetAthena())
 	}
 	return nil
 }
@@ -97,6 +102,46 @@ func repeatedMysqlToPorcelain(plumbings []*proto.Mysql) []*Mysql {
 	var items []*Mysql
 	for _, plumbing := range plumbings {
 		items = append(items, mysqlToPorcelain(plumbing))
+	}
+	return items
+}
+
+func athenaToPorcelain(plumbing *proto.Athena) *Athena {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Athena{}
+	porcelain.AccessKey = plumbing.AccessKey
+	porcelain.SecretAccessKey = plumbing.SecretAccessKey
+	porcelain.Region = plumbing.Region
+	porcelain.Output = plumbing.Output
+	return porcelain
+}
+
+func athenaToPlumbing(porcelain *Athena) *proto.Athena {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Athena{}
+	plumbing.AccessKey = porcelain.AccessKey
+	plumbing.SecretAccessKey = porcelain.SecretAccessKey
+	plumbing.Region = porcelain.Region
+	plumbing.Output = porcelain.Output
+	return plumbing
+}
+
+func repeatedAthenaToPlumbing(porcelains []*Athena) []*proto.Athena {
+	var items []*proto.Athena
+	for _, porcelain := range porcelains {
+		items = append(items, athenaToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAthenaToPorcelain(plumbings []*proto.Athena) []*Athena {
+	var items []*Athena
+	for _, plumbing := range plumbings {
+		items = append(items, athenaToPorcelain(plumbing))
 	}
 	return items
 }

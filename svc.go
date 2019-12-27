@@ -105,9 +105,9 @@ type Resources struct {
 }
 
 // Create registers a new Resource.
-func (svc *Resources) Create(ctx context.Context, driver Driver) (*ResourceCreateResponse, error) {
+func (svc *Resources) Create(ctx context.Context, resource *Resource) (*ResourceCreateResponse, error) {
 	req := &plumbing.ResourceCreateRequest{}
-	req.Driver = driverToPlumbing(driver)
+	req.Resource = resourceToPlumbing(resource)
 	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req, "Resources.Create"), req)
 	if err != nil {
 		return nil, errorToPorcelain(err)
