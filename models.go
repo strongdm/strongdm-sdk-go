@@ -8,6 +8,8 @@ type Driver interface {
 	isOneOf_Driver()
 }
 
+func (*HTTPBasicAuth) isOneOf_Driver() {}
+
 func (*Mysql) isOneOf_Driver() {}
 
 func (*AuroraMysql) isOneOf_Driver() {}
@@ -19,6 +21,22 @@ func (*Maria) isOneOf_Driver() {}
 func (*Memsql) isOneOf_Driver() {}
 
 func (*Athena) isOneOf_Driver() {}
+
+type HTTPBasicAuth struct {
+	Url string
+
+	HealthcheckPath string
+
+	Username string
+
+	Password string
+
+	HeadersBlacklist string
+
+	DefaultPath string
+
+	Subdomain string
+}
 
 type Mysql struct {
 	Hostname string

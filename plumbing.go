@@ -32,6 +32,8 @@ func driverToPlumbing(porcelain Driver) *proto.Driver {
 	plumbing := &proto.Driver{}
 
 	switch v := porcelain.(type) {
+	case *HTTPBasicAuth:
+		plumbing.Driver = &proto.Driver_HttpBasicAuth{HttpBasicAuth: httpBasicAuthToPlumbing(v)}
 	case *Mysql:
 		plumbing.Driver = &proto.Driver_Mysql{Mysql: mysqlToPlumbing(v)}
 	case *AuroraMysql:
@@ -49,6 +51,9 @@ func driverToPlumbing(porcelain Driver) *proto.Driver {
 }
 
 func driverToPorcelain(plumbing *proto.Driver) Driver {
+	if plumbing.GetHttpBasicAuth() != nil {
+		return httpBasicAuthToPorcelain(plumbing.GetHttpBasicAuth())
+	}
 	if plumbing.GetMysql() != nil {
 		return mysqlToPorcelain(plumbing.GetMysql())
 	}
@@ -82,6 +87,52 @@ func repeatedDriverToPorcelain(plumbings []*proto.Driver) []Driver {
 	var items []Driver
 	for _, plumbing := range plumbings {
 		items = append(items, driverToPorcelain(plumbing))
+	}
+	return items
+}
+
+func httpBasicAuthToPorcelain(plumbing *proto.HTTPBasicAuth) *HTTPBasicAuth {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &HTTPBasicAuth{}
+	porcelain.Url = plumbing.Url
+	porcelain.HealthcheckPath = plumbing.HealthcheckPath
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.HeadersBlacklist = plumbing.HeadersBlacklist
+	porcelain.DefaultPath = plumbing.DefaultPath
+	porcelain.Subdomain = plumbing.Subdomain
+	return porcelain
+}
+
+func httpBasicAuthToPlumbing(porcelain *HTTPBasicAuth) *proto.HTTPBasicAuth {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.HTTPBasicAuth{}
+	plumbing.Url = porcelain.Url
+	plumbing.HealthcheckPath = porcelain.HealthcheckPath
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.HeadersBlacklist = porcelain.HeadersBlacklist
+	plumbing.DefaultPath = porcelain.DefaultPath
+	plumbing.Subdomain = porcelain.Subdomain
+	return plumbing
+}
+
+func repeatedHTTPBasicAuthToPlumbing(porcelains []*HTTPBasicAuth) []*proto.HTTPBasicAuth {
+	var items []*proto.HTTPBasicAuth
+	for _, porcelain := range porcelains {
+		items = append(items, httpBasicAuthToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedHTTPBasicAuthToPorcelain(plumbings []*proto.HTTPBasicAuth) []*HTTPBasicAuth {
+	var items []*HTTPBasicAuth
+	for _, plumbing := range plumbings {
+		items = append(items, httpBasicAuthToPorcelain(plumbing))
 	}
 	return items
 }
