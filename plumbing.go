@@ -301,7 +301,6 @@ func athenaToPorcelain(plumbing *proto.Athena) *Athena {
 		return nil
 	}
 	porcelain := &Athena{}
-	porcelain.Hostname = plumbing.Hostname
 	porcelain.AccessKey = plumbing.AccessKey
 	porcelain.SecretAccessKey = plumbing.SecretAccessKey
 	porcelain.Region = plumbing.Region
@@ -314,7 +313,6 @@ func athenaToPlumbing(porcelain *Athena) *proto.Athena {
 		return nil
 	}
 	plumbing := &proto.Athena{}
-	plumbing.Hostname = porcelain.Hostname
 	plumbing.AccessKey = porcelain.AccessKey
 	plumbing.SecretAccessKey = porcelain.SecretAccessKey
 	plumbing.Region = porcelain.Region

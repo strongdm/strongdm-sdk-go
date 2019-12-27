@@ -81,8 +81,6 @@ type Memsql struct {
 }
 
 type Athena struct {
-	Hostname string
-
 	AccessKey string
 
 	SecretAccessKey string
