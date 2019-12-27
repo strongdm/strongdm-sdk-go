@@ -13,6 +13,8 @@ func (*Mysql) isOneOf_Driver() {}
 func (*Athena) isOneOf_Driver() {}
 
 type Mysql struct {
+	Hostname string
+
 	Username string
 
 	Password string
@@ -23,6 +25,8 @@ type Mysql struct {
 }
 
 type Athena struct {
+	Hostname string
+
 	AccessKey string
 
 	SecretAccessKey string

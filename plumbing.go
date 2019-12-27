@@ -71,6 +71,7 @@ func mysqlToPorcelain(plumbing *proto.Mysql) *Mysql {
 		return nil
 	}
 	porcelain := &Mysql{}
+	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
 	porcelain.Database = plumbing.Database
@@ -83,6 +84,7 @@ func mysqlToPlumbing(porcelain *Mysql) *proto.Mysql {
 		return nil
 	}
 	plumbing := &proto.Mysql{}
+	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
 	plumbing.Database = porcelain.Database
@@ -111,6 +113,7 @@ func athenaToPorcelain(plumbing *proto.Athena) *Athena {
 		return nil
 	}
 	porcelain := &Athena{}
+	porcelain.Hostname = plumbing.Hostname
 	porcelain.AccessKey = plumbing.AccessKey
 	porcelain.SecretAccessKey = plumbing.SecretAccessKey
 	porcelain.Region = plumbing.Region
@@ -123,6 +126,7 @@ func athenaToPlumbing(porcelain *Athena) *proto.Athena {
 		return nil
 	}
 	plumbing := &proto.Athena{}
+	plumbing.Hostname = porcelain.Hostname
 	plumbing.AccessKey = porcelain.AccessKey
 	plumbing.SecretAccessKey = porcelain.SecretAccessKey
 	plumbing.Region = porcelain.Region
