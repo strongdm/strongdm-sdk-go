@@ -8,6 +8,10 @@ type Driver interface {
 	isOneOf_Driver()
 }
 
+func (*Kubernetes) isOneOf_Driver() {}
+
+func (*AmazonEKS) isOneOf_Driver() {}
+
 func (*HTTPBasicAuth) isOneOf_Driver() {}
 
 func (*HTTPNoAuth) isOneOf_Driver() {}
@@ -25,6 +29,32 @@ func (*Maria) isOneOf_Driver() {}
 func (*Memsql) isOneOf_Driver() {}
 
 func (*Athena) isOneOf_Driver() {}
+
+type Kubernetes struct {
+	Hostname string
+
+	Port int32
+
+	CertificateAuthority string
+
+	ClientCertificate string
+
+	ClientKey string
+}
+
+type AmazonEKS struct {
+	Endpoint string
+
+	AccessKey string
+
+	SecretAccessKey string
+
+	CertificateAuthority string
+
+	Region string
+
+	ClusterName string
+}
 
 type HTTPBasicAuth struct {
 	Url string

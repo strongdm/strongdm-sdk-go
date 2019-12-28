@@ -32,6 +32,10 @@ func driverToPlumbing(porcelain Driver) *proto.Driver {
 	plumbing := &proto.Driver{}
 
 	switch v := porcelain.(type) {
+	case *Kubernetes:
+		plumbing.Driver = &proto.Driver_Kubernetes{Kubernetes: kubernetesToPlumbing(v)}
+	case *AmazonEKS:
+		plumbing.Driver = &proto.Driver_AmazonEks{AmazonEks: amazonEksToPlumbing(v)}
 	case *HTTPBasicAuth:
 		plumbing.Driver = &proto.Driver_HttpBasicAuth{HttpBasicAuth: httpBasicAuthToPlumbing(v)}
 	case *HTTPNoAuth:
@@ -55,6 +59,12 @@ func driverToPlumbing(porcelain Driver) *proto.Driver {
 }
 
 func driverToPorcelain(plumbing *proto.Driver) Driver {
+	if plumbing.GetKubernetes() != nil {
+		return kubernetesToPorcelain(plumbing.GetKubernetes())
+	}
+	if plumbing.GetAmazonEks() != nil {
+		return amazonEksToPorcelain(plumbing.GetAmazonEks())
+	}
 	if plumbing.GetHttpBasicAuth() != nil {
 		return httpBasicAuthToPorcelain(plumbing.GetHttpBasicAuth())
 	}
@@ -97,6 +107,92 @@ func repeatedDriverToPorcelain(plumbings []*proto.Driver) []Driver {
 	var items []Driver
 	for _, plumbing := range plumbings {
 		items = append(items, driverToPorcelain(plumbing))
+	}
+	return items
+}
+
+func kubernetesToPorcelain(plumbing *proto.Kubernetes) *Kubernetes {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Kubernetes{}
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Port = plumbing.Port
+	porcelain.CertificateAuthority = plumbing.CertificateAuthority
+	porcelain.ClientCertificate = plumbing.ClientCertificate
+	porcelain.ClientKey = plumbing.ClientKey
+	return porcelain
+}
+
+func kubernetesToPlumbing(porcelain *Kubernetes) *proto.Kubernetes {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Kubernetes{}
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Port = porcelain.Port
+	plumbing.CertificateAuthority = porcelain.CertificateAuthority
+	plumbing.ClientCertificate = porcelain.ClientCertificate
+	plumbing.ClientKey = porcelain.ClientKey
+	return plumbing
+}
+
+func repeatedKubernetesToPlumbing(porcelains []*Kubernetes) []*proto.Kubernetes {
+	var items []*proto.Kubernetes
+	for _, porcelain := range porcelains {
+		items = append(items, kubernetesToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedKubernetesToPorcelain(plumbings []*proto.Kubernetes) []*Kubernetes {
+	var items []*Kubernetes
+	for _, plumbing := range plumbings {
+		items = append(items, kubernetesToPorcelain(plumbing))
+	}
+	return items
+}
+
+func amazonEksToPorcelain(plumbing *proto.AmazonEKS) *AmazonEKS {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AmazonEKS{}
+	porcelain.Endpoint = plumbing.Endpoint
+	porcelain.AccessKey = plumbing.AccessKey
+	porcelain.SecretAccessKey = plumbing.SecretAccessKey
+	porcelain.CertificateAuthority = plumbing.CertificateAuthority
+	porcelain.Region = plumbing.Region
+	porcelain.ClusterName = plumbing.ClusterName
+	return porcelain
+}
+
+func amazonEksToPlumbing(porcelain *AmazonEKS) *proto.AmazonEKS {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AmazonEKS{}
+	plumbing.Endpoint = porcelain.Endpoint
+	plumbing.AccessKey = porcelain.AccessKey
+	plumbing.SecretAccessKey = porcelain.SecretAccessKey
+	plumbing.CertificateAuthority = porcelain.CertificateAuthority
+	plumbing.Region = porcelain.Region
+	plumbing.ClusterName = porcelain.ClusterName
+	return plumbing
+}
+
+func repeatedAmazonEKSToPlumbing(porcelains []*AmazonEKS) []*proto.AmazonEKS {
+	var items []*proto.AmazonEKS
+	for _, porcelain := range porcelains {
+		items = append(items, amazonEksToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAmazonEKSToPorcelain(plumbings []*proto.AmazonEKS) []*AmazonEKS {
+	var items []*AmazonEKS
+	for _, plumbing := range plumbings {
+		items = append(items, amazonEksToPorcelain(plumbing))
 	}
 	return items
 }
