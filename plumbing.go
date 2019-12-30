@@ -25,42 +25,42 @@ func timestampToPlumbing(t time.Time) *timestamp.Timestamp {
 	return res
 }
 
-func driverToPlumbing(porcelain Driver) *proto.Driver {
+func resourceToPlumbing(porcelain Resource) *proto.Resource {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.Driver{}
+	plumbing := &proto.Resource{}
 
 	switch v := porcelain.(type) {
 	case *Kubernetes:
-		plumbing.Driver = &proto.Driver_Kubernetes{Kubernetes: kubernetesToPlumbing(v)}
+		plumbing.Resource = &proto.Resource_Kubernetes{Kubernetes: kubernetesToPlumbing(v)}
 	case *AmazonEKS:
-		plumbing.Driver = &proto.Driver_AmazonEks{AmazonEks: amazonEksToPlumbing(v)}
+		plumbing.Resource = &proto.Resource_AmazonEks{AmazonEks: amazonEksToPlumbing(v)}
 	case *GoogleGKE:
-		plumbing.Driver = &proto.Driver_GoogleGke{GoogleGke: googleGkeToPlumbing(v)}
+		plumbing.Resource = &proto.Resource_GoogleGke{GoogleGke: googleGkeToPlumbing(v)}
 	case *HTTPBasicAuth:
-		plumbing.Driver = &proto.Driver_HttpBasicAuth{HttpBasicAuth: httpBasicAuthToPlumbing(v)}
+		plumbing.Resource = &proto.Resource_HttpBasicAuth{HttpBasicAuth: httpBasicAuthToPlumbing(v)}
 	case *HTTPNoAuth:
-		plumbing.Driver = &proto.Driver_HttpNoAuth{HttpNoAuth: httpNoAuthToPlumbing(v)}
+		plumbing.Resource = &proto.Resource_HttpNoAuth{HttpNoAuth: httpNoAuthToPlumbing(v)}
 	case *HTTPAuth:
-		plumbing.Driver = &proto.Driver_HttpAuth{HttpAuth: httpAuthToPlumbing(v)}
+		plumbing.Resource = &proto.Resource_HttpAuth{HttpAuth: httpAuthToPlumbing(v)}
 	case *Mysql:
-		plumbing.Driver = &proto.Driver_Mysql{Mysql: mysqlToPlumbing(v)}
+		plumbing.Resource = &proto.Resource_Mysql{Mysql: mysqlToPlumbing(v)}
 	case *AuroraMysql:
-		plumbing.Driver = &proto.Driver_AuroraMysql{AuroraMysql: auroraMysqlToPlumbing(v)}
+		plumbing.Resource = &proto.Resource_AuroraMysql{AuroraMysql: auroraMysqlToPlumbing(v)}
 	case *Clustrix:
-		plumbing.Driver = &proto.Driver_Clustrix{Clustrix: clustrixToPlumbing(v)}
+		plumbing.Resource = &proto.Resource_Clustrix{Clustrix: clustrixToPlumbing(v)}
 	case *Maria:
-		plumbing.Driver = &proto.Driver_Maria{Maria: mariaToPlumbing(v)}
+		plumbing.Resource = &proto.Resource_Maria{Maria: mariaToPlumbing(v)}
 	case *Memsql:
-		plumbing.Driver = &proto.Driver_Memsql{Memsql: memsqlToPlumbing(v)}
+		plumbing.Resource = &proto.Resource_Memsql{Memsql: memsqlToPlumbing(v)}
 	case *Athena:
-		plumbing.Driver = &proto.Driver_Athena{Athena: athenaToPlumbing(v)}
+		plumbing.Resource = &proto.Resource_Athena{Athena: athenaToPlumbing(v)}
 	}
 	return plumbing
 }
 
-func driverToPorcelain(plumbing *proto.Driver) Driver {
+func resourceToPorcelain(plumbing *proto.Resource) Resource {
 	if plumbing.GetKubernetes() != nil {
 		return kubernetesToPorcelain(plumbing.GetKubernetes())
 	}
@@ -100,18 +100,18 @@ func driverToPorcelain(plumbing *proto.Driver) Driver {
 	return nil
 }
 
-func repeatedDriverToPlumbing(porcelains []Driver) []*proto.Driver {
-	var items []*proto.Driver
+func repeatedResourceToPlumbing(porcelains []Resource) []*proto.Resource {
+	var items []*proto.Resource
 	for _, porcelain := range porcelains {
-		items = append(items, driverToPlumbing(porcelain))
+		items = append(items, resourceToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedDriverToPorcelain(plumbings []*proto.Driver) []Driver {
-	var items []Driver
+func repeatedResourceToPorcelain(plumbings []*proto.Resource) []Resource {
+	var items []Resource
 	for _, plumbing := range plumbings {
-		items = append(items, driverToPorcelain(plumbing))
+		items = append(items, resourceToPorcelain(plumbing))
 	}
 	return items
 }
@@ -121,6 +121,10 @@ func kubernetesToPorcelain(plumbing *proto.Kubernetes) *Kubernetes {
 		return nil
 	}
 	porcelain := &Kubernetes{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Port = plumbing.Port
 	porcelain.CertificateAuthority = plumbing.CertificateAuthority
@@ -134,6 +138,10 @@ func kubernetesToPlumbing(porcelain *Kubernetes) *proto.Kubernetes {
 		return nil
 	}
 	plumbing := &proto.Kubernetes{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Port = porcelain.Port
 	plumbing.CertificateAuthority = porcelain.CertificateAuthority
@@ -163,6 +171,10 @@ func amazonEksToPorcelain(plumbing *proto.AmazonEKS) *AmazonEKS {
 		return nil
 	}
 	porcelain := &AmazonEKS{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
 	porcelain.Endpoint = plumbing.Endpoint
 	porcelain.AccessKey = plumbing.AccessKey
 	porcelain.SecretAccessKey = plumbing.SecretAccessKey
@@ -177,6 +189,10 @@ func amazonEksToPlumbing(porcelain *AmazonEKS) *proto.AmazonEKS {
 		return nil
 	}
 	plumbing := &proto.AmazonEKS{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
 	plumbing.Endpoint = porcelain.Endpoint
 	plumbing.AccessKey = porcelain.AccessKey
 	plumbing.SecretAccessKey = porcelain.SecretAccessKey
@@ -207,6 +223,10 @@ func googleGkeToPorcelain(plumbing *proto.GoogleGKE) *GoogleGKE {
 		return nil
 	}
 	porcelain := &GoogleGKE{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
 	porcelain.Endpoint = plumbing.Endpoint
 	porcelain.CertificateAuthority = plumbing.CertificateAuthority
 	porcelain.ServiceAccountKey = plumbing.ServiceAccountKey
@@ -218,6 +238,10 @@ func googleGkeToPlumbing(porcelain *GoogleGKE) *proto.GoogleGKE {
 		return nil
 	}
 	plumbing := &proto.GoogleGKE{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
 	plumbing.Endpoint = porcelain.Endpoint
 	plumbing.CertificateAuthority = porcelain.CertificateAuthority
 	plumbing.ServiceAccountKey = porcelain.ServiceAccountKey
@@ -245,6 +269,10 @@ func httpBasicAuthToPorcelain(plumbing *proto.HTTPBasicAuth) *HTTPBasicAuth {
 		return nil
 	}
 	porcelain := &HTTPBasicAuth{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
 	porcelain.Url = plumbing.Url
 	porcelain.HealthcheckPath = plumbing.HealthcheckPath
 	porcelain.Username = plumbing.Username
@@ -260,6 +288,10 @@ func httpBasicAuthToPlumbing(porcelain *HTTPBasicAuth) *proto.HTTPBasicAuth {
 		return nil
 	}
 	plumbing := &proto.HTTPBasicAuth{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
 	plumbing.Url = porcelain.Url
 	plumbing.HealthcheckPath = porcelain.HealthcheckPath
 	plumbing.Username = porcelain.Username
@@ -291,6 +323,10 @@ func httpNoAuthToPorcelain(plumbing *proto.HTTPNoAuth) *HTTPNoAuth {
 		return nil
 	}
 	porcelain := &HTTPNoAuth{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
 	porcelain.Url = plumbing.Url
 	porcelain.HealthcheckPath = plumbing.HealthcheckPath
 	porcelain.HeadersBlacklist = plumbing.HeadersBlacklist
@@ -304,6 +340,10 @@ func httpNoAuthToPlumbing(porcelain *HTTPNoAuth) *proto.HTTPNoAuth {
 		return nil
 	}
 	plumbing := &proto.HTTPNoAuth{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
 	plumbing.Url = porcelain.Url
 	plumbing.HealthcheckPath = porcelain.HealthcheckPath
 	plumbing.HeadersBlacklist = porcelain.HeadersBlacklist
@@ -333,6 +373,10 @@ func httpAuthToPorcelain(plumbing *proto.HTTPAuth) *HTTPAuth {
 		return nil
 	}
 	porcelain := &HTTPAuth{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
 	porcelain.Url = plumbing.Url
 	porcelain.HealthcheckPath = plumbing.HealthcheckPath
 	porcelain.AuthHeader = plumbing.AuthHeader
@@ -347,6 +391,10 @@ func httpAuthToPlumbing(porcelain *HTTPAuth) *proto.HTTPAuth {
 		return nil
 	}
 	plumbing := &proto.HTTPAuth{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
 	plumbing.Url = porcelain.Url
 	plumbing.HealthcheckPath = porcelain.HealthcheckPath
 	plumbing.AuthHeader = porcelain.AuthHeader
@@ -377,6 +425,10 @@ func mysqlToPorcelain(plumbing *proto.Mysql) *Mysql {
 		return nil
 	}
 	porcelain := &Mysql{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -390,6 +442,10 @@ func mysqlToPlumbing(porcelain *Mysql) *proto.Mysql {
 		return nil
 	}
 	plumbing := &proto.Mysql{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -419,6 +475,10 @@ func auroraMysqlToPorcelain(plumbing *proto.AuroraMysql) *AuroraMysql {
 		return nil
 	}
 	porcelain := &AuroraMysql{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -432,6 +492,10 @@ func auroraMysqlToPlumbing(porcelain *AuroraMysql) *proto.AuroraMysql {
 		return nil
 	}
 	plumbing := &proto.AuroraMysql{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -461,6 +525,10 @@ func clustrixToPorcelain(plumbing *proto.Clustrix) *Clustrix {
 		return nil
 	}
 	porcelain := &Clustrix{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -474,6 +542,10 @@ func clustrixToPlumbing(porcelain *Clustrix) *proto.Clustrix {
 		return nil
 	}
 	plumbing := &proto.Clustrix{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -503,6 +575,10 @@ func mariaToPorcelain(plumbing *proto.Maria) *Maria {
 		return nil
 	}
 	porcelain := &Maria{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -516,6 +592,10 @@ func mariaToPlumbing(porcelain *Maria) *proto.Maria {
 		return nil
 	}
 	plumbing := &proto.Maria{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -545,6 +625,10 @@ func memsqlToPorcelain(plumbing *proto.Memsql) *Memsql {
 		return nil
 	}
 	porcelain := &Memsql{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -558,6 +642,10 @@ func memsqlToPlumbing(porcelain *Memsql) *proto.Memsql {
 		return nil
 	}
 	plumbing := &proto.Memsql{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -587,6 +675,10 @@ func athenaToPorcelain(plumbing *proto.Athena) *Athena {
 		return nil
 	}
 	porcelain := &Athena{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
 	porcelain.AccessKey = plumbing.AccessKey
 	porcelain.SecretAccessKey = plumbing.SecretAccessKey
 	porcelain.Region = plumbing.Region
@@ -599,6 +691,10 @@ func athenaToPlumbing(porcelain *Athena) *proto.Athena {
 		return nil
 	}
 	plumbing := &proto.Athena{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
 	plumbing.AccessKey = porcelain.AccessKey
 	plumbing.SecretAccessKey = porcelain.SecretAccessKey
 	plumbing.Region = porcelain.Region
@@ -1213,48 +1309,6 @@ func repeatedResourceDeleteResponseToPorcelain(plumbings []*proto.ResourceDelete
 	return items
 }
 
-func resourceToPorcelain(plumbing *proto.Resource) *Resource {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &Resource{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Driver = driverToPorcelain(plumbing.Driver)
-	return porcelain
-}
-
-func resourceToPlumbing(porcelain *Resource) *proto.Resource {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.Resource{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Driver = driverToPlumbing(porcelain.Driver)
-	return plumbing
-}
-
-func repeatedResourceToPlumbing(porcelains []*Resource) []*proto.Resource {
-	var items []*proto.Resource
-	for _, porcelain := range porcelains {
-		items = append(items, resourceToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedResourceToPorcelain(plumbings []*proto.Resource) []*Resource {
-	var items []*Resource
-	for _, plumbing := range plumbings {
-		items = append(items, resourceToPorcelain(plumbing))
-	}
-	return items
-}
-
 func roleAttachmentCreateResponseToPorcelain(plumbing *proto.RoleAttachmentCreateResponse) *RoleAttachmentCreateResponse {
 	if plumbing == nil {
 		return nil
@@ -1684,9 +1738,9 @@ func (n *nodeIteratorImpl) Err() error {
 	return n.err
 }
 
-type resourceIteratorImplFetchFunc func() ([]*Resource, bool, error)
+type resourceIteratorImplFetchFunc func() ([]Resource, bool, error)
 type resourceIteratorImpl struct {
-	buffer      []*Resource
+	buffer      []Resource
 	index       int
 	hasNextPage bool
 	err         error
@@ -1716,7 +1770,7 @@ func (r *resourceIteratorImpl) Next() bool {
 	return len(r.buffer) > 0
 }
 
-func (r *resourceIteratorImpl) Value() *Resource {
+func (r *resourceIteratorImpl) Value() Resource {
 	if r.index >= len(r.buffer) {
 		return nil
 	}

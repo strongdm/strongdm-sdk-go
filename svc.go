@@ -105,7 +105,7 @@ type Resources struct {
 }
 
 // Create registers a new Resource.
-func (svc *Resources) Create(ctx context.Context, resource *Resource) (*ResourceCreateResponse, error) {
+func (svc *Resources) Create(ctx context.Context, resource Resource) (*ResourceCreateResponse, error) {
 	req := &plumbing.ResourceCreateRequest{}
 	req.Resource = resourceToPlumbing(resource)
 	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req, "Resources.Create"), req)
@@ -135,7 +135,7 @@ func (svc *Resources) Get(ctx context.Context, id string) (*ResourceGetResponse,
 }
 
 // Update patches a Resource by ID.
-func (svc *Resources) Update(ctx context.Context, resource *Resource) (*ResourceUpdateResponse, error) {
+func (svc *Resources) Update(ctx context.Context, resource Resource) (*ResourceUpdateResponse, error) {
 	req := &plumbing.ResourceUpdateRequest{}
 	req.Resource = resourceToPlumbing(resource)
 	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx, req, "Resources.Update"), req)
@@ -176,7 +176,7 @@ func (svc *Resources) List(ctx context.Context, filter string) ResourceIterator 
 		}
 	}
 	return newResourceIteratorImpl(
-		func() ([]*Resource, bool, error) {
+		func() ([]Resource, bool, error) {
 			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx, req, "Resources.List"), req)
 			if err != nil {
 				return nil, false, errorToPorcelain(err)

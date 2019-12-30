@@ -4,35 +4,83 @@ import (
 	"time"
 )
 
-type Driver interface {
-	isOneOf_Driver()
+// A Resource is a server or service which clients connect to through relays.
+type Resource interface {
+	// GetID returns the unique identifier of the Resource.
+	GetID() string
+	isOneOf_Resource()
 }
 
-func (*Kubernetes) isOneOf_Driver() {}
+func (*Kubernetes) isOneOf_Resource() {}
 
-func (*AmazonEKS) isOneOf_Driver() {}
+// GetID returns the unique identifier of the Kubernetes.
+func (m *Kubernetes) GetID() string { return m.ID }
 
-func (*GoogleGKE) isOneOf_Driver() {}
+func (*AmazonEKS) isOneOf_Resource() {}
 
-func (*HTTPBasicAuth) isOneOf_Driver() {}
+// GetID returns the unique identifier of the AmazonEKS.
+func (m *AmazonEKS) GetID() string { return m.ID }
 
-func (*HTTPNoAuth) isOneOf_Driver() {}
+func (*GoogleGKE) isOneOf_Resource() {}
 
-func (*HTTPAuth) isOneOf_Driver() {}
+// GetID returns the unique identifier of the GoogleGKE.
+func (m *GoogleGKE) GetID() string { return m.ID }
 
-func (*Mysql) isOneOf_Driver() {}
+func (*HTTPBasicAuth) isOneOf_Resource() {}
 
-func (*AuroraMysql) isOneOf_Driver() {}
+// GetID returns the unique identifier of the HTTPBasicAuth.
+func (m *HTTPBasicAuth) GetID() string { return m.ID }
 
-func (*Clustrix) isOneOf_Driver() {}
+func (*HTTPNoAuth) isOneOf_Resource() {}
 
-func (*Maria) isOneOf_Driver() {}
+// GetID returns the unique identifier of the HTTPNoAuth.
+func (m *HTTPNoAuth) GetID() string { return m.ID }
 
-func (*Memsql) isOneOf_Driver() {}
+func (*HTTPAuth) isOneOf_Resource() {}
 
-func (*Athena) isOneOf_Driver() {}
+// GetID returns the unique identifier of the HTTPAuth.
+func (m *HTTPAuth) GetID() string { return m.ID }
+
+func (*Mysql) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Mysql.
+func (m *Mysql) GetID() string { return m.ID }
+
+func (*AuroraMysql) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the AuroraMysql.
+func (m *AuroraMysql) GetID() string { return m.ID }
+
+func (*Clustrix) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Clustrix.
+func (m *Clustrix) GetID() string { return m.ID }
+
+func (*Maria) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Maria.
+func (m *Maria) GetID() string { return m.ID }
+
+func (*Memsql) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Memsql.
+func (m *Memsql) GetID() string { return m.ID }
+
+func (*Athena) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Athena.
+func (m *Athena) GetID() string { return m.ID }
 
 type Kubernetes struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
 	Hostname string
 
 	Port int32
@@ -45,6 +93,15 @@ type Kubernetes struct {
 }
 
 type AmazonEKS struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
 	Endpoint string
 
 	AccessKey string
@@ -59,6 +116,15 @@ type AmazonEKS struct {
 }
 
 type GoogleGKE struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
 	Endpoint string
 
 	CertificateAuthority string
@@ -67,6 +133,15 @@ type GoogleGKE struct {
 }
 
 type HTTPBasicAuth struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
 	Url string
 
 	HealthcheckPath string
@@ -83,6 +158,15 @@ type HTTPBasicAuth struct {
 }
 
 type HTTPNoAuth struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
 	Url string
 
 	HealthcheckPath string
@@ -95,6 +179,15 @@ type HTTPNoAuth struct {
 }
 
 type HTTPAuth struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
 	Url string
 
 	HealthcheckPath string
@@ -109,6 +202,15 @@ type HTTPAuth struct {
 }
 
 type Mysql struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
 	Hostname string
 
 	Username string
@@ -121,6 +223,15 @@ type Mysql struct {
 }
 
 type AuroraMysql struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
 	Hostname string
 
 	Username string
@@ -133,6 +244,15 @@ type AuroraMysql struct {
 }
 
 type Clustrix struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
 	Hostname string
 
 	Username string
@@ -145,6 +265,15 @@ type Clustrix struct {
 }
 
 type Maria struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
 	Hostname string
 
 	Username string
@@ -157,6 +286,15 @@ type Maria struct {
 }
 
 type Memsql struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
 	Hostname string
 
 	Username string
@@ -169,6 +307,15 @@ type Memsql struct {
 }
 
 type Athena struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
 	AccessKey string
 
 	SecretAccessKey string
@@ -301,7 +448,7 @@ type ResourceCreateResponse struct {
 	// Reserved for future use.
 	Meta *CreateResponseMetadata
 	// The created Resource.
-	Resource *Resource
+	Resource Resource
 	// Rate limit information.
 	RateLimit *RateLimitMetadata
 }
@@ -311,7 +458,7 @@ type ResourceGetResponse struct {
 	// Reserved for future use.
 	Meta *GetResponseMetadata
 	// The requested Resource.
-	Resource *Resource
+	Resource Resource
 	// Rate limit information.
 	RateLimit *RateLimitMetadata
 }
@@ -322,7 +469,7 @@ type ResourceUpdateResponse struct {
 	// Reserved for future use.
 	Meta *UpdateResponseMetadata
 	// The updated Resource.
-	Resource *Resource
+	Resource Resource
 	// Rate limit information.
 	RateLimit *RateLimitMetadata
 }
@@ -333,23 +480,6 @@ type ResourceDeleteResponse struct {
 	Meta *DeleteResponseMetadata
 	// Rate limit information.
 	RateLimit *RateLimitMetadata
-}
-
-// A Resource is a proxy in the strongDM network. They come in two flavors: relays,
-// which communicate with resources, and gateways, which communicate with
-// clients.
-type Resource struct {
-	// Unique identifier of the Resource.
-	ID string
-	// Unique human-readable name of the Resource.
-	Name string
-	// Port number override.
-	// TODO: should this be a part of the Driver since it does not apply to HTTP resources?
-	PortOverride int32
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
-	// Fields for connecting to the resource.
-	Driver Driver
 }
 
 // RoleAttachmentCreateResponse reports how the RoleAttachments were created in the system.
@@ -470,7 +600,7 @@ type ResourceIterator interface {
 	// true if an item is available to retrieve via the `Value()` function.
 	Next() bool
 	// Value returns the current item, if one is available.
-	Value() *Resource
+	Value() Resource
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }
