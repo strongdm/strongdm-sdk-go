@@ -585,6 +585,7 @@ type Resource struct {
 	// Unique human-readable name of the Resource.
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	// Port number override.
+	// TODO: should this be a part of the Driver since it does not apply to HTTP resources?
 	PortOverride int32 `protobuf:"varint,3,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `protobuf:"varint,4,opt,name=healthy,proto3" json:"healthy,omitempty"`

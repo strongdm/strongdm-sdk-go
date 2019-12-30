@@ -12,6 +12,8 @@ func (*Kubernetes) isOneOf_Driver() {}
 
 func (*AmazonEKS) isOneOf_Driver() {}
 
+func (*GoogleGKE) isOneOf_Driver() {}
+
 func (*HTTPBasicAuth) isOneOf_Driver() {}
 
 func (*HTTPNoAuth) isOneOf_Driver() {}
@@ -54,6 +56,14 @@ type AmazonEKS struct {
 	Region string
 
 	ClusterName string
+}
+
+type GoogleGKE struct {
+	Endpoint string
+
+	CertificateAuthority string
+
+	ServiceAccountKey string
 }
 
 type HTTPBasicAuth struct {
@@ -334,6 +344,7 @@ type Resource struct {
 	// Unique human-readable name of the Resource.
 	Name string
 	// Port number override.
+	// TODO: should this be a part of the Driver since it does not apply to HTTP resources?
 	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool

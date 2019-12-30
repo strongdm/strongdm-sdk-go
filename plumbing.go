@@ -36,6 +36,8 @@ func driverToPlumbing(porcelain Driver) *proto.Driver {
 		plumbing.Driver = &proto.Driver_Kubernetes{Kubernetes: kubernetesToPlumbing(v)}
 	case *AmazonEKS:
 		plumbing.Driver = &proto.Driver_AmazonEks{AmazonEks: amazonEksToPlumbing(v)}
+	case *GoogleGKE:
+		plumbing.Driver = &proto.Driver_GoogleGke{GoogleGke: googleGkeToPlumbing(v)}
 	case *HTTPBasicAuth:
 		plumbing.Driver = &proto.Driver_HttpBasicAuth{HttpBasicAuth: httpBasicAuthToPlumbing(v)}
 	case *HTTPNoAuth:
@@ -64,6 +66,9 @@ func driverToPorcelain(plumbing *proto.Driver) Driver {
 	}
 	if plumbing.GetAmazonEks() != nil {
 		return amazonEksToPorcelain(plumbing.GetAmazonEks())
+	}
+	if plumbing.GetGoogleGke() != nil {
+		return googleGkeToPorcelain(plumbing.GetGoogleGke())
 	}
 	if plumbing.GetHttpBasicAuth() != nil {
 		return httpBasicAuthToPorcelain(plumbing.GetHttpBasicAuth())
@@ -193,6 +198,44 @@ func repeatedAmazonEKSToPorcelain(plumbings []*proto.AmazonEKS) []*AmazonEKS {
 	var items []*AmazonEKS
 	for _, plumbing := range plumbings {
 		items = append(items, amazonEksToPorcelain(plumbing))
+	}
+	return items
+}
+
+func googleGkeToPorcelain(plumbing *proto.GoogleGKE) *GoogleGKE {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &GoogleGKE{}
+	porcelain.Endpoint = plumbing.Endpoint
+	porcelain.CertificateAuthority = plumbing.CertificateAuthority
+	porcelain.ServiceAccountKey = plumbing.ServiceAccountKey
+	return porcelain
+}
+
+func googleGkeToPlumbing(porcelain *GoogleGKE) *proto.GoogleGKE {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.GoogleGKE{}
+	plumbing.Endpoint = porcelain.Endpoint
+	plumbing.CertificateAuthority = porcelain.CertificateAuthority
+	plumbing.ServiceAccountKey = porcelain.ServiceAccountKey
+	return plumbing
+}
+
+func repeatedGoogleGKEToPlumbing(porcelains []*GoogleGKE) []*proto.GoogleGKE {
+	var items []*proto.GoogleGKE
+	for _, porcelain := range porcelains {
+		items = append(items, googleGkeToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedGoogleGKEToPorcelain(plumbings []*proto.GoogleGKE) []*GoogleGKE {
+	var items []*GoogleGKE
+	for _, plumbing := range plumbings {
+		items = append(items, googleGkeToPorcelain(plumbing))
 	}
 	return items
 }
