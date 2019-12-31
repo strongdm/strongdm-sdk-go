@@ -26,6 +26,11 @@ func (*Kubernetes) isOneOf_Resource() {}
 // GetID returns the unique identifier of the Kubernetes.
 func (m *Kubernetes) GetID() string { return m.ID }
 
+func (*KubernetesBasicAuth) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the KubernetesBasicAuth.
+func (m *KubernetesBasicAuth) GetID() string { return m.ID }
+
 func (*AmazonEKS) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AmazonEKS.
@@ -91,12 +96,12 @@ type Redis struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
 	Hostname string
+
+	PortOverride int32
 
 	Password string
 
@@ -108,12 +113,12 @@ type ElasticacheRedis struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
 	Hostname string
+
+	PortOverride int32
 
 	Password string
 
@@ -127,8 +132,6 @@ type Kubernetes struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -143,13 +146,34 @@ type Kubernetes struct {
 	ClientKey string
 }
 
+type KubernetesBasicAuth struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Port int32
+
+	Username string
+
+	Password string
+
+	CertificateAuthority string
+
+	ClientCertificate string
+
+	ClientKey string
+}
+
 type AmazonEKS struct {
 	// Unique identifier of the Resource.
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -171,8 +195,6 @@ type GoogleGKE struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -188,8 +210,6 @@ type SSH struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -207,8 +227,6 @@ type HTTPBasicAuth struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -232,8 +250,6 @@ type HTTPNoAuth struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -253,8 +269,6 @@ type HTTPAuth struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -276,8 +290,6 @@ type Mysql struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -288,6 +300,8 @@ type Mysql struct {
 	Password string
 
 	Database string
+
+	PortOverride int32
 
 	Port int32
 }
@@ -297,8 +311,6 @@ type AuroraMysql struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -309,6 +321,8 @@ type AuroraMysql struct {
 	Password string
 
 	Database string
+
+	PortOverride int32
 
 	Port int32
 }
@@ -318,8 +332,6 @@ type Clustrix struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -330,6 +342,8 @@ type Clustrix struct {
 	Password string
 
 	Database string
+
+	PortOverride int32
 
 	Port int32
 }
@@ -339,8 +353,6 @@ type Maria struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -351,6 +363,8 @@ type Maria struct {
 	Password string
 
 	Database string
+
+	PortOverride int32
 
 	Port int32
 }
@@ -360,8 +374,6 @@ type Memsql struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -373,6 +385,8 @@ type Memsql struct {
 
 	Database string
 
+	PortOverride int32
+
 	Port int32
 }
 
@@ -381,8 +395,6 @@ type Athena struct {
 	ID string
 	// Unique human-readable name of the Resource.
 	Name string
-	// Port number override.
-	PortOverride int32
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
@@ -390,9 +402,11 @@ type Athena struct {
 
 	SecretAccessKey string
 
-	Region string
-
 	Output string
+
+	PortOverride int32
+
+	Region string
 }
 
 // CreateResponseMetadata is reserved for future use.
