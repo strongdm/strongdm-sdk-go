@@ -26,6 +26,11 @@ func (*GoogleGKE) isOneOf_Resource() {}
 // GetID returns the unique identifier of the GoogleGKE.
 func (m *GoogleGKE) GetID() string { return m.ID }
 
+func (*SSH) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the SSH.
+func (m *SSH) GetID() string { return m.ID }
+
 func (*HTTPBasicAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the HTTPBasicAuth.
@@ -130,6 +135,25 @@ type GoogleGKE struct {
 	CertificateAuthority string
 
 	ServiceAccountKey string
+}
+
+type SSH struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Username string
+
+	Port int32
+
+	PublicKey string
 }
 
 type HTTPBasicAuth struct {

@@ -38,6 +38,8 @@ func resourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_AmazonEks{AmazonEks: amazonEksToPlumbing(v)}
 	case *GoogleGKE:
 		plumbing.Resource = &proto.Resource_GoogleGke{GoogleGke: googleGkeToPlumbing(v)}
+	case *SSH:
+		plumbing.Resource = &proto.Resource_Ssh{Ssh: sshToPlumbing(v)}
 	case *HTTPBasicAuth:
 		plumbing.Resource = &proto.Resource_HttpBasicAuth{HttpBasicAuth: httpBasicAuthToPlumbing(v)}
 	case *HTTPNoAuth:
@@ -69,6 +71,9 @@ func resourceToPorcelain(plumbing *proto.Resource) Resource {
 	}
 	if plumbing.GetGoogleGke() != nil {
 		return googleGkeToPorcelain(plumbing.GetGoogleGke())
+	}
+	if plumbing.GetSsh() != nil {
+		return sshToPorcelain(plumbing.GetSsh())
 	}
 	if plumbing.GetHttpBasicAuth() != nil {
 		return httpBasicAuthToPorcelain(plumbing.GetHttpBasicAuth())
@@ -260,6 +265,54 @@ func repeatedGoogleGKEToPorcelain(plumbings []*proto.GoogleGKE) []*GoogleGKE {
 	var items []*GoogleGKE
 	for _, plumbing := range plumbings {
 		items = append(items, googleGkeToPorcelain(plumbing))
+	}
+	return items
+}
+
+func sshToPorcelain(plumbing *proto.SSH) *SSH {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &SSH{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Username = plumbing.Username
+	porcelain.Port = plumbing.Port
+	porcelain.PublicKey = plumbing.PublicKey
+	return porcelain
+}
+
+func sshToPlumbing(porcelain *SSH) *proto.SSH {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SSH{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
+	plumbing.Port = porcelain.Port
+	plumbing.PublicKey = porcelain.PublicKey
+	return plumbing
+}
+
+func repeatedSSHToPlumbing(porcelains []*SSH) []*proto.SSH {
+	var items []*proto.SSH
+	for _, porcelain := range porcelains {
+		items = append(items, sshToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedSSHToPorcelain(plumbings []*proto.SSH) []*SSH {
+	var items []*SSH
+	for _, plumbing := range plumbings {
+		items = append(items, sshToPorcelain(plumbing))
 	}
 	return items
 }
