@@ -1,13 +1,36 @@
 package sdm
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	proto "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"strings"
 	"time"
 )
+
+func quoteFilterArgs(filter string, args ...interface{}) (string, error) {
+	parts := strings.Split(filter, "?")
+	if len(parts) != len(args)+1 {
+		return "", &BadRequestError{Message: "incorrect number of replacements"}
+	}
+	var b strings.Builder
+	for i, v := range parts {
+		b.WriteString(v)
+		if i < len(args) {
+			s := fmt.Sprint(args[i])
+			j, err := json.Marshal(s)
+			if err != nil {
+				return "", &BadRequestError{Message: "unable to marshal string to JSON"}
+			}
+			b.Write(j)
+		}
+	}
+	return b.String(), nil
+}
 
 func timestampToPorcelain(t *timestamp.Timestamp) time.Time {
 	if t == nil {

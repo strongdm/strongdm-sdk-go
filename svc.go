@@ -18,9 +18,20 @@ type Nodes struct {
 func (svc *Nodes) Create(ctx context.Context, node Node) (*NodeCreateResponse, error) {
 	req := &plumbing.NodeCreateRequest{}
 	req.Node = nodeToPlumbing(node)
-	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req, "Nodes.Create"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.NodeCreateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Nodes.Create"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &NodeCreateResponse{}
 	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -34,9 +45,20 @@ func (svc *Nodes) Create(ctx context.Context, node Node) (*NodeCreateResponse, e
 func (svc *Nodes) Get(ctx context.Context, id string) (*NodeGetResponse, error) {
 	req := &plumbing.NodeGetRequest{}
 	req.Id = id
-	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx, req, "Nodes.Get"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.NodeGetResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Nodes.Get"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &NodeGetResponse{}
 	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -49,9 +71,20 @@ func (svc *Nodes) Get(ctx context.Context, id string) (*NodeGetResponse, error) 
 func (svc *Nodes) Update(ctx context.Context, node Node) (*NodeUpdateResponse, error) {
 	req := &plumbing.NodeUpdateRequest{}
 	req.Node = nodeToPlumbing(node)
-	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx, req, "Nodes.Update"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.NodeUpdateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Nodes.Update"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &NodeUpdateResponse{}
 	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -64,9 +97,20 @@ func (svc *Nodes) Update(ctx context.Context, node Node) (*NodeUpdateResponse, e
 func (svc *Nodes) Delete(ctx context.Context, id string) (*NodeDeleteResponse, error) {
 	req := &plumbing.NodeDeleteRequest{}
 	req.Id = id
-	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx, req, "Nodes.Delete"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.NodeDeleteResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Nodes.Delete"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &NodeDeleteResponse{}
 	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -75,10 +119,14 @@ func (svc *Nodes) Delete(ctx context.Context, id string) (*NodeDeleteResponse, e
 }
 
 // List gets a list of Nodes matching a given set of criteria.
-func (svc *Nodes) List(ctx context.Context, filter string) NodeIterator {
+func (svc *Nodes) List(ctx context.Context, filter string, args ...interface{}) (NodeIterator, error) {
 	req := &plumbing.NodeListRequest{}
-	req.Filter = filter
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
 
+	if filterErr != nil {
+		return nil, filterErr
+	}
 	req.Meta = &plumbing.ListRequestMetadata{}
 	if value := svc.parent.testOption("PageLimit"); value != nil {
 		v, ok := value.(int)
@@ -88,15 +136,26 @@ func (svc *Nodes) List(ctx context.Context, filter string) NodeIterator {
 	}
 	return newNodeIteratorImpl(
 		func() ([]Node, bool, error) {
-			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx, req, "Nodes.List"), req)
-			if err != nil {
-				return nil, false, errorToPorcelain(err)
+			var plumbingResponse *plumbing.NodeListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Nodes.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, errorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
 			}
 			result := repeatedNodeToPorcelain(plumbingResponse.Nodes)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
-	)
+	), nil
 }
 
 type Resources struct {
@@ -108,9 +167,20 @@ type Resources struct {
 func (svc *Resources) Create(ctx context.Context, resource Resource) (*ResourceCreateResponse, error) {
 	req := &plumbing.ResourceCreateRequest{}
 	req.Resource = resourceToPlumbing(resource)
-	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req, "Resources.Create"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.ResourceCreateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Resources.Create"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &ResourceCreateResponse{}
 	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -123,9 +193,20 @@ func (svc *Resources) Create(ctx context.Context, resource Resource) (*ResourceC
 func (svc *Resources) Get(ctx context.Context, id string) (*ResourceGetResponse, error) {
 	req := &plumbing.ResourceGetRequest{}
 	req.Id = id
-	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx, req, "Resources.Get"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.ResourceGetResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Resources.Get"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &ResourceGetResponse{}
 	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -138,9 +219,20 @@ func (svc *Resources) Get(ctx context.Context, id string) (*ResourceGetResponse,
 func (svc *Resources) Update(ctx context.Context, resource Resource) (*ResourceUpdateResponse, error) {
 	req := &plumbing.ResourceUpdateRequest{}
 	req.Resource = resourceToPlumbing(resource)
-	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx, req, "Resources.Update"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.ResourceUpdateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Resources.Update"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &ResourceUpdateResponse{}
 	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -153,9 +245,20 @@ func (svc *Resources) Update(ctx context.Context, resource Resource) (*ResourceU
 func (svc *Resources) Delete(ctx context.Context, id string) (*ResourceDeleteResponse, error) {
 	req := &plumbing.ResourceDeleteRequest{}
 	req.Id = id
-	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx, req, "Resources.Delete"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.ResourceDeleteResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Resources.Delete"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &ResourceDeleteResponse{}
 	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -164,10 +267,14 @@ func (svc *Resources) Delete(ctx context.Context, id string) (*ResourceDeleteRes
 }
 
 // List gets a list of Resources matching a given set of criteria.
-func (svc *Resources) List(ctx context.Context, filter string) ResourceIterator {
+func (svc *Resources) List(ctx context.Context, filter string, args ...interface{}) (ResourceIterator, error) {
 	req := &plumbing.ResourceListRequest{}
-	req.Filter = filter
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
 
+	if filterErr != nil {
+		return nil, filterErr
+	}
 	req.Meta = &plumbing.ListRequestMetadata{}
 	if value := svc.parent.testOption("PageLimit"); value != nil {
 		v, ok := value.(int)
@@ -177,15 +284,26 @@ func (svc *Resources) List(ctx context.Context, filter string) ResourceIterator 
 	}
 	return newResourceIteratorImpl(
 		func() ([]Resource, bool, error) {
-			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx, req, "Resources.List"), req)
-			if err != nil {
-				return nil, false, errorToPorcelain(err)
+			var plumbingResponse *plumbing.ResourceListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Resources.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, errorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
 			}
 			result := repeatedResourceToPorcelain(plumbingResponse.Resources)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
-	)
+	), nil
 }
 
 // RoleAttachments represent relationships between composite roles and the roles
@@ -198,12 +316,23 @@ type RoleAttachments struct {
 }
 
 // Create registers a new RoleAttachment.
-func (svc *RoleAttachments) Create(ctx context.Context, role_attachment *RoleAttachment) (*RoleAttachmentCreateResponse, error) {
+func (svc *RoleAttachments) Create(ctx context.Context, roleAttachment *RoleAttachment) (*RoleAttachmentCreateResponse, error) {
 	req := &plumbing.RoleAttachmentCreateRequest{}
-	req.RoleAttachment = roleAttachmentToPlumbing(role_attachment)
-	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req, "RoleAttachments.Create"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	req.RoleAttachment = roleAttachmentToPlumbing(roleAttachment)
+	var plumbingResponse *plumbing.RoleAttachmentCreateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "RoleAttachments.Create"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &RoleAttachmentCreateResponse{}
 	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -216,9 +345,20 @@ func (svc *RoleAttachments) Create(ctx context.Context, role_attachment *RoleAtt
 func (svc *RoleAttachments) Get(ctx context.Context, id string) (*RoleAttachmentGetResponse, error) {
 	req := &plumbing.RoleAttachmentGetRequest{}
 	req.Id = id
-	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx, req, "RoleAttachments.Get"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.RoleAttachmentGetResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "RoleAttachments.Get"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &RoleAttachmentGetResponse{}
 	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -231,9 +371,20 @@ func (svc *RoleAttachments) Get(ctx context.Context, id string) (*RoleAttachment
 func (svc *RoleAttachments) Delete(ctx context.Context, id string) (*RoleAttachmentDeleteResponse, error) {
 	req := &plumbing.RoleAttachmentDeleteRequest{}
 	req.Id = id
-	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx, req, "RoleAttachments.Delete"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.RoleAttachmentDeleteResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "RoleAttachments.Delete"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &RoleAttachmentDeleteResponse{}
 	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -242,10 +393,14 @@ func (svc *RoleAttachments) Delete(ctx context.Context, id string) (*RoleAttachm
 }
 
 // List gets a list of RoleAttachments matching a given set of criteria.
-func (svc *RoleAttachments) List(ctx context.Context, filter string) RoleAttachmentIterator {
+func (svc *RoleAttachments) List(ctx context.Context, filter string, args ...interface{}) (RoleAttachmentIterator, error) {
 	req := &plumbing.RoleAttachmentListRequest{}
-	req.Filter = filter
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
 
+	if filterErr != nil {
+		return nil, filterErr
+	}
 	req.Meta = &plumbing.ListRequestMetadata{}
 	if value := svc.parent.testOption("PageLimit"); value != nil {
 		v, ok := value.(int)
@@ -255,15 +410,26 @@ func (svc *RoleAttachments) List(ctx context.Context, filter string) RoleAttachm
 	}
 	return newRoleAttachmentIteratorImpl(
 		func() ([]*RoleAttachment, bool, error) {
-			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx, req, "RoleAttachments.List"), req)
-			if err != nil {
-				return nil, false, errorToPorcelain(err)
+			var plumbingResponse *plumbing.RoleAttachmentListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RoleAttachments.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, errorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
 			}
 			result := repeatedRoleAttachmentToPorcelain(plumbingResponse.RoleAttachments)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
-	)
+	), nil
 }
 
 // Roles are tools for controlling user access to resources. Each Role holds a
@@ -280,9 +446,20 @@ type Roles struct {
 func (svc *Roles) Create(ctx context.Context, role *Role) (*RoleCreateResponse, error) {
 	req := &plumbing.RoleCreateRequest{}
 	req.Role = roleToPlumbing(role)
-	plumbingResponse, err := svc.client.Create(svc.parent.wrapContext(ctx, req, "Roles.Create"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.RoleCreateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Roles.Create"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &RoleCreateResponse{}
 	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -295,9 +472,20 @@ func (svc *Roles) Create(ctx context.Context, role *Role) (*RoleCreateResponse, 
 func (svc *Roles) Get(ctx context.Context, id string) (*RoleGetResponse, error) {
 	req := &plumbing.RoleGetRequest{}
 	req.Id = id
-	plumbingResponse, err := svc.client.Get(svc.parent.wrapContext(ctx, req, "Roles.Get"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.RoleGetResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Roles.Get"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &RoleGetResponse{}
 	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -310,9 +498,20 @@ func (svc *Roles) Get(ctx context.Context, id string) (*RoleGetResponse, error) 
 func (svc *Roles) Update(ctx context.Context, role *Role) (*RoleUpdateResponse, error) {
 	req := &plumbing.RoleUpdateRequest{}
 	req.Role = roleToPlumbing(role)
-	plumbingResponse, err := svc.client.Update(svc.parent.wrapContext(ctx, req, "Roles.Update"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.RoleUpdateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Roles.Update"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &RoleUpdateResponse{}
 	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -325,9 +524,20 @@ func (svc *Roles) Update(ctx context.Context, role *Role) (*RoleUpdateResponse, 
 func (svc *Roles) Delete(ctx context.Context, id string) (*RoleDeleteResponse, error) {
 	req := &plumbing.RoleDeleteRequest{}
 	req.Id = id
-	plumbingResponse, err := svc.client.Delete(svc.parent.wrapContext(ctx, req, "Roles.Delete"), req)
-	if err != nil {
-		return nil, errorToPorcelain(err)
+	var plumbingResponse *plumbing.RoleDeleteResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Roles.Delete"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
 	}
 	resp := &RoleDeleteResponse{}
 	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
@@ -336,10 +546,14 @@ func (svc *Roles) Delete(ctx context.Context, id string) (*RoleDeleteResponse, e
 }
 
 // List gets a list of Roles matching a given set of criteria.
-func (svc *Roles) List(ctx context.Context, filter string) RoleIterator {
+func (svc *Roles) List(ctx context.Context, filter string, args ...interface{}) (RoleIterator, error) {
 	req := &plumbing.RoleListRequest{}
-	req.Filter = filter
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
 
+	if filterErr != nil {
+		return nil, filterErr
+	}
 	req.Meta = &plumbing.ListRequestMetadata{}
 	if value := svc.parent.testOption("PageLimit"); value != nil {
 		v, ok := value.(int)
@@ -349,13 +563,24 @@ func (svc *Roles) List(ctx context.Context, filter string) RoleIterator {
 	}
 	return newRoleIteratorImpl(
 		func() ([]*Role, bool, error) {
-			plumbingResponse, err := svc.client.List(svc.parent.wrapContext(ctx, req, "Roles.List"), req)
-			if err != nil {
-				return nil, false, errorToPorcelain(err)
+			var plumbingResponse *plumbing.RoleListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Roles.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, errorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
 			}
 			result := repeatedRoleToPorcelain(plumbingResponse.Roles)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
-	)
+	), nil
 }

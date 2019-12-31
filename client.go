@@ -10,6 +10,7 @@ import (
 	"crypto/tls"
 	"encoding/base64"
 	"fmt"
+	"math/rand"
 	"net"
 	"sync"
 	"time"
@@ -17,8 +18,10 @@ import (
 	"github.com/golang/protobuf/proto"
 	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/metadata"
+	"google.golang.org/grpc/status"
 )
 
 var (
@@ -31,9 +34,13 @@ type Client struct {
 	testOptionsMu sync.RWMutex
 	testOptions   map[string]interface{}
 
-	apiToken        string
-	apiSecret       []byte
-	grpcConn        *grpc.ClientConn
+	apiToken  string
+	apiSecret []byte
+	grpcConn  *grpc.ClientConn
+
+	maxRetries      int
+	baseRetryDelay  time.Duration
+	maxRetryDelay   time.Duration
 	nodes           *Nodes
 	resources       *Resources
 	roleAttachments *RoleAttachments
@@ -71,10 +78,13 @@ func New(host, token, secret string) (*Client, error) {
 		return nil, errorToPorcelain(fmt.Errorf("cannot dial API server: %w", err))
 	}
 	client := &Client{
-		grpcConn:    cc,
-		testOptions: map[string]interface{}{},
-		apiToken:    token,
-		apiSecret:   decodedSecret,
+		grpcConn:       cc,
+		testOptions:    map[string]interface{}{},
+		apiToken:       token,
+		apiSecret:      decodedSecret,
+		maxRetries:     defaultMaxRetries,
+		baseRetryDelay: defaultBaseRetryDelay,
+		maxRetryDelay:  defaultMaxRetryDelay,
 	}
 
 	client.nodes = &Nodes{
@@ -164,4 +174,36 @@ func (c *Client) testOption(key string) interface{} {
 	c.testOptionsMu.RLock()
 	defer c.testOptionsMu.RUnlock()
 	return c.testOptions[key]
+}
+
+// These defaults are taken from AWS. Customization of these values
+// is a future step in the API.
+const (
+	defaultMaxRetries     = 3
+	defaultBaseRetryDelay = 30 * time.Millisecond
+	defaultMaxRetryDelay  = 300 * time.Second
+)
+
+func (c *Client) jitterSleep(iter int) {
+	durMax := c.baseRetryDelay * time.Duration(2<<iter)
+	if durMax > c.maxRetryDelay {
+		durMax = c.maxRetryDelay
+	}
+	// This is a full jitter, ranging from no delay to the maximum
+	// this jittering aims to prevent clients that start and conflict
+	// at the same time from retrying at the same intervals
+	dur := rand.Intn(int(durMax))
+	time.Sleep(time.Duration(dur))
+}
+
+func (c *Client) shouldRetry(iter int, err error) bool {
+	if iter >= c.maxRetries-1 {
+		return false
+	}
+	// Internal and unknown errors should be retried
+	// Other error types are likely not brief temporary errors
+	if s, ok := status.FromError(err); ok {
+		return s.Code() == codes.Internal
+	}
+	return true
 }
