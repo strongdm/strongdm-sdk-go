@@ -32,6 +32,10 @@ func resourceToPlumbing(porcelain Resource) *proto.Resource {
 	plumbing := &proto.Resource{}
 
 	switch v := porcelain.(type) {
+	case *Redis:
+		plumbing.Resource = &proto.Resource_Redis{Redis: redisToPlumbing(v)}
+	case *ElasticacheRedis:
+		plumbing.Resource = &proto.Resource_ElasticacheRedis{ElasticacheRedis: elasticacheRedisToPlumbing(v)}
 	case *Kubernetes:
 		plumbing.Resource = &proto.Resource_Kubernetes{Kubernetes: kubernetesToPlumbing(v)}
 	case *AmazonEKS:
@@ -63,6 +67,12 @@ func resourceToPlumbing(porcelain Resource) *proto.Resource {
 }
 
 func resourceToPorcelain(plumbing *proto.Resource) Resource {
+	if plumbing.GetRedis() != nil {
+		return redisToPorcelain(plumbing.GetRedis())
+	}
+	if plumbing.GetElasticacheRedis() != nil {
+		return elasticacheRedisToPorcelain(plumbing.GetElasticacheRedis())
+	}
 	if plumbing.GetKubernetes() != nil {
 		return kubernetesToPorcelain(plumbing.GetKubernetes())
 	}
@@ -117,6 +127,100 @@ func repeatedResourceToPorcelain(plumbings []*proto.Resource) []Resource {
 	var items []Resource
 	for _, plumbing := range plumbings {
 		items = append(items, resourceToPorcelain(plumbing))
+	}
+	return items
+}
+
+func redisToPorcelain(plumbing *proto.Redis) *Redis {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Redis{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Password = plumbing.Password
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func redisToPlumbing(porcelain *Redis) *proto.Redis {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Redis{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Password = porcelain.Password
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+
+func repeatedRedisToPlumbing(porcelains []*Redis) []*proto.Redis {
+	var items []*proto.Redis
+	for _, porcelain := range porcelains {
+		items = append(items, redisToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedRedisToPorcelain(plumbings []*proto.Redis) []*Redis {
+	var items []*Redis
+	for _, plumbing := range plumbings {
+		items = append(items, redisToPorcelain(plumbing))
+	}
+	return items
+}
+
+func elasticacheRedisToPorcelain(plumbing *proto.ElasticacheRedis) *ElasticacheRedis {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &ElasticacheRedis{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Password = plumbing.Password
+	porcelain.Port = plumbing.Port
+	porcelain.TlsRequired = plumbing.TlsRequired
+	return porcelain
+}
+
+func elasticacheRedisToPlumbing(porcelain *ElasticacheRedis) *proto.ElasticacheRedis {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ElasticacheRedis{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Password = porcelain.Password
+	plumbing.Port = porcelain.Port
+	plumbing.TlsRequired = porcelain.TlsRequired
+	return plumbing
+}
+
+func repeatedElasticacheRedisToPlumbing(porcelains []*ElasticacheRedis) []*proto.ElasticacheRedis {
+	var items []*proto.ElasticacheRedis
+	for _, porcelain := range porcelains {
+		items = append(items, elasticacheRedisToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedElasticacheRedisToPorcelain(plumbings []*proto.ElasticacheRedis) []*ElasticacheRedis {
+	var items []*ElasticacheRedis
+	for _, plumbing := range plumbings {
+		items = append(items, elasticacheRedisToPorcelain(plumbing))
 	}
 	return items
 }

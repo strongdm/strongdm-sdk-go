@@ -11,6 +11,16 @@ type Resource interface {
 	isOneOf_Resource()
 }
 
+func (*Redis) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Redis.
+func (m *Redis) GetID() string { return m.ID }
+
+func (*ElasticacheRedis) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the ElasticacheRedis.
+func (m *ElasticacheRedis) GetID() string { return m.ID }
+
 func (*Kubernetes) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Kubernetes.
@@ -75,6 +85,42 @@ func (*Athena) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Athena.
 func (m *Athena) GetID() string { return m.ID }
+
+type Redis struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Password string
+
+	Port int32
+}
+
+type ElasticacheRedis struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// Port number override.
+	PortOverride int32
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Password string
+
+	Port int32
+
+	TlsRequired bool
+}
 
 type Kubernetes struct {
 	// Unique identifier of the Resource.
