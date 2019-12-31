@@ -141,9 +141,15 @@ type Kubernetes struct {
 
 	CertificateAuthority string
 
+	CertificateAuthorityFilename string
+
 	ClientCertificate string
 
+	ClientCertificateFilename string
+
 	ClientKey string
+
+	ClientKeyFilename string
 }
 
 type KubernetesBasicAuth struct {
@@ -164,9 +170,15 @@ type KubernetesBasicAuth struct {
 
 	CertificateAuthority string
 
+	CertificateAuthorityFilename string
+
 	ClientCertificate string
 
+	ClientCertificateFilename string
+
 	ClientKey string
+
+	ClientKeyFilename string
 }
 
 type AmazonEKS struct {
@@ -185,6 +197,8 @@ type AmazonEKS struct {
 
 	CertificateAuthority string
 
+	CertificateAuthorityFilename string
+
 	Region string
 
 	ClusterName string
@@ -202,7 +216,11 @@ type GoogleGKE struct {
 
 	CertificateAuthority string
 
+	CertificateAuthorityFilename string
+
 	ServiceAccountKey string
+
+	ServiceAccountKeyFilename string
 }
 
 type SSH struct {

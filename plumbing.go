@@ -264,8 +264,11 @@ func kubernetesToPorcelain(plumbing *proto.Kubernetes) *Kubernetes {
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Port = plumbing.Port
 	porcelain.CertificateAuthority = plumbing.CertificateAuthority
+	porcelain.CertificateAuthorityFilename = plumbing.CertificateAuthorityFilename
 	porcelain.ClientCertificate = plumbing.ClientCertificate
+	porcelain.ClientCertificateFilename = plumbing.ClientCertificateFilename
 	porcelain.ClientKey = plumbing.ClientKey
+	porcelain.ClientKeyFilename = plumbing.ClientKeyFilename
 	return porcelain
 }
 
@@ -280,8 +283,11 @@ func kubernetesToPlumbing(porcelain *Kubernetes) *proto.Kubernetes {
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Port = porcelain.Port
 	plumbing.CertificateAuthority = porcelain.CertificateAuthority
+	plumbing.CertificateAuthorityFilename = porcelain.CertificateAuthorityFilename
 	plumbing.ClientCertificate = porcelain.ClientCertificate
+	plumbing.ClientCertificateFilename = porcelain.ClientCertificateFilename
 	plumbing.ClientKey = porcelain.ClientKey
+	plumbing.ClientKeyFilename = porcelain.ClientKeyFilename
 	return plumbing
 }
 
@@ -314,8 +320,11 @@ func kubernetesBasicAuthToPorcelain(plumbing *proto.KubernetesBasicAuth) *Kubern
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
 	porcelain.CertificateAuthority = plumbing.CertificateAuthority
+	porcelain.CertificateAuthorityFilename = plumbing.CertificateAuthorityFilename
 	porcelain.ClientCertificate = plumbing.ClientCertificate
+	porcelain.ClientCertificateFilename = plumbing.ClientCertificateFilename
 	porcelain.ClientKey = plumbing.ClientKey
+	porcelain.ClientKeyFilename = plumbing.ClientKeyFilename
 	return porcelain
 }
 
@@ -332,8 +341,11 @@ func kubernetesBasicAuthToPlumbing(porcelain *KubernetesBasicAuth) *proto.Kubern
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
 	plumbing.CertificateAuthority = porcelain.CertificateAuthority
+	plumbing.CertificateAuthorityFilename = porcelain.CertificateAuthorityFilename
 	plumbing.ClientCertificate = porcelain.ClientCertificate
+	plumbing.ClientCertificateFilename = porcelain.ClientCertificateFilename
 	plumbing.ClientKey = porcelain.ClientKey
+	plumbing.ClientKeyFilename = porcelain.ClientKeyFilename
 	return plumbing
 }
 
@@ -365,6 +377,7 @@ func amazonEksToPorcelain(plumbing *proto.AmazonEKS) *AmazonEKS {
 	porcelain.AccessKey = plumbing.AccessKey
 	porcelain.SecretAccessKey = plumbing.SecretAccessKey
 	porcelain.CertificateAuthority = plumbing.CertificateAuthority
+	porcelain.CertificateAuthorityFilename = plumbing.CertificateAuthorityFilename
 	porcelain.Region = plumbing.Region
 	porcelain.ClusterName = plumbing.ClusterName
 	return porcelain
@@ -382,6 +395,7 @@ func amazonEksToPlumbing(porcelain *AmazonEKS) *proto.AmazonEKS {
 	plumbing.AccessKey = porcelain.AccessKey
 	plumbing.SecretAccessKey = porcelain.SecretAccessKey
 	plumbing.CertificateAuthority = porcelain.CertificateAuthority
+	plumbing.CertificateAuthorityFilename = porcelain.CertificateAuthorityFilename
 	plumbing.Region = porcelain.Region
 	plumbing.ClusterName = porcelain.ClusterName
 	return plumbing
@@ -413,7 +427,9 @@ func googleGkeToPorcelain(plumbing *proto.GoogleGKE) *GoogleGKE {
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.Endpoint = plumbing.Endpoint
 	porcelain.CertificateAuthority = plumbing.CertificateAuthority
+	porcelain.CertificateAuthorityFilename = plumbing.CertificateAuthorityFilename
 	porcelain.ServiceAccountKey = plumbing.ServiceAccountKey
+	porcelain.ServiceAccountKeyFilename = plumbing.ServiceAccountKeyFilename
 	return porcelain
 }
 
@@ -427,7 +443,9 @@ func googleGkeToPlumbing(porcelain *GoogleGKE) *proto.GoogleGKE {
 	plumbing.Healthy = porcelain.Healthy
 	plumbing.Endpoint = porcelain.Endpoint
 	plumbing.CertificateAuthority = porcelain.CertificateAuthority
+	plumbing.CertificateAuthorityFilename = porcelain.CertificateAuthorityFilename
 	plumbing.ServiceAccountKey = porcelain.ServiceAccountKey
+	plumbing.ServiceAccountKeyFilename = porcelain.ServiceAccountKeyFilename
 	return plumbing
 }
 
