@@ -11,16 +11,6 @@ type Resource interface {
 	isOneOf_Resource()
 }
 
-func (*AmazonES) isOneOf_Resource() {}
-
-// GetID returns the unique identifier of the AmazonES.
-func (m *AmazonES) GetID() string { return m.ID }
-
-func (*Elastic) isOneOf_Resource() {}
-
-// GetID returns the unique identifier of the Elastic.
-func (m *Elastic) GetID() string { return m.ID }
-
 func (*Redis) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Redis.
@@ -51,26 +41,6 @@ func (*GoogleGKE) isOneOf_Resource() {}
 // GetID returns the unique identifier of the GoogleGKE.
 func (m *GoogleGKE) GetID() string { return m.ID }
 
-func (*DynamoDB) isOneOf_Resource() {}
-
-// GetID returns the unique identifier of the DynamoDB.
-func (m *DynamoDB) GetID() string { return m.ID }
-
-func (*RDP) isOneOf_Resource() {}
-
-// GetID returns the unique identifier of the RDP.
-func (m *RDP) GetID() string { return m.ID }
-
-func (*BigQuery) isOneOf_Resource() {}
-
-// GetID returns the unique identifier of the BigQuery.
-func (m *BigQuery) GetID() string { return m.ID }
-
-func (*Memcached) isOneOf_Resource() {}
-
-// GetID returns the unique identifier of the Memcached.
-func (m *Memcached) GetID() string { return m.ID }
-
 func (*SSH) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the SSH.
@@ -90,11 +60,6 @@ func (*HTTPAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the HTTPAuth.
 func (m *HTTPAuth) GetID() string { return m.ID }
-
-func (*Cassandra) isOneOf_Resource() {}
-
-// GetID returns the unique identifier of the Cassandra.
-func (m *Cassandra) GetID() string { return m.ID }
 
 func (*Mysql) isOneOf_Resource() {}
 
@@ -121,55 +86,10 @@ func (*Memsql) isOneOf_Resource() {}
 // GetID returns the unique identifier of the Memsql.
 func (m *Memsql) GetID() string { return m.ID }
 
-func (*Druid) isOneOf_Resource() {}
-
-// GetID returns the unique identifier of the Druid.
-func (m *Druid) GetID() string { return m.ID }
-
 func (*Athena) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Athena.
 func (m *Athena) GetID() string { return m.ID }
-
-type AmazonES struct {
-	// Unique identifier of the Resource.
-	ID string
-	// Unique human-readable name of the Resource.
-	Name string
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
-
-	Endpoint string
-
-	AccessKey string
-
-	SecretAccessKey string
-
-	Region string
-
-	PortOverride int32
-}
-
-type Elastic struct {
-	// Unique identifier of the Resource.
-	ID string
-	// Unique human-readable name of the Resource.
-	Name string
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
-
-	Hostname string
-
-	Username string
-
-	Password string
-
-	PortOverride int32
-
-	Port int32
-
-	TlsRequired bool
-}
 
 type Redis struct {
 	// Unique identifier of the Resource.
@@ -303,78 +223,6 @@ type GoogleGKE struct {
 	ServiceAccountKeyFilename string
 }
 
-type DynamoDB struct {
-	// Unique identifier of the Resource.
-	ID string
-	// Unique human-readable name of the Resource.
-	Name string
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
-
-	Endpoint string
-
-	AccessKey string
-
-	SecretAccessKey string
-
-	Region string
-
-	PortOverride int32
-}
-
-type RDP struct {
-	// Unique identifier of the Resource.
-	ID string
-	// Unique human-readable name of the Resource.
-	Name string
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
-
-	Hostname string
-
-	Username string
-
-	Password string
-
-	PortOverride int32
-
-	Port int32
-}
-
-type BigQuery struct {
-	// Unique identifier of the Resource.
-	ID string
-	// Unique human-readable name of the Resource.
-	Name string
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
-
-	Endpoint string
-
-	PrivateKey string
-
-	Project string
-
-	PortOverride int32
-
-	Username string
-}
-
-type Memcached struct {
-	// Unique identifier of the Resource.
-	ID string
-	// Unique human-readable name of the Resource.
-	Name string
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
-
-	Hostname string
-
-	PortOverride int32
-
-	Port int32
-}
-
 type SSH struct {
 	// Unique identifier of the Resource.
 	ID string
@@ -453,27 +301,6 @@ type HTTPAuth struct {
 	DefaultPath string
 
 	Subdomain string
-}
-
-type Cassandra struct {
-	// Unique identifier of the Resource.
-	ID string
-	// Unique human-readable name of the Resource.
-	Name string
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
-
-	Hostname string
-
-	Username string
-
-	Password string
-
-	PortOverride int32
-
-	Port int32
-
-	TlsRequired bool
 }
 
 type Mysql struct {
@@ -577,25 +404,6 @@ type Memsql struct {
 	Database string
 
 	PortOverride int32
-
-	Port int32
-}
-
-type Druid struct {
-	// Unique identifier of the Resource.
-	ID string
-	// Unique human-readable name of the Resource.
-	Name string
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
-
-	Hostname string
-
-	PortOverride int32
-
-	Username string
-
-	Password string
 
 	Port int32
 }
