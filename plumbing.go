@@ -1287,11 +1287,11 @@ func repeatedMemsqlToPorcelain(plumbings []*proto.Memsql) []*Memsql {
 	return items
 }
 
-func druidToPorcelain(plumbing *proto.Druid) *DruID {
+func druidToPorcelain(plumbing *proto.Druid) *Druid {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &DruID{}
+	porcelain := &Druid{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
@@ -1303,7 +1303,7 @@ func druidToPorcelain(plumbing *proto.Druid) *DruID {
 	return porcelain
 }
 
-func druidToPlumbing(porcelain *DruID) *proto.Druid {
+func druidToPlumbing(porcelain *Druid) *proto.Druid {
 	if porcelain == nil {
 		return nil
 	}
@@ -1319,7 +1319,7 @@ func druidToPlumbing(porcelain *DruID) *proto.Druid {
 	return plumbing
 }
 
-func repeatedDruIDToPlumbing(porcelains []*DruID) []*proto.Druid {
+func repeatedDruidToPlumbing(porcelains []*Druid) []*proto.Druid {
 	var items []*proto.Druid
 	for _, porcelain := range porcelains {
 		items = append(items, druidToPlumbing(porcelain))
@@ -1327,8 +1327,8 @@ func repeatedDruIDToPlumbing(porcelains []*DruID) []*proto.Druid {
 	return items
 }
 
-func repeatedDruIDToPorcelain(plumbings []*proto.Druid) []*DruID {
-	var items []*DruID
+func repeatedDruidToPorcelain(plumbings []*proto.Druid) []*Druid {
+	var items []*Druid
 	for _, plumbing := range plumbings {
 		items = append(items, druidToPorcelain(plumbing))
 	}
