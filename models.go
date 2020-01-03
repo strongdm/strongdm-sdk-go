@@ -11,6 +11,21 @@ type Resource interface {
 	isOneOf_Resource()
 }
 
+func (*Sybase) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Sybase.
+func (m *Sybase) GetID() string { return m.ID }
+
+func (*Presto) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Presto.
+func (m *Presto) GetID() string { return m.ID }
+
+func (*Teradata) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Teradata.
+func (m *Teradata) GetID() string { return m.ID }
+
 func (*AmazonES) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AmazonES.
@@ -51,6 +66,11 @@ func (*GoogleGKE) isOneOf_Resource() {}
 // GetID returns the unique identifier of the GoogleGKE.
 func (m *GoogleGKE) GetID() string { return m.ID }
 
+func (*Oracle) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Oracle.
+func (m *Oracle) GetID() string { return m.ID }
+
 func (*DynamoDB) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the DynamoDB.
@@ -66,10 +86,40 @@ func (*BigQuery) isOneOf_Resource() {}
 // GetID returns the unique identifier of the BigQuery.
 func (m *BigQuery) GetID() string { return m.ID }
 
+func (*Snowflake) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Snowflake.
+func (m *Snowflake) GetID() string { return m.ID }
+
 func (*Memcached) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Memcached.
 func (m *Memcached) GetID() string { return m.ID }
+
+func (*Postgres) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Postgres.
+func (m *Postgres) GetID() string { return m.ID }
+
+func (*AuroraPostgres) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the AuroraPostgres.
+func (m *AuroraPostgres) GetID() string { return m.ID }
+
+func (*Greenplum) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Greenplum.
+func (m *Greenplum) GetID() string { return m.ID }
+
+func (*Cockroach) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Cockroach.
+func (m *Cockroach) GetID() string { return m.ID }
+
+func (*Redshift) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Redshift.
+func (m *Redshift) GetID() string { return m.ID }
 
 func (*SSH) isOneOf_Resource() {}
 
@@ -126,10 +176,87 @@ func (*Druid) isOneOf_Resource() {}
 // GetID returns the unique identifier of the Druid.
 func (m *Druid) GetID() string { return m.ID }
 
+func (*SQLServer) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the SQLServer.
+func (m *SQLServer) GetID() string { return m.ID }
+
+func (*MongoHybrid) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the MongoHybrid.
+func (m *MongoHybrid) GetID() string { return m.ID }
+
+func (*MongoHost) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the MongoHost.
+func (m *MongoHost) GetID() string { return m.ID }
+
+func (*MongoReplicaSet) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the MongoReplicaSet.
+func (m *MongoReplicaSet) GetID() string { return m.ID }
+
 func (*Athena) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Athena.
 func (m *Athena) GetID() string { return m.ID }
+
+type Sybase struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Username string
+
+	PortOverride int32
+
+	Port int32
+
+	Password string
+}
+
+type Presto struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	PortOverride int32
+
+	Port int32
+
+	Username string
+
+	TlsRequired bool
+}
+
+type Teradata struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Username string
+
+	Password string
+
+	PortOverride int32
+
+	Port int32
+}
 
 type AmazonES struct {
 	// Unique identifier of the Resource.
@@ -303,6 +430,29 @@ type GoogleGKE struct {
 	ServiceAccountKeyFilename string
 }
 
+type Oracle struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Username string
+
+	Password string
+
+	Database string
+
+	Port int32
+
+	PortOverride int32
+
+	TlsRequired bool
+}
+
 type DynamoDB struct {
 	// Unique identifier of the Resource.
 	ID string
@@ -360,6 +510,27 @@ type BigQuery struct {
 	Username string
 }
 
+type Snowflake struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Username string
+
+	Password string
+
+	Database string
+
+	Schema string
+
+	PortOverride int32
+}
+
 type Memcached struct {
 	// Unique identifier of the Resource.
 	ID string
@@ -373,6 +544,121 @@ type Memcached struct {
 	PortOverride int32
 
 	Port int32
+}
+
+type Postgres struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Username string
+
+	Password string
+
+	Database string
+
+	PortOverride int32
+
+	Port int32
+
+	OverrideDatabase bool
+}
+
+type AuroraPostgres struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Username string
+
+	Password string
+
+	Database string
+
+	PortOverride int32
+
+	Port int32
+
+	OverrideDatabase bool
+}
+
+type Greenplum struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Username string
+
+	Password string
+
+	Database string
+
+	PortOverride int32
+
+	Port int32
+
+	OverrideDatabase bool
+}
+
+type Cockroach struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Username string
+
+	Password string
+
+	Database string
+
+	PortOverride int32
+
+	Port int32
+
+	OverrideDatabase bool
+}
+
+type Redshift struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Username string
+
+	Password string
+
+	Database string
+
+	PortOverride int32
+
+	Port int32
+
+	OverrideDatabase bool
 }
 
 type SSH struct {
@@ -598,6 +884,100 @@ type Druid struct {
 	Password string
 
 	Port int32
+}
+
+type SQLServer struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Username string
+
+	Password string
+
+	Database string
+
+	PortOverride int32
+
+	Port int32
+
+	OverrideDatabase bool
+}
+
+type MongoHybrid struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	AuthDatabase string
+
+	PortOverride int32
+
+	Username string
+
+	Password string
+
+	Port int32
+
+	ReplicaSet string
+
+	ConnectToReplica bool
+}
+
+type MongoHost struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	AuthDatabase string
+
+	PortOverride int32
+
+	Username string
+
+	Password string
+
+	Port int32
+}
+
+type MongoReplicaSet struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	AuthDatabase string
+
+	PortOverride int32
+
+	Username string
+
+	Password string
+
+	Port int32
+
+	ReplicaSet string
+
+	ConnectToReplica bool
 }
 
 type Athena struct {
