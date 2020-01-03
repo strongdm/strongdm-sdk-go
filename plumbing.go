@@ -123,8 +123,10 @@ func resourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_Druid{Druid: druidToPlumbing(v)}
 	case *SQLServer:
 		plumbing.Resource = &proto.Resource_SqlServer{SqlServer: sqlServerToPlumbing(v)}
-	case *MongoHybrid:
-		plumbing.Resource = &proto.Resource_MongoHybrid{MongoHybrid: mongoHybridToPlumbing(v)}
+	case *MongoLegacyHost:
+		plumbing.Resource = &proto.Resource_MongoLegacyHost{MongoLegacyHost: mongoLegacyHostToPlumbing(v)}
+	case *MongoLegacyReplicaset:
+		plumbing.Resource = &proto.Resource_MongoLegacyReplicaset{MongoLegacyReplicaset: mongoLegacyReplicasetToPlumbing(v)}
 	case *MongoHost:
 		plumbing.Resource = &proto.Resource_MongoHost{MongoHost: mongoHostToPlumbing(v)}
 	case *MongoReplicaSet:
@@ -238,8 +240,11 @@ func resourceToPorcelain(plumbing *proto.Resource) Resource {
 	if plumbing.GetSqlServer() != nil {
 		return sqlServerToPorcelain(plumbing.GetSqlServer())
 	}
-	if plumbing.GetMongoHybrid() != nil {
-		return mongoHybridToPorcelain(plumbing.GetMongoHybrid())
+	if plumbing.GetMongoLegacyHost() != nil {
+		return mongoLegacyHostToPorcelain(plumbing.GetMongoLegacyHost())
+	}
+	if plumbing.GetMongoLegacyReplicaset() != nil {
+		return mongoLegacyReplicasetToPorcelain(plumbing.GetMongoLegacyReplicaset())
 	}
 	if plumbing.GetMongoHost() != nil {
 		return mongoHostToPorcelain(plumbing.GetMongoHost())
@@ -326,6 +331,8 @@ func prestoToPorcelain(plumbing *proto.Presto) *Presto {
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
+	porcelain.Password = plumbing.Password
+	porcelain.Database = plumbing.Database
 	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Port = plumbing.Port
 	porcelain.Username = plumbing.Username
@@ -342,6 +349,8 @@ func prestoToPlumbing(porcelain *Presto) *proto.Presto {
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
+	plumbing.Password = porcelain.Password
+	plumbing.Database = porcelain.Database
 	plumbing.PortOverride = porcelain.PortOverride
 	plumbing.Port = porcelain.Port
 	plumbing.Username = porcelain.Username
@@ -421,10 +430,10 @@ func amazonEsToPorcelain(plumbing *proto.AmazonES) *AmazonES {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Region = plumbing.Region
+	porcelain.SecretAccessKey = plumbing.SecretAccessKey
 	porcelain.Endpoint = plumbing.Endpoint
 	porcelain.AccessKey = plumbing.AccessKey
-	porcelain.SecretAccessKey = plumbing.SecretAccessKey
-	porcelain.Region = plumbing.Region
 	porcelain.PortOverride = plumbing.PortOverride
 	return porcelain
 }
@@ -437,10 +446,10 @@ func amazonEsToPlumbing(porcelain *AmazonES) *proto.AmazonES {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Region = porcelain.Region
+	plumbing.SecretAccessKey = porcelain.SecretAccessKey
 	plumbing.Endpoint = porcelain.Endpoint
 	plumbing.AccessKey = porcelain.AccessKey
-	plumbing.SecretAccessKey = porcelain.SecretAccessKey
-	plumbing.Region = porcelain.Region
 	plumbing.PortOverride = porcelain.PortOverride
 	return plumbing
 }
@@ -671,12 +680,6 @@ func kubernetesBasicAuthToPorcelain(plumbing *proto.KubernetesBasicAuth) *Kubern
 	porcelain.Port = plumbing.Port
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
-	porcelain.CertificateAuthority = plumbing.CertificateAuthority
-	porcelain.CertificateAuthorityFilename = plumbing.CertificateAuthorityFilename
-	porcelain.ClientCertificate = plumbing.ClientCertificate
-	porcelain.ClientCertificateFilename = plumbing.ClientCertificateFilename
-	porcelain.ClientKey = plumbing.ClientKey
-	porcelain.ClientKeyFilename = plumbing.ClientKeyFilename
 	return porcelain
 }
 
@@ -692,12 +695,6 @@ func kubernetesBasicAuthToPlumbing(porcelain *KubernetesBasicAuth) *proto.Kubern
 	plumbing.Port = porcelain.Port
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
-	plumbing.CertificateAuthority = porcelain.CertificateAuthority
-	plumbing.CertificateAuthorityFilename = porcelain.CertificateAuthorityFilename
-	plumbing.ClientCertificate = porcelain.ClientCertificate
-	plumbing.ClientCertificateFilename = porcelain.ClientCertificateFilename
-	plumbing.ClientKey = porcelain.ClientKey
-	plumbing.ClientKeyFilename = porcelain.ClientKeyFilename
 	return plumbing
 }
 
@@ -877,10 +874,10 @@ func dynamoDbToPorcelain(plumbing *proto.DynamoDB) *DynamoDB {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
-	porcelain.Endpoint = plumbing.Endpoint
 	porcelain.AccessKey = plumbing.AccessKey
 	porcelain.SecretAccessKey = plumbing.SecretAccessKey
 	porcelain.Region = plumbing.Region
+	porcelain.Endpoint = plumbing.Endpoint
 	porcelain.PortOverride = plumbing.PortOverride
 	return porcelain
 }
@@ -893,10 +890,10 @@ func dynamoDbToPlumbing(porcelain *DynamoDB) *proto.DynamoDB {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
-	plumbing.Endpoint = porcelain.Endpoint
 	plumbing.AccessKey = porcelain.AccessKey
 	plumbing.SecretAccessKey = porcelain.SecretAccessKey
 	plumbing.Region = porcelain.Region
+	plumbing.Endpoint = porcelain.Endpoint
 	plumbing.PortOverride = porcelain.PortOverride
 	return plumbing
 }
@@ -973,10 +970,10 @@ func bigQueryToPorcelain(plumbing *proto.BigQuery) *BigQuery {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
-	porcelain.Endpoint = plumbing.Endpoint
 	porcelain.PrivateKey = plumbing.PrivateKey
 	porcelain.Project = plumbing.Project
 	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Endpoint = plumbing.Endpoint
 	porcelain.Username = plumbing.Username
 	return porcelain
 }
@@ -989,10 +986,10 @@ func bigQueryToPlumbing(porcelain *BigQuery) *proto.BigQuery {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
-	plumbing.Endpoint = porcelain.Endpoint
 	plumbing.PrivateKey = porcelain.PrivateKey
 	plumbing.Project = porcelain.Project
 	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Endpoint = porcelain.Endpoint
 	plumbing.Username = porcelain.Username
 	return plumbing
 }
@@ -1924,6 +1921,7 @@ func sqlServerToPorcelain(plumbing *proto.SQLServer) *SQLServer {
 	porcelain.Password = plumbing.Password
 	porcelain.Database = plumbing.Database
 	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Schema = plumbing.Schema
 	porcelain.Port = plumbing.Port
 	porcelain.OverrideDatabase = plumbing.OverrideDatabase
 	return porcelain
@@ -1942,6 +1940,7 @@ func sqlServerToPlumbing(porcelain *SQLServer) *proto.SQLServer {
 	plumbing.Password = porcelain.Password
 	plumbing.Database = porcelain.Database
 	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Schema = porcelain.Schema
 	plumbing.Port = porcelain.Port
 	plumbing.OverrideDatabase = porcelain.OverrideDatabase
 	return plumbing
@@ -1963,11 +1962,11 @@ func repeatedSQLServerToPorcelain(plumbings []*proto.SQLServer) []*SQLServer {
 	return items
 }
 
-func mongoHybridToPorcelain(plumbing *proto.MongoHybrid) *MongoHybrid {
+func mongoLegacyHostToPorcelain(plumbing *proto.MongoLegacyHost) *MongoLegacyHost {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &MongoHybrid{}
+	porcelain := &MongoLegacyHost{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
@@ -1979,14 +1978,15 @@ func mongoHybridToPorcelain(plumbing *proto.MongoHybrid) *MongoHybrid {
 	porcelain.Port = plumbing.Port
 	porcelain.ReplicaSet = plumbing.ReplicaSet
 	porcelain.ConnectToReplica = plumbing.ConnectToReplica
+	porcelain.TlsRequired = plumbing.TlsRequired
 	return porcelain
 }
 
-func mongoHybridToPlumbing(porcelain *MongoHybrid) *proto.MongoHybrid {
+func mongoLegacyHostToPlumbing(porcelain *MongoLegacyHost) *proto.MongoLegacyHost {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.MongoHybrid{}
+	plumbing := &proto.MongoLegacyHost{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
@@ -1998,21 +1998,78 @@ func mongoHybridToPlumbing(porcelain *MongoHybrid) *proto.MongoHybrid {
 	plumbing.Port = porcelain.Port
 	plumbing.ReplicaSet = porcelain.ReplicaSet
 	plumbing.ConnectToReplica = porcelain.ConnectToReplica
+	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
 
-func repeatedMongoHybridToPlumbing(porcelains []*MongoHybrid) []*proto.MongoHybrid {
-	var items []*proto.MongoHybrid
+func repeatedMongoLegacyHostToPlumbing(porcelains []*MongoLegacyHost) []*proto.MongoLegacyHost {
+	var items []*proto.MongoLegacyHost
 	for _, porcelain := range porcelains {
-		items = append(items, mongoHybridToPlumbing(porcelain))
+		items = append(items, mongoLegacyHostToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedMongoHybridToPorcelain(plumbings []*proto.MongoHybrid) []*MongoHybrid {
-	var items []*MongoHybrid
+func repeatedMongoLegacyHostToPorcelain(plumbings []*proto.MongoLegacyHost) []*MongoLegacyHost {
+	var items []*MongoLegacyHost
 	for _, plumbing := range plumbings {
-		items = append(items, mongoHybridToPorcelain(plumbing))
+		items = append(items, mongoLegacyHostToPorcelain(plumbing))
+	}
+	return items
+}
+
+func mongoLegacyReplicasetToPorcelain(plumbing *proto.MongoLegacyReplicaset) *MongoLegacyReplicaset {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &MongoLegacyReplicaset{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.AuthDatabase = plumbing.AuthDatabase
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Port = plumbing.Port
+	porcelain.ReplicaSet = plumbing.ReplicaSet
+	porcelain.ConnectToReplica = plumbing.ConnectToReplica
+	porcelain.TlsRequired = plumbing.TlsRequired
+	return porcelain
+}
+
+func mongoLegacyReplicasetToPlumbing(porcelain *MongoLegacyReplicaset) *proto.MongoLegacyReplicaset {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.MongoLegacyReplicaset{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.AuthDatabase = porcelain.AuthDatabase
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Port = porcelain.Port
+	plumbing.ReplicaSet = porcelain.ReplicaSet
+	plumbing.ConnectToReplica = porcelain.ConnectToReplica
+	plumbing.TlsRequired = porcelain.TlsRequired
+	return plumbing
+}
+
+func repeatedMongoLegacyReplicasetToPlumbing(porcelains []*MongoLegacyReplicaset) []*proto.MongoLegacyReplicaset {
+	var items []*proto.MongoLegacyReplicaset
+	for _, porcelain := range porcelains {
+		items = append(items, mongoLegacyReplicasetToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedMongoLegacyReplicasetToPorcelain(plumbings []*proto.MongoLegacyReplicaset) []*MongoLegacyReplicaset {
+	var items []*MongoLegacyReplicaset
+	for _, plumbing := range plumbings {
+		items = append(items, mongoLegacyReplicasetToPorcelain(plumbing))
 	}
 	return items
 }
@@ -2031,6 +2088,8 @@ func mongoHostToPorcelain(plumbing *proto.MongoHost) *MongoHost {
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
 	porcelain.Port = plumbing.Port
+	porcelain.Schema = plumbing.Schema
+	porcelain.TlsRequired = plumbing.TlsRequired
 	return porcelain
 }
 
@@ -2048,6 +2107,8 @@ func mongoHostToPlumbing(porcelain *MongoHost) *proto.MongoHost {
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
 	plumbing.Port = porcelain.Port
+	plumbing.Schema = porcelain.Schema
+	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
 
@@ -2083,6 +2144,7 @@ func mongoReplicaSetToPorcelain(plumbing *proto.MongoReplicaSet) *MongoReplicaSe
 	porcelain.Port = plumbing.Port
 	porcelain.ReplicaSet = plumbing.ReplicaSet
 	porcelain.ConnectToReplica = plumbing.ConnectToReplica
+	porcelain.TlsRequired = plumbing.TlsRequired
 	return porcelain
 }
 
@@ -2102,6 +2164,7 @@ func mongoReplicaSetToPlumbing(porcelain *MongoReplicaSet) *proto.MongoReplicaSe
 	plumbing.Port = porcelain.Port
 	plumbing.ReplicaSet = porcelain.ReplicaSet
 	plumbing.ConnectToReplica = porcelain.ConnectToReplica
+	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
 

@@ -181,10 +181,15 @@ func (*SQLServer) isOneOf_Resource() {}
 // GetID returns the unique identifier of the SQLServer.
 func (m *SQLServer) GetID() string { return m.ID }
 
-func (*MongoHybrid) isOneOf_Resource() {}
+func (*MongoLegacyHost) isOneOf_Resource() {}
 
-// GetID returns the unique identifier of the MongoHybrid.
-func (m *MongoHybrid) GetID() string { return m.ID }
+// GetID returns the unique identifier of the MongoLegacyHost.
+func (m *MongoLegacyHost) GetID() string { return m.ID }
+
+func (*MongoLegacyReplicaset) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the MongoLegacyReplicaset.
+func (m *MongoLegacyReplicaset) GetID() string { return m.ID }
 
 func (*MongoHost) isOneOf_Resource() {}
 
@@ -230,6 +235,10 @@ type Presto struct {
 
 	Hostname string
 
+	Password string
+
+	Database string
+
 	PortOverride int32
 
 	Port int32
@@ -266,13 +275,13 @@ type AmazonES struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
-	Endpoint string
-
-	AccessKey string
+	Region string
 
 	SecretAccessKey string
 
-	Region string
+	Endpoint string
+
+	AccessKey string
 
 	PortOverride int32
 }
@@ -374,18 +383,6 @@ type KubernetesBasicAuth struct {
 	Username string
 
 	Password string
-
-	CertificateAuthority string
-
-	CertificateAuthorityFilename string
-
-	ClientCertificate string
-
-	ClientCertificateFilename string
-
-	ClientKey string
-
-	ClientKeyFilename string
 }
 
 type AmazonEKS struct {
@@ -461,13 +458,13 @@ type DynamoDB struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
-	Endpoint string
-
 	AccessKey string
 
 	SecretAccessKey string
 
 	Region string
+
+	Endpoint string
 
 	PortOverride int32
 }
@@ -499,13 +496,13 @@ type BigQuery struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool
 
-	Endpoint string
-
 	PrivateKey string
 
 	Project string
 
 	PortOverride int32
+
+	Endpoint string
 
 	Username string
 }
@@ -904,12 +901,14 @@ type SQLServer struct {
 
 	PortOverride int32
 
+	Schema string
+
 	Port int32
 
 	OverrideDatabase bool
 }
 
-type MongoHybrid struct {
+type MongoLegacyHost struct {
 	// Unique identifier of the Resource.
 	ID string
 	// Unique human-readable name of the Resource.
@@ -932,6 +931,35 @@ type MongoHybrid struct {
 	ReplicaSet string
 
 	ConnectToReplica bool
+
+	TlsRequired bool
+}
+
+type MongoLegacyReplicaset struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	AuthDatabase string
+
+	PortOverride int32
+
+	Username string
+
+	Password string
+
+	Port int32
+
+	ReplicaSet string
+
+	ConnectToReplica bool
+
+	TlsRequired bool
 }
 
 type MongoHost struct {
@@ -953,6 +981,10 @@ type MongoHost struct {
 	Password string
 
 	Port int32
+
+	Schema string
+
+	TlsRequired bool
 }
 
 type MongoReplicaSet struct {
@@ -978,6 +1010,8 @@ type MongoReplicaSet struct {
 	ReplicaSet string
 
 	ConnectToReplica bool
+
+	TlsRequired bool
 }
 
 type Athena struct {
