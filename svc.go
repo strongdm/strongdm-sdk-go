@@ -123,7 +123,6 @@ func (svc *Nodes) List(ctx context.Context, filter string, args ...interface{}) 
 	req := &plumbing.NodeListRequest{}
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
-
 	if filterErr != nil {
 		return nil, filterErr
 	}
@@ -271,7 +270,6 @@ func (svc *Resources) List(ctx context.Context, filter string, args ...interface
 	req := &plumbing.ResourceListRequest{}
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
-
 	if filterErr != nil {
 		return nil, filterErr
 	}
@@ -397,7 +395,6 @@ func (svc *RoleAttachments) List(ctx context.Context, filter string, args ...int
 	req := &plumbing.RoleAttachmentListRequest{}
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
-
 	if filterErr != nil {
 		return nil, filterErr
 	}
@@ -550,7 +547,6 @@ func (svc *Roles) List(ctx context.Context, filter string, args ...interface{}) 
 	req := &plumbing.RoleListRequest{}
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
-
 	if filterErr != nil {
 		return nil, filterErr
 	}

@@ -86,27 +86,22 @@ func New(host, token, secret string) (*Client, error) {
 		baseRetryDelay: defaultBaseRetryDelay,
 		maxRetryDelay:  defaultMaxRetryDelay,
 	}
-
 	client.nodes = &Nodes{
 		client: plumbing.NewNodesClient(client.grpcConn),
 		parent: client,
 	}
-
 	client.resources = &Resources{
 		client: plumbing.NewResourcesClient(client.grpcConn),
 		parent: client,
 	}
-
 	client.roleAttachments = &RoleAttachments{
 		client: plumbing.NewRoleAttachmentsClient(client.grpcConn),
 		parent: client,
 	}
-
 	client.roles = &Roles{
 		client: plumbing.NewRolesClient(client.grpcConn),
 		parent: client,
 	}
-
 	return client, nil
 }
 
