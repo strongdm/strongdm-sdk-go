@@ -15,7 +15,13 @@ type Nodes struct {
 }
 
 // Create registers a new Node.
-func (svc *Nodes) Create(ctx context.Context, node Node) (*NodeCreateResponse, error) {
+func (svc *Nodes) Create(
+	ctx context.Context,
+	node Node,
+) (
+	*NodeCreateResponse,
+	error,
+) {
 	req := &plumbing.NodeCreateRequest{}
 	req.Node = nodeToPlumbing(node)
 	var plumbingResponse *plumbing.NodeCreateResponse
@@ -42,7 +48,13 @@ func (svc *Nodes) Create(ctx context.Context, node Node) (*NodeCreateResponse, e
 }
 
 // Get reads one Node by ID.
-func (svc *Nodes) Get(ctx context.Context, id string) (*NodeGetResponse, error) {
+func (svc *Nodes) Get(
+	ctx context.Context,
+	id string,
+) (
+	*NodeGetResponse,
+	error,
+) {
 	req := &plumbing.NodeGetRequest{}
 	req.Id = id
 	var plumbingResponse *plumbing.NodeGetResponse
@@ -68,7 +80,13 @@ func (svc *Nodes) Get(ctx context.Context, id string) (*NodeGetResponse, error) 
 }
 
 // Update patches a Node by ID.
-func (svc *Nodes) Update(ctx context.Context, node Node) (*NodeUpdateResponse, error) {
+func (svc *Nodes) Update(
+	ctx context.Context,
+	node Node,
+) (
+	*NodeUpdateResponse,
+	error,
+) {
 	req := &plumbing.NodeUpdateRequest{}
 	req.Node = nodeToPlumbing(node)
 	var plumbingResponse *plumbing.NodeUpdateResponse
@@ -94,7 +112,13 @@ func (svc *Nodes) Update(ctx context.Context, node Node) (*NodeUpdateResponse, e
 }
 
 // Delete removes a Node by ID.
-func (svc *Nodes) Delete(ctx context.Context, id string) (*NodeDeleteResponse, error) {
+func (svc *Nodes) Delete(
+	ctx context.Context,
+	id string,
+) (
+	*NodeDeleteResponse,
+	error,
+) {
 	req := &plumbing.NodeDeleteRequest{}
 	req.Id = id
 	var plumbingResponse *plumbing.NodeDeleteResponse
@@ -119,7 +143,14 @@ func (svc *Nodes) Delete(ctx context.Context, id string) (*NodeDeleteResponse, e
 }
 
 // List gets a list of Nodes matching a given set of criteria.
-func (svc *Nodes) List(ctx context.Context, filter string, args ...interface{}) (NodeIterator, error) {
+func (svc *Nodes) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{},
+) (
+	NodeIterator,
+	error,
+) {
 	req := &plumbing.NodeListRequest{}
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
@@ -163,7 +194,13 @@ type Resources struct {
 }
 
 // Create registers a new Resource.
-func (svc *Resources) Create(ctx context.Context, resource Resource) (*ResourceCreateResponse, error) {
+func (svc *Resources) Create(
+	ctx context.Context,
+	resource Resource,
+) (
+	*ResourceCreateResponse,
+	error,
+) {
 	req := &plumbing.ResourceCreateRequest{}
 	req.Resource = resourceToPlumbing(resource)
 	var plumbingResponse *plumbing.ResourceCreateResponse
@@ -189,7 +226,13 @@ func (svc *Resources) Create(ctx context.Context, resource Resource) (*ResourceC
 }
 
 // Get reads one Resource by ID.
-func (svc *Resources) Get(ctx context.Context, id string) (*ResourceGetResponse, error) {
+func (svc *Resources) Get(
+	ctx context.Context,
+	id string,
+) (
+	*ResourceGetResponse,
+	error,
+) {
 	req := &plumbing.ResourceGetRequest{}
 	req.Id = id
 	var plumbingResponse *plumbing.ResourceGetResponse
@@ -215,7 +258,13 @@ func (svc *Resources) Get(ctx context.Context, id string) (*ResourceGetResponse,
 }
 
 // Update patches a Resource by ID.
-func (svc *Resources) Update(ctx context.Context, resource Resource) (*ResourceUpdateResponse, error) {
+func (svc *Resources) Update(
+	ctx context.Context,
+	resource Resource,
+) (
+	*ResourceUpdateResponse,
+	error,
+) {
 	req := &plumbing.ResourceUpdateRequest{}
 	req.Resource = resourceToPlumbing(resource)
 	var plumbingResponse *plumbing.ResourceUpdateResponse
@@ -241,7 +290,13 @@ func (svc *Resources) Update(ctx context.Context, resource Resource) (*ResourceU
 }
 
 // Delete removes a Resource by ID.
-func (svc *Resources) Delete(ctx context.Context, id string) (*ResourceDeleteResponse, error) {
+func (svc *Resources) Delete(
+	ctx context.Context,
+	id string,
+) (
+	*ResourceDeleteResponse,
+	error,
+) {
 	req := &plumbing.ResourceDeleteRequest{}
 	req.Id = id
 	var plumbingResponse *plumbing.ResourceDeleteResponse
@@ -266,7 +321,14 @@ func (svc *Resources) Delete(ctx context.Context, id string) (*ResourceDeleteRes
 }
 
 // List gets a list of Resources matching a given set of criteria.
-func (svc *Resources) List(ctx context.Context, filter string, args ...interface{}) (ResourceIterator, error) {
+func (svc *Resources) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{},
+) (
+	ResourceIterator,
+	error,
+) {
 	req := &plumbing.ResourceListRequest{}
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
@@ -314,7 +376,13 @@ type RoleAttachments struct {
 }
 
 // Create registers a new RoleAttachment.
-func (svc *RoleAttachments) Create(ctx context.Context, roleAttachment *RoleAttachment) (*RoleAttachmentCreateResponse, error) {
+func (svc *RoleAttachments) Create(
+	ctx context.Context,
+	roleAttachment *RoleAttachment,
+) (
+	*RoleAttachmentCreateResponse,
+	error,
+) {
 	req := &plumbing.RoleAttachmentCreateRequest{}
 	req.RoleAttachment = roleAttachmentToPlumbing(roleAttachment)
 	var plumbingResponse *plumbing.RoleAttachmentCreateResponse
@@ -340,7 +408,13 @@ func (svc *RoleAttachments) Create(ctx context.Context, roleAttachment *RoleAtta
 }
 
 // Get reads one RoleAttachment by ID.
-func (svc *RoleAttachments) Get(ctx context.Context, id string) (*RoleAttachmentGetResponse, error) {
+func (svc *RoleAttachments) Get(
+	ctx context.Context,
+	id string,
+) (
+	*RoleAttachmentGetResponse,
+	error,
+) {
 	req := &plumbing.RoleAttachmentGetRequest{}
 	req.Id = id
 	var plumbingResponse *plumbing.RoleAttachmentGetResponse
@@ -366,7 +440,13 @@ func (svc *RoleAttachments) Get(ctx context.Context, id string) (*RoleAttachment
 }
 
 // Delete removes a RoleAttachment by ID.
-func (svc *RoleAttachments) Delete(ctx context.Context, id string) (*RoleAttachmentDeleteResponse, error) {
+func (svc *RoleAttachments) Delete(
+	ctx context.Context,
+	id string,
+) (
+	*RoleAttachmentDeleteResponse,
+	error,
+) {
 	req := &plumbing.RoleAttachmentDeleteRequest{}
 	req.Id = id
 	var plumbingResponse *plumbing.RoleAttachmentDeleteResponse
@@ -391,7 +471,14 @@ func (svc *RoleAttachments) Delete(ctx context.Context, id string) (*RoleAttachm
 }
 
 // List gets a list of RoleAttachments matching a given set of criteria.
-func (svc *RoleAttachments) List(ctx context.Context, filter string, args ...interface{}) (RoleAttachmentIterator, error) {
+func (svc *RoleAttachments) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{},
+) (
+	RoleAttachmentIterator,
+	error,
+) {
 	req := &plumbing.RoleAttachmentListRequest{}
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
@@ -440,7 +527,13 @@ type Roles struct {
 }
 
 // Create registers a new Role.
-func (svc *Roles) Create(ctx context.Context, role *Role) (*RoleCreateResponse, error) {
+func (svc *Roles) Create(
+	ctx context.Context,
+	role *Role,
+) (
+	*RoleCreateResponse,
+	error,
+) {
 	req := &plumbing.RoleCreateRequest{}
 	req.Role = roleToPlumbing(role)
 	var plumbingResponse *plumbing.RoleCreateResponse
@@ -466,7 +559,13 @@ func (svc *Roles) Create(ctx context.Context, role *Role) (*RoleCreateResponse, 
 }
 
 // Get reads one Role by ID.
-func (svc *Roles) Get(ctx context.Context, id string) (*RoleGetResponse, error) {
+func (svc *Roles) Get(
+	ctx context.Context,
+	id string,
+) (
+	*RoleGetResponse,
+	error,
+) {
 	req := &plumbing.RoleGetRequest{}
 	req.Id = id
 	var plumbingResponse *plumbing.RoleGetResponse
@@ -492,7 +591,13 @@ func (svc *Roles) Get(ctx context.Context, id string) (*RoleGetResponse, error) 
 }
 
 // Update patches a Role by ID.
-func (svc *Roles) Update(ctx context.Context, role *Role) (*RoleUpdateResponse, error) {
+func (svc *Roles) Update(
+	ctx context.Context,
+	role *Role,
+) (
+	*RoleUpdateResponse,
+	error,
+) {
 	req := &plumbing.RoleUpdateRequest{}
 	req.Role = roleToPlumbing(role)
 	var plumbingResponse *plumbing.RoleUpdateResponse
@@ -518,7 +623,13 @@ func (svc *Roles) Update(ctx context.Context, role *Role) (*RoleUpdateResponse, 
 }
 
 // Delete removes a Role by ID.
-func (svc *Roles) Delete(ctx context.Context, id string) (*RoleDeleteResponse, error) {
+func (svc *Roles) Delete(
+	ctx context.Context,
+	id string,
+) (
+	*RoleDeleteResponse,
+	error,
+) {
 	req := &plumbing.RoleDeleteRequest{}
 	req.Id = id
 	var plumbingResponse *plumbing.RoleDeleteResponse
@@ -543,7 +654,14 @@ func (svc *Roles) Delete(ctx context.Context, id string) (*RoleDeleteResponse, e
 }
 
 // List gets a list of Roles matching a given set of criteria.
-func (svc *Roles) List(ctx context.Context, filter string, args ...interface{}) (RoleIterator, error) {
+func (svc *Roles) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{},
+) (
+	RoleIterator,
+	error,
+) {
 	req := &plumbing.RoleListRequest{}
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
