@@ -14,194 +14,156 @@ type Resource interface {
 func (*Sybase) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Sybase.
-func (m *Sybase) GetID() string { return m.ID }
-
+func (m *Sybase) GetID() string   { return m.ID }
 func (*Presto) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Presto.
-func (m *Presto) GetID() string { return m.ID }
-
+func (m *Presto) GetID() string     { return m.ID }
 func (*Teradata) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Teradata.
-func (m *Teradata) GetID() string { return m.ID }
-
+func (m *Teradata) GetID() string   { return m.ID }
 func (*AmazonES) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AmazonES.
-func (m *AmazonES) GetID() string { return m.ID }
-
+func (m *AmazonES) GetID() string  { return m.ID }
 func (*Elastic) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Elastic.
 func (m *Elastic) GetID() string { return m.ID }
-
 func (*Redis) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Redis.
-func (m *Redis) GetID() string { return m.ID }
-
+func (m *Redis) GetID() string              { return m.ID }
 func (*ElasticacheRedis) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the ElasticacheRedis.
 func (m *ElasticacheRedis) GetID() string { return m.ID }
-
-func (*Kubernetes) isOneOf_Resource() {}
+func (*Kubernetes) isOneOf_Resource()     {}
 
 // GetID returns the unique identifier of the Kubernetes.
-func (m *Kubernetes) GetID() string { return m.ID }
-
+func (m *Kubernetes) GetID() string            { return m.ID }
 func (*KubernetesBasicAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the KubernetesBasicAuth.
 func (m *KubernetesBasicAuth) GetID() string { return m.ID }
-
-func (*AmazonEKS) isOneOf_Resource() {}
+func (*AmazonEKS) isOneOf_Resource()         {}
 
 // GetID returns the unique identifier of the AmazonEKS.
-func (m *AmazonEKS) GetID() string { return m.ID }
-
+func (m *AmazonEKS) GetID() string   { return m.ID }
 func (*GoogleGKE) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the GoogleGKE.
 func (m *GoogleGKE) GetID() string { return m.ID }
-
-func (*Oracle) isOneOf_Resource() {}
+func (*Oracle) isOneOf_Resource()  {}
 
 // GetID returns the unique identifier of the Oracle.
-func (m *Oracle) GetID() string { return m.ID }
-
+func (m *Oracle) GetID() string     { return m.ID }
 func (*DynamoDB) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the DynamoDB.
 func (m *DynamoDB) GetID() string { return m.ID }
-
-func (*RDP) isOneOf_Resource() {}
+func (*RDP) isOneOf_Resource()    {}
 
 // GetID returns the unique identifier of the RDP.
-func (m *RDP) GetID() string { return m.ID }
-
+func (m *RDP) GetID() string        { return m.ID }
 func (*BigQuery) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the BigQuery.
-func (m *BigQuery) GetID() string { return m.ID }
-
+func (m *BigQuery) GetID() string    { return m.ID }
 func (*Snowflake) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Snowflake.
-func (m *Snowflake) GetID() string { return m.ID }
-
+func (m *Snowflake) GetID() string   { return m.ID }
 func (*Memcached) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Memcached.
-func (m *Memcached) GetID() string { return m.ID }
-
+func (m *Memcached) GetID() string  { return m.ID }
 func (*Postgres) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Postgres.
-func (m *Postgres) GetID() string { return m.ID }
-
+func (m *Postgres) GetID() string         { return m.ID }
 func (*AuroraPostgres) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AuroraPostgres.
 func (m *AuroraPostgres) GetID() string { return m.ID }
-
-func (*Greenplum) isOneOf_Resource() {}
+func (*Greenplum) isOneOf_Resource()    {}
 
 // GetID returns the unique identifier of the Greenplum.
-func (m *Greenplum) GetID() string { return m.ID }
-
+func (m *Greenplum) GetID() string   { return m.ID }
 func (*Cockroach) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Cockroach.
-func (m *Cockroach) GetID() string { return m.ID }
-
+func (m *Cockroach) GetID() string  { return m.ID }
 func (*Redshift) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Redshift.
 func (m *Redshift) GetID() string { return m.ID }
-
-func (*SSH) isOneOf_Resource() {}
+func (*SSH) isOneOf_Resource()    {}
 
 // GetID returns the unique identifier of the SSH.
-func (m *SSH) GetID() string { return m.ID }
-
+func (m *SSH) GetID() string             { return m.ID }
 func (*HTTPBasicAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the HTTPBasicAuth.
 func (m *HTTPBasicAuth) GetID() string { return m.ID }
-
-func (*HTTPNoAuth) isOneOf_Resource() {}
+func (*HTTPNoAuth) isOneOf_Resource()  {}
 
 // GetID returns the unique identifier of the HTTPNoAuth.
 func (m *HTTPNoAuth) GetID() string { return m.ID }
-
 func (*HTTPAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the HTTPAuth.
-func (m *HTTPAuth) GetID() string { return m.ID }
-
+func (m *HTTPAuth) GetID() string    { return m.ID }
 func (*Cassandra) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Cassandra.
 func (m *Cassandra) GetID() string { return m.ID }
-
-func (*Mysql) isOneOf_Resource() {}
+func (*Mysql) isOneOf_Resource()   {}
 
 // GetID returns the unique identifier of the Mysql.
-func (m *Mysql) GetID() string { return m.ID }
-
+func (m *Mysql) GetID() string         { return m.ID }
 func (*AuroraMysql) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AuroraMysql.
 func (m *AuroraMysql) GetID() string { return m.ID }
-
-func (*Clustrix) isOneOf_Resource() {}
+func (*Clustrix) isOneOf_Resource()  {}
 
 // GetID returns the unique identifier of the Clustrix.
 func (m *Clustrix) GetID() string { return m.ID }
-
-func (*Maria) isOneOf_Resource() {}
+func (*Maria) isOneOf_Resource()  {}
 
 // GetID returns the unique identifier of the Maria.
-func (m *Maria) GetID() string { return m.ID }
-
+func (m *Maria) GetID() string    { return m.ID }
 func (*Memsql) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Memsql.
-func (m *Memsql) GetID() string { return m.ID }
-
+func (m *Memsql) GetID() string  { return m.ID }
 func (*Druid) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Druid.
-func (m *Druid) GetID() string { return m.ID }
-
+func (m *Druid) GetID() string       { return m.ID }
 func (*SQLServer) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the SQLServer.
-func (m *SQLServer) GetID() string { return m.ID }
-
+func (m *SQLServer) GetID() string         { return m.ID }
 func (*MongoLegacyHost) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MongoLegacyHost.
-func (m *MongoLegacyHost) GetID() string { return m.ID }
-
+func (m *MongoLegacyHost) GetID() string         { return m.ID }
 func (*MongoLegacyReplicaset) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MongoLegacyReplicaset.
 func (m *MongoLegacyReplicaset) GetID() string { return m.ID }
-
-func (*MongoHost) isOneOf_Resource() {}
+func (*MongoHost) isOneOf_Resource()           {}
 
 // GetID returns the unique identifier of the MongoHost.
-func (m *MongoHost) GetID() string { return m.ID }
-
+func (m *MongoHost) GetID() string         { return m.ID }
 func (*MongoReplicaSet) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MongoReplicaSet.
 func (m *MongoReplicaSet) GetID() string { return m.ID }
-
-func (*Athena) isOneOf_Resource() {}
+func (*Athena) isOneOf_Resource()        {}
 
 // GetID returns the unique identifier of the Athena.
 func (m *Athena) GetID() string { return m.ID }
@@ -1119,7 +1081,6 @@ func (*Relay) isOneOf_Node() {}
 
 // GetID returns the unique identifier of the Relay.
 func (m *Relay) GetID() string { return m.ID }
-
 func (*Gateway) isOneOf_Node() {}
 
 // GetID returns the unique identifier of the Gateway.
@@ -1279,9 +1240,7 @@ type Role struct {
 	Name string
 	// True if the Role is a composite role.
 	Composite bool
-}
-
-// NodeIterator provides read access to a list of Node.
+} // NodeIterator provides read access to a list of Node.
 // Use it like so:
 //     for iterator.Next() {
 //         node := iterator.Value()
@@ -1295,9 +1254,7 @@ type NodeIterator interface {
 	Value() Node
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
-}
-
-// ResourceIterator provides read access to a list of Resource.
+} // ResourceIterator provides read access to a list of Resource.
 // Use it like so:
 //     for iterator.Next() {
 //         resource := iterator.Value()
@@ -1311,9 +1268,7 @@ type ResourceIterator interface {
 	Value() Resource
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
-}
-
-// RoleAttachmentIterator provides read access to a list of RoleAttachment.
+} // RoleAttachmentIterator provides read access to a list of RoleAttachment.
 // Use it like so:
 //     for iterator.Next() {
 //         roleAttachment := iterator.Value()
@@ -1327,9 +1282,7 @@ type RoleAttachmentIterator interface {
 	Value() *RoleAttachment
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
-}
-
-// RoleIterator provides read access to a list of Role.
+} // RoleIterator provides read access to a list of Role.
 // Use it like so:
 //     for iterator.Next() {
 //         role := iterator.Value()
