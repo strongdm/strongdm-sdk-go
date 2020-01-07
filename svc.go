@@ -23,6 +23,7 @@ func (svc *Nodes) Create(
 	error,
 ) {
 	req := &plumbing.NodeCreateRequest{}
+
 	req.Node = nodeToPlumbing(node)
 	var plumbingResponse *plumbing.NodeCreateResponse
 	var err error
@@ -39,6 +40,7 @@ func (svc *Nodes) Create(
 		}
 		break
 	}
+
 	resp := &NodeCreateResponse{}
 	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Node = nodeToPorcelain(plumbingResponse.Node)
@@ -56,6 +58,7 @@ func (svc *Nodes) Get(
 	error,
 ) {
 	req := &plumbing.NodeGetRequest{}
+
 	req.Id = id
 	var plumbingResponse *plumbing.NodeGetResponse
 	var err error
@@ -72,6 +75,7 @@ func (svc *Nodes) Get(
 		}
 		break
 	}
+
 	resp := &NodeGetResponse{}
 	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Node = nodeToPorcelain(plumbingResponse.Node)
@@ -88,6 +92,7 @@ func (svc *Nodes) Update(
 	error,
 ) {
 	req := &plumbing.NodeUpdateRequest{}
+
 	req.Node = nodeToPlumbing(node)
 	var plumbingResponse *plumbing.NodeUpdateResponse
 	var err error
@@ -104,6 +109,7 @@ func (svc *Nodes) Update(
 		}
 		break
 	}
+
 	resp := &NodeUpdateResponse{}
 	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Node = nodeToPorcelain(plumbingResponse.Node)
@@ -120,6 +126,7 @@ func (svc *Nodes) Delete(
 	error,
 ) {
 	req := &plumbing.NodeDeleteRequest{}
+
 	req.Id = id
 	var plumbingResponse *plumbing.NodeDeleteResponse
 	var err error
@@ -136,6 +143,7 @@ func (svc *Nodes) Delete(
 		}
 		break
 	}
+
 	resp := &NodeDeleteResponse{}
 	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
@@ -152,6 +160,7 @@ func (svc *Nodes) List(
 	error,
 ) {
 	req := &plumbing.NodeListRequest{}
+
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
 	if filterErr != nil {
@@ -165,7 +174,9 @@ func (svc *Nodes) List(
 		}
 	}
 	return newNodeIteratorImpl(
-		func() ([]Node, bool, error) {
+		func() (
+			[]Node,
+			bool, error) {
 			var plumbingResponse *plumbing.NodeListResponse
 			var err error
 			i := 0
@@ -202,6 +213,7 @@ func (svc *Resources) Create(
 	error,
 ) {
 	req := &plumbing.ResourceCreateRequest{}
+
 	req.Resource = resourceToPlumbing(resource)
 	var plumbingResponse *plumbing.ResourceCreateResponse
 	var err error
@@ -218,6 +230,7 @@ func (svc *Resources) Create(
 		}
 		break
 	}
+
 	resp := &ResourceCreateResponse{}
 	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Resource = resourceToPorcelain(plumbingResponse.Resource)
@@ -234,6 +247,7 @@ func (svc *Resources) Get(
 	error,
 ) {
 	req := &plumbing.ResourceGetRequest{}
+
 	req.Id = id
 	var plumbingResponse *plumbing.ResourceGetResponse
 	var err error
@@ -250,6 +264,7 @@ func (svc *Resources) Get(
 		}
 		break
 	}
+
 	resp := &ResourceGetResponse{}
 	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Resource = resourceToPorcelain(plumbingResponse.Resource)
@@ -266,6 +281,7 @@ func (svc *Resources) Update(
 	error,
 ) {
 	req := &plumbing.ResourceUpdateRequest{}
+
 	req.Resource = resourceToPlumbing(resource)
 	var plumbingResponse *plumbing.ResourceUpdateResponse
 	var err error
@@ -282,6 +298,7 @@ func (svc *Resources) Update(
 		}
 		break
 	}
+
 	resp := &ResourceUpdateResponse{}
 	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Resource = resourceToPorcelain(plumbingResponse.Resource)
@@ -298,6 +315,7 @@ func (svc *Resources) Delete(
 	error,
 ) {
 	req := &plumbing.ResourceDeleteRequest{}
+
 	req.Id = id
 	var plumbingResponse *plumbing.ResourceDeleteResponse
 	var err error
@@ -314,6 +332,7 @@ func (svc *Resources) Delete(
 		}
 		break
 	}
+
 	resp := &ResourceDeleteResponse{}
 	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
@@ -330,6 +349,7 @@ func (svc *Resources) List(
 	error,
 ) {
 	req := &plumbing.ResourceListRequest{}
+
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
 	if filterErr != nil {
@@ -343,7 +363,9 @@ func (svc *Resources) List(
 		}
 	}
 	return newResourceIteratorImpl(
-		func() ([]Resource, bool, error) {
+		func() (
+			[]Resource,
+			bool, error) {
 			var plumbingResponse *plumbing.ResourceListResponse
 			var err error
 			i := 0
@@ -384,6 +406,7 @@ func (svc *RoleAttachments) Create(
 	error,
 ) {
 	req := &plumbing.RoleAttachmentCreateRequest{}
+
 	req.RoleAttachment = roleAttachmentToPlumbing(roleAttachment)
 	var plumbingResponse *plumbing.RoleAttachmentCreateResponse
 	var err error
@@ -400,6 +423,7 @@ func (svc *RoleAttachments) Create(
 		}
 		break
 	}
+
 	resp := &RoleAttachmentCreateResponse{}
 	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RoleAttachment = roleAttachmentToPorcelain(plumbingResponse.RoleAttachment)
@@ -416,6 +440,7 @@ func (svc *RoleAttachments) Get(
 	error,
 ) {
 	req := &plumbing.RoleAttachmentGetRequest{}
+
 	req.Id = id
 	var plumbingResponse *plumbing.RoleAttachmentGetResponse
 	var err error
@@ -432,6 +457,7 @@ func (svc *RoleAttachments) Get(
 		}
 		break
 	}
+
 	resp := &RoleAttachmentGetResponse{}
 	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RoleAttachment = roleAttachmentToPorcelain(plumbingResponse.RoleAttachment)
@@ -448,6 +474,7 @@ func (svc *RoleAttachments) Delete(
 	error,
 ) {
 	req := &plumbing.RoleAttachmentDeleteRequest{}
+
 	req.Id = id
 	var plumbingResponse *plumbing.RoleAttachmentDeleteResponse
 	var err error
@@ -464,6 +491,7 @@ func (svc *RoleAttachments) Delete(
 		}
 		break
 	}
+
 	resp := &RoleAttachmentDeleteResponse{}
 	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
@@ -480,6 +508,7 @@ func (svc *RoleAttachments) List(
 	error,
 ) {
 	req := &plumbing.RoleAttachmentListRequest{}
+
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
 	if filterErr != nil {
@@ -493,7 +522,9 @@ func (svc *RoleAttachments) List(
 		}
 	}
 	return newRoleAttachmentIteratorImpl(
-		func() ([]*RoleAttachment, bool, error) {
+		func() (
+			[]*RoleAttachment,
+			bool, error) {
 			var plumbingResponse *plumbing.RoleAttachmentListResponse
 			var err error
 			i := 0
@@ -535,6 +566,7 @@ func (svc *Roles) Create(
 	error,
 ) {
 	req := &plumbing.RoleCreateRequest{}
+
 	req.Role = roleToPlumbing(role)
 	var plumbingResponse *plumbing.RoleCreateResponse
 	var err error
@@ -551,6 +583,7 @@ func (svc *Roles) Create(
 		}
 		break
 	}
+
 	resp := &RoleCreateResponse{}
 	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Role = roleToPorcelain(plumbingResponse.Role)
@@ -567,6 +600,7 @@ func (svc *Roles) Get(
 	error,
 ) {
 	req := &plumbing.RoleGetRequest{}
+
 	req.Id = id
 	var plumbingResponse *plumbing.RoleGetResponse
 	var err error
@@ -583,6 +617,7 @@ func (svc *Roles) Get(
 		}
 		break
 	}
+
 	resp := &RoleGetResponse{}
 	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Role = roleToPorcelain(plumbingResponse.Role)
@@ -599,6 +634,7 @@ func (svc *Roles) Update(
 	error,
 ) {
 	req := &plumbing.RoleUpdateRequest{}
+
 	req.Role = roleToPlumbing(role)
 	var plumbingResponse *plumbing.RoleUpdateResponse
 	var err error
@@ -615,6 +651,7 @@ func (svc *Roles) Update(
 		}
 		break
 	}
+
 	resp := &RoleUpdateResponse{}
 	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Role = roleToPorcelain(plumbingResponse.Role)
@@ -631,6 +668,7 @@ func (svc *Roles) Delete(
 	error,
 ) {
 	req := &plumbing.RoleDeleteRequest{}
+
 	req.Id = id
 	var plumbingResponse *plumbing.RoleDeleteResponse
 	var err error
@@ -647,6 +685,7 @@ func (svc *Roles) Delete(
 		}
 		break
 	}
+
 	resp := &RoleDeleteResponse{}
 	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
@@ -663,6 +702,7 @@ func (svc *Roles) List(
 	error,
 ) {
 	req := &plumbing.RoleListRequest{}
+
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
 	if filterErr != nil {
@@ -676,7 +716,9 @@ func (svc *Roles) List(
 		}
 	}
 	return newRoleIteratorImpl(
-		func() ([]*Role, bool, error) {
+		func() (
+			[]*Role,
+			bool, error) {
 			var plumbingResponse *plumbing.RoleListResponse
 			var err error
 			i := 0

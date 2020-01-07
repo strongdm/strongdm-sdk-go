@@ -47,7 +47,6 @@ func timestampToPlumbing(t time.Time) *timestamp.Timestamp {
 	}
 	return res
 }
-
 func resourceToPlumbing(porcelain Resource) *proto.Resource {
 	if porcelain == nil {
 		return nil
@@ -257,8 +256,9 @@ func resourceToPorcelain(plumbing *proto.Resource) Resource {
 	}
 	return nil
 }
-
-func repeatedResourceToPlumbing(porcelains []Resource) []*proto.Resource {
+func repeatedResourceToPlumbing(
+	porcelains []Resource,
+) []*proto.Resource {
 	var items []*proto.Resource
 	for _, porcelain := range porcelains {
 		items = append(items, resourceToPlumbing(porcelain))
@@ -273,7 +273,6 @@ func repeatedResourceToPorcelain(plumbings []*proto.Resource) []Resource {
 	}
 	return items
 }
-
 func sybaseToPorcelain(plumbing *proto.Sybase) *Sybase {
 	if plumbing == nil {
 		return nil
@@ -305,8 +304,9 @@ func sybaseToPlumbing(porcelain *Sybase) *proto.Sybase {
 	plumbing.Password = porcelain.Password
 	return plumbing
 }
-
-func repeatedSybaseToPlumbing(porcelains []*Sybase) []*proto.Sybase {
+func repeatedSybaseToPlumbing(
+	porcelains []*Sybase,
+) []*proto.Sybase {
 	var items []*proto.Sybase
 	for _, porcelain := range porcelains {
 		items = append(items, sybaseToPlumbing(porcelain))
@@ -321,7 +321,6 @@ func repeatedSybaseToPorcelain(plumbings []*proto.Sybase) []*Sybase {
 	}
 	return items
 }
-
 func prestoToPorcelain(plumbing *proto.Presto) *Presto {
 	if plumbing == nil {
 		return nil
@@ -357,8 +356,9 @@ func prestoToPlumbing(porcelain *Presto) *proto.Presto {
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-
-func repeatedPrestoToPlumbing(porcelains []*Presto) []*proto.Presto {
+func repeatedPrestoToPlumbing(
+	porcelains []*Presto,
+) []*proto.Presto {
 	var items []*proto.Presto
 	for _, porcelain := range porcelains {
 		items = append(items, prestoToPlumbing(porcelain))
@@ -373,7 +373,6 @@ func repeatedPrestoToPorcelain(plumbings []*proto.Presto) []*Presto {
 	}
 	return items
 }
-
 func teradataToPorcelain(plumbing *proto.Teradata) *Teradata {
 	if plumbing == nil {
 		return nil
@@ -405,8 +404,9 @@ func teradataToPlumbing(porcelain *Teradata) *proto.Teradata {
 	plumbing.Port = porcelain.Port
 	return plumbing
 }
-
-func repeatedTeradataToPlumbing(porcelains []*Teradata) []*proto.Teradata {
+func repeatedTeradataToPlumbing(
+	porcelains []*Teradata,
+) []*proto.Teradata {
 	var items []*proto.Teradata
 	for _, porcelain := range porcelains {
 		items = append(items, teradataToPlumbing(porcelain))
@@ -421,7 +421,6 @@ func repeatedTeradataToPorcelain(plumbings []*proto.Teradata) []*Teradata {
 	}
 	return items
 }
-
 func amazonEsToPorcelain(plumbing *proto.AmazonES) *AmazonES {
 	if plumbing == nil {
 		return nil
@@ -453,8 +452,9 @@ func amazonEsToPlumbing(porcelain *AmazonES) *proto.AmazonES {
 	plumbing.PortOverride = porcelain.PortOverride
 	return plumbing
 }
-
-func repeatedAmazonESToPlumbing(porcelains []*AmazonES) []*proto.AmazonES {
+func repeatedAmazonESToPlumbing(
+	porcelains []*AmazonES,
+) []*proto.AmazonES {
 	var items []*proto.AmazonES
 	for _, porcelain := range porcelains {
 		items = append(items, amazonEsToPlumbing(porcelain))
@@ -469,7 +469,6 @@ func repeatedAmazonESToPorcelain(plumbings []*proto.AmazonES) []*AmazonES {
 	}
 	return items
 }
-
 func elasticToPorcelain(plumbing *proto.Elastic) *Elastic {
 	if plumbing == nil {
 		return nil
@@ -503,8 +502,9 @@ func elasticToPlumbing(porcelain *Elastic) *proto.Elastic {
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-
-func repeatedElasticToPlumbing(porcelains []*Elastic) []*proto.Elastic {
+func repeatedElasticToPlumbing(
+	porcelains []*Elastic,
+) []*proto.Elastic {
 	var items []*proto.Elastic
 	for _, porcelain := range porcelains {
 		items = append(items, elasticToPlumbing(porcelain))
@@ -519,7 +519,6 @@ func repeatedElasticToPorcelain(plumbings []*proto.Elastic) []*Elastic {
 	}
 	return items
 }
-
 func redisToPorcelain(plumbing *proto.Redis) *Redis {
 	if plumbing == nil {
 		return nil
@@ -549,8 +548,9 @@ func redisToPlumbing(porcelain *Redis) *proto.Redis {
 	plumbing.Port = porcelain.Port
 	return plumbing
 }
-
-func repeatedRedisToPlumbing(porcelains []*Redis) []*proto.Redis {
+func repeatedRedisToPlumbing(
+	porcelains []*Redis,
+) []*proto.Redis {
 	var items []*proto.Redis
 	for _, porcelain := range porcelains {
 		items = append(items, redisToPlumbing(porcelain))
@@ -565,7 +565,6 @@ func repeatedRedisToPorcelain(plumbings []*proto.Redis) []*Redis {
 	}
 	return items
 }
-
 func elasticacheRedisToPorcelain(plumbing *proto.ElasticacheRedis) *ElasticacheRedis {
 	if plumbing == nil {
 		return nil
@@ -597,8 +596,9 @@ func elasticacheRedisToPlumbing(porcelain *ElasticacheRedis) *proto.ElasticacheR
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-
-func repeatedElasticacheRedisToPlumbing(porcelains []*ElasticacheRedis) []*proto.ElasticacheRedis {
+func repeatedElasticacheRedisToPlumbing(
+	porcelains []*ElasticacheRedis,
+) []*proto.ElasticacheRedis {
 	var items []*proto.ElasticacheRedis
 	for _, porcelain := range porcelains {
 		items = append(items, elasticacheRedisToPlumbing(porcelain))
@@ -613,7 +613,6 @@ func repeatedElasticacheRedisToPorcelain(plumbings []*proto.ElasticacheRedis) []
 	}
 	return items
 }
-
 func kubernetesToPorcelain(plumbing *proto.Kubernetes) *Kubernetes {
 	if plumbing == nil {
 		return nil
@@ -651,8 +650,9 @@ func kubernetesToPlumbing(porcelain *Kubernetes) *proto.Kubernetes {
 	plumbing.ClientKeyFilename = porcelain.ClientKeyFilename
 	return plumbing
 }
-
-func repeatedKubernetesToPlumbing(porcelains []*Kubernetes) []*proto.Kubernetes {
+func repeatedKubernetesToPlumbing(
+	porcelains []*Kubernetes,
+) []*proto.Kubernetes {
 	var items []*proto.Kubernetes
 	for _, porcelain := range porcelains {
 		items = append(items, kubernetesToPlumbing(porcelain))
@@ -667,7 +667,6 @@ func repeatedKubernetesToPorcelain(plumbings []*proto.Kubernetes) []*Kubernetes 
 	}
 	return items
 }
-
 func kubernetesBasicAuthToPorcelain(plumbing *proto.KubernetesBasicAuth) *KubernetesBasicAuth {
 	if plumbing == nil {
 		return nil
@@ -697,8 +696,9 @@ func kubernetesBasicAuthToPlumbing(porcelain *KubernetesBasicAuth) *proto.Kubern
 	plumbing.Password = porcelain.Password
 	return plumbing
 }
-
-func repeatedKubernetesBasicAuthToPlumbing(porcelains []*KubernetesBasicAuth) []*proto.KubernetesBasicAuth {
+func repeatedKubernetesBasicAuthToPlumbing(
+	porcelains []*KubernetesBasicAuth,
+) []*proto.KubernetesBasicAuth {
 	var items []*proto.KubernetesBasicAuth
 	for _, porcelain := range porcelains {
 		items = append(items, kubernetesBasicAuthToPlumbing(porcelain))
@@ -713,7 +713,6 @@ func repeatedKubernetesBasicAuthToPorcelain(plumbings []*proto.KubernetesBasicAu
 	}
 	return items
 }
-
 func amazonEksToPorcelain(plumbing *proto.AmazonEKS) *AmazonEKS {
 	if plumbing == nil {
 		return nil
@@ -749,8 +748,9 @@ func amazonEksToPlumbing(porcelain *AmazonEKS) *proto.AmazonEKS {
 	plumbing.ClusterName = porcelain.ClusterName
 	return plumbing
 }
-
-func repeatedAmazonEKSToPlumbing(porcelains []*AmazonEKS) []*proto.AmazonEKS {
+func repeatedAmazonEKSToPlumbing(
+	porcelains []*AmazonEKS,
+) []*proto.AmazonEKS {
 	var items []*proto.AmazonEKS
 	for _, porcelain := range porcelains {
 		items = append(items, amazonEksToPlumbing(porcelain))
@@ -765,7 +765,6 @@ func repeatedAmazonEKSToPorcelain(plumbings []*proto.AmazonEKS) []*AmazonEKS {
 	}
 	return items
 }
-
 func googleGkeToPorcelain(plumbing *proto.GoogleGKE) *GoogleGKE {
 	if plumbing == nil {
 		return nil
@@ -797,8 +796,9 @@ func googleGkeToPlumbing(porcelain *GoogleGKE) *proto.GoogleGKE {
 	plumbing.ServiceAccountKeyFilename = porcelain.ServiceAccountKeyFilename
 	return plumbing
 }
-
-func repeatedGoogleGKEToPlumbing(porcelains []*GoogleGKE) []*proto.GoogleGKE {
+func repeatedGoogleGKEToPlumbing(
+	porcelains []*GoogleGKE,
+) []*proto.GoogleGKE {
 	var items []*proto.GoogleGKE
 	for _, porcelain := range porcelains {
 		items = append(items, googleGkeToPlumbing(porcelain))
@@ -813,7 +813,6 @@ func repeatedGoogleGKEToPorcelain(plumbings []*proto.GoogleGKE) []*GoogleGKE {
 	}
 	return items
 }
-
 func oracleToPorcelain(plumbing *proto.Oracle) *Oracle {
 	if plumbing == nil {
 		return nil
@@ -849,8 +848,9 @@ func oracleToPlumbing(porcelain *Oracle) *proto.Oracle {
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-
-func repeatedOracleToPlumbing(porcelains []*Oracle) []*proto.Oracle {
+func repeatedOracleToPlumbing(
+	porcelains []*Oracle,
+) []*proto.Oracle {
 	var items []*proto.Oracle
 	for _, porcelain := range porcelains {
 		items = append(items, oracleToPlumbing(porcelain))
@@ -865,7 +865,6 @@ func repeatedOracleToPorcelain(plumbings []*proto.Oracle) []*Oracle {
 	}
 	return items
 }
-
 func dynamoDbToPorcelain(plumbing *proto.DynamoDB) *DynamoDB {
 	if plumbing == nil {
 		return nil
@@ -897,8 +896,9 @@ func dynamoDbToPlumbing(porcelain *DynamoDB) *proto.DynamoDB {
 	plumbing.PortOverride = porcelain.PortOverride
 	return plumbing
 }
-
-func repeatedDynamoDBToPlumbing(porcelains []*DynamoDB) []*proto.DynamoDB {
+func repeatedDynamoDBToPlumbing(
+	porcelains []*DynamoDB,
+) []*proto.DynamoDB {
 	var items []*proto.DynamoDB
 	for _, porcelain := range porcelains {
 		items = append(items, dynamoDbToPlumbing(porcelain))
@@ -913,7 +913,6 @@ func repeatedDynamoDBToPorcelain(plumbings []*proto.DynamoDB) []*DynamoDB {
 	}
 	return items
 }
-
 func rdpToPorcelain(plumbing *proto.RDP) *RDP {
 	if plumbing == nil {
 		return nil
@@ -945,8 +944,9 @@ func rdpToPlumbing(porcelain *RDP) *proto.RDP {
 	plumbing.Port = porcelain.Port
 	return plumbing
 }
-
-func repeatedRDPToPlumbing(porcelains []*RDP) []*proto.RDP {
+func repeatedRDPToPlumbing(
+	porcelains []*RDP,
+) []*proto.RDP {
 	var items []*proto.RDP
 	for _, porcelain := range porcelains {
 		items = append(items, rdpToPlumbing(porcelain))
@@ -961,7 +961,6 @@ func repeatedRDPToPorcelain(plumbings []*proto.RDP) []*RDP {
 	}
 	return items
 }
-
 func bigQueryToPorcelain(plumbing *proto.BigQuery) *BigQuery {
 	if plumbing == nil {
 		return nil
@@ -993,8 +992,9 @@ func bigQueryToPlumbing(porcelain *BigQuery) *proto.BigQuery {
 	plumbing.Username = porcelain.Username
 	return plumbing
 }
-
-func repeatedBigQueryToPlumbing(porcelains []*BigQuery) []*proto.BigQuery {
+func repeatedBigQueryToPlumbing(
+	porcelains []*BigQuery,
+) []*proto.BigQuery {
 	var items []*proto.BigQuery
 	for _, porcelain := range porcelains {
 		items = append(items, bigQueryToPlumbing(porcelain))
@@ -1009,7 +1009,6 @@ func repeatedBigQueryToPorcelain(plumbings []*proto.BigQuery) []*BigQuery {
 	}
 	return items
 }
-
 func snowflakeToPorcelain(plumbing *proto.Snowflake) *Snowflake {
 	if plumbing == nil {
 		return nil
@@ -1043,8 +1042,9 @@ func snowflakeToPlumbing(porcelain *Snowflake) *proto.Snowflake {
 	plumbing.PortOverride = porcelain.PortOverride
 	return plumbing
 }
-
-func repeatedSnowflakeToPlumbing(porcelains []*Snowflake) []*proto.Snowflake {
+func repeatedSnowflakeToPlumbing(
+	porcelains []*Snowflake,
+) []*proto.Snowflake {
 	var items []*proto.Snowflake
 	for _, porcelain := range porcelains {
 		items = append(items, snowflakeToPlumbing(porcelain))
@@ -1059,7 +1059,6 @@ func repeatedSnowflakeToPorcelain(plumbings []*proto.Snowflake) []*Snowflake {
 	}
 	return items
 }
-
 func memcachedToPorcelain(plumbing *proto.Memcached) *Memcached {
 	if plumbing == nil {
 		return nil
@@ -1087,8 +1086,9 @@ func memcachedToPlumbing(porcelain *Memcached) *proto.Memcached {
 	plumbing.Port = porcelain.Port
 	return plumbing
 }
-
-func repeatedMemcachedToPlumbing(porcelains []*Memcached) []*proto.Memcached {
+func repeatedMemcachedToPlumbing(
+	porcelains []*Memcached,
+) []*proto.Memcached {
 	var items []*proto.Memcached
 	for _, porcelain := range porcelains {
 		items = append(items, memcachedToPlumbing(porcelain))
@@ -1103,7 +1103,6 @@ func repeatedMemcachedToPorcelain(plumbings []*proto.Memcached) []*Memcached {
 	}
 	return items
 }
-
 func postgresToPorcelain(plumbing *proto.Postgres) *Postgres {
 	if plumbing == nil {
 		return nil
@@ -1139,8 +1138,9 @@ func postgresToPlumbing(porcelain *Postgres) *proto.Postgres {
 	plumbing.OverrideDatabase = porcelain.OverrideDatabase
 	return plumbing
 }
-
-func repeatedPostgresToPlumbing(porcelains []*Postgres) []*proto.Postgres {
+func repeatedPostgresToPlumbing(
+	porcelains []*Postgres,
+) []*proto.Postgres {
 	var items []*proto.Postgres
 	for _, porcelain := range porcelains {
 		items = append(items, postgresToPlumbing(porcelain))
@@ -1155,7 +1155,6 @@ func repeatedPostgresToPorcelain(plumbings []*proto.Postgres) []*Postgres {
 	}
 	return items
 }
-
 func auroraPostgresToPorcelain(plumbing *proto.AuroraPostgres) *AuroraPostgres {
 	if plumbing == nil {
 		return nil
@@ -1191,8 +1190,9 @@ func auroraPostgresToPlumbing(porcelain *AuroraPostgres) *proto.AuroraPostgres {
 	plumbing.OverrideDatabase = porcelain.OverrideDatabase
 	return plumbing
 }
-
-func repeatedAuroraPostgresToPlumbing(porcelains []*AuroraPostgres) []*proto.AuroraPostgres {
+func repeatedAuroraPostgresToPlumbing(
+	porcelains []*AuroraPostgres,
+) []*proto.AuroraPostgres {
 	var items []*proto.AuroraPostgres
 	for _, porcelain := range porcelains {
 		items = append(items, auroraPostgresToPlumbing(porcelain))
@@ -1207,7 +1207,6 @@ func repeatedAuroraPostgresToPorcelain(plumbings []*proto.AuroraPostgres) []*Aur
 	}
 	return items
 }
-
 func greenplumToPorcelain(plumbing *proto.Greenplum) *Greenplum {
 	if plumbing == nil {
 		return nil
@@ -1243,8 +1242,9 @@ func greenplumToPlumbing(porcelain *Greenplum) *proto.Greenplum {
 	plumbing.OverrideDatabase = porcelain.OverrideDatabase
 	return plumbing
 }
-
-func repeatedGreenplumToPlumbing(porcelains []*Greenplum) []*proto.Greenplum {
+func repeatedGreenplumToPlumbing(
+	porcelains []*Greenplum,
+) []*proto.Greenplum {
 	var items []*proto.Greenplum
 	for _, porcelain := range porcelains {
 		items = append(items, greenplumToPlumbing(porcelain))
@@ -1259,7 +1259,6 @@ func repeatedGreenplumToPorcelain(plumbings []*proto.Greenplum) []*Greenplum {
 	}
 	return items
 }
-
 func cockroachToPorcelain(plumbing *proto.Cockroach) *Cockroach {
 	if plumbing == nil {
 		return nil
@@ -1295,8 +1294,9 @@ func cockroachToPlumbing(porcelain *Cockroach) *proto.Cockroach {
 	plumbing.OverrideDatabase = porcelain.OverrideDatabase
 	return plumbing
 }
-
-func repeatedCockroachToPlumbing(porcelains []*Cockroach) []*proto.Cockroach {
+func repeatedCockroachToPlumbing(
+	porcelains []*Cockroach,
+) []*proto.Cockroach {
 	var items []*proto.Cockroach
 	for _, porcelain := range porcelains {
 		items = append(items, cockroachToPlumbing(porcelain))
@@ -1311,7 +1311,6 @@ func repeatedCockroachToPorcelain(plumbings []*proto.Cockroach) []*Cockroach {
 	}
 	return items
 }
-
 func redshiftToPorcelain(plumbing *proto.Redshift) *Redshift {
 	if plumbing == nil {
 		return nil
@@ -1347,8 +1346,9 @@ func redshiftToPlumbing(porcelain *Redshift) *proto.Redshift {
 	plumbing.OverrideDatabase = porcelain.OverrideDatabase
 	return plumbing
 }
-
-func repeatedRedshiftToPlumbing(porcelains []*Redshift) []*proto.Redshift {
+func repeatedRedshiftToPlumbing(
+	porcelains []*Redshift,
+) []*proto.Redshift {
 	var items []*proto.Redshift
 	for _, porcelain := range porcelains {
 		items = append(items, redshiftToPlumbing(porcelain))
@@ -1363,7 +1363,6 @@ func repeatedRedshiftToPorcelain(plumbings []*proto.Redshift) []*Redshift {
 	}
 	return items
 }
-
 func sshToPorcelain(plumbing *proto.SSH) *SSH {
 	if plumbing == nil {
 		return nil
@@ -1393,8 +1392,9 @@ func sshToPlumbing(porcelain *SSH) *proto.SSH {
 	plumbing.PublicKey = porcelain.PublicKey
 	return plumbing
 }
-
-func repeatedSSHToPlumbing(porcelains []*SSH) []*proto.SSH {
+func repeatedSSHToPlumbing(
+	porcelains []*SSH,
+) []*proto.SSH {
 	var items []*proto.SSH
 	for _, porcelain := range porcelains {
 		items = append(items, sshToPlumbing(porcelain))
@@ -1409,7 +1409,6 @@ func repeatedSSHToPorcelain(plumbings []*proto.SSH) []*SSH {
 	}
 	return items
 }
-
 func httpBasicAuthToPorcelain(plumbing *proto.HTTPBasicAuth) *HTTPBasicAuth {
 	if plumbing == nil {
 		return nil
@@ -1445,8 +1444,9 @@ func httpBasicAuthToPlumbing(porcelain *HTTPBasicAuth) *proto.HTTPBasicAuth {
 	plumbing.Subdomain = porcelain.Subdomain
 	return plumbing
 }
-
-func repeatedHTTPBasicAuthToPlumbing(porcelains []*HTTPBasicAuth) []*proto.HTTPBasicAuth {
+func repeatedHTTPBasicAuthToPlumbing(
+	porcelains []*HTTPBasicAuth,
+) []*proto.HTTPBasicAuth {
 	var items []*proto.HTTPBasicAuth
 	for _, porcelain := range porcelains {
 		items = append(items, httpBasicAuthToPlumbing(porcelain))
@@ -1461,7 +1461,6 @@ func repeatedHTTPBasicAuthToPorcelain(plumbings []*proto.HTTPBasicAuth) []*HTTPB
 	}
 	return items
 }
-
 func httpNoAuthToPorcelain(plumbing *proto.HTTPNoAuth) *HTTPNoAuth {
 	if plumbing == nil {
 		return nil
@@ -1493,8 +1492,9 @@ func httpNoAuthToPlumbing(porcelain *HTTPNoAuth) *proto.HTTPNoAuth {
 	plumbing.Subdomain = porcelain.Subdomain
 	return plumbing
 }
-
-func repeatedHTTPNoAuthToPlumbing(porcelains []*HTTPNoAuth) []*proto.HTTPNoAuth {
+func repeatedHTTPNoAuthToPlumbing(
+	porcelains []*HTTPNoAuth,
+) []*proto.HTTPNoAuth {
 	var items []*proto.HTTPNoAuth
 	for _, porcelain := range porcelains {
 		items = append(items, httpNoAuthToPlumbing(porcelain))
@@ -1509,7 +1509,6 @@ func repeatedHTTPNoAuthToPorcelain(plumbings []*proto.HTTPNoAuth) []*HTTPNoAuth 
 	}
 	return items
 }
-
 func httpAuthToPorcelain(plumbing *proto.HTTPAuth) *HTTPAuth {
 	if plumbing == nil {
 		return nil
@@ -1543,8 +1542,9 @@ func httpAuthToPlumbing(porcelain *HTTPAuth) *proto.HTTPAuth {
 	plumbing.Subdomain = porcelain.Subdomain
 	return plumbing
 }
-
-func repeatedHTTPAuthToPlumbing(porcelains []*HTTPAuth) []*proto.HTTPAuth {
+func repeatedHTTPAuthToPlumbing(
+	porcelains []*HTTPAuth,
+) []*proto.HTTPAuth {
 	var items []*proto.HTTPAuth
 	for _, porcelain := range porcelains {
 		items = append(items, httpAuthToPlumbing(porcelain))
@@ -1559,7 +1559,6 @@ func repeatedHTTPAuthToPorcelain(plumbings []*proto.HTTPAuth) []*HTTPAuth {
 	}
 	return items
 }
-
 func cassandraToPorcelain(plumbing *proto.Cassandra) *Cassandra {
 	if plumbing == nil {
 		return nil
@@ -1593,8 +1592,9 @@ func cassandraToPlumbing(porcelain *Cassandra) *proto.Cassandra {
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-
-func repeatedCassandraToPlumbing(porcelains []*Cassandra) []*proto.Cassandra {
+func repeatedCassandraToPlumbing(
+	porcelains []*Cassandra,
+) []*proto.Cassandra {
 	var items []*proto.Cassandra
 	for _, porcelain := range porcelains {
 		items = append(items, cassandraToPlumbing(porcelain))
@@ -1609,7 +1609,6 @@ func repeatedCassandraToPorcelain(plumbings []*proto.Cassandra) []*Cassandra {
 	}
 	return items
 }
-
 func mysqlToPorcelain(plumbing *proto.Mysql) *Mysql {
 	if plumbing == nil {
 		return nil
@@ -1643,8 +1642,9 @@ func mysqlToPlumbing(porcelain *Mysql) *proto.Mysql {
 	plumbing.Port = porcelain.Port
 	return plumbing
 }
-
-func repeatedMysqlToPlumbing(porcelains []*Mysql) []*proto.Mysql {
+func repeatedMysqlToPlumbing(
+	porcelains []*Mysql,
+) []*proto.Mysql {
 	var items []*proto.Mysql
 	for _, porcelain := range porcelains {
 		items = append(items, mysqlToPlumbing(porcelain))
@@ -1659,7 +1659,6 @@ func repeatedMysqlToPorcelain(plumbings []*proto.Mysql) []*Mysql {
 	}
 	return items
 }
-
 func auroraMysqlToPorcelain(plumbing *proto.AuroraMysql) *AuroraMysql {
 	if plumbing == nil {
 		return nil
@@ -1693,8 +1692,9 @@ func auroraMysqlToPlumbing(porcelain *AuroraMysql) *proto.AuroraMysql {
 	plumbing.Port = porcelain.Port
 	return plumbing
 }
-
-func repeatedAuroraMysqlToPlumbing(porcelains []*AuroraMysql) []*proto.AuroraMysql {
+func repeatedAuroraMysqlToPlumbing(
+	porcelains []*AuroraMysql,
+) []*proto.AuroraMysql {
 	var items []*proto.AuroraMysql
 	for _, porcelain := range porcelains {
 		items = append(items, auroraMysqlToPlumbing(porcelain))
@@ -1709,7 +1709,6 @@ func repeatedAuroraMysqlToPorcelain(plumbings []*proto.AuroraMysql) []*AuroraMys
 	}
 	return items
 }
-
 func clustrixToPorcelain(plumbing *proto.Clustrix) *Clustrix {
 	if plumbing == nil {
 		return nil
@@ -1743,8 +1742,9 @@ func clustrixToPlumbing(porcelain *Clustrix) *proto.Clustrix {
 	plumbing.Port = porcelain.Port
 	return plumbing
 }
-
-func repeatedClustrixToPlumbing(porcelains []*Clustrix) []*proto.Clustrix {
+func repeatedClustrixToPlumbing(
+	porcelains []*Clustrix,
+) []*proto.Clustrix {
 	var items []*proto.Clustrix
 	for _, porcelain := range porcelains {
 		items = append(items, clustrixToPlumbing(porcelain))
@@ -1759,7 +1759,6 @@ func repeatedClustrixToPorcelain(plumbings []*proto.Clustrix) []*Clustrix {
 	}
 	return items
 }
-
 func mariaToPorcelain(plumbing *proto.Maria) *Maria {
 	if plumbing == nil {
 		return nil
@@ -1793,8 +1792,9 @@ func mariaToPlumbing(porcelain *Maria) *proto.Maria {
 	plumbing.Port = porcelain.Port
 	return plumbing
 }
-
-func repeatedMariaToPlumbing(porcelains []*Maria) []*proto.Maria {
+func repeatedMariaToPlumbing(
+	porcelains []*Maria,
+) []*proto.Maria {
 	var items []*proto.Maria
 	for _, porcelain := range porcelains {
 		items = append(items, mariaToPlumbing(porcelain))
@@ -1809,7 +1809,6 @@ func repeatedMariaToPorcelain(plumbings []*proto.Maria) []*Maria {
 	}
 	return items
 }
-
 func memsqlToPorcelain(plumbing *proto.Memsql) *Memsql {
 	if plumbing == nil {
 		return nil
@@ -1843,8 +1842,9 @@ func memsqlToPlumbing(porcelain *Memsql) *proto.Memsql {
 	plumbing.Port = porcelain.Port
 	return plumbing
 }
-
-func repeatedMemsqlToPlumbing(porcelains []*Memsql) []*proto.Memsql {
+func repeatedMemsqlToPlumbing(
+	porcelains []*Memsql,
+) []*proto.Memsql {
 	var items []*proto.Memsql
 	for _, porcelain := range porcelains {
 		items = append(items, memsqlToPlumbing(porcelain))
@@ -1859,7 +1859,6 @@ func repeatedMemsqlToPorcelain(plumbings []*proto.Memsql) []*Memsql {
 	}
 	return items
 }
-
 func druidToPorcelain(plumbing *proto.Druid) *Druid {
 	if plumbing == nil {
 		return nil
@@ -1891,8 +1890,9 @@ func druidToPlumbing(porcelain *Druid) *proto.Druid {
 	plumbing.Port = porcelain.Port
 	return plumbing
 }
-
-func repeatedDruidToPlumbing(porcelains []*Druid) []*proto.Druid {
+func repeatedDruidToPlumbing(
+	porcelains []*Druid,
+) []*proto.Druid {
 	var items []*proto.Druid
 	for _, porcelain := range porcelains {
 		items = append(items, druidToPlumbing(porcelain))
@@ -1907,7 +1907,6 @@ func repeatedDruidToPorcelain(plumbings []*proto.Druid) []*Druid {
 	}
 	return items
 }
-
 func sqlServerToPorcelain(plumbing *proto.SQLServer) *SQLServer {
 	if plumbing == nil {
 		return nil
@@ -1945,8 +1944,9 @@ func sqlServerToPlumbing(porcelain *SQLServer) *proto.SQLServer {
 	plumbing.OverrideDatabase = porcelain.OverrideDatabase
 	return plumbing
 }
-
-func repeatedSQLServerToPlumbing(porcelains []*SQLServer) []*proto.SQLServer {
+func repeatedSQLServerToPlumbing(
+	porcelains []*SQLServer,
+) []*proto.SQLServer {
 	var items []*proto.SQLServer
 	for _, porcelain := range porcelains {
 		items = append(items, sqlServerToPlumbing(porcelain))
@@ -1961,7 +1961,6 @@ func repeatedSQLServerToPorcelain(plumbings []*proto.SQLServer) []*SQLServer {
 	}
 	return items
 }
-
 func mongoLegacyHostToPorcelain(plumbing *proto.MongoLegacyHost) *MongoLegacyHost {
 	if plumbing == nil {
 		return nil
@@ -2001,8 +2000,9 @@ func mongoLegacyHostToPlumbing(porcelain *MongoLegacyHost) *proto.MongoLegacyHos
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-
-func repeatedMongoLegacyHostToPlumbing(porcelains []*MongoLegacyHost) []*proto.MongoLegacyHost {
+func repeatedMongoLegacyHostToPlumbing(
+	porcelains []*MongoLegacyHost,
+) []*proto.MongoLegacyHost {
 	var items []*proto.MongoLegacyHost
 	for _, porcelain := range porcelains {
 		items = append(items, mongoLegacyHostToPlumbing(porcelain))
@@ -2017,7 +2017,6 @@ func repeatedMongoLegacyHostToPorcelain(plumbings []*proto.MongoLegacyHost) []*M
 	}
 	return items
 }
-
 func mongoLegacyReplicasetToPorcelain(plumbing *proto.MongoLegacyReplicaset) *MongoLegacyReplicaset {
 	if plumbing == nil {
 		return nil
@@ -2057,8 +2056,9 @@ func mongoLegacyReplicasetToPlumbing(porcelain *MongoLegacyReplicaset) *proto.Mo
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-
-func repeatedMongoLegacyReplicasetToPlumbing(porcelains []*MongoLegacyReplicaset) []*proto.MongoLegacyReplicaset {
+func repeatedMongoLegacyReplicasetToPlumbing(
+	porcelains []*MongoLegacyReplicaset,
+) []*proto.MongoLegacyReplicaset {
 	var items []*proto.MongoLegacyReplicaset
 	for _, porcelain := range porcelains {
 		items = append(items, mongoLegacyReplicasetToPlumbing(porcelain))
@@ -2073,7 +2073,6 @@ func repeatedMongoLegacyReplicasetToPorcelain(plumbings []*proto.MongoLegacyRepl
 	}
 	return items
 }
-
 func mongoHostToPorcelain(plumbing *proto.MongoHost) *MongoHost {
 	if plumbing == nil {
 		return nil
@@ -2111,8 +2110,9 @@ func mongoHostToPlumbing(porcelain *MongoHost) *proto.MongoHost {
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-
-func repeatedMongoHostToPlumbing(porcelains []*MongoHost) []*proto.MongoHost {
+func repeatedMongoHostToPlumbing(
+	porcelains []*MongoHost,
+) []*proto.MongoHost {
 	var items []*proto.MongoHost
 	for _, porcelain := range porcelains {
 		items = append(items, mongoHostToPlumbing(porcelain))
@@ -2127,7 +2127,6 @@ func repeatedMongoHostToPorcelain(plumbings []*proto.MongoHost) []*MongoHost {
 	}
 	return items
 }
-
 func mongoReplicaSetToPorcelain(plumbing *proto.MongoReplicaSet) *MongoReplicaSet {
 	if plumbing == nil {
 		return nil
@@ -2167,8 +2166,9 @@ func mongoReplicaSetToPlumbing(porcelain *MongoReplicaSet) *proto.MongoReplicaSe
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-
-func repeatedMongoReplicaSetToPlumbing(porcelains []*MongoReplicaSet) []*proto.MongoReplicaSet {
+func repeatedMongoReplicaSetToPlumbing(
+	porcelains []*MongoReplicaSet,
+) []*proto.MongoReplicaSet {
 	var items []*proto.MongoReplicaSet
 	for _, porcelain := range porcelains {
 		items = append(items, mongoReplicaSetToPlumbing(porcelain))
@@ -2183,7 +2183,6 @@ func repeatedMongoReplicaSetToPorcelain(plumbings []*proto.MongoReplicaSet) []*M
 	}
 	return items
 }
-
 func athenaToPorcelain(plumbing *proto.Athena) *Athena {
 	if plumbing == nil {
 		return nil
@@ -2215,8 +2214,9 @@ func athenaToPlumbing(porcelain *Athena) *proto.Athena {
 	plumbing.Region = porcelain.Region
 	return plumbing
 }
-
-func repeatedAthenaToPlumbing(porcelains []*Athena) []*proto.Athena {
+func repeatedAthenaToPlumbing(
+	porcelains []*Athena,
+) []*proto.Athena {
 	var items []*proto.Athena
 	for _, porcelain := range porcelains {
 		items = append(items, athenaToPlumbing(porcelain))
@@ -2231,7 +2231,6 @@ func repeatedAthenaToPorcelain(plumbings []*proto.Athena) []*Athena {
 	}
 	return items
 }
-
 func createResponseMetadataToPorcelain(plumbing *proto.CreateResponseMetadata) *CreateResponseMetadata {
 	if plumbing == nil {
 		return nil
@@ -2247,8 +2246,9 @@ func createResponseMetadataToPlumbing(porcelain *CreateResponseMetadata) *proto.
 	plumbing := &proto.CreateResponseMetadata{}
 	return plumbing
 }
-
-func repeatedCreateResponseMetadataToPlumbing(porcelains []*CreateResponseMetadata) []*proto.CreateResponseMetadata {
+func repeatedCreateResponseMetadataToPlumbing(
+	porcelains []*CreateResponseMetadata,
+) []*proto.CreateResponseMetadata {
 	var items []*proto.CreateResponseMetadata
 	for _, porcelain := range porcelains {
 		items = append(items, createResponseMetadataToPlumbing(porcelain))
@@ -2263,7 +2263,6 @@ func repeatedCreateResponseMetadataToPorcelain(plumbings []*proto.CreateResponse
 	}
 	return items
 }
-
 func getResponseMetadataToPorcelain(plumbing *proto.GetResponseMetadata) *GetResponseMetadata {
 	if plumbing == nil {
 		return nil
@@ -2279,8 +2278,9 @@ func getResponseMetadataToPlumbing(porcelain *GetResponseMetadata) *proto.GetRes
 	plumbing := &proto.GetResponseMetadata{}
 	return plumbing
 }
-
-func repeatedGetResponseMetadataToPlumbing(porcelains []*GetResponseMetadata) []*proto.GetResponseMetadata {
+func repeatedGetResponseMetadataToPlumbing(
+	porcelains []*GetResponseMetadata,
+) []*proto.GetResponseMetadata {
 	var items []*proto.GetResponseMetadata
 	for _, porcelain := range porcelains {
 		items = append(items, getResponseMetadataToPlumbing(porcelain))
@@ -2295,7 +2295,6 @@ func repeatedGetResponseMetadataToPorcelain(plumbings []*proto.GetResponseMetada
 	}
 	return items
 }
-
 func updateResponseMetadataToPorcelain(plumbing *proto.UpdateResponseMetadata) *UpdateResponseMetadata {
 	if plumbing == nil {
 		return nil
@@ -2311,8 +2310,9 @@ func updateResponseMetadataToPlumbing(porcelain *UpdateResponseMetadata) *proto.
 	plumbing := &proto.UpdateResponseMetadata{}
 	return plumbing
 }
-
-func repeatedUpdateResponseMetadataToPlumbing(porcelains []*UpdateResponseMetadata) []*proto.UpdateResponseMetadata {
+func repeatedUpdateResponseMetadataToPlumbing(
+	porcelains []*UpdateResponseMetadata,
+) []*proto.UpdateResponseMetadata {
 	var items []*proto.UpdateResponseMetadata
 	for _, porcelain := range porcelains {
 		items = append(items, updateResponseMetadataToPlumbing(porcelain))
@@ -2327,7 +2327,6 @@ func repeatedUpdateResponseMetadataToPorcelain(plumbings []*proto.UpdateResponse
 	}
 	return items
 }
-
 func deleteResponseMetadataToPorcelain(plumbing *proto.DeleteResponseMetadata) *DeleteResponseMetadata {
 	if plumbing == nil {
 		return nil
@@ -2343,8 +2342,9 @@ func deleteResponseMetadataToPlumbing(porcelain *DeleteResponseMetadata) *proto.
 	plumbing := &proto.DeleteResponseMetadata{}
 	return plumbing
 }
-
-func repeatedDeleteResponseMetadataToPlumbing(porcelains []*DeleteResponseMetadata) []*proto.DeleteResponseMetadata {
+func repeatedDeleteResponseMetadataToPlumbing(
+	porcelains []*DeleteResponseMetadata,
+) []*proto.DeleteResponseMetadata {
 	var items []*proto.DeleteResponseMetadata
 	for _, porcelain := range porcelains {
 		items = append(items, deleteResponseMetadataToPlumbing(porcelain))
@@ -2359,7 +2359,6 @@ func repeatedDeleteResponseMetadataToPorcelain(plumbings []*proto.DeleteResponse
 	}
 	return items
 }
-
 func rateLimitMetadataToPorcelain(plumbing *proto.RateLimitMetadata) *RateLimitMetadata {
 	if plumbing == nil {
 		return nil
@@ -2383,8 +2382,9 @@ func rateLimitMetadataToPlumbing(porcelain *RateLimitMetadata) *proto.RateLimitM
 	plumbing.Bucket = porcelain.Bucket
 	return plumbing
 }
-
-func repeatedRateLimitMetadataToPlumbing(porcelains []*RateLimitMetadata) []*proto.RateLimitMetadata {
+func repeatedRateLimitMetadataToPlumbing(
+	porcelains []*RateLimitMetadata,
+) []*proto.RateLimitMetadata {
 	var items []*proto.RateLimitMetadata
 	for _, porcelain := range porcelains {
 		items = append(items, rateLimitMetadataToPlumbing(porcelain))
@@ -2399,7 +2399,6 @@ func repeatedRateLimitMetadataToPorcelain(plumbings []*proto.RateLimitMetadata) 
 	}
 	return items
 }
-
 func nodeCreateResponseToPorcelain(plumbing *proto.NodeCreateResponse) *NodeCreateResponse {
 	if plumbing == nil {
 		return nil
@@ -2423,8 +2422,9 @@ func nodeCreateResponseToPlumbing(porcelain *NodeCreateResponse) *proto.NodeCrea
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedNodeCreateResponseToPlumbing(porcelains []*NodeCreateResponse) []*proto.NodeCreateResponse {
+func repeatedNodeCreateResponseToPlumbing(
+	porcelains []*NodeCreateResponse,
+) []*proto.NodeCreateResponse {
 	var items []*proto.NodeCreateResponse
 	for _, porcelain := range porcelains {
 		items = append(items, nodeCreateResponseToPlumbing(porcelain))
@@ -2439,7 +2439,6 @@ func repeatedNodeCreateResponseToPorcelain(plumbings []*proto.NodeCreateResponse
 	}
 	return items
 }
-
 func nodeGetResponseToPorcelain(plumbing *proto.NodeGetResponse) *NodeGetResponse {
 	if plumbing == nil {
 		return nil
@@ -2461,8 +2460,9 @@ func nodeGetResponseToPlumbing(porcelain *NodeGetResponse) *proto.NodeGetRespons
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedNodeGetResponseToPlumbing(porcelains []*NodeGetResponse) []*proto.NodeGetResponse {
+func repeatedNodeGetResponseToPlumbing(
+	porcelains []*NodeGetResponse,
+) []*proto.NodeGetResponse {
 	var items []*proto.NodeGetResponse
 	for _, porcelain := range porcelains {
 		items = append(items, nodeGetResponseToPlumbing(porcelain))
@@ -2477,7 +2477,6 @@ func repeatedNodeGetResponseToPorcelain(plumbings []*proto.NodeGetResponse) []*N
 	}
 	return items
 }
-
 func nodeUpdateResponseToPorcelain(plumbing *proto.NodeUpdateResponse) *NodeUpdateResponse {
 	if plumbing == nil {
 		return nil
@@ -2499,8 +2498,9 @@ func nodeUpdateResponseToPlumbing(porcelain *NodeUpdateResponse) *proto.NodeUpda
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedNodeUpdateResponseToPlumbing(porcelains []*NodeUpdateResponse) []*proto.NodeUpdateResponse {
+func repeatedNodeUpdateResponseToPlumbing(
+	porcelains []*NodeUpdateResponse,
+) []*proto.NodeUpdateResponse {
 	var items []*proto.NodeUpdateResponse
 	for _, porcelain := range porcelains {
 		items = append(items, nodeUpdateResponseToPlumbing(porcelain))
@@ -2515,7 +2515,6 @@ func repeatedNodeUpdateResponseToPorcelain(plumbings []*proto.NodeUpdateResponse
 	}
 	return items
 }
-
 func nodeDeleteResponseToPorcelain(plumbing *proto.NodeDeleteResponse) *NodeDeleteResponse {
 	if plumbing == nil {
 		return nil
@@ -2535,8 +2534,9 @@ func nodeDeleteResponseToPlumbing(porcelain *NodeDeleteResponse) *proto.NodeDele
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedNodeDeleteResponseToPlumbing(porcelains []*NodeDeleteResponse) []*proto.NodeDeleteResponse {
+func repeatedNodeDeleteResponseToPlumbing(
+	porcelains []*NodeDeleteResponse,
+) []*proto.NodeDeleteResponse {
 	var items []*proto.NodeDeleteResponse
 	for _, porcelain := range porcelains {
 		items = append(items, nodeDeleteResponseToPlumbing(porcelain))
@@ -2551,7 +2551,6 @@ func repeatedNodeDeleteResponseToPorcelain(plumbings []*proto.NodeDeleteResponse
 	}
 	return items
 }
-
 func nodeToPlumbing(porcelain Node) *proto.Node {
 	if porcelain == nil {
 		return nil
@@ -2576,8 +2575,9 @@ func nodeToPorcelain(plumbing *proto.Node) Node {
 	}
 	return nil
 }
-
-func repeatedNodeToPlumbing(porcelains []Node) []*proto.Node {
+func repeatedNodeToPlumbing(
+	porcelains []Node,
+) []*proto.Node {
 	var items []*proto.Node
 	for _, porcelain := range porcelains {
 		items = append(items, nodeToPlumbing(porcelain))
@@ -2592,7 +2592,6 @@ func repeatedNodeToPorcelain(plumbings []*proto.Node) []Node {
 	}
 	return items
 }
-
 func relayToPorcelain(plumbing *proto.Relay) *Relay {
 	if plumbing == nil {
 		return nil
@@ -2614,8 +2613,9 @@ func relayToPlumbing(porcelain *Relay) *proto.Relay {
 	plumbing.State = porcelain.State
 	return plumbing
 }
-
-func repeatedRelayToPlumbing(porcelains []*Relay) []*proto.Relay {
+func repeatedRelayToPlumbing(
+	porcelains []*Relay,
+) []*proto.Relay {
 	var items []*proto.Relay
 	for _, porcelain := range porcelains {
 		items = append(items, relayToPlumbing(porcelain))
@@ -2630,7 +2630,6 @@ func repeatedRelayToPorcelain(plumbings []*proto.Relay) []*Relay {
 	}
 	return items
 }
-
 func gatewayToPorcelain(plumbing *proto.Gateway) *Gateway {
 	if plumbing == nil {
 		return nil
@@ -2656,8 +2655,9 @@ func gatewayToPlumbing(porcelain *Gateway) *proto.Gateway {
 	plumbing.BindAddress = porcelain.BindAddress
 	return plumbing
 }
-
-func repeatedGatewayToPlumbing(porcelains []*Gateway) []*proto.Gateway {
+func repeatedGatewayToPlumbing(
+	porcelains []*Gateway,
+) []*proto.Gateway {
 	var items []*proto.Gateway
 	for _, porcelain := range porcelains {
 		items = append(items, gatewayToPlumbing(porcelain))
@@ -2672,7 +2672,6 @@ func repeatedGatewayToPorcelain(plumbings []*proto.Gateway) []*Gateway {
 	}
 	return items
 }
-
 func resourceCreateResponseToPorcelain(plumbing *proto.ResourceCreateResponse) *ResourceCreateResponse {
 	if plumbing == nil {
 		return nil
@@ -2694,8 +2693,9 @@ func resourceCreateResponseToPlumbing(porcelain *ResourceCreateResponse) *proto.
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedResourceCreateResponseToPlumbing(porcelains []*ResourceCreateResponse) []*proto.ResourceCreateResponse {
+func repeatedResourceCreateResponseToPlumbing(
+	porcelains []*ResourceCreateResponse,
+) []*proto.ResourceCreateResponse {
 	var items []*proto.ResourceCreateResponse
 	for _, porcelain := range porcelains {
 		items = append(items, resourceCreateResponseToPlumbing(porcelain))
@@ -2710,7 +2710,6 @@ func repeatedResourceCreateResponseToPorcelain(plumbings []*proto.ResourceCreate
 	}
 	return items
 }
-
 func resourceGetResponseToPorcelain(plumbing *proto.ResourceGetResponse) *ResourceGetResponse {
 	if plumbing == nil {
 		return nil
@@ -2732,8 +2731,9 @@ func resourceGetResponseToPlumbing(porcelain *ResourceGetResponse) *proto.Resour
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedResourceGetResponseToPlumbing(porcelains []*ResourceGetResponse) []*proto.ResourceGetResponse {
+func repeatedResourceGetResponseToPlumbing(
+	porcelains []*ResourceGetResponse,
+) []*proto.ResourceGetResponse {
 	var items []*proto.ResourceGetResponse
 	for _, porcelain := range porcelains {
 		items = append(items, resourceGetResponseToPlumbing(porcelain))
@@ -2748,7 +2748,6 @@ func repeatedResourceGetResponseToPorcelain(plumbings []*proto.ResourceGetRespon
 	}
 	return items
 }
-
 func resourceUpdateResponseToPorcelain(plumbing *proto.ResourceUpdateResponse) *ResourceUpdateResponse {
 	if plumbing == nil {
 		return nil
@@ -2770,8 +2769,9 @@ func resourceUpdateResponseToPlumbing(porcelain *ResourceUpdateResponse) *proto.
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedResourceUpdateResponseToPlumbing(porcelains []*ResourceUpdateResponse) []*proto.ResourceUpdateResponse {
+func repeatedResourceUpdateResponseToPlumbing(
+	porcelains []*ResourceUpdateResponse,
+) []*proto.ResourceUpdateResponse {
 	var items []*proto.ResourceUpdateResponse
 	for _, porcelain := range porcelains {
 		items = append(items, resourceUpdateResponseToPlumbing(porcelain))
@@ -2786,7 +2786,6 @@ func repeatedResourceUpdateResponseToPorcelain(plumbings []*proto.ResourceUpdate
 	}
 	return items
 }
-
 func resourceDeleteResponseToPorcelain(plumbing *proto.ResourceDeleteResponse) *ResourceDeleteResponse {
 	if plumbing == nil {
 		return nil
@@ -2806,8 +2805,9 @@ func resourceDeleteResponseToPlumbing(porcelain *ResourceDeleteResponse) *proto.
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedResourceDeleteResponseToPlumbing(porcelains []*ResourceDeleteResponse) []*proto.ResourceDeleteResponse {
+func repeatedResourceDeleteResponseToPlumbing(
+	porcelains []*ResourceDeleteResponse,
+) []*proto.ResourceDeleteResponse {
 	var items []*proto.ResourceDeleteResponse
 	for _, porcelain := range porcelains {
 		items = append(items, resourceDeleteResponseToPlumbing(porcelain))
@@ -2822,7 +2822,6 @@ func repeatedResourceDeleteResponseToPorcelain(plumbings []*proto.ResourceDelete
 	}
 	return items
 }
-
 func roleAttachmentCreateResponseToPorcelain(plumbing *proto.RoleAttachmentCreateResponse) *RoleAttachmentCreateResponse {
 	if plumbing == nil {
 		return nil
@@ -2844,8 +2843,9 @@ func roleAttachmentCreateResponseToPlumbing(porcelain *RoleAttachmentCreateRespo
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedRoleAttachmentCreateResponseToPlumbing(porcelains []*RoleAttachmentCreateResponse) []*proto.RoleAttachmentCreateResponse {
+func repeatedRoleAttachmentCreateResponseToPlumbing(
+	porcelains []*RoleAttachmentCreateResponse,
+) []*proto.RoleAttachmentCreateResponse {
 	var items []*proto.RoleAttachmentCreateResponse
 	for _, porcelain := range porcelains {
 		items = append(items, roleAttachmentCreateResponseToPlumbing(porcelain))
@@ -2860,7 +2860,6 @@ func repeatedRoleAttachmentCreateResponseToPorcelain(plumbings []*proto.RoleAtta
 	}
 	return items
 }
-
 func roleAttachmentGetResponseToPorcelain(plumbing *proto.RoleAttachmentGetResponse) *RoleAttachmentGetResponse {
 	if plumbing == nil {
 		return nil
@@ -2882,8 +2881,9 @@ func roleAttachmentGetResponseToPlumbing(porcelain *RoleAttachmentGetResponse) *
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedRoleAttachmentGetResponseToPlumbing(porcelains []*RoleAttachmentGetResponse) []*proto.RoleAttachmentGetResponse {
+func repeatedRoleAttachmentGetResponseToPlumbing(
+	porcelains []*RoleAttachmentGetResponse,
+) []*proto.RoleAttachmentGetResponse {
 	var items []*proto.RoleAttachmentGetResponse
 	for _, porcelain := range porcelains {
 		items = append(items, roleAttachmentGetResponseToPlumbing(porcelain))
@@ -2898,7 +2898,6 @@ func repeatedRoleAttachmentGetResponseToPorcelain(plumbings []*proto.RoleAttachm
 	}
 	return items
 }
-
 func roleAttachmentDeleteResponseToPorcelain(plumbing *proto.RoleAttachmentDeleteResponse) *RoleAttachmentDeleteResponse {
 	if plumbing == nil {
 		return nil
@@ -2918,8 +2917,9 @@ func roleAttachmentDeleteResponseToPlumbing(porcelain *RoleAttachmentDeleteRespo
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedRoleAttachmentDeleteResponseToPlumbing(porcelains []*RoleAttachmentDeleteResponse) []*proto.RoleAttachmentDeleteResponse {
+func repeatedRoleAttachmentDeleteResponseToPlumbing(
+	porcelains []*RoleAttachmentDeleteResponse,
+) []*proto.RoleAttachmentDeleteResponse {
 	var items []*proto.RoleAttachmentDeleteResponse
 	for _, porcelain := range porcelains {
 		items = append(items, roleAttachmentDeleteResponseToPlumbing(porcelain))
@@ -2934,7 +2934,6 @@ func repeatedRoleAttachmentDeleteResponseToPorcelain(plumbings []*proto.RoleAtta
 	}
 	return items
 }
-
 func roleAttachmentToPorcelain(plumbing *proto.RoleAttachment) *RoleAttachment {
 	if plumbing == nil {
 		return nil
@@ -2956,8 +2955,9 @@ func roleAttachmentToPlumbing(porcelain *RoleAttachment) *proto.RoleAttachment {
 	plumbing.AttachedRoleId = porcelain.AttachedRoleID
 	return plumbing
 }
-
-func repeatedRoleAttachmentToPlumbing(porcelains []*RoleAttachment) []*proto.RoleAttachment {
+func repeatedRoleAttachmentToPlumbing(
+	porcelains []*RoleAttachment,
+) []*proto.RoleAttachment {
 	var items []*proto.RoleAttachment
 	for _, porcelain := range porcelains {
 		items = append(items, roleAttachmentToPlumbing(porcelain))
@@ -2972,7 +2972,6 @@ func repeatedRoleAttachmentToPorcelain(plumbings []*proto.RoleAttachment) []*Rol
 	}
 	return items
 }
-
 func roleCreateResponseToPorcelain(plumbing *proto.RoleCreateResponse) *RoleCreateResponse {
 	if plumbing == nil {
 		return nil
@@ -2994,8 +2993,9 @@ func roleCreateResponseToPlumbing(porcelain *RoleCreateResponse) *proto.RoleCrea
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedRoleCreateResponseToPlumbing(porcelains []*RoleCreateResponse) []*proto.RoleCreateResponse {
+func repeatedRoleCreateResponseToPlumbing(
+	porcelains []*RoleCreateResponse,
+) []*proto.RoleCreateResponse {
 	var items []*proto.RoleCreateResponse
 	for _, porcelain := range porcelains {
 		items = append(items, roleCreateResponseToPlumbing(porcelain))
@@ -3010,7 +3010,6 @@ func repeatedRoleCreateResponseToPorcelain(plumbings []*proto.RoleCreateResponse
 	}
 	return items
 }
-
 func roleGetResponseToPorcelain(plumbing *proto.RoleGetResponse) *RoleGetResponse {
 	if plumbing == nil {
 		return nil
@@ -3032,8 +3031,9 @@ func roleGetResponseToPlumbing(porcelain *RoleGetResponse) *proto.RoleGetRespons
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedRoleGetResponseToPlumbing(porcelains []*RoleGetResponse) []*proto.RoleGetResponse {
+func repeatedRoleGetResponseToPlumbing(
+	porcelains []*RoleGetResponse,
+) []*proto.RoleGetResponse {
 	var items []*proto.RoleGetResponse
 	for _, porcelain := range porcelains {
 		items = append(items, roleGetResponseToPlumbing(porcelain))
@@ -3048,7 +3048,6 @@ func repeatedRoleGetResponseToPorcelain(plumbings []*proto.RoleGetResponse) []*R
 	}
 	return items
 }
-
 func roleUpdateResponseToPorcelain(plumbing *proto.RoleUpdateResponse) *RoleUpdateResponse {
 	if plumbing == nil {
 		return nil
@@ -3070,8 +3069,9 @@ func roleUpdateResponseToPlumbing(porcelain *RoleUpdateResponse) *proto.RoleUpda
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedRoleUpdateResponseToPlumbing(porcelains []*RoleUpdateResponse) []*proto.RoleUpdateResponse {
+func repeatedRoleUpdateResponseToPlumbing(
+	porcelains []*RoleUpdateResponse,
+) []*proto.RoleUpdateResponse {
 	var items []*proto.RoleUpdateResponse
 	for _, porcelain := range porcelains {
 		items = append(items, roleUpdateResponseToPlumbing(porcelain))
@@ -3086,7 +3086,6 @@ func repeatedRoleUpdateResponseToPorcelain(plumbings []*proto.RoleUpdateResponse
 	}
 	return items
 }
-
 func roleDeleteResponseToPorcelain(plumbing *proto.RoleDeleteResponse) *RoleDeleteResponse {
 	if plumbing == nil {
 		return nil
@@ -3106,8 +3105,9 @@ func roleDeleteResponseToPlumbing(porcelain *RoleDeleteResponse) *proto.RoleDele
 	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
 	return plumbing
 }
-
-func repeatedRoleDeleteResponseToPlumbing(porcelains []*RoleDeleteResponse) []*proto.RoleDeleteResponse {
+func repeatedRoleDeleteResponseToPlumbing(
+	porcelains []*RoleDeleteResponse,
+) []*proto.RoleDeleteResponse {
 	var items []*proto.RoleDeleteResponse
 	for _, porcelain := range porcelains {
 		items = append(items, roleDeleteResponseToPlumbing(porcelain))
@@ -3122,7 +3122,6 @@ func repeatedRoleDeleteResponseToPorcelain(plumbings []*proto.RoleDeleteResponse
 	}
 	return items
 }
-
 func roleToPorcelain(plumbing *proto.Role) *Role {
 	if plumbing == nil {
 		return nil
@@ -3144,8 +3143,9 @@ func roleToPlumbing(porcelain *Role) *proto.Role {
 	plumbing.Composite = porcelain.Composite
 	return plumbing
 }
-
-func repeatedRoleToPlumbing(porcelains []*Role) []*proto.Role {
+func repeatedRoleToPlumbing(
+	porcelains []*Role,
+) []*proto.Role {
 	var items []*proto.Role
 	for _, porcelain := range porcelains {
 		items = append(items, roleToPlumbing(porcelain))
@@ -3209,7 +3209,9 @@ func errorToPorcelain(err error) error {
 	return &UnknownError{Wrapped: err}
 }
 
-type nodeIteratorImplFetchFunc func() ([]Node, bool, error)
+type nodeIteratorImplFetchFunc func() (
+	[]Node,
+	bool, error)
 type nodeIteratorImpl struct {
 	buffer      []Node
 	index       int
@@ -3252,7 +3254,9 @@ func (n *nodeIteratorImpl) Err() error {
 	return n.err
 }
 
-type resourceIteratorImplFetchFunc func() ([]Resource, bool, error)
+type resourceIteratorImplFetchFunc func() (
+	[]Resource,
+	bool, error)
 type resourceIteratorImpl struct {
 	buffer      []Resource
 	index       int
@@ -3295,7 +3299,9 @@ func (r *resourceIteratorImpl) Err() error {
 	return r.err
 }
 
-type roleAttachmentIteratorImplFetchFunc func() ([]*RoleAttachment, bool, error)
+type roleAttachmentIteratorImplFetchFunc func() (
+	[]*RoleAttachment,
+	bool, error)
 type roleAttachmentIteratorImpl struct {
 	buffer      []*RoleAttachment
 	index       int
@@ -3338,7 +3344,9 @@ func (r *roleAttachmentIteratorImpl) Err() error {
 	return r.err
 }
 
-type roleIteratorImplFetchFunc func() ([]*Role, bool, error)
+type roleIteratorImplFetchFunc func() (
+	[]*Role,
+	bool, error)
 type roleIteratorImpl struct {
 	buffer      []*Role
 	index       int

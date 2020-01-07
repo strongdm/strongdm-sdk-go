@@ -1240,7 +1240,9 @@ type Role struct {
 	Name string
 	// True if the Role is a composite role.
 	Composite bool
-} // NodeIterator provides read access to a list of Node.
+}
+
+// NodeIterator provides read access to a list of Node.
 // Use it like so:
 //     for iterator.Next() {
 //         node := iterator.Value()
@@ -1254,7 +1256,9 @@ type NodeIterator interface {
 	Value() Node
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
-} // ResourceIterator provides read access to a list of Resource.
+}
+
+// ResourceIterator provides read access to a list of Resource.
 // Use it like so:
 //     for iterator.Next() {
 //         resource := iterator.Value()
@@ -1268,7 +1272,9 @@ type ResourceIterator interface {
 	Value() Resource
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
-} // RoleAttachmentIterator provides read access to a list of RoleAttachment.
+}
+
+// RoleAttachmentIterator provides read access to a list of RoleAttachment.
 // Use it like so:
 //     for iterator.Next() {
 //         roleAttachment := iterator.Value()
@@ -1282,7 +1288,9 @@ type RoleAttachmentIterator interface {
 	Value() *RoleAttachment
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
-} // RoleIterator provides read access to a list of Role.
+}
+
+// RoleIterator provides read access to a list of Role.
 // Use it like so:
 //     for iterator.Next() {
 //         role := iterator.Value()
