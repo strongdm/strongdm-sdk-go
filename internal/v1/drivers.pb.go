@@ -24,45 +24,45 @@ const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 // A Resource is a server or service which clients connect to through relays.
 type Resource struct {
 	// Types that are valid to be assigned to Resource:
-	//	*Resource_Sybase
-	//	*Resource_Presto
-	//	*Resource_Teradata
+	//	*Resource_Athena
+	//	*Resource_BigQuery
+	//	*Resource_Cassandra
+	//	*Resource_Druid
+	//	*Resource_DynamoDb
 	//	*Resource_AmazonEs
 	//	*Resource_Elastic
-	//	*Resource_Redis
-	//	*Resource_ElasticacheRedis
+	//	*Resource_HttpBasicAuth
+	//	*Resource_HttpNoAuth
+	//	*Resource_HttpAuth
 	//	*Resource_Kubernetes
 	//	*Resource_KubernetesBasicAuth
 	//	*Resource_AmazonEks
 	//	*Resource_GoogleGke
-	//	*Resource_Oracle
-	//	*Resource_DynamoDb
-	//	*Resource_Rdp
-	//	*Resource_BigQuery
-	//	*Resource_Snowflake
 	//	*Resource_Memcached
-	//	*Resource_Postgres
-	//	*Resource_AuroraPostgres
-	//	*Resource_Greenplum
-	//	*Resource_Cockroach
-	//	*Resource_Redshift
-	//	*Resource_Ssh
-	//	*Resource_HttpBasicAuth
-	//	*Resource_HttpNoAuth
-	//	*Resource_HttpAuth
-	//	*Resource_Cassandra
+	//	*Resource_MongoLegacyHost
+	//	*Resource_MongoLegacyReplicaset
+	//	*Resource_MongoHost
+	//	*Resource_MongoReplicaSet
 	//	*Resource_Mysql
 	//	*Resource_AuroraMysql
 	//	*Resource_Clustrix
 	//	*Resource_Maria
 	//	*Resource_Memsql
-	//	*Resource_Druid
+	//	*Resource_Oracle
+	//	*Resource_Postgres
+	//	*Resource_AuroraPostgres
+	//	*Resource_Greenplum
+	//	*Resource_Cockroach
+	//	*Resource_Redshift
+	//	*Resource_Presto
+	//	*Resource_Rdp
+	//	*Resource_Redis
+	//	*Resource_ElasticacheRedis
+	//	*Resource_Snowflake
 	//	*Resource_SqlServer
-	//	*Resource_MongoLegacyHost
-	//	*Resource_MongoLegacyReplicaset
-	//	*Resource_MongoHost
-	//	*Resource_MongoReplicaSet
-	//	*Resource_Athena
+	//	*Resource_Ssh
+	//	*Resource_Sybase
+	//	*Resource_Teradata
 	Resource             isResource_Resource `protobuf_oneof:"resource"`
 	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
 	XXX_unrecognized     []byte              `json:"-"`
@@ -98,16 +98,24 @@ type isResource_Resource interface {
 	isResource_Resource()
 }
 
-type Resource_Sybase struct {
-	Sybase *Sybase `protobuf:"bytes,219430119,opt,name=sybase,proto3,oneof"`
+type Resource_Athena struct {
+	Athena *Athena `protobuf:"bytes,86524680,opt,name=athena,proto3,oneof"`
 }
 
-type Resource_Presto struct {
-	Presto *Presto `protobuf:"bytes,30589033,opt,name=presto,proto3,oneof"`
+type Resource_BigQuery struct {
+	BigQuery *BigQuery `protobuf:"bytes,441535094,opt,name=big_query,json=bigQuery,proto3,oneof"`
 }
 
-type Resource_Teradata struct {
-	Teradata *Teradata `protobuf:"bytes,63568028,opt,name=teradata,proto3,oneof"`
+type Resource_Cassandra struct {
+	Cassandra *Cassandra `protobuf:"bytes,454215409,opt,name=cassandra,proto3,oneof"`
+}
+
+type Resource_Druid struct {
+	Druid *Druid `protobuf:"bytes,531952255,opt,name=druid,proto3,oneof"`
+}
+
+type Resource_DynamoDb struct {
+	DynamoDb *DynamoDB `protobuf:"bytes,407050300,opt,name=dynamo_db,json=dynamoDb,proto3,oneof"`
 }
 
 type Resource_AmazonEs struct {
@@ -118,12 +126,16 @@ type Resource_Elastic struct {
 	Elastic *Elastic `protobuf:"bytes,407986328,opt,name=elastic,proto3,oneof"`
 }
 
-type Resource_Redis struct {
-	Redis *Redis `protobuf:"bytes,138869556,opt,name=redis,proto3,oneof"`
+type Resource_HttpBasicAuth struct {
+	HttpBasicAuth *HTTPBasicAuth `protobuf:"bytes,448320780,opt,name=http_basic_auth,json=httpBasicAuth,proto3,oneof"`
 }
 
-type Resource_ElasticacheRedis struct {
-	ElasticacheRedis *ElasticacheRedis `protobuf:"bytes,28044999,opt,name=elasticache_redis,json=elasticacheRedis,proto3,oneof"`
+type Resource_HttpNoAuth struct {
+	HttpNoAuth *HTTPNoAuth `protobuf:"bytes,435770653,opt,name=http_no_auth,json=httpNoAuth,proto3,oneof"`
+}
+
+type Resource_HttpAuth struct {
+	HttpAuth *HTTPAuth `protobuf:"bytes,224436590,opt,name=http_auth,json=httpAuth,proto3,oneof"`
 }
 
 type Resource_Kubernetes struct {
@@ -142,68 +154,24 @@ type Resource_GoogleGke struct {
 	GoogleGke *GoogleGKE `protobuf:"bytes,138696469,opt,name=google_gke,json=googleGke,proto3,oneof"`
 }
 
-type Resource_Oracle struct {
-	Oracle *Oracle `protobuf:"bytes,212796050,opt,name=oracle,proto3,oneof"`
-}
-
-type Resource_DynamoDb struct {
-	DynamoDb *DynamoDB `protobuf:"bytes,407050300,opt,name=dynamo_db,json=dynamoDb,proto3,oneof"`
-}
-
-type Resource_Rdp struct {
-	Rdp *RDP `protobuf:"bytes,487483552,opt,name=rdp,proto3,oneof"`
-}
-
-type Resource_BigQuery struct {
-	BigQuery *BigQuery `protobuf:"bytes,441535094,opt,name=big_query,json=bigQuery,proto3,oneof"`
-}
-
-type Resource_Snowflake struct {
-	Snowflake *Snowflake `protobuf:"bytes,521820894,opt,name=snowflake,proto3,oneof"`
-}
-
 type Resource_Memcached struct {
 	Memcached *Memcached `protobuf:"bytes,514462367,opt,name=memcached,proto3,oneof"`
 }
 
-type Resource_Postgres struct {
-	Postgres *Postgres `protobuf:"bytes,481510057,opt,name=postgres,proto3,oneof"`
+type Resource_MongoLegacyHost struct {
+	MongoLegacyHost *MongoLegacyHost `protobuf:"bytes,239475898,opt,name=mongo_legacy_host,json=mongoLegacyHost,proto3,oneof"`
 }
 
-type Resource_AuroraPostgres struct {
-	AuroraPostgres *AuroraPostgres `protobuf:"bytes,413881781,opt,name=aurora_postgres,json=auroraPostgres,proto3,oneof"`
+type Resource_MongoLegacyReplicaset struct {
+	MongoLegacyReplicaset *MongoLegacyReplicaset `protobuf:"bytes,388991693,opt,name=mongo_legacy_replicaset,json=mongoLegacyReplicaset,proto3,oneof"`
 }
 
-type Resource_Greenplum struct {
-	Greenplum *Greenplum `protobuf:"bytes,496676720,opt,name=greenplum,proto3,oneof"`
+type Resource_MongoHost struct {
+	MongoHost *MongoHost `protobuf:"bytes,72181544,opt,name=mongo_host,json=mongoHost,proto3,oneof"`
 }
 
-type Resource_Cockroach struct {
-	Cockroach *Cockroach `protobuf:"bytes,456981782,opt,name=cockroach,proto3,oneof"`
-}
-
-type Resource_Redshift struct {
-	Redshift *Redshift `protobuf:"bytes,321238703,opt,name=redshift,proto3,oneof"`
-}
-
-type Resource_Ssh struct {
-	Ssh *SSH `protobuf:"bytes,257251967,opt,name=ssh,proto3,oneof"`
-}
-
-type Resource_HttpBasicAuth struct {
-	HttpBasicAuth *HTTPBasicAuth `protobuf:"bytes,448320780,opt,name=http_basic_auth,json=httpBasicAuth,proto3,oneof"`
-}
-
-type Resource_HttpNoAuth struct {
-	HttpNoAuth *HTTPNoAuth `protobuf:"bytes,435770653,opt,name=http_no_auth,json=httpNoAuth,proto3,oneof"`
-}
-
-type Resource_HttpAuth struct {
-	HttpAuth *HTTPAuth `protobuf:"bytes,224436590,opt,name=http_auth,json=httpAuth,proto3,oneof"`
-}
-
-type Resource_Cassandra struct {
-	Cassandra *Cassandra `protobuf:"bytes,454215409,opt,name=cassandra,proto3,oneof"`
+type Resource_MongoReplicaSet struct {
+	MongoReplicaSet *MongoReplicaSet `protobuf:"bytes,513556939,opt,name=mongo_replica_set,json=mongoReplicaSet,proto3,oneof"`
 }
 
 type Resource_Mysql struct {
@@ -226,47 +194,85 @@ type Resource_Memsql struct {
 	Memsql *Memsql `protobuf:"bytes,269999277,opt,name=memsql,proto3,oneof"`
 }
 
-type Resource_Druid struct {
-	Druid *Druid `protobuf:"bytes,531952255,opt,name=druid,proto3,oneof"`
+type Resource_Oracle struct {
+	Oracle *Oracle `protobuf:"bytes,212796050,opt,name=oracle,proto3,oneof"`
+}
+
+type Resource_Postgres struct {
+	Postgres *Postgres `protobuf:"bytes,481510057,opt,name=postgres,proto3,oneof"`
+}
+
+type Resource_AuroraPostgres struct {
+	AuroraPostgres *AuroraPostgres `protobuf:"bytes,413881781,opt,name=aurora_postgres,json=auroraPostgres,proto3,oneof"`
+}
+
+type Resource_Greenplum struct {
+	Greenplum *Greenplum `protobuf:"bytes,496676720,opt,name=greenplum,proto3,oneof"`
+}
+
+type Resource_Cockroach struct {
+	Cockroach *Cockroach `protobuf:"bytes,456981782,opt,name=cockroach,proto3,oneof"`
+}
+
+type Resource_Redshift struct {
+	Redshift *Redshift `protobuf:"bytes,321238703,opt,name=redshift,proto3,oneof"`
+}
+
+type Resource_Presto struct {
+	Presto *Presto `protobuf:"bytes,30589033,opt,name=presto,proto3,oneof"`
+}
+
+type Resource_Rdp struct {
+	Rdp *RDP `protobuf:"bytes,487483552,opt,name=rdp,proto3,oneof"`
+}
+
+type Resource_Redis struct {
+	Redis *Redis `protobuf:"bytes,138869556,opt,name=redis,proto3,oneof"`
+}
+
+type Resource_ElasticacheRedis struct {
+	ElasticacheRedis *ElasticacheRedis `protobuf:"bytes,28044999,opt,name=elasticache_redis,json=elasticacheRedis,proto3,oneof"`
+}
+
+type Resource_Snowflake struct {
+	Snowflake *Snowflake `protobuf:"bytes,521820894,opt,name=snowflake,proto3,oneof"`
 }
 
 type Resource_SqlServer struct {
 	SqlServer *SQLServer `protobuf:"bytes,393218725,opt,name=sql_server,json=sqlServer,proto3,oneof"`
 }
 
-type Resource_MongoLegacyHost struct {
-	MongoLegacyHost *MongoLegacyHost `protobuf:"bytes,239475898,opt,name=mongo_legacy_host,json=mongoLegacyHost,proto3,oneof"`
+type Resource_Ssh struct {
+	Ssh *SSH `protobuf:"bytes,257251967,opt,name=ssh,proto3,oneof"`
 }
 
-type Resource_MongoLegacyReplicaset struct {
-	MongoLegacyReplicaset *MongoLegacyReplicaset `protobuf:"bytes,388991693,opt,name=mongo_legacy_replicaset,json=mongoLegacyReplicaset,proto3,oneof"`
+type Resource_Sybase struct {
+	Sybase *Sybase `protobuf:"bytes,219430119,opt,name=sybase,proto3,oneof"`
 }
 
-type Resource_MongoHost struct {
-	MongoHost *MongoHost `protobuf:"bytes,72181544,opt,name=mongo_host,json=mongoHost,proto3,oneof"`
+type Resource_Teradata struct {
+	Teradata *Teradata `protobuf:"bytes,63568028,opt,name=teradata,proto3,oneof"`
 }
 
-type Resource_MongoReplicaSet struct {
-	MongoReplicaSet *MongoReplicaSet `protobuf:"bytes,513556939,opt,name=mongo_replica_set,json=mongoReplicaSet,proto3,oneof"`
-}
+func (*Resource_Athena) isResource_Resource() {}
 
-type Resource_Athena struct {
-	Athena *Athena `protobuf:"bytes,86524680,opt,name=athena,proto3,oneof"`
-}
+func (*Resource_BigQuery) isResource_Resource() {}
 
-func (*Resource_Sybase) isResource_Resource() {}
+func (*Resource_Cassandra) isResource_Resource() {}
 
-func (*Resource_Presto) isResource_Resource() {}
+func (*Resource_Druid) isResource_Resource() {}
 
-func (*Resource_Teradata) isResource_Resource() {}
+func (*Resource_DynamoDb) isResource_Resource() {}
 
 func (*Resource_AmazonEs) isResource_Resource() {}
 
 func (*Resource_Elastic) isResource_Resource() {}
 
-func (*Resource_Redis) isResource_Resource() {}
+func (*Resource_HttpBasicAuth) isResource_Resource() {}
 
-func (*Resource_ElasticacheRedis) isResource_Resource() {}
+func (*Resource_HttpNoAuth) isResource_Resource() {}
+
+func (*Resource_HttpAuth) isResource_Resource() {}
 
 func (*Resource_Kubernetes) isResource_Resource() {}
 
@@ -276,37 +282,15 @@ func (*Resource_AmazonEks) isResource_Resource() {}
 
 func (*Resource_GoogleGke) isResource_Resource() {}
 
-func (*Resource_Oracle) isResource_Resource() {}
-
-func (*Resource_DynamoDb) isResource_Resource() {}
-
-func (*Resource_Rdp) isResource_Resource() {}
-
-func (*Resource_BigQuery) isResource_Resource() {}
-
-func (*Resource_Snowflake) isResource_Resource() {}
-
 func (*Resource_Memcached) isResource_Resource() {}
 
-func (*Resource_Postgres) isResource_Resource() {}
+func (*Resource_MongoLegacyHost) isResource_Resource() {}
 
-func (*Resource_AuroraPostgres) isResource_Resource() {}
+func (*Resource_MongoLegacyReplicaset) isResource_Resource() {}
 
-func (*Resource_Greenplum) isResource_Resource() {}
+func (*Resource_MongoHost) isResource_Resource() {}
 
-func (*Resource_Cockroach) isResource_Resource() {}
-
-func (*Resource_Redshift) isResource_Resource() {}
-
-func (*Resource_Ssh) isResource_Resource() {}
-
-func (*Resource_HttpBasicAuth) isResource_Resource() {}
-
-func (*Resource_HttpNoAuth) isResource_Resource() {}
-
-func (*Resource_HttpAuth) isResource_Resource() {}
-
-func (*Resource_Cassandra) isResource_Resource() {}
+func (*Resource_MongoReplicaSet) isResource_Resource() {}
 
 func (*Resource_Mysql) isResource_Resource() {}
 
@@ -318,19 +302,35 @@ func (*Resource_Maria) isResource_Resource() {}
 
 func (*Resource_Memsql) isResource_Resource() {}
 
-func (*Resource_Druid) isResource_Resource() {}
+func (*Resource_Oracle) isResource_Resource() {}
+
+func (*Resource_Postgres) isResource_Resource() {}
+
+func (*Resource_AuroraPostgres) isResource_Resource() {}
+
+func (*Resource_Greenplum) isResource_Resource() {}
+
+func (*Resource_Cockroach) isResource_Resource() {}
+
+func (*Resource_Redshift) isResource_Resource() {}
+
+func (*Resource_Presto) isResource_Resource() {}
+
+func (*Resource_Rdp) isResource_Resource() {}
+
+func (*Resource_Redis) isResource_Resource() {}
+
+func (*Resource_ElasticacheRedis) isResource_Resource() {}
+
+func (*Resource_Snowflake) isResource_Resource() {}
 
 func (*Resource_SqlServer) isResource_Resource() {}
 
-func (*Resource_MongoLegacyHost) isResource_Resource() {}
+func (*Resource_Ssh) isResource_Resource() {}
 
-func (*Resource_MongoLegacyReplicaset) isResource_Resource() {}
+func (*Resource_Sybase) isResource_Resource() {}
 
-func (*Resource_MongoHost) isResource_Resource() {}
-
-func (*Resource_MongoReplicaSet) isResource_Resource() {}
-
-func (*Resource_Athena) isResource_Resource() {}
+func (*Resource_Teradata) isResource_Resource() {}
 
 func (m *Resource) GetResource() isResource_Resource {
 	if m != nil {
@@ -339,23 +339,37 @@ func (m *Resource) GetResource() isResource_Resource {
 	return nil
 }
 
-func (m *Resource) GetSybase() *Sybase {
-	if x, ok := m.GetResource().(*Resource_Sybase); ok {
-		return x.Sybase
+func (m *Resource) GetAthena() *Athena {
+	if x, ok := m.GetResource().(*Resource_Athena); ok {
+		return x.Athena
 	}
 	return nil
 }
 
-func (m *Resource) GetPresto() *Presto {
-	if x, ok := m.GetResource().(*Resource_Presto); ok {
-		return x.Presto
+func (m *Resource) GetBigQuery() *BigQuery {
+	if x, ok := m.GetResource().(*Resource_BigQuery); ok {
+		return x.BigQuery
 	}
 	return nil
 }
 
-func (m *Resource) GetTeradata() *Teradata {
-	if x, ok := m.GetResource().(*Resource_Teradata); ok {
-		return x.Teradata
+func (m *Resource) GetCassandra() *Cassandra {
+	if x, ok := m.GetResource().(*Resource_Cassandra); ok {
+		return x.Cassandra
+	}
+	return nil
+}
+
+func (m *Resource) GetDruid() *Druid {
+	if x, ok := m.GetResource().(*Resource_Druid); ok {
+		return x.Druid
+	}
+	return nil
+}
+
+func (m *Resource) GetDynamoDb() *DynamoDB {
+	if x, ok := m.GetResource().(*Resource_DynamoDb); ok {
+		return x.DynamoDb
 	}
 	return nil
 }
@@ -374,16 +388,23 @@ func (m *Resource) GetElastic() *Elastic {
 	return nil
 }
 
-func (m *Resource) GetRedis() *Redis {
-	if x, ok := m.GetResource().(*Resource_Redis); ok {
-		return x.Redis
+func (m *Resource) GetHttpBasicAuth() *HTTPBasicAuth {
+	if x, ok := m.GetResource().(*Resource_HttpBasicAuth); ok {
+		return x.HttpBasicAuth
 	}
 	return nil
 }
 
-func (m *Resource) GetElasticacheRedis() *ElasticacheRedis {
-	if x, ok := m.GetResource().(*Resource_ElasticacheRedis); ok {
-		return x.ElasticacheRedis
+func (m *Resource) GetHttpNoAuth() *HTTPNoAuth {
+	if x, ok := m.GetResource().(*Resource_HttpNoAuth); ok {
+		return x.HttpNoAuth
+	}
+	return nil
+}
+
+func (m *Resource) GetHttpAuth() *HTTPAuth {
+	if x, ok := m.GetResource().(*Resource_HttpAuth); ok {
+		return x.HttpAuth
 	}
 	return nil
 }
@@ -416,41 +437,6 @@ func (m *Resource) GetGoogleGke() *GoogleGKE {
 	return nil
 }
 
-func (m *Resource) GetOracle() *Oracle {
-	if x, ok := m.GetResource().(*Resource_Oracle); ok {
-		return x.Oracle
-	}
-	return nil
-}
-
-func (m *Resource) GetDynamoDb() *DynamoDB {
-	if x, ok := m.GetResource().(*Resource_DynamoDb); ok {
-		return x.DynamoDb
-	}
-	return nil
-}
-
-func (m *Resource) GetRdp() *RDP {
-	if x, ok := m.GetResource().(*Resource_Rdp); ok {
-		return x.Rdp
-	}
-	return nil
-}
-
-func (m *Resource) GetBigQuery() *BigQuery {
-	if x, ok := m.GetResource().(*Resource_BigQuery); ok {
-		return x.BigQuery
-	}
-	return nil
-}
-
-func (m *Resource) GetSnowflake() *Snowflake {
-	if x, ok := m.GetResource().(*Resource_Snowflake); ok {
-		return x.Snowflake
-	}
-	return nil
-}
-
 func (m *Resource) GetMemcached() *Memcached {
 	if x, ok := m.GetResource().(*Resource_Memcached); ok {
 		return x.Memcached
@@ -458,72 +444,30 @@ func (m *Resource) GetMemcached() *Memcached {
 	return nil
 }
 
-func (m *Resource) GetPostgres() *Postgres {
-	if x, ok := m.GetResource().(*Resource_Postgres); ok {
-		return x.Postgres
+func (m *Resource) GetMongoLegacyHost() *MongoLegacyHost {
+	if x, ok := m.GetResource().(*Resource_MongoLegacyHost); ok {
+		return x.MongoLegacyHost
 	}
 	return nil
 }
 
-func (m *Resource) GetAuroraPostgres() *AuroraPostgres {
-	if x, ok := m.GetResource().(*Resource_AuroraPostgres); ok {
-		return x.AuroraPostgres
+func (m *Resource) GetMongoLegacyReplicaset() *MongoLegacyReplicaset {
+	if x, ok := m.GetResource().(*Resource_MongoLegacyReplicaset); ok {
+		return x.MongoLegacyReplicaset
 	}
 	return nil
 }
 
-func (m *Resource) GetGreenplum() *Greenplum {
-	if x, ok := m.GetResource().(*Resource_Greenplum); ok {
-		return x.Greenplum
+func (m *Resource) GetMongoHost() *MongoHost {
+	if x, ok := m.GetResource().(*Resource_MongoHost); ok {
+		return x.MongoHost
 	}
 	return nil
 }
 
-func (m *Resource) GetCockroach() *Cockroach {
-	if x, ok := m.GetResource().(*Resource_Cockroach); ok {
-		return x.Cockroach
-	}
-	return nil
-}
-
-func (m *Resource) GetRedshift() *Redshift {
-	if x, ok := m.GetResource().(*Resource_Redshift); ok {
-		return x.Redshift
-	}
-	return nil
-}
-
-func (m *Resource) GetSsh() *SSH {
-	if x, ok := m.GetResource().(*Resource_Ssh); ok {
-		return x.Ssh
-	}
-	return nil
-}
-
-func (m *Resource) GetHttpBasicAuth() *HTTPBasicAuth {
-	if x, ok := m.GetResource().(*Resource_HttpBasicAuth); ok {
-		return x.HttpBasicAuth
-	}
-	return nil
-}
-
-func (m *Resource) GetHttpNoAuth() *HTTPNoAuth {
-	if x, ok := m.GetResource().(*Resource_HttpNoAuth); ok {
-		return x.HttpNoAuth
-	}
-	return nil
-}
-
-func (m *Resource) GetHttpAuth() *HTTPAuth {
-	if x, ok := m.GetResource().(*Resource_HttpAuth); ok {
-		return x.HttpAuth
-	}
-	return nil
-}
-
-func (m *Resource) GetCassandra() *Cassandra {
-	if x, ok := m.GetResource().(*Resource_Cassandra); ok {
-		return x.Cassandra
+func (m *Resource) GetMongoReplicaSet() *MongoReplicaSet {
+	if x, ok := m.GetResource().(*Resource_MongoReplicaSet); ok {
+		return x.MongoReplicaSet
 	}
 	return nil
 }
@@ -563,9 +507,79 @@ func (m *Resource) GetMemsql() *Memsql {
 	return nil
 }
 
-func (m *Resource) GetDruid() *Druid {
-	if x, ok := m.GetResource().(*Resource_Druid); ok {
-		return x.Druid
+func (m *Resource) GetOracle() *Oracle {
+	if x, ok := m.GetResource().(*Resource_Oracle); ok {
+		return x.Oracle
+	}
+	return nil
+}
+
+func (m *Resource) GetPostgres() *Postgres {
+	if x, ok := m.GetResource().(*Resource_Postgres); ok {
+		return x.Postgres
+	}
+	return nil
+}
+
+func (m *Resource) GetAuroraPostgres() *AuroraPostgres {
+	if x, ok := m.GetResource().(*Resource_AuroraPostgres); ok {
+		return x.AuroraPostgres
+	}
+	return nil
+}
+
+func (m *Resource) GetGreenplum() *Greenplum {
+	if x, ok := m.GetResource().(*Resource_Greenplum); ok {
+		return x.Greenplum
+	}
+	return nil
+}
+
+func (m *Resource) GetCockroach() *Cockroach {
+	if x, ok := m.GetResource().(*Resource_Cockroach); ok {
+		return x.Cockroach
+	}
+	return nil
+}
+
+func (m *Resource) GetRedshift() *Redshift {
+	if x, ok := m.GetResource().(*Resource_Redshift); ok {
+		return x.Redshift
+	}
+	return nil
+}
+
+func (m *Resource) GetPresto() *Presto {
+	if x, ok := m.GetResource().(*Resource_Presto); ok {
+		return x.Presto
+	}
+	return nil
+}
+
+func (m *Resource) GetRdp() *RDP {
+	if x, ok := m.GetResource().(*Resource_Rdp); ok {
+		return x.Rdp
+	}
+	return nil
+}
+
+func (m *Resource) GetRedis() *Redis {
+	if x, ok := m.GetResource().(*Resource_Redis); ok {
+		return x.Redis
+	}
+	return nil
+}
+
+func (m *Resource) GetElasticacheRedis() *ElasticacheRedis {
+	if x, ok := m.GetResource().(*Resource_ElasticacheRedis); ok {
+		return x.ElasticacheRedis
+	}
+	return nil
+}
+
+func (m *Resource) GetSnowflake() *Snowflake {
+	if x, ok := m.GetResource().(*Resource_Snowflake); ok {
+		return x.Snowflake
 	}
 	return nil
 }
@@ -577,37 +591,23 @@ func (m *Resource) GetSqlServer() *SQLServer {
 	return nil
 }
 
-func (m *Resource) GetMongoLegacyHost() *MongoLegacyHost {
-	if x, ok := m.GetResource().(*Resource_MongoLegacyHost); ok {
-		return x.MongoLegacyHost
+func (m *Resource) GetSsh() *SSH {
+	if x, ok := m.GetResource().(*Resource_Ssh); ok {
+		return x.Ssh
 	}
 	return nil
 }
 
-func (m *Resource) GetMongoLegacyReplicaset() *MongoLegacyReplicaset {
-	if x, ok := m.GetResource().(*Resource_MongoLegacyReplicaset); ok {
-		return x.MongoLegacyReplicaset
+func (m *Resource) GetSybase() *Sybase {
+	if x, ok := m.GetResource().(*Resource_Sybase); ok {
+		return x.Sybase
 	}
 	return nil
 }
 
-func (m *Resource) GetMongoHost() *MongoHost {
-	if x, ok := m.GetResource().(*Resource_MongoHost); ok {
-		return x.MongoHost
-	}
-	return nil
-}
-
-func (m *Resource) GetMongoReplicaSet() *MongoReplicaSet {
-	if x, ok := m.GetResource().(*Resource_MongoReplicaSet); ok {
-		return x.MongoReplicaSet
-	}
-	return nil
-}
-
-func (m *Resource) GetAthena() *Athena {
-	if x, ok := m.GetResource().(*Resource_Athena); ok {
-		return x.Athena
+func (m *Resource) GetTeradata() *Teradata {
+	if x, ok := m.GetResource().(*Resource_Teradata); ok {
+		return x.Teradata
 	}
 	return nil
 }
@@ -615,261 +615,245 @@ func (m *Resource) GetAthena() *Athena {
 // XXX_OneofWrappers is for the internal use of the proto package.
 func (*Resource) XXX_OneofWrappers() []interface{} {
 	return []interface{}{
-		(*Resource_Sybase)(nil),
-		(*Resource_Presto)(nil),
-		(*Resource_Teradata)(nil),
+		(*Resource_Athena)(nil),
+		(*Resource_BigQuery)(nil),
+		(*Resource_Cassandra)(nil),
+		(*Resource_Druid)(nil),
+		(*Resource_DynamoDb)(nil),
 		(*Resource_AmazonEs)(nil),
 		(*Resource_Elastic)(nil),
-		(*Resource_Redis)(nil),
-		(*Resource_ElasticacheRedis)(nil),
+		(*Resource_HttpBasicAuth)(nil),
+		(*Resource_HttpNoAuth)(nil),
+		(*Resource_HttpAuth)(nil),
 		(*Resource_Kubernetes)(nil),
 		(*Resource_KubernetesBasicAuth)(nil),
 		(*Resource_AmazonEks)(nil),
 		(*Resource_GoogleGke)(nil),
-		(*Resource_Oracle)(nil),
-		(*Resource_DynamoDb)(nil),
-		(*Resource_Rdp)(nil),
-		(*Resource_BigQuery)(nil),
-		(*Resource_Snowflake)(nil),
 		(*Resource_Memcached)(nil),
-		(*Resource_Postgres)(nil),
-		(*Resource_AuroraPostgres)(nil),
-		(*Resource_Greenplum)(nil),
-		(*Resource_Cockroach)(nil),
-		(*Resource_Redshift)(nil),
-		(*Resource_Ssh)(nil),
-		(*Resource_HttpBasicAuth)(nil),
-		(*Resource_HttpNoAuth)(nil),
-		(*Resource_HttpAuth)(nil),
-		(*Resource_Cassandra)(nil),
+		(*Resource_MongoLegacyHost)(nil),
+		(*Resource_MongoLegacyReplicaset)(nil),
+		(*Resource_MongoHost)(nil),
+		(*Resource_MongoReplicaSet)(nil),
 		(*Resource_Mysql)(nil),
 		(*Resource_AuroraMysql)(nil),
 		(*Resource_Clustrix)(nil),
 		(*Resource_Maria)(nil),
 		(*Resource_Memsql)(nil),
-		(*Resource_Druid)(nil),
+		(*Resource_Oracle)(nil),
+		(*Resource_Postgres)(nil),
+		(*Resource_AuroraPostgres)(nil),
+		(*Resource_Greenplum)(nil),
+		(*Resource_Cockroach)(nil),
+		(*Resource_Redshift)(nil),
+		(*Resource_Presto)(nil),
+		(*Resource_Rdp)(nil),
+		(*Resource_Redis)(nil),
+		(*Resource_ElasticacheRedis)(nil),
+		(*Resource_Snowflake)(nil),
 		(*Resource_SqlServer)(nil),
-		(*Resource_MongoLegacyHost)(nil),
-		(*Resource_MongoLegacyReplicaset)(nil),
-		(*Resource_MongoHost)(nil),
-		(*Resource_MongoReplicaSet)(nil),
-		(*Resource_Athena)(nil),
+		(*Resource_Ssh)(nil),
+		(*Resource_Sybase)(nil),
+		(*Resource_Teradata)(nil),
 	}
 }
 
-type Sybase struct {
+type Athena struct {
 	// Unique identifier of the Resource.
 	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
 	// Unique human-readable name of the Resource.
 	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	PortOverride         int32    `protobuf:"varint,3,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,4,opt,name=port,proto3" json:"port,omitempty"`
-	Password             string   `protobuf:"bytes,5,opt,name=password,proto3" json:"password,omitempty"`
+	AccessKey            string   `protobuf:"bytes,1,opt,name=access_key,json=accessKey,proto3" json:"access_key,omitempty"`
+	SecretAccessKey      string   `protobuf:"bytes,2,opt,name=secret_access_key,json=secretAccessKey,proto3" json:"secret_access_key,omitempty"`
+	Output               string   `protobuf:"bytes,3,opt,name=output,proto3" json:"output,omitempty"`
+	PortOverride         int32    `protobuf:"varint,4,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Region               string   `protobuf:"bytes,5,opt,name=region,proto3" json:"region,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Sybase) Reset()         { *m = Sybase{} }
-func (m *Sybase) String() string { return proto.CompactTextString(m) }
-func (*Sybase) ProtoMessage()    {}
-func (*Sybase) Descriptor() ([]byte, []int) {
+func (m *Athena) Reset()         { *m = Athena{} }
+func (m *Athena) String() string { return proto.CompactTextString(m) }
+func (*Athena) ProtoMessage()    {}
+func (*Athena) Descriptor() ([]byte, []int) {
 	return fileDescriptor_81dfd49b5b303fb4, []int{1}
 }
 
-func (m *Sybase) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Sybase.Unmarshal(m, b)
+func (m *Athena) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Athena.Unmarshal(m, b)
 }
-func (m *Sybase) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Sybase.Marshal(b, m, deterministic)
+func (m *Athena) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Athena.Marshal(b, m, deterministic)
 }
-func (m *Sybase) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Sybase.Merge(m, src)
+func (m *Athena) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Athena.Merge(m, src)
 }
-func (m *Sybase) XXX_Size() int {
-	return xxx_messageInfo_Sybase.Size(m)
+func (m *Athena) XXX_Size() int {
+	return xxx_messageInfo_Athena.Size(m)
 }
-func (m *Sybase) XXX_DiscardUnknown() {
-	xxx_messageInfo_Sybase.DiscardUnknown(m)
+func (m *Athena) XXX_DiscardUnknown() {
+	xxx_messageInfo_Athena.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Sybase proto.InternalMessageInfo
+var xxx_messageInfo_Athena proto.InternalMessageInfo
 
-func (m *Sybase) GetId() string {
+func (m *Athena) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *Sybase) GetName() string {
+func (m *Athena) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *Sybase) GetHealthy() bool {
+func (m *Athena) GetHealthy() bool {
 	if m != nil {
 		return m.Healthy
 	}
 	return false
 }
 
-func (m *Sybase) GetHostname() string {
+func (m *Athena) GetAccessKey() string {
 	if m != nil {
-		return m.Hostname
+		return m.AccessKey
 	}
 	return ""
 }
 
-func (m *Sybase) GetUsername() string {
+func (m *Athena) GetSecretAccessKey() string {
 	if m != nil {
-		return m.Username
+		return m.SecretAccessKey
 	}
 	return ""
 }
 
-func (m *Sybase) GetPortOverride() int32 {
+func (m *Athena) GetOutput() string {
+	if m != nil {
+		return m.Output
+	}
+	return ""
+}
+
+func (m *Athena) GetPortOverride() int32 {
 	if m != nil {
 		return m.PortOverride
 	}
 	return 0
 }
 
-func (m *Sybase) GetPort() int32 {
+func (m *Athena) GetRegion() string {
 	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-func (m *Sybase) GetPassword() string {
-	if m != nil {
-		return m.Password
+		return m.Region
 	}
 	return ""
 }
 
-type Presto struct {
+type BigQuery struct {
 	// Unique identifier of the Resource.
 	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
 	// Unique human-readable name of the Resource.
 	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Password             string   `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,3,opt,name=database,proto3" json:"database,omitempty"`
-	PortOverride         int32    `protobuf:"varint,4,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"`
-	Username             string   `protobuf:"bytes,6,opt,name=username,proto3" json:"username,omitempty"`
-	TlsRequired          bool     `protobuf:"varint,7,opt,name=tls_required,json=tlsRequired,proto3" json:"tls_required,omitempty"`
+	PrivateKey           string   `protobuf:"bytes,1,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"`
+	Project              string   `protobuf:"bytes,2,opt,name=project,proto3" json:"project,omitempty"`
+	PortOverride         int32    `protobuf:"varint,3,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Endpoint             string   `protobuf:"bytes,4,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
+	Username             string   `protobuf:"bytes,5,opt,name=username,proto3" json:"username,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Presto) Reset()         { *m = Presto{} }
-func (m *Presto) String() string { return proto.CompactTextString(m) }
-func (*Presto) ProtoMessage()    {}
-func (*Presto) Descriptor() ([]byte, []int) {
+func (m *BigQuery) Reset()         { *m = BigQuery{} }
+func (m *BigQuery) String() string { return proto.CompactTextString(m) }
+func (*BigQuery) ProtoMessage()    {}
+func (*BigQuery) Descriptor() ([]byte, []int) {
 	return fileDescriptor_81dfd49b5b303fb4, []int{2}
 }
 
-func (m *Presto) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Presto.Unmarshal(m, b)
+func (m *BigQuery) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_BigQuery.Unmarshal(m, b)
 }
-func (m *Presto) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Presto.Marshal(b, m, deterministic)
+func (m *BigQuery) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_BigQuery.Marshal(b, m, deterministic)
 }
-func (m *Presto) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Presto.Merge(m, src)
+func (m *BigQuery) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_BigQuery.Merge(m, src)
 }
-func (m *Presto) XXX_Size() int {
-	return xxx_messageInfo_Presto.Size(m)
+func (m *BigQuery) XXX_Size() int {
+	return xxx_messageInfo_BigQuery.Size(m)
 }
-func (m *Presto) XXX_DiscardUnknown() {
-	xxx_messageInfo_Presto.DiscardUnknown(m)
+func (m *BigQuery) XXX_DiscardUnknown() {
+	xxx_messageInfo_BigQuery.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Presto proto.InternalMessageInfo
+var xxx_messageInfo_BigQuery proto.InternalMessageInfo
 
-func (m *Presto) GetId() string {
+func (m *BigQuery) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *Presto) GetName() string {
+func (m *BigQuery) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *Presto) GetHealthy() bool {
+func (m *BigQuery) GetHealthy() bool {
 	if m != nil {
 		return m.Healthy
 	}
 	return false
 }
 
-func (m *Presto) GetHostname() string {
+func (m *BigQuery) GetPrivateKey() string {
 	if m != nil {
-		return m.Hostname
+		return m.PrivateKey
 	}
 	return ""
 }
 
-func (m *Presto) GetPassword() string {
+func (m *BigQuery) GetProject() string {
 	if m != nil {
-		return m.Password
+		return m.Project
 	}
 	return ""
 }
 
-func (m *Presto) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *Presto) GetPortOverride() int32 {
+func (m *BigQuery) GetPortOverride() int32 {
 	if m != nil {
 		return m.PortOverride
 	}
 	return 0
 }
 
-func (m *Presto) GetPort() int32 {
+func (m *BigQuery) GetEndpoint() string {
 	if m != nil {
-		return m.Port
+		return m.Endpoint
 	}
-	return 0
+	return ""
 }
 
-func (m *Presto) GetUsername() string {
+func (m *BigQuery) GetUsername() string {
 	if m != nil {
 		return m.Username
 	}
 	return ""
 }
 
-func (m *Presto) GetTlsRequired() bool {
-	if m != nil {
-		return m.TlsRequired
-	}
-	return false
-}
-
-type Teradata struct {
+type Cassandra struct {
 	// Unique identifier of the Resource.
 	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
 	// Unique human-readable name of the Resource.
@@ -881,88 +865,292 @@ type Teradata struct {
 	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
 	PortOverride         int32    `protobuf:"varint,4,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
 	Port                 int32    `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"`
+	TlsRequired          bool     `protobuf:"varint,6,opt,name=tls_required,json=tlsRequired,proto3" json:"tls_required,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Teradata) Reset()         { *m = Teradata{} }
-func (m *Teradata) String() string { return proto.CompactTextString(m) }
-func (*Teradata) ProtoMessage()    {}
-func (*Teradata) Descriptor() ([]byte, []int) {
+func (m *Cassandra) Reset()         { *m = Cassandra{} }
+func (m *Cassandra) String() string { return proto.CompactTextString(m) }
+func (*Cassandra) ProtoMessage()    {}
+func (*Cassandra) Descriptor() ([]byte, []int) {
 	return fileDescriptor_81dfd49b5b303fb4, []int{3}
 }
 
-func (m *Teradata) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Teradata.Unmarshal(m, b)
+func (m *Cassandra) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Cassandra.Unmarshal(m, b)
 }
-func (m *Teradata) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Teradata.Marshal(b, m, deterministic)
+func (m *Cassandra) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Cassandra.Marshal(b, m, deterministic)
 }
-func (m *Teradata) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Teradata.Merge(m, src)
+func (m *Cassandra) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Cassandra.Merge(m, src)
 }
-func (m *Teradata) XXX_Size() int {
-	return xxx_messageInfo_Teradata.Size(m)
+func (m *Cassandra) XXX_Size() int {
+	return xxx_messageInfo_Cassandra.Size(m)
 }
-func (m *Teradata) XXX_DiscardUnknown() {
-	xxx_messageInfo_Teradata.DiscardUnknown(m)
+func (m *Cassandra) XXX_DiscardUnknown() {
+	xxx_messageInfo_Cassandra.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Teradata proto.InternalMessageInfo
+var xxx_messageInfo_Cassandra proto.InternalMessageInfo
 
-func (m *Teradata) GetId() string {
+func (m *Cassandra) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *Teradata) GetName() string {
+func (m *Cassandra) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *Teradata) GetHealthy() bool {
+func (m *Cassandra) GetHealthy() bool {
 	if m != nil {
 		return m.Healthy
 	}
 	return false
 }
 
-func (m *Teradata) GetHostname() string {
+func (m *Cassandra) GetHostname() string {
 	if m != nil {
 		return m.Hostname
 	}
 	return ""
 }
 
-func (m *Teradata) GetUsername() string {
+func (m *Cassandra) GetUsername() string {
 	if m != nil {
 		return m.Username
 	}
 	return ""
 }
 
-func (m *Teradata) GetPassword() string {
+func (m *Cassandra) GetPassword() string {
 	if m != nil {
 		return m.Password
 	}
 	return ""
 }
 
-func (m *Teradata) GetPortOverride() int32 {
+func (m *Cassandra) GetPortOverride() int32 {
 	if m != nil {
 		return m.PortOverride
 	}
 	return 0
 }
 
-func (m *Teradata) GetPort() int32 {
+func (m *Cassandra) GetPort() int32 {
 	if m != nil {
 		return m.Port
+	}
+	return 0
+}
+
+func (m *Cassandra) GetTlsRequired() bool {
+	if m != nil {
+		return m.TlsRequired
+	}
+	return false
+}
+
+type Druid struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	PortOverride         int32    `protobuf:"varint,2,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Username             string   `protobuf:"bytes,3,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
+	Port                 int32    `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Druid) Reset()         { *m = Druid{} }
+func (m *Druid) String() string { return proto.CompactTextString(m) }
+func (*Druid) ProtoMessage()    {}
+func (*Druid) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{4}
+}
+
+func (m *Druid) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Druid.Unmarshal(m, b)
+}
+func (m *Druid) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Druid.Marshal(b, m, deterministic)
+}
+func (m *Druid) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Druid.Merge(m, src)
+}
+func (m *Druid) XXX_Size() int {
+	return xxx_messageInfo_Druid.Size(m)
+}
+func (m *Druid) XXX_DiscardUnknown() {
+	xxx_messageInfo_Druid.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Druid proto.InternalMessageInfo
+
+func (m *Druid) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Druid) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Druid) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Druid) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Druid) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Druid) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Druid) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Druid) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+type DynamoDB struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	AccessKey            string   `protobuf:"bytes,1,opt,name=access_key,json=accessKey,proto3" json:"access_key,omitempty"`
+	SecretAccessKey      string   `protobuf:"bytes,2,opt,name=secret_access_key,json=secretAccessKey,proto3" json:"secret_access_key,omitempty"`
+	Region               string   `protobuf:"bytes,3,opt,name=region,proto3" json:"region,omitempty"`
+	Endpoint             string   `protobuf:"bytes,4,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
+	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DynamoDB) Reset()         { *m = DynamoDB{} }
+func (m *DynamoDB) String() string { return proto.CompactTextString(m) }
+func (*DynamoDB) ProtoMessage()    {}
+func (*DynamoDB) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{5}
+}
+
+func (m *DynamoDB) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DynamoDB.Unmarshal(m, b)
+}
+func (m *DynamoDB) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DynamoDB.Marshal(b, m, deterministic)
+}
+func (m *DynamoDB) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DynamoDB.Merge(m, src)
+}
+func (m *DynamoDB) XXX_Size() int {
+	return xxx_messageInfo_DynamoDB.Size(m)
+}
+func (m *DynamoDB) XXX_DiscardUnknown() {
+	xxx_messageInfo_DynamoDB.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DynamoDB proto.InternalMessageInfo
+
+func (m *DynamoDB) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *DynamoDB) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *DynamoDB) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *DynamoDB) GetAccessKey() string {
+	if m != nil {
+		return m.AccessKey
+	}
+	return ""
+}
+
+func (m *DynamoDB) GetSecretAccessKey() string {
+	if m != nil {
+		return m.SecretAccessKey
+	}
+	return ""
+}
+
+func (m *DynamoDB) GetRegion() string {
+	if m != nil {
+		return m.Region
+	}
+	return ""
+}
+
+func (m *DynamoDB) GetEndpoint() string {
+	if m != nil {
+		return m.Endpoint
+	}
+	return ""
+}
+
+func (m *DynamoDB) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
 	}
 	return 0
 }
@@ -988,7 +1176,7 @@ func (m *AmazonES) Reset()         { *m = AmazonES{} }
 func (m *AmazonES) String() string { return proto.CompactTextString(m) }
 func (*AmazonES) ProtoMessage()    {}
 func (*AmazonES) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{4}
+	return fileDescriptor_81dfd49b5b303fb4, []int{6}
 }
 
 func (m *AmazonES) XXX_Unmarshal(b []byte) error {
@@ -1087,7 +1275,7 @@ func (m *Elastic) Reset()         { *m = Elastic{} }
 func (m *Elastic) String() string { return proto.CompactTextString(m) }
 func (*Elastic) ProtoMessage()    {}
 func (*Elastic) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{5}
+	return fileDescriptor_81dfd49b5b303fb4, []int{7}
 }
 
 func (m *Elastic) XXX_Unmarshal(b []byte) error {
@@ -1171,192 +1359,322 @@ func (m *Elastic) GetTlsRequired() bool {
 	return false
 }
 
-type Redis struct {
+type HTTPBasicAuth struct {
 	// Unique identifier of the Resource.
 	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
 	// Unique human-readable name of the Resource.
 	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	PortOverride         int32    `protobuf:"varint,2,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Port                 int32    `protobuf:"varint,4,opt,name=port,proto3" json:"port,omitempty"`
+	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	HealthcheckPath      string   `protobuf:"bytes,2,opt,name=healthcheck_path,json=healthcheckPath,proto3" json:"healthcheck_path,omitempty"`
+	Username             string   `protobuf:"bytes,3,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
+	HeadersBlacklist     string   `protobuf:"bytes,5,opt,name=headers_blacklist,json=headersBlacklist,proto3" json:"headers_blacklist,omitempty"`
+	DefaultPath          string   `protobuf:"bytes,6,opt,name=default_path,json=defaultPath,proto3" json:"default_path,omitempty"`
+	Subdomain            string   `protobuf:"bytes,7,opt,name=subdomain,proto3" json:"subdomain,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Redis) Reset()         { *m = Redis{} }
-func (m *Redis) String() string { return proto.CompactTextString(m) }
-func (*Redis) ProtoMessage()    {}
-func (*Redis) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{6}
+func (m *HTTPBasicAuth) Reset()         { *m = HTTPBasicAuth{} }
+func (m *HTTPBasicAuth) String() string { return proto.CompactTextString(m) }
+func (*HTTPBasicAuth) ProtoMessage()    {}
+func (*HTTPBasicAuth) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{8}
 }
 
-func (m *Redis) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Redis.Unmarshal(m, b)
+func (m *HTTPBasicAuth) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_HTTPBasicAuth.Unmarshal(m, b)
 }
-func (m *Redis) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Redis.Marshal(b, m, deterministic)
+func (m *HTTPBasicAuth) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_HTTPBasicAuth.Marshal(b, m, deterministic)
 }
-func (m *Redis) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Redis.Merge(m, src)
+func (m *HTTPBasicAuth) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_HTTPBasicAuth.Merge(m, src)
 }
-func (m *Redis) XXX_Size() int {
-	return xxx_messageInfo_Redis.Size(m)
+func (m *HTTPBasicAuth) XXX_Size() int {
+	return xxx_messageInfo_HTTPBasicAuth.Size(m)
 }
-func (m *Redis) XXX_DiscardUnknown() {
-	xxx_messageInfo_Redis.DiscardUnknown(m)
+func (m *HTTPBasicAuth) XXX_DiscardUnknown() {
+	xxx_messageInfo_HTTPBasicAuth.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Redis proto.InternalMessageInfo
+var xxx_messageInfo_HTTPBasicAuth proto.InternalMessageInfo
 
-func (m *Redis) GetId() string {
+func (m *HTTPBasicAuth) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *Redis) GetName() string {
+func (m *HTTPBasicAuth) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *Redis) GetHealthy() bool {
+func (m *HTTPBasicAuth) GetHealthy() bool {
 	if m != nil {
 		return m.Healthy
 	}
 	return false
 }
 
-func (m *Redis) GetHostname() string {
+func (m *HTTPBasicAuth) GetUrl() string {
 	if m != nil {
-		return m.Hostname
+		return m.Url
 	}
 	return ""
 }
 
-func (m *Redis) GetPortOverride() int32 {
+func (m *HTTPBasicAuth) GetHealthcheckPath() string {
 	if m != nil {
-		return m.PortOverride
+		return m.HealthcheckPath
 	}
-	return 0
+	return ""
 }
 
-func (m *Redis) GetPassword() string {
+func (m *HTTPBasicAuth) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *HTTPBasicAuth) GetPassword() string {
 	if m != nil {
 		return m.Password
 	}
 	return ""
 }
 
-func (m *Redis) GetPort() int32 {
+func (m *HTTPBasicAuth) GetHeadersBlacklist() string {
 	if m != nil {
-		return m.Port
+		return m.HeadersBlacklist
 	}
-	return 0
+	return ""
 }
 
-type ElasticacheRedis struct {
+func (m *HTTPBasicAuth) GetDefaultPath() string {
+	if m != nil {
+		return m.DefaultPath
+	}
+	return ""
+}
+
+func (m *HTTPBasicAuth) GetSubdomain() string {
+	if m != nil {
+		return m.Subdomain
+	}
+	return ""
+}
+
+type HTTPNoAuth struct {
 	// Unique identifier of the Resource.
 	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
 	// Unique human-readable name of the Resource.
 	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	PortOverride         int32    `protobuf:"varint,2,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Port                 int32    `protobuf:"varint,4,opt,name=port,proto3" json:"port,omitempty"`
-	TlsRequired          bool     `protobuf:"varint,5,opt,name=tls_required,json=tlsRequired,proto3" json:"tls_required,omitempty"`
+	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	HealthcheckPath      string   `protobuf:"bytes,2,opt,name=healthcheck_path,json=healthcheckPath,proto3" json:"healthcheck_path,omitempty"`
+	HeadersBlacklist     string   `protobuf:"bytes,3,opt,name=headers_blacklist,json=headersBlacklist,proto3" json:"headers_blacklist,omitempty"`
+	DefaultPath          string   `protobuf:"bytes,4,opt,name=default_path,json=defaultPath,proto3" json:"default_path,omitempty"`
+	Subdomain            string   `protobuf:"bytes,5,opt,name=subdomain,proto3" json:"subdomain,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ElasticacheRedis) Reset()         { *m = ElasticacheRedis{} }
-func (m *ElasticacheRedis) String() string { return proto.CompactTextString(m) }
-func (*ElasticacheRedis) ProtoMessage()    {}
-func (*ElasticacheRedis) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{7}
+func (m *HTTPNoAuth) Reset()         { *m = HTTPNoAuth{} }
+func (m *HTTPNoAuth) String() string { return proto.CompactTextString(m) }
+func (*HTTPNoAuth) ProtoMessage()    {}
+func (*HTTPNoAuth) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{9}
 }
 
-func (m *ElasticacheRedis) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ElasticacheRedis.Unmarshal(m, b)
+func (m *HTTPNoAuth) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_HTTPNoAuth.Unmarshal(m, b)
 }
-func (m *ElasticacheRedis) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ElasticacheRedis.Marshal(b, m, deterministic)
+func (m *HTTPNoAuth) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_HTTPNoAuth.Marshal(b, m, deterministic)
 }
-func (m *ElasticacheRedis) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ElasticacheRedis.Merge(m, src)
+func (m *HTTPNoAuth) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_HTTPNoAuth.Merge(m, src)
 }
-func (m *ElasticacheRedis) XXX_Size() int {
-	return xxx_messageInfo_ElasticacheRedis.Size(m)
+func (m *HTTPNoAuth) XXX_Size() int {
+	return xxx_messageInfo_HTTPNoAuth.Size(m)
 }
-func (m *ElasticacheRedis) XXX_DiscardUnknown() {
-	xxx_messageInfo_ElasticacheRedis.DiscardUnknown(m)
+func (m *HTTPNoAuth) XXX_DiscardUnknown() {
+	xxx_messageInfo_HTTPNoAuth.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ElasticacheRedis proto.InternalMessageInfo
+var xxx_messageInfo_HTTPNoAuth proto.InternalMessageInfo
 
-func (m *ElasticacheRedis) GetId() string {
+func (m *HTTPNoAuth) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *ElasticacheRedis) GetName() string {
+func (m *HTTPNoAuth) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *ElasticacheRedis) GetHealthy() bool {
+func (m *HTTPNoAuth) GetHealthy() bool {
 	if m != nil {
 		return m.Healthy
 	}
 	return false
 }
 
-func (m *ElasticacheRedis) GetHostname() string {
+func (m *HTTPNoAuth) GetUrl() string {
 	if m != nil {
-		return m.Hostname
+		return m.Url
 	}
 	return ""
 }
 
-func (m *ElasticacheRedis) GetPortOverride() int32 {
+func (m *HTTPNoAuth) GetHealthcheckPath() string {
 	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *ElasticacheRedis) GetPassword() string {
-	if m != nil {
-		return m.Password
+		return m.HealthcheckPath
 	}
 	return ""
 }
 
-func (m *ElasticacheRedis) GetPort() int32 {
+func (m *HTTPNoAuth) GetHeadersBlacklist() string {
 	if m != nil {
-		return m.Port
+		return m.HeadersBlacklist
 	}
-	return 0
+	return ""
 }
 
-func (m *ElasticacheRedis) GetTlsRequired() bool {
+func (m *HTTPNoAuth) GetDefaultPath() string {
 	if m != nil {
-		return m.TlsRequired
+		return m.DefaultPath
+	}
+	return ""
+}
+
+func (m *HTTPNoAuth) GetSubdomain() string {
+	if m != nil {
+		return m.Subdomain
+	}
+	return ""
+}
+
+type HTTPAuth struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	HealthcheckPath      string   `protobuf:"bytes,2,opt,name=healthcheck_path,json=healthcheckPath,proto3" json:"healthcheck_path,omitempty"`
+	AuthHeader           string   `protobuf:"bytes,3,opt,name=auth_header,json=authHeader,proto3" json:"auth_header,omitempty"`
+	HeadersBlacklist     string   `protobuf:"bytes,4,opt,name=headers_blacklist,json=headersBlacklist,proto3" json:"headers_blacklist,omitempty"`
+	DefaultPath          string   `protobuf:"bytes,5,opt,name=default_path,json=defaultPath,proto3" json:"default_path,omitempty"`
+	Subdomain            string   `protobuf:"bytes,6,opt,name=subdomain,proto3" json:"subdomain,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *HTTPAuth) Reset()         { *m = HTTPAuth{} }
+func (m *HTTPAuth) String() string { return proto.CompactTextString(m) }
+func (*HTTPAuth) ProtoMessage()    {}
+func (*HTTPAuth) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{10}
+}
+
+func (m *HTTPAuth) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_HTTPAuth.Unmarshal(m, b)
+}
+func (m *HTTPAuth) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_HTTPAuth.Marshal(b, m, deterministic)
+}
+func (m *HTTPAuth) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_HTTPAuth.Merge(m, src)
+}
+func (m *HTTPAuth) XXX_Size() int {
+	return xxx_messageInfo_HTTPAuth.Size(m)
+}
+func (m *HTTPAuth) XXX_DiscardUnknown() {
+	xxx_messageInfo_HTTPAuth.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_HTTPAuth proto.InternalMessageInfo
+
+func (m *HTTPAuth) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *HTTPAuth) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *HTTPAuth) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
 	}
 	return false
+}
+
+func (m *HTTPAuth) GetUrl() string {
+	if m != nil {
+		return m.Url
+	}
+	return ""
+}
+
+func (m *HTTPAuth) GetHealthcheckPath() string {
+	if m != nil {
+		return m.HealthcheckPath
+	}
+	return ""
+}
+
+func (m *HTTPAuth) GetAuthHeader() string {
+	if m != nil {
+		return m.AuthHeader
+	}
+	return ""
+}
+
+func (m *HTTPAuth) GetHeadersBlacklist() string {
+	if m != nil {
+		return m.HeadersBlacklist
+	}
+	return ""
+}
+
+func (m *HTTPAuth) GetDefaultPath() string {
+	if m != nil {
+		return m.DefaultPath
+	}
+	return ""
+}
+
+func (m *HTTPAuth) GetSubdomain() string {
+	if m != nil {
+		return m.Subdomain
+	}
+	return ""
 }
 
 type Kubernetes struct {
@@ -1383,7 +1701,7 @@ func (m *Kubernetes) Reset()         { *m = Kubernetes{} }
 func (m *Kubernetes) String() string { return proto.CompactTextString(m) }
 func (*Kubernetes) ProtoMessage()    {}
 func (*Kubernetes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{8}
+	return fileDescriptor_81dfd49b5b303fb4, []int{11}
 }
 
 func (m *Kubernetes) XXX_Unmarshal(b []byte) error {
@@ -1501,7 +1819,7 @@ func (m *KubernetesBasicAuth) Reset()         { *m = KubernetesBasicAuth{} }
 func (m *KubernetesBasicAuth) String() string { return proto.CompactTextString(m) }
 func (*KubernetesBasicAuth) ProtoMessage()    {}
 func (*KubernetesBasicAuth) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{9}
+	return fileDescriptor_81dfd49b5b303fb4, []int{12}
 }
 
 func (m *KubernetesBasicAuth) XXX_Unmarshal(b []byte) error {
@@ -1594,7 +1912,7 @@ func (m *AmazonEKS) Reset()         { *m = AmazonEKS{} }
 func (m *AmazonEKS) String() string { return proto.CompactTextString(m) }
 func (*AmazonEKS) ProtoMessage()    {}
 func (*AmazonEKS) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{10}
+	return fileDescriptor_81dfd49b5b303fb4, []int{13}
 }
 
 func (m *AmazonEKS) XXX_Unmarshal(b []byte) error {
@@ -1706,7 +2024,7 @@ func (m *GoogleGKE) Reset()         { *m = GoogleGKE{} }
 func (m *GoogleGKE) String() string { return proto.CompactTextString(m) }
 func (*GoogleGKE) ProtoMessage()    {}
 func (*GoogleGKE) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{11}
+	return fileDescriptor_81dfd49b5b303fb4, []int{14}
 }
 
 func (m *GoogleGKE) XXX_Unmarshal(b []byte) error {
@@ -1783,520 +2101,6 @@ func (m *GoogleGKE) GetServiceAccountKeyFilename() string {
 	return ""
 }
 
-type Oracle struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	Port                 int32    `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"`
-	PortOverride         int32    `protobuf:"varint,6,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	TlsRequired          bool     `protobuf:"varint,7,opt,name=tls_required,json=tlsRequired,proto3" json:"tls_required,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Oracle) Reset()         { *m = Oracle{} }
-func (m *Oracle) String() string { return proto.CompactTextString(m) }
-func (*Oracle) ProtoMessage()    {}
-func (*Oracle) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{12}
-}
-
-func (m *Oracle) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Oracle.Unmarshal(m, b)
-}
-func (m *Oracle) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Oracle.Marshal(b, m, deterministic)
-}
-func (m *Oracle) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Oracle.Merge(m, src)
-}
-func (m *Oracle) XXX_Size() int {
-	return xxx_messageInfo_Oracle.Size(m)
-}
-func (m *Oracle) XXX_DiscardUnknown() {
-	xxx_messageInfo_Oracle.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Oracle proto.InternalMessageInfo
-
-func (m *Oracle) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Oracle) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Oracle) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *Oracle) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *Oracle) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *Oracle) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *Oracle) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *Oracle) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-func (m *Oracle) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *Oracle) GetTlsRequired() bool {
-	if m != nil {
-		return m.TlsRequired
-	}
-	return false
-}
-
-type DynamoDB struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	AccessKey            string   `protobuf:"bytes,1,opt,name=access_key,json=accessKey,proto3" json:"access_key,omitempty"`
-	SecretAccessKey      string   `protobuf:"bytes,2,opt,name=secret_access_key,json=secretAccessKey,proto3" json:"secret_access_key,omitempty"`
-	Region               string   `protobuf:"bytes,3,opt,name=region,proto3" json:"region,omitempty"`
-	Endpoint             string   `protobuf:"bytes,4,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
-	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DynamoDB) Reset()         { *m = DynamoDB{} }
-func (m *DynamoDB) String() string { return proto.CompactTextString(m) }
-func (*DynamoDB) ProtoMessage()    {}
-func (*DynamoDB) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{13}
-}
-
-func (m *DynamoDB) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DynamoDB.Unmarshal(m, b)
-}
-func (m *DynamoDB) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DynamoDB.Marshal(b, m, deterministic)
-}
-func (m *DynamoDB) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DynamoDB.Merge(m, src)
-}
-func (m *DynamoDB) XXX_Size() int {
-	return xxx_messageInfo_DynamoDB.Size(m)
-}
-func (m *DynamoDB) XXX_DiscardUnknown() {
-	xxx_messageInfo_DynamoDB.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DynamoDB proto.InternalMessageInfo
-
-func (m *DynamoDB) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *DynamoDB) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *DynamoDB) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *DynamoDB) GetAccessKey() string {
-	if m != nil {
-		return m.AccessKey
-	}
-	return ""
-}
-
-func (m *DynamoDB) GetSecretAccessKey() string {
-	if m != nil {
-		return m.SecretAccessKey
-	}
-	return ""
-}
-
-func (m *DynamoDB) GetRegion() string {
-	if m != nil {
-		return m.Region
-	}
-	return ""
-}
-
-func (m *DynamoDB) GetEndpoint() string {
-	if m != nil {
-		return m.Endpoint
-	}
-	return ""
-}
-
-func (m *DynamoDB) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-type RDP struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	PortOverride         int32    `protobuf:"varint,4,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *RDP) Reset()         { *m = RDP{} }
-func (m *RDP) String() string { return proto.CompactTextString(m) }
-func (*RDP) ProtoMessage()    {}
-func (*RDP) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{14}
-}
-
-func (m *RDP) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RDP.Unmarshal(m, b)
-}
-func (m *RDP) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RDP.Marshal(b, m, deterministic)
-}
-func (m *RDP) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RDP.Merge(m, src)
-}
-func (m *RDP) XXX_Size() int {
-	return xxx_messageInfo_RDP.Size(m)
-}
-func (m *RDP) XXX_DiscardUnknown() {
-	xxx_messageInfo_RDP.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_RDP proto.InternalMessageInfo
-
-func (m *RDP) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *RDP) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *RDP) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *RDP) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *RDP) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *RDP) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *RDP) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *RDP) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-type BigQuery struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	PrivateKey           string   `protobuf:"bytes,1,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"`
-	Project              string   `protobuf:"bytes,2,opt,name=project,proto3" json:"project,omitempty"`
-	PortOverride         int32    `protobuf:"varint,3,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Endpoint             string   `protobuf:"bytes,4,opt,name=endpoint,proto3" json:"endpoint,omitempty"`
-	Username             string   `protobuf:"bytes,5,opt,name=username,proto3" json:"username,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *BigQuery) Reset()         { *m = BigQuery{} }
-func (m *BigQuery) String() string { return proto.CompactTextString(m) }
-func (*BigQuery) ProtoMessage()    {}
-func (*BigQuery) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{15}
-}
-
-func (m *BigQuery) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_BigQuery.Unmarshal(m, b)
-}
-func (m *BigQuery) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_BigQuery.Marshal(b, m, deterministic)
-}
-func (m *BigQuery) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_BigQuery.Merge(m, src)
-}
-func (m *BigQuery) XXX_Size() int {
-	return xxx_messageInfo_BigQuery.Size(m)
-}
-func (m *BigQuery) XXX_DiscardUnknown() {
-	xxx_messageInfo_BigQuery.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_BigQuery proto.InternalMessageInfo
-
-func (m *BigQuery) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *BigQuery) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *BigQuery) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *BigQuery) GetPrivateKey() string {
-	if m != nil {
-		return m.PrivateKey
-	}
-	return ""
-}
-
-func (m *BigQuery) GetProject() string {
-	if m != nil {
-		return m.Project
-	}
-	return ""
-}
-
-func (m *BigQuery) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *BigQuery) GetEndpoint() string {
-	if m != nil {
-		return m.Endpoint
-	}
-	return ""
-}
-
-func (m *BigQuery) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-type Snowflake struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	Schema               string   `protobuf:"bytes,5,opt,name=schema,proto3" json:"schema,omitempty"`
-	PortOverride         int32    `protobuf:"varint,6,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Snowflake) Reset()         { *m = Snowflake{} }
-func (m *Snowflake) String() string { return proto.CompactTextString(m) }
-func (*Snowflake) ProtoMessage()    {}
-func (*Snowflake) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{16}
-}
-
-func (m *Snowflake) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Snowflake.Unmarshal(m, b)
-}
-func (m *Snowflake) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Snowflake.Marshal(b, m, deterministic)
-}
-func (m *Snowflake) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Snowflake.Merge(m, src)
-}
-func (m *Snowflake) XXX_Size() int {
-	return xxx_messageInfo_Snowflake.Size(m)
-}
-func (m *Snowflake) XXX_DiscardUnknown() {
-	xxx_messageInfo_Snowflake.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Snowflake proto.InternalMessageInfo
-
-func (m *Snowflake) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Snowflake) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Snowflake) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *Snowflake) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *Snowflake) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *Snowflake) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *Snowflake) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *Snowflake) GetSchema() string {
-	if m != nil {
-		return m.Schema
-	}
-	return ""
-}
-
-func (m *Snowflake) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
 type Memcached struct {
 	// Unique identifier of the Resource.
 	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
@@ -2316,7 +2120,7 @@ func (m *Memcached) Reset()         { *m = Memcached{} }
 func (m *Memcached) String() string { return proto.CompactTextString(m) }
 func (*Memcached) ProtoMessage()    {}
 func (*Memcached) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{17}
+	return fileDescriptor_81dfd49b5b303fb4, []int{15}
 }
 
 func (m *Memcached) XXX_Unmarshal(b []byte) error {
@@ -2379,1840 +2183,6 @@ func (m *Memcached) GetPort() int32 {
 	return 0
 }
 
-type Postgres struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
-	OverrideDatabase     bool     `protobuf:"varint,7,opt,name=override_database,json=overrideDatabase,proto3" json:"override_database,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Postgres) Reset()         { *m = Postgres{} }
-func (m *Postgres) String() string { return proto.CompactTextString(m) }
-func (*Postgres) ProtoMessage()    {}
-func (*Postgres) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{18}
-}
-
-func (m *Postgres) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Postgres.Unmarshal(m, b)
-}
-func (m *Postgres) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Postgres.Marshal(b, m, deterministic)
-}
-func (m *Postgres) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Postgres.Merge(m, src)
-}
-func (m *Postgres) XXX_Size() int {
-	return xxx_messageInfo_Postgres.Size(m)
-}
-func (m *Postgres) XXX_DiscardUnknown() {
-	xxx_messageInfo_Postgres.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Postgres proto.InternalMessageInfo
-
-func (m *Postgres) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Postgres) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Postgres) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *Postgres) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *Postgres) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *Postgres) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *Postgres) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *Postgres) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *Postgres) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-func (m *Postgres) GetOverrideDatabase() bool {
-	if m != nil {
-		return m.OverrideDatabase
-	}
-	return false
-}
-
-type AuroraPostgres struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
-	OverrideDatabase     bool     `protobuf:"varint,7,opt,name=override_database,json=overrideDatabase,proto3" json:"override_database,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *AuroraPostgres) Reset()         { *m = AuroraPostgres{} }
-func (m *AuroraPostgres) String() string { return proto.CompactTextString(m) }
-func (*AuroraPostgres) ProtoMessage()    {}
-func (*AuroraPostgres) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{19}
-}
-
-func (m *AuroraPostgres) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AuroraPostgres.Unmarshal(m, b)
-}
-func (m *AuroraPostgres) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AuroraPostgres.Marshal(b, m, deterministic)
-}
-func (m *AuroraPostgres) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AuroraPostgres.Merge(m, src)
-}
-func (m *AuroraPostgres) XXX_Size() int {
-	return xxx_messageInfo_AuroraPostgres.Size(m)
-}
-func (m *AuroraPostgres) XXX_DiscardUnknown() {
-	xxx_messageInfo_AuroraPostgres.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AuroraPostgres proto.InternalMessageInfo
-
-func (m *AuroraPostgres) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *AuroraPostgres) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *AuroraPostgres) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *AuroraPostgres) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *AuroraPostgres) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *AuroraPostgres) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *AuroraPostgres) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *AuroraPostgres) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *AuroraPostgres) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-func (m *AuroraPostgres) GetOverrideDatabase() bool {
-	if m != nil {
-		return m.OverrideDatabase
-	}
-	return false
-}
-
-type Greenplum struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
-	OverrideDatabase     bool     `protobuf:"varint,7,opt,name=override_database,json=overrideDatabase,proto3" json:"override_database,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Greenplum) Reset()         { *m = Greenplum{} }
-func (m *Greenplum) String() string { return proto.CompactTextString(m) }
-func (*Greenplum) ProtoMessage()    {}
-func (*Greenplum) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{20}
-}
-
-func (m *Greenplum) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Greenplum.Unmarshal(m, b)
-}
-func (m *Greenplum) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Greenplum.Marshal(b, m, deterministic)
-}
-func (m *Greenplum) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Greenplum.Merge(m, src)
-}
-func (m *Greenplum) XXX_Size() int {
-	return xxx_messageInfo_Greenplum.Size(m)
-}
-func (m *Greenplum) XXX_DiscardUnknown() {
-	xxx_messageInfo_Greenplum.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Greenplum proto.InternalMessageInfo
-
-func (m *Greenplum) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Greenplum) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Greenplum) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *Greenplum) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *Greenplum) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *Greenplum) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *Greenplum) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *Greenplum) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *Greenplum) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-func (m *Greenplum) GetOverrideDatabase() bool {
-	if m != nil {
-		return m.OverrideDatabase
-	}
-	return false
-}
-
-type Cockroach struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
-	OverrideDatabase     bool     `protobuf:"varint,7,opt,name=override_database,json=overrideDatabase,proto3" json:"override_database,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Cockroach) Reset()         { *m = Cockroach{} }
-func (m *Cockroach) String() string { return proto.CompactTextString(m) }
-func (*Cockroach) ProtoMessage()    {}
-func (*Cockroach) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{21}
-}
-
-func (m *Cockroach) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Cockroach.Unmarshal(m, b)
-}
-func (m *Cockroach) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Cockroach.Marshal(b, m, deterministic)
-}
-func (m *Cockroach) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Cockroach.Merge(m, src)
-}
-func (m *Cockroach) XXX_Size() int {
-	return xxx_messageInfo_Cockroach.Size(m)
-}
-func (m *Cockroach) XXX_DiscardUnknown() {
-	xxx_messageInfo_Cockroach.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Cockroach proto.InternalMessageInfo
-
-func (m *Cockroach) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Cockroach) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Cockroach) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *Cockroach) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *Cockroach) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *Cockroach) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *Cockroach) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *Cockroach) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *Cockroach) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-func (m *Cockroach) GetOverrideDatabase() bool {
-	if m != nil {
-		return m.OverrideDatabase
-	}
-	return false
-}
-
-type Redshift struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
-	OverrideDatabase     bool     `protobuf:"varint,7,opt,name=override_database,json=overrideDatabase,proto3" json:"override_database,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Redshift) Reset()         { *m = Redshift{} }
-func (m *Redshift) String() string { return proto.CompactTextString(m) }
-func (*Redshift) ProtoMessage()    {}
-func (*Redshift) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{22}
-}
-
-func (m *Redshift) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Redshift.Unmarshal(m, b)
-}
-func (m *Redshift) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Redshift.Marshal(b, m, deterministic)
-}
-func (m *Redshift) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Redshift.Merge(m, src)
-}
-func (m *Redshift) XXX_Size() int {
-	return xxx_messageInfo_Redshift.Size(m)
-}
-func (m *Redshift) XXX_DiscardUnknown() {
-	xxx_messageInfo_Redshift.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Redshift proto.InternalMessageInfo
-
-func (m *Redshift) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Redshift) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Redshift) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *Redshift) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *Redshift) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *Redshift) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *Redshift) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *Redshift) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *Redshift) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-func (m *Redshift) GetOverrideDatabase() bool {
-	if m != nil {
-		return m.OverrideDatabase
-	}
-	return false
-}
-
-type SSH struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Port                 int32    `protobuf:"varint,3,opt,name=port,proto3" json:"port,omitempty"`
-	PublicKey            string   `protobuf:"bytes,4,opt,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *SSH) Reset()         { *m = SSH{} }
-func (m *SSH) String() string { return proto.CompactTextString(m) }
-func (*SSH) ProtoMessage()    {}
-func (*SSH) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{23}
-}
-
-func (m *SSH) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SSH.Unmarshal(m, b)
-}
-func (m *SSH) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SSH.Marshal(b, m, deterministic)
-}
-func (m *SSH) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SSH.Merge(m, src)
-}
-func (m *SSH) XXX_Size() int {
-	return xxx_messageInfo_SSH.Size(m)
-}
-func (m *SSH) XXX_DiscardUnknown() {
-	xxx_messageInfo_SSH.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SSH proto.InternalMessageInfo
-
-func (m *SSH) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *SSH) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *SSH) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *SSH) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *SSH) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *SSH) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-func (m *SSH) GetPublicKey() string {
-	if m != nil {
-		return m.PublicKey
-	}
-	return ""
-}
-
-type HTTPBasicAuth struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
-	HealthcheckPath      string   `protobuf:"bytes,2,opt,name=healthcheck_path,json=healthcheckPath,proto3" json:"healthcheck_path,omitempty"`
-	Username             string   `protobuf:"bytes,3,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
-	HeadersBlacklist     string   `protobuf:"bytes,5,opt,name=headers_blacklist,json=headersBlacklist,proto3" json:"headers_blacklist,omitempty"`
-	DefaultPath          string   `protobuf:"bytes,6,opt,name=default_path,json=defaultPath,proto3" json:"default_path,omitempty"`
-	Subdomain            string   `protobuf:"bytes,7,opt,name=subdomain,proto3" json:"subdomain,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *HTTPBasicAuth) Reset()         { *m = HTTPBasicAuth{} }
-func (m *HTTPBasicAuth) String() string { return proto.CompactTextString(m) }
-func (*HTTPBasicAuth) ProtoMessage()    {}
-func (*HTTPBasicAuth) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{24}
-}
-
-func (m *HTTPBasicAuth) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_HTTPBasicAuth.Unmarshal(m, b)
-}
-func (m *HTTPBasicAuth) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_HTTPBasicAuth.Marshal(b, m, deterministic)
-}
-func (m *HTTPBasicAuth) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_HTTPBasicAuth.Merge(m, src)
-}
-func (m *HTTPBasicAuth) XXX_Size() int {
-	return xxx_messageInfo_HTTPBasicAuth.Size(m)
-}
-func (m *HTTPBasicAuth) XXX_DiscardUnknown() {
-	xxx_messageInfo_HTTPBasicAuth.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_HTTPBasicAuth proto.InternalMessageInfo
-
-func (m *HTTPBasicAuth) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *HTTPBasicAuth) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *HTTPBasicAuth) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *HTTPBasicAuth) GetUrl() string {
-	if m != nil {
-		return m.Url
-	}
-	return ""
-}
-
-func (m *HTTPBasicAuth) GetHealthcheckPath() string {
-	if m != nil {
-		return m.HealthcheckPath
-	}
-	return ""
-}
-
-func (m *HTTPBasicAuth) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *HTTPBasicAuth) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *HTTPBasicAuth) GetHeadersBlacklist() string {
-	if m != nil {
-		return m.HeadersBlacklist
-	}
-	return ""
-}
-
-func (m *HTTPBasicAuth) GetDefaultPath() string {
-	if m != nil {
-		return m.DefaultPath
-	}
-	return ""
-}
-
-func (m *HTTPBasicAuth) GetSubdomain() string {
-	if m != nil {
-		return m.Subdomain
-	}
-	return ""
-}
-
-type HTTPNoAuth struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
-	HealthcheckPath      string   `protobuf:"bytes,2,opt,name=healthcheck_path,json=healthcheckPath,proto3" json:"healthcheck_path,omitempty"`
-	HeadersBlacklist     string   `protobuf:"bytes,3,opt,name=headers_blacklist,json=headersBlacklist,proto3" json:"headers_blacklist,omitempty"`
-	DefaultPath          string   `protobuf:"bytes,4,opt,name=default_path,json=defaultPath,proto3" json:"default_path,omitempty"`
-	Subdomain            string   `protobuf:"bytes,5,opt,name=subdomain,proto3" json:"subdomain,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *HTTPNoAuth) Reset()         { *m = HTTPNoAuth{} }
-func (m *HTTPNoAuth) String() string { return proto.CompactTextString(m) }
-func (*HTTPNoAuth) ProtoMessage()    {}
-func (*HTTPNoAuth) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{25}
-}
-
-func (m *HTTPNoAuth) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_HTTPNoAuth.Unmarshal(m, b)
-}
-func (m *HTTPNoAuth) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_HTTPNoAuth.Marshal(b, m, deterministic)
-}
-func (m *HTTPNoAuth) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_HTTPNoAuth.Merge(m, src)
-}
-func (m *HTTPNoAuth) XXX_Size() int {
-	return xxx_messageInfo_HTTPNoAuth.Size(m)
-}
-func (m *HTTPNoAuth) XXX_DiscardUnknown() {
-	xxx_messageInfo_HTTPNoAuth.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_HTTPNoAuth proto.InternalMessageInfo
-
-func (m *HTTPNoAuth) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *HTTPNoAuth) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *HTTPNoAuth) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *HTTPNoAuth) GetUrl() string {
-	if m != nil {
-		return m.Url
-	}
-	return ""
-}
-
-func (m *HTTPNoAuth) GetHealthcheckPath() string {
-	if m != nil {
-		return m.HealthcheckPath
-	}
-	return ""
-}
-
-func (m *HTTPNoAuth) GetHeadersBlacklist() string {
-	if m != nil {
-		return m.HeadersBlacklist
-	}
-	return ""
-}
-
-func (m *HTTPNoAuth) GetDefaultPath() string {
-	if m != nil {
-		return m.DefaultPath
-	}
-	return ""
-}
-
-func (m *HTTPNoAuth) GetSubdomain() string {
-	if m != nil {
-		return m.Subdomain
-	}
-	return ""
-}
-
-type HTTPAuth struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
-	HealthcheckPath      string   `protobuf:"bytes,2,opt,name=healthcheck_path,json=healthcheckPath,proto3" json:"healthcheck_path,omitempty"`
-	AuthHeader           string   `protobuf:"bytes,3,opt,name=auth_header,json=authHeader,proto3" json:"auth_header,omitempty"`
-	HeadersBlacklist     string   `protobuf:"bytes,4,opt,name=headers_blacklist,json=headersBlacklist,proto3" json:"headers_blacklist,omitempty"`
-	DefaultPath          string   `protobuf:"bytes,5,opt,name=default_path,json=defaultPath,proto3" json:"default_path,omitempty"`
-	Subdomain            string   `protobuf:"bytes,6,opt,name=subdomain,proto3" json:"subdomain,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *HTTPAuth) Reset()         { *m = HTTPAuth{} }
-func (m *HTTPAuth) String() string { return proto.CompactTextString(m) }
-func (*HTTPAuth) ProtoMessage()    {}
-func (*HTTPAuth) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{26}
-}
-
-func (m *HTTPAuth) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_HTTPAuth.Unmarshal(m, b)
-}
-func (m *HTTPAuth) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_HTTPAuth.Marshal(b, m, deterministic)
-}
-func (m *HTTPAuth) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_HTTPAuth.Merge(m, src)
-}
-func (m *HTTPAuth) XXX_Size() int {
-	return xxx_messageInfo_HTTPAuth.Size(m)
-}
-func (m *HTTPAuth) XXX_DiscardUnknown() {
-	xxx_messageInfo_HTTPAuth.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_HTTPAuth proto.InternalMessageInfo
-
-func (m *HTTPAuth) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *HTTPAuth) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *HTTPAuth) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *HTTPAuth) GetUrl() string {
-	if m != nil {
-		return m.Url
-	}
-	return ""
-}
-
-func (m *HTTPAuth) GetHealthcheckPath() string {
-	if m != nil {
-		return m.HealthcheckPath
-	}
-	return ""
-}
-
-func (m *HTTPAuth) GetAuthHeader() string {
-	if m != nil {
-		return m.AuthHeader
-	}
-	return ""
-}
-
-func (m *HTTPAuth) GetHeadersBlacklist() string {
-	if m != nil {
-		return m.HeadersBlacklist
-	}
-	return ""
-}
-
-func (m *HTTPAuth) GetDefaultPath() string {
-	if m != nil {
-		return m.DefaultPath
-	}
-	return ""
-}
-
-func (m *HTTPAuth) GetSubdomain() string {
-	if m != nil {
-		return m.Subdomain
-	}
-	return ""
-}
-
-type Cassandra struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	PortOverride         int32    `protobuf:"varint,4,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"`
-	TlsRequired          bool     `protobuf:"varint,6,opt,name=tls_required,json=tlsRequired,proto3" json:"tls_required,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Cassandra) Reset()         { *m = Cassandra{} }
-func (m *Cassandra) String() string { return proto.CompactTextString(m) }
-func (*Cassandra) ProtoMessage()    {}
-func (*Cassandra) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{27}
-}
-
-func (m *Cassandra) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Cassandra.Unmarshal(m, b)
-}
-func (m *Cassandra) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Cassandra.Marshal(b, m, deterministic)
-}
-func (m *Cassandra) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Cassandra.Merge(m, src)
-}
-func (m *Cassandra) XXX_Size() int {
-	return xxx_messageInfo_Cassandra.Size(m)
-}
-func (m *Cassandra) XXX_DiscardUnknown() {
-	xxx_messageInfo_Cassandra.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Cassandra proto.InternalMessageInfo
-
-func (m *Cassandra) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Cassandra) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Cassandra) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *Cassandra) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *Cassandra) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *Cassandra) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *Cassandra) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *Cassandra) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-func (m *Cassandra) GetTlsRequired() bool {
-	if m != nil {
-		return m.TlsRequired
-	}
-	return false
-}
-
-type Mysql struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Mysql) Reset()         { *m = Mysql{} }
-func (m *Mysql) String() string { return proto.CompactTextString(m) }
-func (*Mysql) ProtoMessage()    {}
-func (*Mysql) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{28}
-}
-
-func (m *Mysql) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Mysql.Unmarshal(m, b)
-}
-func (m *Mysql) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Mysql.Marshal(b, m, deterministic)
-}
-func (m *Mysql) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Mysql.Merge(m, src)
-}
-func (m *Mysql) XXX_Size() int {
-	return xxx_messageInfo_Mysql.Size(m)
-}
-func (m *Mysql) XXX_DiscardUnknown() {
-	xxx_messageInfo_Mysql.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Mysql proto.InternalMessageInfo
-
-func (m *Mysql) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Mysql) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Mysql) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *Mysql) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *Mysql) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *Mysql) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *Mysql) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *Mysql) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *Mysql) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-type AuroraMysql struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *AuroraMysql) Reset()         { *m = AuroraMysql{} }
-func (m *AuroraMysql) String() string { return proto.CompactTextString(m) }
-func (*AuroraMysql) ProtoMessage()    {}
-func (*AuroraMysql) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{29}
-}
-
-func (m *AuroraMysql) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_AuroraMysql.Unmarshal(m, b)
-}
-func (m *AuroraMysql) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_AuroraMysql.Marshal(b, m, deterministic)
-}
-func (m *AuroraMysql) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_AuroraMysql.Merge(m, src)
-}
-func (m *AuroraMysql) XXX_Size() int {
-	return xxx_messageInfo_AuroraMysql.Size(m)
-}
-func (m *AuroraMysql) XXX_DiscardUnknown() {
-	xxx_messageInfo_AuroraMysql.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_AuroraMysql proto.InternalMessageInfo
-
-func (m *AuroraMysql) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *AuroraMysql) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *AuroraMysql) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *AuroraMysql) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *AuroraMysql) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *AuroraMysql) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *AuroraMysql) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *AuroraMysql) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *AuroraMysql) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-type Clustrix struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Clustrix) Reset()         { *m = Clustrix{} }
-func (m *Clustrix) String() string { return proto.CompactTextString(m) }
-func (*Clustrix) ProtoMessage()    {}
-func (*Clustrix) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{30}
-}
-
-func (m *Clustrix) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Clustrix.Unmarshal(m, b)
-}
-func (m *Clustrix) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Clustrix.Marshal(b, m, deterministic)
-}
-func (m *Clustrix) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Clustrix.Merge(m, src)
-}
-func (m *Clustrix) XXX_Size() int {
-	return xxx_messageInfo_Clustrix.Size(m)
-}
-func (m *Clustrix) XXX_DiscardUnknown() {
-	xxx_messageInfo_Clustrix.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Clustrix proto.InternalMessageInfo
-
-func (m *Clustrix) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Clustrix) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Clustrix) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *Clustrix) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *Clustrix) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *Clustrix) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *Clustrix) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *Clustrix) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *Clustrix) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-type Maria struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Maria) Reset()         { *m = Maria{} }
-func (m *Maria) String() string { return proto.CompactTextString(m) }
-func (*Maria) ProtoMessage()    {}
-func (*Maria) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{31}
-}
-
-func (m *Maria) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Maria.Unmarshal(m, b)
-}
-func (m *Maria) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Maria.Marshal(b, m, deterministic)
-}
-func (m *Maria) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Maria.Merge(m, src)
-}
-func (m *Maria) XXX_Size() int {
-	return xxx_messageInfo_Maria.Size(m)
-}
-func (m *Maria) XXX_DiscardUnknown() {
-	xxx_messageInfo_Maria.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Maria proto.InternalMessageInfo
-
-func (m *Maria) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Maria) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Maria) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *Maria) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *Maria) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *Maria) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *Maria) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *Maria) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *Maria) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-type Memsql struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Memsql) Reset()         { *m = Memsql{} }
-func (m *Memsql) String() string { return proto.CompactTextString(m) }
-func (*Memsql) ProtoMessage()    {}
-func (*Memsql) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{32}
-}
-
-func (m *Memsql) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Memsql.Unmarshal(m, b)
-}
-func (m *Memsql) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Memsql.Marshal(b, m, deterministic)
-}
-func (m *Memsql) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Memsql.Merge(m, src)
-}
-func (m *Memsql) XXX_Size() int {
-	return xxx_messageInfo_Memsql.Size(m)
-}
-func (m *Memsql) XXX_DiscardUnknown() {
-	xxx_messageInfo_Memsql.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Memsql proto.InternalMessageInfo
-
-func (m *Memsql) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Memsql) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Memsql) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *Memsql) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *Memsql) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *Memsql) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *Memsql) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *Memsql) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *Memsql) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-type Druid struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	PortOverride         int32    `protobuf:"varint,2,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Username             string   `protobuf:"bytes,3,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,4,opt,name=password,proto3" json:"password,omitempty"`
-	Port                 int32    `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Druid) Reset()         { *m = Druid{} }
-func (m *Druid) String() string { return proto.CompactTextString(m) }
-func (*Druid) ProtoMessage()    {}
-func (*Druid) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{33}
-}
-
-func (m *Druid) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Druid.Unmarshal(m, b)
-}
-func (m *Druid) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Druid.Marshal(b, m, deterministic)
-}
-func (m *Druid) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Druid.Merge(m, src)
-}
-func (m *Druid) XXX_Size() int {
-	return xxx_messageInfo_Druid.Size(m)
-}
-func (m *Druid) XXX_DiscardUnknown() {
-	xxx_messageInfo_Druid.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Druid proto.InternalMessageInfo
-
-func (m *Druid) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *Druid) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *Druid) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *Druid) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *Druid) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *Druid) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *Druid) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *Druid) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-type SQLServer struct {
-	// Unique identifier of the Resource.
-	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
-	// Unique human-readable name of the Resource.
-	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
-	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
-	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
-	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
-	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Schema               string   `protobuf:"bytes,6,opt,name=schema,proto3" json:"schema,omitempty"`
-	Port                 int32    `protobuf:"varint,7,opt,name=port,proto3" json:"port,omitempty"`
-	OverrideDatabase     bool     `protobuf:"varint,8,opt,name=override_database,json=overrideDatabase,proto3" json:"override_database,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *SQLServer) Reset()         { *m = SQLServer{} }
-func (m *SQLServer) String() string { return proto.CompactTextString(m) }
-func (*SQLServer) ProtoMessage()    {}
-func (*SQLServer) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{34}
-}
-
-func (m *SQLServer) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_SQLServer.Unmarshal(m, b)
-}
-func (m *SQLServer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_SQLServer.Marshal(b, m, deterministic)
-}
-func (m *SQLServer) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_SQLServer.Merge(m, src)
-}
-func (m *SQLServer) XXX_Size() int {
-	return xxx_messageInfo_SQLServer.Size(m)
-}
-func (m *SQLServer) XXX_DiscardUnknown() {
-	xxx_messageInfo_SQLServer.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_SQLServer proto.InternalMessageInfo
-
-func (m *SQLServer) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *SQLServer) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *SQLServer) GetHealthy() bool {
-	if m != nil {
-		return m.Healthy
-	}
-	return false
-}
-
-func (m *SQLServer) GetHostname() string {
-	if m != nil {
-		return m.Hostname
-	}
-	return ""
-}
-
-func (m *SQLServer) GetUsername() string {
-	if m != nil {
-		return m.Username
-	}
-	return ""
-}
-
-func (m *SQLServer) GetPassword() string {
-	if m != nil {
-		return m.Password
-	}
-	return ""
-}
-
-func (m *SQLServer) GetDatabase() string {
-	if m != nil {
-		return m.Database
-	}
-	return ""
-}
-
-func (m *SQLServer) GetPortOverride() int32 {
-	if m != nil {
-		return m.PortOverride
-	}
-	return 0
-}
-
-func (m *SQLServer) GetSchema() string {
-	if m != nil {
-		return m.Schema
-	}
-	return ""
-}
-
-func (m *SQLServer) GetPort() int32 {
-	if m != nil {
-		return m.Port
-	}
-	return 0
-}
-
-func (m *SQLServer) GetOverrideDatabase() bool {
-	if m != nil {
-		return m.OverrideDatabase
-	}
-	return false
-}
-
 type MongoLegacyHost struct {
 	// Unique identifier of the Resource.
 	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
@@ -4238,7 +2208,7 @@ func (m *MongoLegacyHost) Reset()         { *m = MongoLegacyHost{} }
 func (m *MongoLegacyHost) String() string { return proto.CompactTextString(m) }
 func (*MongoLegacyHost) ProtoMessage()    {}
 func (*MongoLegacyHost) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{35}
+	return fileDescriptor_81dfd49b5b303fb4, []int{16}
 }
 
 func (m *MongoLegacyHost) XXX_Unmarshal(b []byte) error {
@@ -4368,7 +2338,7 @@ func (m *MongoLegacyReplicaset) Reset()         { *m = MongoLegacyReplicaset{} }
 func (m *MongoLegacyReplicaset) String() string { return proto.CompactTextString(m) }
 func (*MongoLegacyReplicaset) ProtoMessage()    {}
 func (*MongoLegacyReplicaset) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{36}
+	return fileDescriptor_81dfd49b5b303fb4, []int{17}
 }
 
 func (m *MongoLegacyReplicaset) XXX_Unmarshal(b []byte) error {
@@ -4497,7 +2467,7 @@ func (m *MongoHost) Reset()         { *m = MongoHost{} }
 func (m *MongoHost) String() string { return proto.CompactTextString(m) }
 func (*MongoHost) ProtoMessage()    {}
 func (*MongoHost) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{37}
+	return fileDescriptor_81dfd49b5b303fb4, []int{18}
 }
 
 func (m *MongoHost) XXX_Unmarshal(b []byte) error {
@@ -4620,7 +2590,7 @@ func (m *MongoReplicaSet) Reset()         { *m = MongoReplicaSet{} }
 func (m *MongoReplicaSet) String() string { return proto.CompactTextString(m) }
 func (*MongoReplicaSet) ProtoMessage()    {}
 func (*MongoReplicaSet) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{38}
+	return fileDescriptor_81dfd49b5b303fb4, []int{19}
 }
 
 func (m *MongoReplicaSet) XXX_Unmarshal(b []byte) error {
@@ -4725,320 +2695,2349 @@ func (m *MongoReplicaSet) GetTlsRequired() bool {
 	return false
 }
 
-type Athena struct {
+type Mysql struct {
 	// Unique identifier of the Resource.
 	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
 	// Unique human-readable name of the Resource.
 	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
-	AccessKey            string   `protobuf:"bytes,1,opt,name=access_key,json=accessKey,proto3" json:"access_key,omitempty"`
-	SecretAccessKey      string   `protobuf:"bytes,2,opt,name=secret_access_key,json=secretAccessKey,proto3" json:"secret_access_key,omitempty"`
-	Output               string   `protobuf:"bytes,3,opt,name=output,proto3" json:"output,omitempty"`
-	PortOverride         int32    `protobuf:"varint,4,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
-	Region               string   `protobuf:"bytes,5,opt,name=region,proto3" json:"region,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *Athena) Reset()         { *m = Athena{} }
-func (m *Athena) String() string { return proto.CompactTextString(m) }
-func (*Athena) ProtoMessage()    {}
-func (*Athena) Descriptor() ([]byte, []int) {
-	return fileDescriptor_81dfd49b5b303fb4, []int{39}
+func (m *Mysql) Reset()         { *m = Mysql{} }
+func (m *Mysql) String() string { return proto.CompactTextString(m) }
+func (*Mysql) ProtoMessage()    {}
+func (*Mysql) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{20}
 }
 
-func (m *Athena) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Athena.Unmarshal(m, b)
+func (m *Mysql) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Mysql.Unmarshal(m, b)
 }
-func (m *Athena) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Athena.Marshal(b, m, deterministic)
+func (m *Mysql) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Mysql.Marshal(b, m, deterministic)
 }
-func (m *Athena) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Athena.Merge(m, src)
+func (m *Mysql) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Mysql.Merge(m, src)
 }
-func (m *Athena) XXX_Size() int {
-	return xxx_messageInfo_Athena.Size(m)
+func (m *Mysql) XXX_Size() int {
+	return xxx_messageInfo_Mysql.Size(m)
 }
-func (m *Athena) XXX_DiscardUnknown() {
-	xxx_messageInfo_Athena.DiscardUnknown(m)
+func (m *Mysql) XXX_DiscardUnknown() {
+	xxx_messageInfo_Mysql.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Athena proto.InternalMessageInfo
+var xxx_messageInfo_Mysql proto.InternalMessageInfo
 
-func (m *Athena) GetId() string {
+func (m *Mysql) GetId() string {
 	if m != nil {
 		return m.Id
 	}
 	return ""
 }
 
-func (m *Athena) GetName() string {
+func (m *Mysql) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *Athena) GetHealthy() bool {
+func (m *Mysql) GetHealthy() bool {
 	if m != nil {
 		return m.Healthy
 	}
 	return false
 }
 
-func (m *Athena) GetAccessKey() string {
+func (m *Mysql) GetHostname() string {
 	if m != nil {
-		return m.AccessKey
+		return m.Hostname
 	}
 	return ""
 }
 
-func (m *Athena) GetSecretAccessKey() string {
+func (m *Mysql) GetUsername() string {
 	if m != nil {
-		return m.SecretAccessKey
+		return m.Username
 	}
 	return ""
 }
 
-func (m *Athena) GetOutput() string {
+func (m *Mysql) GetPassword() string {
 	if m != nil {
-		return m.Output
+		return m.Password
 	}
 	return ""
 }
 
-func (m *Athena) GetPortOverride() int32 {
+func (m *Mysql) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *Mysql) GetPortOverride() int32 {
 	if m != nil {
 		return m.PortOverride
 	}
 	return 0
 }
 
-func (m *Athena) GetRegion() string {
+func (m *Mysql) GetPort() int32 {
 	if m != nil {
-		return m.Region
+		return m.Port
+	}
+	return 0
+}
+
+type AuroraMysql struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AuroraMysql) Reset()         { *m = AuroraMysql{} }
+func (m *AuroraMysql) String() string { return proto.CompactTextString(m) }
+func (*AuroraMysql) ProtoMessage()    {}
+func (*AuroraMysql) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{21}
+}
+
+func (m *AuroraMysql) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AuroraMysql.Unmarshal(m, b)
+}
+func (m *AuroraMysql) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AuroraMysql.Marshal(b, m, deterministic)
+}
+func (m *AuroraMysql) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AuroraMysql.Merge(m, src)
+}
+func (m *AuroraMysql) XXX_Size() int {
+	return xxx_messageInfo_AuroraMysql.Size(m)
+}
+func (m *AuroraMysql) XXX_DiscardUnknown() {
+	xxx_messageInfo_AuroraMysql.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AuroraMysql proto.InternalMessageInfo
+
+func (m *AuroraMysql) GetId() string {
+	if m != nil {
+		return m.Id
 	}
 	return ""
 }
 
+func (m *AuroraMysql) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *AuroraMysql) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *AuroraMysql) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *AuroraMysql) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *AuroraMysql) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *AuroraMysql) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *AuroraMysql) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *AuroraMysql) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+type Clustrix struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Clustrix) Reset()         { *m = Clustrix{} }
+func (m *Clustrix) String() string { return proto.CompactTextString(m) }
+func (*Clustrix) ProtoMessage()    {}
+func (*Clustrix) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{22}
+}
+
+func (m *Clustrix) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Clustrix.Unmarshal(m, b)
+}
+func (m *Clustrix) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Clustrix.Marshal(b, m, deterministic)
+}
+func (m *Clustrix) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Clustrix.Merge(m, src)
+}
+func (m *Clustrix) XXX_Size() int {
+	return xxx_messageInfo_Clustrix.Size(m)
+}
+func (m *Clustrix) XXX_DiscardUnknown() {
+	xxx_messageInfo_Clustrix.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Clustrix proto.InternalMessageInfo
+
+func (m *Clustrix) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Clustrix) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Clustrix) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Clustrix) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Clustrix) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Clustrix) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Clustrix) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *Clustrix) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Clustrix) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+type Maria struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Maria) Reset()         { *m = Maria{} }
+func (m *Maria) String() string { return proto.CompactTextString(m) }
+func (*Maria) ProtoMessage()    {}
+func (*Maria) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{23}
+}
+
+func (m *Maria) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Maria.Unmarshal(m, b)
+}
+func (m *Maria) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Maria.Marshal(b, m, deterministic)
+}
+func (m *Maria) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Maria.Merge(m, src)
+}
+func (m *Maria) XXX_Size() int {
+	return xxx_messageInfo_Maria.Size(m)
+}
+func (m *Maria) XXX_DiscardUnknown() {
+	xxx_messageInfo_Maria.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Maria proto.InternalMessageInfo
+
+func (m *Maria) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Maria) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Maria) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Maria) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Maria) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Maria) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Maria) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *Maria) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Maria) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+type Memsql struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Memsql) Reset()         { *m = Memsql{} }
+func (m *Memsql) String() string { return proto.CompactTextString(m) }
+func (*Memsql) ProtoMessage()    {}
+func (*Memsql) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{24}
+}
+
+func (m *Memsql) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Memsql.Unmarshal(m, b)
+}
+func (m *Memsql) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Memsql.Marshal(b, m, deterministic)
+}
+func (m *Memsql) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Memsql.Merge(m, src)
+}
+func (m *Memsql) XXX_Size() int {
+	return xxx_messageInfo_Memsql.Size(m)
+}
+func (m *Memsql) XXX_DiscardUnknown() {
+	xxx_messageInfo_Memsql.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Memsql proto.InternalMessageInfo
+
+func (m *Memsql) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Memsql) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Memsql) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Memsql) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Memsql) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Memsql) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Memsql) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *Memsql) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Memsql) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+type Oracle struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	Port                 int32    `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"`
+	PortOverride         int32    `protobuf:"varint,6,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	TlsRequired          bool     `protobuf:"varint,7,opt,name=tls_required,json=tlsRequired,proto3" json:"tls_required,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Oracle) Reset()         { *m = Oracle{} }
+func (m *Oracle) String() string { return proto.CompactTextString(m) }
+func (*Oracle) ProtoMessage()    {}
+func (*Oracle) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{25}
+}
+
+func (m *Oracle) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Oracle.Unmarshal(m, b)
+}
+func (m *Oracle) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Oracle.Marshal(b, m, deterministic)
+}
+func (m *Oracle) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Oracle.Merge(m, src)
+}
+func (m *Oracle) XXX_Size() int {
+	return xxx_messageInfo_Oracle.Size(m)
+}
+func (m *Oracle) XXX_DiscardUnknown() {
+	xxx_messageInfo_Oracle.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Oracle proto.InternalMessageInfo
+
+func (m *Oracle) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Oracle) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Oracle) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Oracle) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Oracle) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Oracle) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Oracle) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *Oracle) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *Oracle) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Oracle) GetTlsRequired() bool {
+	if m != nil {
+		return m.TlsRequired
+	}
+	return false
+}
+
+type Postgres struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
+	OverrideDatabase     bool     `protobuf:"varint,7,opt,name=override_database,json=overrideDatabase,proto3" json:"override_database,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Postgres) Reset()         { *m = Postgres{} }
+func (m *Postgres) String() string { return proto.CompactTextString(m) }
+func (*Postgres) ProtoMessage()    {}
+func (*Postgres) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{26}
+}
+
+func (m *Postgres) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Postgres.Unmarshal(m, b)
+}
+func (m *Postgres) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Postgres.Marshal(b, m, deterministic)
+}
+func (m *Postgres) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Postgres.Merge(m, src)
+}
+func (m *Postgres) XXX_Size() int {
+	return xxx_messageInfo_Postgres.Size(m)
+}
+func (m *Postgres) XXX_DiscardUnknown() {
+	xxx_messageInfo_Postgres.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Postgres proto.InternalMessageInfo
+
+func (m *Postgres) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Postgres) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Postgres) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Postgres) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Postgres) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Postgres) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Postgres) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *Postgres) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Postgres) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *Postgres) GetOverrideDatabase() bool {
+	if m != nil {
+		return m.OverrideDatabase
+	}
+	return false
+}
+
+type AuroraPostgres struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
+	OverrideDatabase     bool     `protobuf:"varint,7,opt,name=override_database,json=overrideDatabase,proto3" json:"override_database,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AuroraPostgres) Reset()         { *m = AuroraPostgres{} }
+func (m *AuroraPostgres) String() string { return proto.CompactTextString(m) }
+func (*AuroraPostgres) ProtoMessage()    {}
+func (*AuroraPostgres) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{27}
+}
+
+func (m *AuroraPostgres) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AuroraPostgres.Unmarshal(m, b)
+}
+func (m *AuroraPostgres) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AuroraPostgres.Marshal(b, m, deterministic)
+}
+func (m *AuroraPostgres) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AuroraPostgres.Merge(m, src)
+}
+func (m *AuroraPostgres) XXX_Size() int {
+	return xxx_messageInfo_AuroraPostgres.Size(m)
+}
+func (m *AuroraPostgres) XXX_DiscardUnknown() {
+	xxx_messageInfo_AuroraPostgres.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AuroraPostgres proto.InternalMessageInfo
+
+func (m *AuroraPostgres) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *AuroraPostgres) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *AuroraPostgres) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *AuroraPostgres) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *AuroraPostgres) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *AuroraPostgres) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *AuroraPostgres) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *AuroraPostgres) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *AuroraPostgres) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *AuroraPostgres) GetOverrideDatabase() bool {
+	if m != nil {
+		return m.OverrideDatabase
+	}
+	return false
+}
+
+type Greenplum struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
+	OverrideDatabase     bool     `protobuf:"varint,7,opt,name=override_database,json=overrideDatabase,proto3" json:"override_database,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Greenplum) Reset()         { *m = Greenplum{} }
+func (m *Greenplum) String() string { return proto.CompactTextString(m) }
+func (*Greenplum) ProtoMessage()    {}
+func (*Greenplum) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{28}
+}
+
+func (m *Greenplum) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Greenplum.Unmarshal(m, b)
+}
+func (m *Greenplum) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Greenplum.Marshal(b, m, deterministic)
+}
+func (m *Greenplum) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Greenplum.Merge(m, src)
+}
+func (m *Greenplum) XXX_Size() int {
+	return xxx_messageInfo_Greenplum.Size(m)
+}
+func (m *Greenplum) XXX_DiscardUnknown() {
+	xxx_messageInfo_Greenplum.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Greenplum proto.InternalMessageInfo
+
+func (m *Greenplum) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Greenplum) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Greenplum) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Greenplum) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Greenplum) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Greenplum) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Greenplum) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *Greenplum) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Greenplum) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *Greenplum) GetOverrideDatabase() bool {
+	if m != nil {
+		return m.OverrideDatabase
+	}
+	return false
+}
+
+type Cockroach struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
+	OverrideDatabase     bool     `protobuf:"varint,7,opt,name=override_database,json=overrideDatabase,proto3" json:"override_database,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Cockroach) Reset()         { *m = Cockroach{} }
+func (m *Cockroach) String() string { return proto.CompactTextString(m) }
+func (*Cockroach) ProtoMessage()    {}
+func (*Cockroach) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{29}
+}
+
+func (m *Cockroach) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Cockroach.Unmarshal(m, b)
+}
+func (m *Cockroach) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Cockroach.Marshal(b, m, deterministic)
+}
+func (m *Cockroach) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Cockroach.Merge(m, src)
+}
+func (m *Cockroach) XXX_Size() int {
+	return xxx_messageInfo_Cockroach.Size(m)
+}
+func (m *Cockroach) XXX_DiscardUnknown() {
+	xxx_messageInfo_Cockroach.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Cockroach proto.InternalMessageInfo
+
+func (m *Cockroach) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Cockroach) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Cockroach) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Cockroach) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Cockroach) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Cockroach) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Cockroach) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *Cockroach) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Cockroach) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *Cockroach) GetOverrideDatabase() bool {
+	if m != nil {
+		return m.OverrideDatabase
+	}
+	return false
+}
+
+type Redshift struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,6,opt,name=port,proto3" json:"port,omitempty"`
+	OverrideDatabase     bool     `protobuf:"varint,7,opt,name=override_database,json=overrideDatabase,proto3" json:"override_database,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Redshift) Reset()         { *m = Redshift{} }
+func (m *Redshift) String() string { return proto.CompactTextString(m) }
+func (*Redshift) ProtoMessage()    {}
+func (*Redshift) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{30}
+}
+
+func (m *Redshift) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Redshift.Unmarshal(m, b)
+}
+func (m *Redshift) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Redshift.Marshal(b, m, deterministic)
+}
+func (m *Redshift) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Redshift.Merge(m, src)
+}
+func (m *Redshift) XXX_Size() int {
+	return xxx_messageInfo_Redshift.Size(m)
+}
+func (m *Redshift) XXX_DiscardUnknown() {
+	xxx_messageInfo_Redshift.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Redshift proto.InternalMessageInfo
+
+func (m *Redshift) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Redshift) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Redshift) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Redshift) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Redshift) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Redshift) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Redshift) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *Redshift) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Redshift) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *Redshift) GetOverrideDatabase() bool {
+	if m != nil {
+		return m.OverrideDatabase
+	}
+	return false
+}
+
+type Presto struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Password             string   `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,3,opt,name=database,proto3" json:"database,omitempty"`
+	PortOverride         int32    `protobuf:"varint,4,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"`
+	Username             string   `protobuf:"bytes,6,opt,name=username,proto3" json:"username,omitempty"`
+	TlsRequired          bool     `protobuf:"varint,7,opt,name=tls_required,json=tlsRequired,proto3" json:"tls_required,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Presto) Reset()         { *m = Presto{} }
+func (m *Presto) String() string { return proto.CompactTextString(m) }
+func (*Presto) ProtoMessage()    {}
+func (*Presto) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{31}
+}
+
+func (m *Presto) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Presto.Unmarshal(m, b)
+}
+func (m *Presto) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Presto.Marshal(b, m, deterministic)
+}
+func (m *Presto) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Presto.Merge(m, src)
+}
+func (m *Presto) XXX_Size() int {
+	return xxx_messageInfo_Presto.Size(m)
+}
+func (m *Presto) XXX_DiscardUnknown() {
+	xxx_messageInfo_Presto.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Presto proto.InternalMessageInfo
+
+func (m *Presto) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Presto) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Presto) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Presto) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Presto) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Presto) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *Presto) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Presto) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *Presto) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Presto) GetTlsRequired() bool {
+	if m != nil {
+		return m.TlsRequired
+	}
+	return false
+}
+
+type RDP struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	PortOverride         int32    `protobuf:"varint,4,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RDP) Reset()         { *m = RDP{} }
+func (m *RDP) String() string { return proto.CompactTextString(m) }
+func (*RDP) ProtoMessage()    {}
+func (*RDP) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{32}
+}
+
+func (m *RDP) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RDP.Unmarshal(m, b)
+}
+func (m *RDP) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RDP.Marshal(b, m, deterministic)
+}
+func (m *RDP) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RDP.Merge(m, src)
+}
+func (m *RDP) XXX_Size() int {
+	return xxx_messageInfo_RDP.Size(m)
+}
+func (m *RDP) XXX_DiscardUnknown() {
+	xxx_messageInfo_RDP.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RDP proto.InternalMessageInfo
+
+func (m *RDP) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *RDP) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *RDP) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *RDP) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *RDP) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *RDP) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *RDP) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *RDP) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+type Redis struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	PortOverride         int32    `protobuf:"varint,2,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Port                 int32    `protobuf:"varint,4,opt,name=port,proto3" json:"port,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Redis) Reset()         { *m = Redis{} }
+func (m *Redis) String() string { return proto.CompactTextString(m) }
+func (*Redis) ProtoMessage()    {}
+func (*Redis) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{33}
+}
+
+func (m *Redis) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Redis.Unmarshal(m, b)
+}
+func (m *Redis) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Redis.Marshal(b, m, deterministic)
+}
+func (m *Redis) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Redis.Merge(m, src)
+}
+func (m *Redis) XXX_Size() int {
+	return xxx_messageInfo_Redis.Size(m)
+}
+func (m *Redis) XXX_DiscardUnknown() {
+	xxx_messageInfo_Redis.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Redis proto.InternalMessageInfo
+
+func (m *Redis) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Redis) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Redis) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Redis) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Redis) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Redis) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Redis) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+type ElasticacheRedis struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	PortOverride         int32    `protobuf:"varint,2,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Port                 int32    `protobuf:"varint,4,opt,name=port,proto3" json:"port,omitempty"`
+	TlsRequired          bool     `protobuf:"varint,5,opt,name=tls_required,json=tlsRequired,proto3" json:"tls_required,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ElasticacheRedis) Reset()         { *m = ElasticacheRedis{} }
+func (m *ElasticacheRedis) String() string { return proto.CompactTextString(m) }
+func (*ElasticacheRedis) ProtoMessage()    {}
+func (*ElasticacheRedis) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{34}
+}
+
+func (m *ElasticacheRedis) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ElasticacheRedis.Unmarshal(m, b)
+}
+func (m *ElasticacheRedis) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ElasticacheRedis.Marshal(b, m, deterministic)
+}
+func (m *ElasticacheRedis) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ElasticacheRedis.Merge(m, src)
+}
+func (m *ElasticacheRedis) XXX_Size() int {
+	return xxx_messageInfo_ElasticacheRedis.Size(m)
+}
+func (m *ElasticacheRedis) XXX_DiscardUnknown() {
+	xxx_messageInfo_ElasticacheRedis.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ElasticacheRedis proto.InternalMessageInfo
+
+func (m *ElasticacheRedis) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *ElasticacheRedis) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *ElasticacheRedis) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *ElasticacheRedis) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *ElasticacheRedis) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *ElasticacheRedis) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *ElasticacheRedis) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *ElasticacheRedis) GetTlsRequired() bool {
+	if m != nil {
+		return m.TlsRequired
+	}
+	return false
+}
+
+type Snowflake struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	Schema               string   `protobuf:"bytes,5,opt,name=schema,proto3" json:"schema,omitempty"`
+	PortOverride         int32    `protobuf:"varint,6,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Snowflake) Reset()         { *m = Snowflake{} }
+func (m *Snowflake) String() string { return proto.CompactTextString(m) }
+func (*Snowflake) ProtoMessage()    {}
+func (*Snowflake) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{35}
+}
+
+func (m *Snowflake) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Snowflake.Unmarshal(m, b)
+}
+func (m *Snowflake) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Snowflake.Marshal(b, m, deterministic)
+}
+func (m *Snowflake) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Snowflake.Merge(m, src)
+}
+func (m *Snowflake) XXX_Size() int {
+	return xxx_messageInfo_Snowflake.Size(m)
+}
+func (m *Snowflake) XXX_DiscardUnknown() {
+	xxx_messageInfo_Snowflake.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Snowflake proto.InternalMessageInfo
+
+func (m *Snowflake) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Snowflake) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Snowflake) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Snowflake) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Snowflake) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Snowflake) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Snowflake) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *Snowflake) GetSchema() string {
+	if m != nil {
+		return m.Schema
+	}
+	return ""
+}
+
+func (m *Snowflake) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+type SQLServer struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	Database             string   `protobuf:"bytes,4,opt,name=database,proto3" json:"database,omitempty"`
+	PortOverride         int32    `protobuf:"varint,5,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Schema               string   `protobuf:"bytes,6,opt,name=schema,proto3" json:"schema,omitempty"`
+	Port                 int32    `protobuf:"varint,7,opt,name=port,proto3" json:"port,omitempty"`
+	OverrideDatabase     bool     `protobuf:"varint,8,opt,name=override_database,json=overrideDatabase,proto3" json:"override_database,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SQLServer) Reset()         { *m = SQLServer{} }
+func (m *SQLServer) String() string { return proto.CompactTextString(m) }
+func (*SQLServer) ProtoMessage()    {}
+func (*SQLServer) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{36}
+}
+
+func (m *SQLServer) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SQLServer.Unmarshal(m, b)
+}
+func (m *SQLServer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SQLServer.Marshal(b, m, deterministic)
+}
+func (m *SQLServer) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SQLServer.Merge(m, src)
+}
+func (m *SQLServer) XXX_Size() int {
+	return xxx_messageInfo_SQLServer.Size(m)
+}
+func (m *SQLServer) XXX_DiscardUnknown() {
+	xxx_messageInfo_SQLServer.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SQLServer proto.InternalMessageInfo
+
+func (m *SQLServer) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *SQLServer) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *SQLServer) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *SQLServer) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *SQLServer) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *SQLServer) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *SQLServer) GetDatabase() string {
+	if m != nil {
+		return m.Database
+	}
+	return ""
+}
+
+func (m *SQLServer) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *SQLServer) GetSchema() string {
+	if m != nil {
+		return m.Schema
+	}
+	return ""
+}
+
+func (m *SQLServer) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *SQLServer) GetOverrideDatabase() bool {
+	if m != nil {
+		return m.OverrideDatabase
+	}
+	return false
+}
+
+type SSH struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Port                 int32    `protobuf:"varint,3,opt,name=port,proto3" json:"port,omitempty"`
+	PublicKey            string   `protobuf:"bytes,4,opt,name=public_key,json=publicKey,proto3" json:"public_key,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SSH) Reset()         { *m = SSH{} }
+func (m *SSH) String() string { return proto.CompactTextString(m) }
+func (*SSH) ProtoMessage()    {}
+func (*SSH) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{37}
+}
+
+func (m *SSH) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SSH.Unmarshal(m, b)
+}
+func (m *SSH) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SSH.Marshal(b, m, deterministic)
+}
+func (m *SSH) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SSH.Merge(m, src)
+}
+func (m *SSH) XXX_Size() int {
+	return xxx_messageInfo_SSH.Size(m)
+}
+func (m *SSH) XXX_DiscardUnknown() {
+	xxx_messageInfo_SSH.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SSH proto.InternalMessageInfo
+
+func (m *SSH) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *SSH) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *SSH) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *SSH) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *SSH) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *SSH) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *SSH) GetPublicKey() string {
+	if m != nil {
+		return m.PublicKey
+	}
+	return ""
+}
+
+type Sybase struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	PortOverride         int32    `protobuf:"varint,3,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,4,opt,name=port,proto3" json:"port,omitempty"`
+	Password             string   `protobuf:"bytes,5,opt,name=password,proto3" json:"password,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Sybase) Reset()         { *m = Sybase{} }
+func (m *Sybase) String() string { return proto.CompactTextString(m) }
+func (*Sybase) ProtoMessage()    {}
+func (*Sybase) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{38}
+}
+
+func (m *Sybase) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Sybase.Unmarshal(m, b)
+}
+func (m *Sybase) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Sybase.Marshal(b, m, deterministic)
+}
+func (m *Sybase) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Sybase.Merge(m, src)
+}
+func (m *Sybase) XXX_Size() int {
+	return xxx_messageInfo_Sybase.Size(m)
+}
+func (m *Sybase) XXX_DiscardUnknown() {
+	xxx_messageInfo_Sybase.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Sybase proto.InternalMessageInfo
+
+func (m *Sybase) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Sybase) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Sybase) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Sybase) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Sybase) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Sybase) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Sybase) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
+func (m *Sybase) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+type Teradata struct {
+	// Unique identifier of the Resource.
+	Id string `protobuf:"bytes,32768,opt,name=id,proto3" json:"id,omitempty"`
+	// Unique human-readable name of the Resource.
+	Name string `protobuf:"bytes,32769,opt,name=name,proto3" json:"name,omitempty"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy              bool     `protobuf:"varint,32770,opt,name=healthy,proto3" json:"healthy,omitempty"`
+	Hostname             string   `protobuf:"bytes,1,opt,name=hostname,proto3" json:"hostname,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=password,proto3" json:"password,omitempty"`
+	PortOverride         int32    `protobuf:"varint,4,opt,name=port_override,json=portOverride,proto3" json:"port_override,omitempty"`
+	Port                 int32    `protobuf:"varint,5,opt,name=port,proto3" json:"port,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Teradata) Reset()         { *m = Teradata{} }
+func (m *Teradata) String() string { return proto.CompactTextString(m) }
+func (*Teradata) ProtoMessage()    {}
+func (*Teradata) Descriptor() ([]byte, []int) {
+	return fileDescriptor_81dfd49b5b303fb4, []int{39}
+}
+
+func (m *Teradata) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Teradata.Unmarshal(m, b)
+}
+func (m *Teradata) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Teradata.Marshal(b, m, deterministic)
+}
+func (m *Teradata) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Teradata.Merge(m, src)
+}
+func (m *Teradata) XXX_Size() int {
+	return xxx_messageInfo_Teradata.Size(m)
+}
+func (m *Teradata) XXX_DiscardUnknown() {
+	xxx_messageInfo_Teradata.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Teradata proto.InternalMessageInfo
+
+func (m *Teradata) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *Teradata) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *Teradata) GetHealthy() bool {
+	if m != nil {
+		return m.Healthy
+	}
+	return false
+}
+
+func (m *Teradata) GetHostname() string {
+	if m != nil {
+		return m.Hostname
+	}
+	return ""
+}
+
+func (m *Teradata) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
+func (m *Teradata) GetPassword() string {
+	if m != nil {
+		return m.Password
+	}
+	return ""
+}
+
+func (m *Teradata) GetPortOverride() int32 {
+	if m != nil {
+		return m.PortOverride
+	}
+	return 0
+}
+
+func (m *Teradata) GetPort() int32 {
+	if m != nil {
+		return m.Port
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*Resource)(nil), "v1.Resource")
-	proto.RegisterType((*Sybase)(nil), "v1.Sybase")
-	proto.RegisterType((*Presto)(nil), "v1.Presto")
-	proto.RegisterType((*Teradata)(nil), "v1.Teradata")
+	proto.RegisterType((*Athena)(nil), "v1.Athena")
+	proto.RegisterType((*BigQuery)(nil), "v1.BigQuery")
+	proto.RegisterType((*Cassandra)(nil), "v1.Cassandra")
+	proto.RegisterType((*Druid)(nil), "v1.Druid")
+	proto.RegisterType((*DynamoDB)(nil), "v1.DynamoDB")
 	proto.RegisterType((*AmazonES)(nil), "v1.AmazonES")
 	proto.RegisterType((*Elastic)(nil), "v1.Elastic")
-	proto.RegisterType((*Redis)(nil), "v1.Redis")
-	proto.RegisterType((*ElasticacheRedis)(nil), "v1.ElasticacheRedis")
+	proto.RegisterType((*HTTPBasicAuth)(nil), "v1.HTTPBasicAuth")
+	proto.RegisterType((*HTTPNoAuth)(nil), "v1.HTTPNoAuth")
+	proto.RegisterType((*HTTPAuth)(nil), "v1.HTTPAuth")
 	proto.RegisterType((*Kubernetes)(nil), "v1.Kubernetes")
 	proto.RegisterType((*KubernetesBasicAuth)(nil), "v1.KubernetesBasicAuth")
 	proto.RegisterType((*AmazonEKS)(nil), "v1.AmazonEKS")
 	proto.RegisterType((*GoogleGKE)(nil), "v1.GoogleGKE")
-	proto.RegisterType((*Oracle)(nil), "v1.Oracle")
-	proto.RegisterType((*DynamoDB)(nil), "v1.DynamoDB")
-	proto.RegisterType((*RDP)(nil), "v1.RDP")
-	proto.RegisterType((*BigQuery)(nil), "v1.BigQuery")
-	proto.RegisterType((*Snowflake)(nil), "v1.Snowflake")
 	proto.RegisterType((*Memcached)(nil), "v1.Memcached")
-	proto.RegisterType((*Postgres)(nil), "v1.Postgres")
-	proto.RegisterType((*AuroraPostgres)(nil), "v1.AuroraPostgres")
-	proto.RegisterType((*Greenplum)(nil), "v1.Greenplum")
-	proto.RegisterType((*Cockroach)(nil), "v1.Cockroach")
-	proto.RegisterType((*Redshift)(nil), "v1.Redshift")
-	proto.RegisterType((*SSH)(nil), "v1.SSH")
-	proto.RegisterType((*HTTPBasicAuth)(nil), "v1.HTTPBasicAuth")
-	proto.RegisterType((*HTTPNoAuth)(nil), "v1.HTTPNoAuth")
-	proto.RegisterType((*HTTPAuth)(nil), "v1.HTTPAuth")
-	proto.RegisterType((*Cassandra)(nil), "v1.Cassandra")
+	proto.RegisterType((*MongoLegacyHost)(nil), "v1.MongoLegacyHost")
+	proto.RegisterType((*MongoLegacyReplicaset)(nil), "v1.MongoLegacyReplicaset")
+	proto.RegisterType((*MongoHost)(nil), "v1.MongoHost")
+	proto.RegisterType((*MongoReplicaSet)(nil), "v1.MongoReplicaSet")
 	proto.RegisterType((*Mysql)(nil), "v1.Mysql")
 	proto.RegisterType((*AuroraMysql)(nil), "v1.AuroraMysql")
 	proto.RegisterType((*Clustrix)(nil), "v1.Clustrix")
 	proto.RegisterType((*Maria)(nil), "v1.Maria")
 	proto.RegisterType((*Memsql)(nil), "v1.Memsql")
-	proto.RegisterType((*Druid)(nil), "v1.Druid")
+	proto.RegisterType((*Oracle)(nil), "v1.Oracle")
+	proto.RegisterType((*Postgres)(nil), "v1.Postgres")
+	proto.RegisterType((*AuroraPostgres)(nil), "v1.AuroraPostgres")
+	proto.RegisterType((*Greenplum)(nil), "v1.Greenplum")
+	proto.RegisterType((*Cockroach)(nil), "v1.Cockroach")
+	proto.RegisterType((*Redshift)(nil), "v1.Redshift")
+	proto.RegisterType((*Presto)(nil), "v1.Presto")
+	proto.RegisterType((*RDP)(nil), "v1.RDP")
+	proto.RegisterType((*Redis)(nil), "v1.Redis")
+	proto.RegisterType((*ElasticacheRedis)(nil), "v1.ElasticacheRedis")
+	proto.RegisterType((*Snowflake)(nil), "v1.Snowflake")
 	proto.RegisterType((*SQLServer)(nil), "v1.SQLServer")
-	proto.RegisterType((*MongoLegacyHost)(nil), "v1.MongoLegacyHost")
-	proto.RegisterType((*MongoLegacyReplicaset)(nil), "v1.MongoLegacyReplicaset")
-	proto.RegisterType((*MongoHost)(nil), "v1.MongoHost")
-	proto.RegisterType((*MongoReplicaSet)(nil), "v1.MongoReplicaSet")
-	proto.RegisterType((*Athena)(nil), "v1.Athena")
+	proto.RegisterType((*SSH)(nil), "v1.SSH")
+	proto.RegisterType((*Sybase)(nil), "v1.Sybase")
+	proto.RegisterType((*Teradata)(nil), "v1.Teradata")
 }
 
 func init() { proto.RegisterFile("drivers.proto", fileDescriptor_81dfd49b5b303fb4) }
 
 var fileDescriptor_81dfd49b5b303fb4 = []byte{
-	// 2727 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x5c, 0x6d, 0x6c, 0x1c, 0x47,
-	0xf9, 0xf7, 0xed, 0xde, 0x9d, 0xef, 0x1e, 0xdb, 0xb1, 0xbd, 0x6e, 0xd4, 0x6d, 0xff, 0x51, 0xff,
-	0x91, 0xd5, 0xd2, 0x54, 0xc1, 0x2f, 0x77, 0x97, 0xe6, 0xc5, 0x7c, 0x28, 0xe7, 0xda, 0xcd, 0x09,
-	0xf7, 0xc5, 0x3d, 0x47, 0xe2, 0xe3, 0x6a, 0x6e, 0x6f, 0x7c, 0xb7, 0xdc, 0xdd, 0xee, 0x65, 0x67,
-	0xcf, 0xc5, 0xfd, 0xe4, 0xb6, 0x0a, 0xf0, 0xa1, 0x7c, 0xc0, 0x4a, 0xaa, 0x22, 0x40, 0x2d, 0x95,
-	0x02, 0x69, 0x50, 0xd3, 0x4a, 0x4d, 0x28, 0x81, 0x08, 0x41, 0x50, 0x04, 0x22, 0x2a, 0x94, 0x46,
-	0xa1, 0x20, 0x68, 0x40, 0x2a, 0x15, 0x14, 0x48, 0x69, 0x5a, 0x5a, 0xda, 0xa0, 0x50, 0x34, 0xb3,
-	0xaf, 0xe7, 0xdd, 0xbb, 0xdc, 0x35, 0xae, 0x15, 0x87, 0xfb, 0xe6, 0x9d, 0xe7, 0xf7, 0xcc, 0xcd,
-	0xfc, 0x7e, 0xcf, 0x3c, 0x3b, 0x33, 0x3b, 0x63, 0xe8, 0xcb, 0xeb, 0xca, 0x02, 0xd6, 0xc9, 0x68,
-	0x55, 0xd7, 0x0c, 0x4d, 0xe0, 0x16, 0x12, 0x37, 0x7e, 0x92, 0xfd, 0x29, 0x8f, 0x14, 0xb0, 0x3a,
-	0x42, 0x1e, 0x40, 0x85, 0x02, 0xd6, 0xc7, 0xb4, 0xaa, 0xa1, 0x68, 0x2a, 0x19, 0x43, 0xaa, 0xaa,
-	0x19, 0x88, 0xfd, 0x6d, 0x7a, 0xdc, 0xd8, 0x67, 0x99, 0xcc, 0xc7, 0xe1, 0xb7, 0xfb, 0x21, 0x96,
-	0xc5, 0x44, 0xab, 0xe9, 0x32, 0x16, 0x6e, 0x85, 0x28, 0x59, 0xcc, 0x21, 0x82, 0xc5, 0x3f, 0x7f,
-	0xf0, 0x52, 0x71, 0x73, 0x68, 0x4b, 0x4f, 0x12, 0x46, 0x17, 0x12, 0xa3, 0x73, 0xac, 0x30, 0xd3,
-	0x95, 0xb5, 0xcc, 0x14, 0x58, 0xd5, 0x31, 0x31, 0x34, 0xf1, 0x8d, 0xa5, 0xd3, 0x1b, 0x5c, 0xe0,
-	0x2c, 0x2b, 0xa4, 0x40, 0xd3, 0x2c, 0x8c, 0x40, 0xcc, 0xc0, 0x3a, 0xca, 0x23, 0x03, 0x89, 0x5f,
-	0xbf, 0xf0, 0xed, 0x9b, 0x18, 0xb4, 0x97, 0x42, 0xf7, 0x58, 0xc5, 0x99, 0xae, 0xac, 0x03, 0x11,
-	0xc6, 0x20, 0x8e, 0x2a, 0xe8, 0x41, 0x4d, 0x95, 0x30, 0x11, 0x5f, 0x38, 0xf0, 0xc4, 0x93, 0x21,
-	0xd7, 0x21, 0xcd, 0x0c, 0xd3, 0x73, 0xd4, 0xc1, 0x04, 0x4d, 0x13, 0x61, 0x2b, 0x74, 0xe3, 0x32,
-	0x22, 0x86, 0x22, 0x8b, 0x8f, 0xff, 0xf8, 0xd4, 0x49, 0x13, 0xde, 0x43, 0xe1, 0xd3, 0x66, 0x71,
-	0xa6, 0x2b, 0x6b, 0x23, 0x84, 0x9b, 0x21, 0xa2, 0xe3, 0xbc, 0x42, 0xc4, 0xa3, 0xef, 0x7d, 0x6d,
-	0x92, 0x21, 0xe3, 0x14, 0x99, 0xa5, 0x65, 0x99, 0xae, 0xac, 0x69, 0x14, 0xee, 0x82, 0x41, 0xcb,
-	0x01, 0xc9, 0x45, 0x2c, 0x99, 0x1e, 0x3f, 0x7d, 0xf5, 0xd9, 0x3e, 0xe6, 0x71, 0x9d, 0xa7, 0x6e,
-	0x6a, 0xb7, 0x9d, 0x07, 0xf0, 0x8a, 0x32, 0x21, 0x05, 0x50, 0xaa, 0xe5, 0xb0, 0xae, 0x62, 0x03,
-	0x13, 0x71, 0xff, 0x2b, 0x47, 0x54, 0x56, 0xc1, 0x06, 0x5a, 0xc1, 0x8c, 0x63, 0xc8, 0x74, 0x65,
-	0x3d, 0x30, 0xe1, 0x7e, 0xd8, 0xe8, 0x3e, 0x49, 0x39, 0x44, 0x14, 0x59, 0x42, 0x35, 0xa3, 0x28,
-	0xfe, 0xe3, 0xcc, 0x7f, 0xfe, 0x68, 0xf6, 0xee, 0xfa, 0xfa, 0x0a, 0x26, 0x29, 0x26, 0x5d, 0x33,
-	0x8a, 0x99, 0xae, 0xec, 0x50, 0xc9, 0x5f, 0x2c, 0x24, 0x00, 0x6c, 0x4e, 0x4b, 0x44, 0x7c, 0xeb,
-	0xe0, 0x43, 0xd3, 0xac, 0x9a, 0x3e, 0x0f, 0xa7, 0x33, 0x94, 0x54, 0x8b, 0xf9, 0xe9, 0x12, 0xa1,
-	0x2e, 0x05, 0x4d, 0x2b, 0x94, 0xb1, 0x54, 0x28, 0x61, 0xf1, 0xc0, 0x91, 0xaf, 0x4c, 0xba, 0x2e,
-	0xbb, 0x99, 0x61, 0xf7, 0xcc, 0x34, 0x75, 0x31, 0x51, 0xbb, 0x4b, 0x2c, 0x22, 0x34, 0x1d, 0xc9,
-	0x65, 0x2c, 0x2e, 0xef, 0x3b, 0x81, 0xdd, 0x88, 0xb8, 0x8f, 0x15, 0xd2, 0x88, 0x30, 0xcd, 0x54,
-	0xe2, 0xfc, 0xa2, 0x8a, 0x2a, 0x9a, 0x94, 0xcf, 0x89, 0x27, 0x9e, 0x7b, 0xf4, 0xa4, 0x47, 0xe2,
-	0x29, 0x66, 0x98, 0x9a, 0xa4, 0x12, 0x9b, 0xa0, 0xa9, 0x9c, 0xf0, 0xff, 0xc0, 0xeb, 0xf9, 0xaa,
-	0xf8, 0xe4, 0xaf, 0x8e, 0xff, 0xc5, 0x84, 0x76, 0x33, 0xd1, 0xa6, 0x66, 0x33, 0x5d, 0x59, 0x6a,
-	0xa1, 0x35, 0xe6, 0x94, 0x82, 0xb4, 0xb7, 0x86, 0xf5, 0x45, 0xf1, 0xbd, 0xfd, 0xa7, 0x5e, 0xf6,
-	0xd4, 0x38, 0xa9, 0x14, 0xee, 0xa7, 0xe5, 0xb4, 0xc6, 0x9c, 0xf5, 0xb7, 0x90, 0x80, 0x38, 0x51,
-	0xb5, 0x07, 0xe6, 0xcb, 0xa8, 0x84, 0xc5, 0x73, 0xc7, 0xde, 0x78, 0x3f, 0xe4, 0x76, 0x6f, 0xce,
-	0x36, 0xd0, 0xee, 0x39, 0x28, 0xea, 0x52, 0xc1, 0x15, 0xa6, 0x6e, 0x5e, 0x7c, 0xe2, 0xe0, 0xa1,
-	0x77, 0x3d, 0x2e, 0xf7, 0xd8, 0x06, 0xea, 0xe2, 0xa0, 0x84, 0x51, 0x88, 0x55, 0x35, 0x62, 0x14,
-	0x74, 0x4c, 0xc4, 0xa7, 0xf7, 0xbd, 0xf8, 0xba, 0xa7, 0x55, 0xb3, 0x56, 0x39, 0x6d, 0x95, 0x8d,
-	0x11, 0xd2, 0xd0, 0x8f, 0x6a, 0xba, 0xa6, 0x23, 0xc9, 0x71, 0x3b, 0xf6, 0x9d, 0x67, 0x4e, 0x99,
-	0x6e, 0x02, 0x53, 0x8b, 0x99, 0x3d, 0xce, 0x1b, 0x50, 0x5d, 0x09, 0x6d, 0x65, 0x41, 0xc7, 0x58,
-	0xad, 0x96, 0x6b, 0x15, 0xf1, 0xad, 0x73, 0x7f, 0xfd, 0xbb, 0xa7, 0x95, 0xbb, 0x6d, 0x03, 0xd3,
-	0xcd, 0x7e, 0xa0, 0x2e, 0xb2, 0x26, 0x97, 0x74, 0x0d, 0xc9, 0x45, 0xf1, 0xb1, 0x8b, 0xef, 0xfc,
-	0xd6, 0xe3, 0x72, 0xa7, 0x6d, 0xa0, 0x2e, 0x0e, 0x8a, 0x76, 0x4c, 0xc7, 0x79, 0x52, 0x54, 0xe6,
-	0x0d, 0xf1, 0xd9, 0xf3, 0x8f, 0x7d, 0xd5, 0xd3, 0xb1, 0xac, 0x55, 0x4e, 0x3b, 0x66, 0x63, 0x84,
-	0x9b, 0x80, 0x27, 0xa4, 0x28, 0x7e, 0x78, 0xf4, 0xec, 0x83, 0xae, 0x7e, 0x73, 0x73, 0x19, 0xaa,
-	0x1f, 0x21, 0x45, 0xe1, 0x0e, 0xe8, 0x2f, 0x1a, 0x46, 0xd5, 0x1b, 0xed, 0x8f, 0x1e, 0x7e, 0xed,
-	0xac, 0x59, 0xed, 0x20, 0x05, 0x67, 0xf6, 0xec, 0x99, 0xf5, 0xc6, 0x79, 0x1f, 0xc5, 0xbb, 0x11,
-	0xbe, 0x1d, 0x7a, 0x59, 0x05, 0xaa, 0x66, 0x7a, 0x7f, 0xe3, 0xf0, 0xeb, 0xbf, 0x0c, 0xb9, 0x83,
-	0x8d, 0x7a, 0xdf, 0xab, 0x59, 0xae, 0x40, 0x91, 0xe6, 0x93, 0x30, 0x0a, 0x71, 0xe6, 0xc7, 0x9c,
-	0xde, 0x3c, 0xf9, 0x70, 0xc9, 0xed, 0x08, 0xf5, 0xb1, 0x3c, 0x62, 0x14, 0x63, 0x8d, 0xa4, 0xb8,
-	0x8c, 0x08, 0x41, 0x6a, 0x5e, 0x47, 0xe2, 0x85, 0x2f, 0x9f, 0xfe, 0x8d, 0x97, 0x2b, 0xdb, 0xc0,
-	0xb8, 0xb2, 0x1f, 0x84, 0x5b, 0x20, 0x52, 0x59, 0x24, 0x7b, 0xcb, 0xe2, 0x4f, 0x96, 0xf6, 0x7f,
-	0x2f, 0xe4, 0xe6, 0x9c, 0x7b, 0x68, 0x21, 0xcd, 0x39, 0xcc, 0x2a, 0xec, 0x80, 0x5e, 0x4b, 0x7b,
-	0x13, 0x7d, 0xfe, 0xa9, 0xdf, 0xc7, 0x18, 0xb8, 0xdf, 0xd5, 0xdd, 0x76, 0xe9, 0x41, 0xee, 0x23,
-	0xd5, 0x42, 0x2e, 0xd7, 0x88, 0xa1, 0x2b, 0x9f, 0x17, 0xf7, 0x3f, 0xfd, 0xe6, 0x25, 0x8f, 0x16,
-	0x77, 0x5a, 0xe5, 0xb4, 0x0b, 0x36, 0x86, 0xb5, 0x07, 0xe9, 0x0a, 0x12, 0xf7, 0xbf, 0xfa, 0xad,
-	0x73, 0xde, 0xf6, 0xd0, 0x42, 0xd6, 0x1e, 0xfa, 0x87, 0xb0, 0x05, 0xa2, 0x15, 0x5c, 0xa1, 0x2d,
-	0x79, 0xe6, 0xf8, 0x1f, 0x96, 0x42, 0xee, 0x70, 0xbe, 0x87, 0x95, 0xd2, 0xe1, 0x6c, 0xda, 0x69,
-	0x85, 0x79, 0xbd, 0xa6, 0xe4, 0xc5, 0x0f, 0xff, 0x74, 0xe6, 0x92, 0xa7, 0xc2, 0x29, 0x5a, 0x48,
-	0x2b, 0x64, 0x56, 0x21, 0x09, 0x40, 0xf6, 0x96, 0x25, 0x82, 0xf5, 0x05, 0xac, 0x8b, 0x07, 0x0f,
-	0xfc, 0xe8, 0x07, 0xde, 0x31, 0x77, 0xff, 0xdd, 0x73, 0xcc, 0xc0, 0xc6, 0xdc, 0xde, 0xb2, 0xf9,
-	0x20, 0x4c, 0xc1, 0x60, 0x45, 0x53, 0x0b, 0x9a, 0x54, 0xc6, 0x05, 0x24, 0x2f, 0x4a, 0x45, 0x8d,
-	0x18, 0xe2, 0xf7, 0x8f, 0x3f, 0xae, 0x33, 0xcf, 0x21, 0xd6, 0x1c, 0x6a, 0xbf, 0x9b, 0x99, 0x33,
-	0x1a, 0xa1, 0x61, 0xd7, 0x5f, 0xa9, 0x2f, 0x12, 0x3e, 0x0b, 0xd7, 0xd7, 0xd5, 0xa2, 0xe3, 0x6a,
-	0x59, 0x91, 0x11, 0xc1, 0x86, 0xf8, 0xe2, 0x81, 0x1f, 0x1e, 0x37, 0x9b, 0x71, 0xc3, 0x8a, 0xca,
-	0xb2, 0x0e, 0x28, 0xd3, 0x95, 0xdd, 0x58, 0x09, 0x32, 0xd0, 0x24, 0x69, 0x56, 0xcc, 0xda, 0x75,
-	0xe8, 0x17, 0xc7, 0x86, 0x3d, 0x29, 0x81, 0x1a, 0xac, 0x16, 0xc5, 0x2b, 0xf6, 0x83, 0x30, 0x6d,
-	0xf7, 0xc8, 0x6a, 0x84, 0x44, 0x5b, 0x71, 0xfa, 0x91, 0x0b, 0xff, 0x0c, 0xad, 0xe8, 0x92, 0xf5,
-	0x33, 0x73, 0xd8, 0xed, 0x92, 0x5b, 0x44, 0x73, 0x2d, 0x32, 0x8a, 0x58, 0x45, 0xe2, 0x97, 0xbe,
-	0xf0, 0xcd, 0xdb, 0x5c, 0x71, 0xd2, 0xac, 0x90, 0x8a, 0x63, 0x9a, 0x27, 0xe0, 0xe2, 0xfb, 0xcf,
-	0x77, 0x47, 0x0e, 0xbd, 0xf3, 0x7c, 0x77, 0x68, 0x12, 0xe8, 0xa8, 0x35, 0xdf, 0xf3, 0xc3, 0x67,
-	0x38, 0x88, 0x9a, 0xef, 0x74, 0x61, 0x13, 0x70, 0x4a, 0x5e, 0x5c, 0x5a, 0xe2, 0x36, 0x87, 0xb6,
-	0xc4, 0x27, 0xe1, 0x6d, 0xea, 0xf0, 0x1c, 0x75, 0xc8, 0x72, 0x4a, 0x5e, 0xd8, 0x0c, 0x61, 0x15,
-	0x55, 0xb0, 0xf8, 0x50, 0x80, 0x9d, 0x59, 0xe8, 0x0b, 0xb8, 0x88, 0x51, 0xd9, 0x28, 0x2e, 0x8a,
-	0x0f, 0x33, 0x50, 0x6c, 0xb2, 0x7f, 0x39, 0xcd, 0x7d, 0x3a, 0xe4, 0x41, 0xda, 0x08, 0xe1, 0x13,
-	0x10, 0xa3, 0x64, 0xb1, 0x2a, 0x43, 0xbe, 0x0a, 0x1d, 0x1b, 0xc5, 0xd5, 0x08, 0xd6, 0x19, 0xce,
-	0xff, 0xc3, 0x8e, 0x4d, 0x18, 0x83, 0xbe, 0xaa, 0xa6, 0x1b, 0x92, 0xb6, 0x80, 0x75, 0x5d, 0xc9,
-	0x63, 0x91, 0xdf, 0x1c, 0xda, 0x12, 0xa9, 0x03, 0xf7, 0x52, 0xc0, 0x7d, 0x96, 0x5d, 0xb8, 0x15,
-	0xc2, 0xf4, 0x59, 0x0c, 0x33, 0xdc, 0xd0, 0x72, 0x3a, 0x3a, 0x11, 0x4e, 0x6e, 0x4f, 0xed, 0xf4,
-	0x76, 0x8b, 0x02, 0x68, 0x0b, 0xaa, 0x88, 0x90, 0x07, 0x34, 0x3d, 0x2f, 0x46, 0xfc, 0x2d, 0xb0,
-	0x6d, 0x5e, 0x86, 0x87, 0x0f, 0xf3, 0x10, 0x35, 0x27, 0x40, 0x57, 0x2d, 0xab, 0x4e, 0x9f, 0xb8,
-	0xc6, 0x7d, 0xa2, 0x38, 0x3a, 0x19, 0x63, 0xf3, 0x40, 0xde, 0x8f, 0xb3, 0x6d, 0x7e, 0xf6, 0xc3,
-	0x2d, 0xb2, 0x1f, 0xf1, 0xb0, 0xbf, 0x73, 0x7c, 0xe7, 0x78, 0x10, 0xfb, 0x8e, 0xfe, 0xd1, 0x26,
-	0xfa, 0x8f, 0x40, 0xaf, 0x51, 0x26, 0x92, 0x8e, 0xf7, 0xd6, 0x14, 0x1d, 0xe7, 0xc5, 0x6e, 0xc6,
-	0x94, 0x17, 0xdb, 0x63, 0x94, 0x49, 0xd6, 0x32, 0xd7, 0x89, 0x75, 0x96, 0x83, 0x98, 0x3d, 0x05,
-	0x5d, 0xdf, 0x83, 0xc0, 0x2b, 0x2b, 0xdf, 0x44, 0xd6, 0x55, 0x91, 0x2b, 0x31, 0x9e, 0xbc, 0x7d,
-	0xa5, 0x5c, 0x75, 0xbc, 0xbe, 0xc6, 0x41, 0xcc, 0x9e, 0xa9, 0xaf, 0x2d, 0xaf, 0xc3, 0x10, 0xd5,
-	0x71, 0x41, 0xd1, 0xd4, 0x00, 0x56, 0x2d, 0x8b, 0xb0, 0x1d, 0x06, 0x09, 0x96, 0x75, 0x6c, 0x48,
-	0x48, 0x96, 0x31, 0x21, 0x52, 0x09, 0x2f, 0x06, 0x90, 0xdb, 0x6f, 0x82, 0xd2, 0x0c, 0x33, 0x83,
-	0x99, 0x66, 0x58, 0xcd, 0x57, 0x35, 0x45, 0x35, 0x82, 0x38, 0xb6, 0x6d, 0xc2, 0x6d, 0x00, 0x9e,
-	0x8a, 0xc3, 0x3e, 0x64, 0x1c, 0x39, 0x55, 0xfa, 0xe4, 0x88, 0x34, 0x97, 0xa3, 0x8e, 0xe5, 0x47,
-	0x78, 0xe8, 0xb6, 0x16, 0x21, 0x9d, 0xe0, 0x6d, 0x39, 0x78, 0x77, 0x25, 0xc7, 0xfd, 0xb9, 0x66,
-	0x65, 0x0e, 0x89, 0xb6, 0x9e, 0x43, 0x0e, 0x73, 0x10, 0x31, 0xd7, 0x7a, 0x57, 0xa5, 0x06, 0x3e,
-	0xce, 0xb8, 0xcb, 0x70, 0xd6, 0xaa, 0x18, 0x41, 0x6f, 0xd1, 0xed, 0xa9, 0x1d, 0xbb, 0x9a, 0x26,
-	0x86, 0xf3, 0x1c, 0x0c, 0xac, 0x5c, 0x37, 0x77, 0x78, 0x0b, 0xe4, 0x8d, 0x2e, 0x68, 0xea, 0x62,
-	0x32, 0xc2, 0x7a, 0x66, 0x3a, 0x18, 0x7a, 0x0d, 0xb7, 0x12, 0x9c, 0xbf, 0x0e, 0x03, 0xb8, 0xbb,
-	0x04, 0x57, 0x6b, 0x96, 0x30, 0x09, 0x31, 0x09, 0x16, 0x96, 0xd3, 0x91, 0x09, 0x7e, 0xdb, 0xb6,
-	0x94, 0x8f, 0x8f, 0x3b, 0x60, 0xa3, 0x8c, 0x75, 0x43, 0x99, 0x57, 0x64, 0x64, 0x60, 0xb6, 0x5e,
-	0xd3, 0x74, 0xc5, 0x58, 0x0c, 0x60, 0xfb, 0x3a, 0x0f, 0x30, 0x6d, 0xe3, 0x84, 0x59, 0xb8, 0x29,
-	0xb0, 0x02, 0x69, 0x5e, 0x29, 0x63, 0xd6, 0x4c, 0x7f, 0xae, 0xde, 0x14, 0x54, 0xd3, 0x5d, 0x16,
-	0x5e, 0xd8, 0x05, 0x82, 0x5c, 0x56, 0xb0, 0x6a, 0x48, 0x1e, 0x58, 0xc0, 0x54, 0x71, 0xd0, 0x44,
-	0xdd, 0xe9, 0x82, 0x84, 0xcf, 0xc0, 0xff, 0xf9, 0x5d, 0xdd, 0x96, 0xf8, 0x27, 0x3c, 0x37, 0xf8,
-	0xea, 0x70, 0x9a, 0x71, 0x1b, 0x80, 0x55, 0x17, 0x7d, 0xe1, 0x74, 0xfb, 0x5f, 0x38, 0xa6, 0x95,
-	0xbe, 0x70, 0x26, 0x60, 0xc8, 0x85, 0xba, 0x3f, 0x17, 0x6b, 0xd4, 0xe4, 0x19, 0xec, 0xf4, 0xb6,
-	0x2e, 0xb0, 0x8e, 0x70, 0x30, 0x14, 0xb0, 0xfd, 0xb4, 0xbe, 0x23, 0xcc, 0xfb, 0xbe, 0xe2, 0x5b,
-	0x7c, 0x5f, 0x85, 0x5b, 0x5c, 0x17, 0xbc, 0xcb, 0x43, 0xdc, 0xd9, 0x68, 0x5b, 0x73, 0x9a, 0x9c,
-	0x79, 0x4b, 0xa8, 0xe5, 0x79, 0x0b, 0xd7, 0x6c, 0xde, 0x12, 0x38, 0x85, 0xe2, 0x2f, 0x3f, 0x85,
-	0x6a, 0x38, 0x86, 0xc3, 0xab, 0x36, 0x86, 0x23, 0x6d, 0x8e, 0x61, 0x77, 0xc6, 0x18, 0x6d, 0x38,
-	0x63, 0x1c, 0x81, 0x5e, 0xb6, 0x79, 0x82, 0x75, 0x89, 0xfd, 0x86, 0x7f, 0x88, 0xf5, 0x58, 0xf6,
-	0x7b, 0x57, 0x0e, 0x94, 0x9f, 0xf1, 0x10, 0x77, 0x76, 0x4b, 0xaf, 0x4e, 0xdd, 0x1b, 0x8a, 0xc2,
-	0xad, 0x9a, 0x28, 0x7c, 0x9b, 0xa2, 0x4c, 0xc0, 0x10, 0xc1, 0xfa, 0x82, 0x22, 0x63, 0x1a, 0x60,
-	0x5a, 0xcd, 0x4a, 0x6d, 0xfe, 0x28, 0x19, 0xb4, 0x60, 0x69, 0x13, 0x45, 0x63, 0x6c, 0x06, 0x36,
-	0x05, 0xf8, 0x36, 0x0b, 0x90, 0x1b, 0x7c, 0x95, 0x04, 0xe6, 0x3c, 0xba, 0xb4, 0x37, 0x77, 0xb2,
-	0xff, 0x37, 0xa6, 0xdb, 0xde, 0x2d, 0x80, 0x70, 0x93, 0x2d, 0x80, 0xc0, 0x25, 0xe2, 0xed, 0xc9,
-	0x84, 0x2f, 0xbf, 0xfa, 0xe6, 0x54, 0xd1, 0xcb, 0xcc, 0xa9, 0xae, 0x60, 0x69, 0x4f, 0x97, 0xa0,
-	0xf6, 0x97, 0x84, 0xb5, 0x95, 0xab, 0x3e, 0x8d, 0x86, 0xda, 0x4e, 0xa3, 0x2d, 0xac, 0x44, 0xdd,
-	0x9c, 0xc5, 0x37, 0xcc, 0x59, 0xde, 0xd1, 0x1f, 0x6e, 0x32, 0xfa, 0xaf, 0x68, 0x09, 0xfa, 0x12,
-	0x07, 0x7c, 0x76, 0x6a, 0xb6, 0xb3, 0xfc, 0x6c, 0x79, 0xf9, 0x99, 0x4a, 0xed, 0x6c, 0xbe, 0x44,
-	0x7a, 0x85, 0x83, 0x98, 0xfd, 0xc1, 0x6a, 0x6d, 0x79, 0xdd, 0x0a, 0x3d, 0x55, 0x5d, 0x59, 0xa0,
-	0x29, 0x3c, 0x38, 0x72, 0xc1, 0x32, 0xd3, 0x10, 0xbc, 0x19, 0xba, 0xab, 0xba, 0xf6, 0x39, 0x2c,
-	0x1b, 0x01, 0xdc, 0xda, 0xa6, 0xf6, 0xf7, 0x66, 0x5b, 0x8d, 0x5a, 0xaf, 0xb6, 0x91, 0xc6, 0xda,
-	0xd6, 0x31, 0xfb, 0x01, 0x07, 0x71, 0xe7, 0xcb, 0x5e, 0x27, 0x85, 0x7b, 0x53, 0xf8, 0x30, 0x44,
-	0x89, 0x5c, 0xc4, 0x15, 0x14, 0x40, 0xa6, 0x65, 0x69, 0x3b, 0x7b, 0xd7, 0x71, 0xff, 0x45, 0x0e,
-	0xe2, 0xce, 0x27, 0xd2, 0x6b, 0x64, 0xc5, 0xbf, 0xc5, 0x1a, 0xde, 0x66, 0x4c, 0x5f, 0xb7, 0x9c,
-	0xee, 0x9e, 0x88, 0x24, 0x12, 0xc9, 0x44, 0xa2, 0xe9, 0xf8, 0xfe, 0x2e, 0x0f, 0x31, 0xe7, 0x5b,
-	0x6d, 0x27, 0x08, 0x9b, 0x7d, 0x4a, 0x88, 0xb4, 0x98, 0x5f, 0xa3, 0x9e, 0xfc, 0x7a, 0xfb, 0xb6,
-	0x54, 0xd2, 0x37, 0xf1, 0xd8, 0x01, 0x83, 0x76, 0xa5, 0x92, 0xd3, 0x14, 0xff, 0x64, 0x62, 0xc0,
-	0x06, 0x4d, 0x59, 0x98, 0x3a, 0xe1, 0x4e, 0xf0, 0xb0, 0xa1, 0xfe, 0xe3, 0x7b, 0x47, 0xbe, 0x75,
-	0x24, 0xdf, 0x0b, 0x74, 0x21, 0xe6, 0x9c, 0x78, 0xe8, 0x28, 0xb7, 0xbe, 0x94, 0x73, 0x4e, 0xa1,
-	0x74, 0x94, 0x5b, 0x47, 0xca, 0xd1, 0x77, 0x9d, 0x7d, 0x1a, 0xa8, 0x23, 0xdc, 0xc7, 0x21, 0xdc,
-	0xae, 0x8f, 0x47, 0xb8, 0x83, 0x1c, 0xf0, 0x73, 0x73, 0x99, 0xf5, 0xad, 0xd9, 0x2d, 0x75, 0xf3,
-	0xb3, 0xc1, 0xe5, 0x74, 0x78, 0x82, 0x4b, 0xfa, 0x23, 0x7d, 0x14, 0xa0, 0x5a, 0xcb, 0x95, 0x15,
-	0xd9, 0xb3, 0xc5, 0xe4, 0x6b, 0x64, 0xdc, 0x84, 0xcc, 0xe0, 0xc5, 0x3a, 0x9e, 0x7e, 0xce, 0x43,
-	0x5f, 0xdd, 0xb9, 0xb4, 0xb5, 0x65, 0x6c, 0x13, 0xf0, 0x35, 0xbd, 0x1c, 0x40, 0x16, 0x2d, 0x16,
-	0x3e, 0x05, 0x03, 0x26, 0x50, 0x2e, 0x62, 0xb9, 0x24, 0x55, 0x91, 0x51, 0xb4, 0xf8, 0x1a, 0x58,
-	0x4e, 0xf3, 0x13, 0xa1, 0x31, 0xef, 0x16, 0x83, 0x07, 0x39, 0x8b, 0x8c, 0xe2, 0x6a, 0xef, 0x85,
-	0xd3, 0xb0, 0x2c, 0x62, 0x94, 0xc7, 0x3a, 0x91, 0x72, 0x65, 0x24, 0x97, 0xca, 0x0a, 0x31, 0x02,
-	0x16, 0x1b, 0x03, 0x16, 0x68, 0xd2, 0xc6, 0x08, 0x23, 0xd0, 0x9b, 0xc7, 0xf3, 0xa8, 0x56, 0x36,
-	0xcc, 0x1e, 0xf8, 0x77, 0x69, 0x7b, 0x2c, 0x3b, 0x6b, 0xf7, 0x08, 0xc4, 0x49, 0x2d, 0x97, 0xd7,
-	0x2a, 0x48, 0x51, 0xad, 0x7d, 0x5a, 0xbf, 0x98, 0x0e, 0xa2, 0x4e, 0xcc, 0x7f, 0x71, 0x00, 0xee,
-	0x31, 0xc1, 0x6b, 0x46, 0xc9, 0x40, 0xe6, 0xf9, 0x8f, 0xc0, 0x7c, 0xb8, 0x0d, 0xe6, 0x23, 0x6d,
-	0x31, 0xff, 0x14, 0x0f, 0x31, 0xfb, 0xb0, 0xe5, 0x35, 0xc3, 0xfb, 0x56, 0xe8, 0x41, 0x35, 0xa3,
-	0x28, 0x99, 0xbc, 0x06, 0x30, 0x0e, 0xd4, 0x9c, 0x61, 0xd6, 0x60, 0x91, 0xc2, 0x1f, 0x41, 0xa4,
-	0x48, 0x1b, 0x22, 0x45, 0xdb, 0x12, 0x69, 0x1f, 0x9d, 0x86, 0x39, 0x67, 0x5a, 0x3b, 0x3b, 0x7e,
-	0x2d, 0x1f, 0x38, 0x19, 0xdf, 0x96, 0x5c, 0xcd, 0x03, 0x27, 0x17, 0x39, 0x88, 0x98, 0xe7, 0x7e,
-	0x3b, 0x33, 0xaa, 0xd5, 0x9e, 0x51, 0xa5, 0x52, 0xe3, 0xdb, 0x9b, 0xee, 0xde, 0x2c, 0xf1, 0xd0,
-	0xe3, 0x39, 0x89, 0xdd, 0x91, 0x60, 0xed, 0x25, 0xb8, 0xc4, 0x41, 0xcc, 0x3e, 0xd6, 0xde, 0xe1,
-	0x7f, 0xed, 0xf9, 0x67, 0xf9, 0x87, 0x5d, 0x10, 0xe8, 0x90, 0xbf, 0xe6, 0xe4, 0xff, 0x9b, 0x83,
-	0xa8, 0x79, 0xfd, 0xa2, 0xc3, 0xfe, 0xda, 0xb3, 0xff, 0x32, 0x07, 0x11, 0x76, 0xa7, 0xe5, 0xda,
-	0x39, 0xb3, 0xb8, 0xaa, 0x8b, 0xbc, 0x06, 0x67, 0xfb, 0x93, 0x4d, 0x49, 0xfd, 0x1d, 0x0f, 0x71,
-	0xe7, 0xf2, 0x4f, 0x27, 0xaa, 0xaf, 0x28, 0xaa, 0xdd, 0xef, 0x78, 0xd1, 0x86, 0xdf, 0xf1, 0x6c,
-	0x91, 0xba, 0xbd, 0xc7, 0x35, 0xb6, 0xa5, 0x52, 0xad, 0xed, 0x24, 0xc5, 0xda, 0xdc, 0x49, 0x3a,
-	0x12, 0x86, 0xfe, 0x15, 0x17, 0xb4, 0xae, 0xda, 0xc1, 0xc3, 0x96, 0x6b, 0x4e, 0x4f, 0xfd, 0xbf,
-	0xde, 0x4b, 0x01, 0x53, 0x0d, 0xc5, 0xe1, 0xdb, 0x18, 0x6d, 0xe1, 0x16, 0xa3, 0xa8, 0xc9, 0xb5,
-	0x23, 0xe7, 0xfb, 0x63, 0xd4, 0xf3, 0xfd, 0x31, 0xb9, 0x63, 0x3c, 0xb1, 0xc3, 0xa7, 0xe4, 0x56,
-	0xe8, 0xf1, 0x5e, 0x36, 0xf3, 0x1f, 0x5f, 0x03, 0xdd, 0xbd, 0x58, 0x36, 0x09, 0x82, 0xac, 0xa9,
-	0x2a, 0x96, 0x0d, 0xc9, 0x70, 0x2e, 0xa9, 0x59, 0xba, 0x9b, 0x3f, 0x32, 0x8f, 0xca, 0xc4, 0x7b,
-	0xfc, 0x78, 0xc0, 0xc2, 0xef, 0xb1, 0xef, 0xa7, 0xf9, 0x96, 0x37, 0xf1, 0xd6, 0x97, 0x37, 0x47,
-	0xc3, 0xb0, 0x31, 0xf0, 0x12, 0x5e, 0x27, 0x6c, 0x3a, 0x61, 0xd3, 0x38, 0x6c, 0xe8, 0x5b, 0xc4,
-	0xb9, 0x70, 0xd9, 0x09, 0x95, 0xb5, 0x0e, 0x15, 0xf7, 0xc5, 0xd3, 0xdd, 0xf0, 0xc5, 0xb3, 0x52,
-	0xdd, 0x58, 0xeb, 0xea, 0x3a, 0x6f, 0x11, 0xcf, 0x05, 0xd8, 0x8e, 0xc6, 0x9d, 0x74, 0xd0, 0x30,
-	0x60, 0xfe, 0xc6, 0x41, 0xd4, 0xbc, 0x09, 0x7d, 0x2d, 0x1e, 0xfe, 0xd4, 0x6a, 0x46, 0xb5, 0x16,
-	0xb4, 0x89, 0x6f, 0x59, 0xda, 0xdf, 0xb8, 0x1c, 0x77, 0x4e, 0x94, 0x9a, 0xb1, 0x22, 0x2e, 0xa7,
-	0x7b, 0x26, 0xe2, 0x35, 0x32, 0x82, 0x11, 0x31, 0x46, 0x12, 0xfe, 0xf3, 0xa5, 0x75, 0xd7, 0xca,
-	0xc7, 0x60, 0x93, 0xac, 0x55, 0x46, 0x89, 0xa1, 0x6b, 0x6a, 0x21, 0x5f, 0x19, 0x45, 0x55, 0x65,
-	0x74, 0x21, 0x31, 0x5a, 0x2d, 0xd7, 0x2a, 0x39, 0x45, 0x2d, 0x4c, 0xf6, 0x4f, 0x99, 0xff, 0xaf,
-	0x66, 0xd6, 0x2a, 0xc8, 0x45, 0xd9, 0xff, 0x9d, 0x49, 0xfd, 0x37, 0x00, 0x00, 0xff, 0xff, 0x1a,
-	0x60, 0x89, 0x29, 0xc9, 0x46, 0x00, 0x00,
+	// 2719 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x5c, 0x6d, 0x6c, 0x23, 0xc5,
+	0x19, 0x8e, 0x77, 0x6d, 0xc7, 0x7e, 0x93, 0x5c, 0x92, 0x0d, 0x27, 0x16, 0x7a, 0xa2, 0xa7, 0x88,
+	0x8f, 0x43, 0xd7, 0x7c, 0x38, 0x3e, 0x92, 0x5c, 0xfa, 0x83, 0xda, 0x24, 0x9c, 0xd5, 0xf0, 0x11,
+	0x9c, 0x93, 0xfa, 0xd3, 0x1a, 0xaf, 0x27, 0xf6, 0xd6, 0xf6, 0xae, 0x6f, 0x67, 0x1d, 0x1a, 0x7e,
+	0x05, 0x10, 0x6d, 0x7f, 0xd0, 0x1f, 0x8d, 0xee, 0x10, 0x55, 0x5b, 0x41, 0x91, 0xae, 0x05, 0x2a,
+	0x0e, 0x24, 0xa0, 0xf4, 0x5a, 0x54, 0xb5, 0x54, 0xa8, 0x55, 0x11, 0x2d, 0x05, 0x51, 0x5a, 0xb5,
+	0xd0, 0x4a, 0x14, 0xb5, 0xb4, 0x85, 0xf2, 0x51, 0x28, 0x50, 0x51, 0xaa, 0x99, 0xd9, 0x2f, 0x67,
+	0xd7, 0x3e, 0xfb, 0x2e, 0x44, 0x97, 0xab, 0xff, 0x79, 0xe7, 0x7d, 0xde, 0xd9, 0x99, 0xe7, 0x79,
+	0x67, 0xf6, 0xdd, 0x99, 0x59, 0xc3, 0x40, 0xc1, 0x50, 0x57, 0xb1, 0x41, 0xc6, 0x6b, 0x86, 0x6e,
+	0xea, 0x92, 0xb0, 0x9a, 0xb8, 0xf0, 0x53, 0xec, 0xa7, 0x32, 0x56, 0xc4, 0xda, 0x18, 0xb9, 0x11,
+	0x15, 0x8b, 0xd8, 0x98, 0xd0, 0x6b, 0xa6, 0xaa, 0x6b, 0x64, 0x02, 0x69, 0x9a, 0x6e, 0x22, 0xf6,
+	0x9b, 0x7b, 0x5c, 0x38, 0x60, 0x99, 0xf8, 0xe5, 0xe8, 0x5b, 0x83, 0x10, 0xcb, 0x62, 0xa2, 0xd7,
+	0x0d, 0x05, 0x4b, 0x97, 0x41, 0x14, 0x99, 0x25, 0xac, 0x21, 0xf9, 0xcb, 0x5f, 0xfc, 0xd6, 0xe5,
+	0x7b, 0x43, 0xfb, 0xfa, 0xa6, 0x60, 0x7c, 0x35, 0x31, 0x9e, 0x62, 0x85, 0x99, 0x9e, 0xac, 0x65,
+	0x96, 0x26, 0x20, 0x9e, 0x57, 0x8b, 0xb9, 0x23, 0x75, 0x6c, 0xac, 0xc9, 0xef, 0x1e, 0x7d, 0xf2,
+	0xd9, 0x10, 0x03, 0xf7, 0x53, 0x70, 0x5a, 0x2d, 0xde, 0x40, 0xcb, 0x33, 0x3d, 0xd9, 0x58, 0xde,
+	0xfa, 0x2d, 0x25, 0x20, 0xae, 0x20, 0x42, 0x90, 0x56, 0x30, 0x90, 0xfc, 0xe6, 0x57, 0x9e, 0xfa,
+	0x2d, 0x77, 0x18, 0xa0, 0x0e, 0x57, 0xd9, 0x86, 0x4c, 0x4f, 0xd6, 0x45, 0x49, 0x97, 0x40, 0xa4,
+	0x60, 0xd4, 0xd5, 0x82, 0xfc, 0xd1, 0x9f, 0x9f, 0xfb, 0x90, 0xc3, 0xe3, 0x14, 0x3e, 0x4f, 0x0b,
+	0x33, 0x3d, 0x59, 0x6e, 0xa5, 0x4d, 0x29, 0xac, 0x69, 0xa8, 0xaa, 0xe7, 0x0a, 0x79, 0xf9, 0xf1,
+	0x87, 0x6e, 0x7f, 0xc2, 0xd3, 0x94, 0x79, 0x66, 0x98, 0x4f, 0xd3, 0xa6, 0x70, 0xd0, 0x7c, 0x9e,
+	0x3a, 0xa0, 0x2a, 0xba, 0x49, 0xd7, 0x72, 0x98, 0xc8, 0x8f, 0x1d, 0xbb, 0xeb, 0x6e, 0x8f, 0x43,
+	0x8a, 0x19, 0x16, 0x96, 0xa9, 0x03, 0x07, 0x2d, 0x10, 0x69, 0x3f, 0xf4, 0xe2, 0x0a, 0x22, 0xa6,
+	0xaa, 0xc8, 0x77, 0xfe, 0xe4, 0x49, 0xab, 0xfe, 0x3e, 0x0a, 0x5f, 0xe0, 0xc5, 0x99, 0x9e, 0xac,
+	0x8d, 0x90, 0xae, 0x84, 0xc1, 0x92, 0x69, 0xd6, 0x72, 0x79, 0x44, 0x54, 0x25, 0x87, 0xea, 0x66,
+	0x49, 0xbe, 0xfd, 0xfe, 0x97, 0x9f, 0xe7, 0x4e, 0xc3, 0xd4, 0x29, 0x73, 0xf8, 0xf0, 0x52, 0x9a,
+	0x5a, 0x53, 0x75, 0xb3, 0x94, 0xe9, 0xc9, 0x0e, 0x50, 0xbc, 0x53, 0x20, 0x4d, 0x43, 0x3f, 0xab,
+	0x40, 0xd3, 0xb9, 0xf7, 0x37, 0xef, 0x7f, 0xe5, 0x57, 0xdc, 0x7b, 0x97, 0xed, 0x7d, 0x9d, 0x6e,
+	0xb9, 0x02, 0x45, 0xf2, 0x2b, 0x69, 0x1c, 0xe2, 0xcc, 0x8f, 0x39, 0xbd, 0xfe, 0xc4, 0x2d, 0x65,
+	0xb7, 0x57, 0xd4, 0xc7, 0xf2, 0x88, 0x51, 0x0c, 0xc3, 0x27, 0x01, 0xca, 0xf5, 0x3c, 0x36, 0x34,
+	0x6c, 0x62, 0x22, 0x1f, 0x7d, 0xe1, 0x84, 0xe6, 0xde, 0x64, 0xd1, 0x31, 0xd0, 0x9b, 0xb8, 0x30,
+	0xe9, 0x06, 0xd8, 0xed, 0x5e, 0x79, 0xfb, 0xf8, 0xcf, 0xe7, 0xfe, 0xfb, 0x27, 0xde, 0xca, 0xf3,
+	0x1b, 0x2b, 0xf0, 0xf6, 0x74, 0xa4, 0xec, 0x2f, 0x96, 0x12, 0x00, 0xb6, 0x1c, 0x65, 0x22, 0xbf,
+	0x71, 0xfc, 0xe6, 0x05, 0x37, 0x32, 0x2c, 0x39, 0x16, 0xa9, 0x1e, 0x96, 0x68, 0x0b, 0x65, 0x42,
+	0x5d, 0x8a, 0xba, 0x5e, 0xac, 0xe0, 0x5c, 0xb1, 0x8c, 0xe5, 0x63, 0x27, 0xbe, 0x9a, 0x76, 0x5d,
+	0x0e, 0x31, 0xc3, 0xa1, 0xc5, 0x05, 0xea, 0xc2, 0x51, 0x87, 0xca, 0x98, 0xc6, 0x5f, 0x15, 0x57,
+	0x15, 0xa4, 0x94, 0x70, 0x41, 0xbe, 0xeb, 0xf8, 0xbd, 0xef, 0x78, 0xe2, 0xef, 0x5a, 0xdb, 0x40,
+	0x5d, 0x1c, 0x94, 0x34, 0x0f, 0xc3, 0x55, 0x5d, 0x2b, 0xea, 0xb9, 0x0a, 0x2e, 0x22, 0x65, 0x2d,
+	0x57, 0xd2, 0x89, 0x29, 0xff, 0xe0, 0xe4, 0x9d, 0x06, 0xf3, 0x1c, 0x61, 0x9e, 0xd4, 0x7e, 0x0d,
+	0x33, 0x67, 0x74, 0x62, 0x66, 0x7a, 0xb2, 0x83, 0xd5, 0xc6, 0x22, 0xe9, 0x73, 0x70, 0x7e, 0x43,
+	0x2d, 0x06, 0xae, 0x55, 0x54, 0x05, 0x11, 0x6c, 0xca, 0x4f, 0x1f, 0xfb, 0xd1, 0x49, 0xde, 0x8c,
+	0x0b, 0x36, 0x55, 0x96, 0x75, 0x40, 0x99, 0x9e, 0xec, 0xee, 0x6a, 0x90, 0x81, 0x92, 0xc0, 0x2b,
+	0x66, 0xed, 0xba, 0xf7, 0x97, 0x8f, 0x8e, 0x7a, 0x7a, 0x44, 0x0d, 0x56, 0x8b, 0xe2, 0x55, 0xfb,
+	0x42, 0x5a, 0xb0, 0x7b, 0x64, 0x35, 0x22, 0x47, 0x5b, 0xf1, 0xd4, 0xad, 0x6f, 0xfe, 0x2b, 0xb4,
+	0xa9, 0x4b, 0xd6, 0x6d, 0x96, 0xb1, 0xdb, 0x25, 0xb7, 0x88, 0x0e, 0xcc, 0xea, 0x1a, 0x39, 0x52,
+	0x91, 0x7f, 0xba, 0x7e, 0xf4, 0xfb, 0x9e, 0x81, 0x79, 0x2d, 0x2d, 0xa4, 0x03, 0x93, 0x59, 0xa5,
+	0x19, 0xe8, 0x47, 0x75, 0x43, 0x37, 0x50, 0x8e, 0xa3, 0x5f, 0xbb, 0xe7, 0x0f, 0x31, 0x06, 0x1e,
+	0x64, 0xd2, 0x32, 0x93, 0xed, 0xd2, 0x87, 0xdc, 0x4b, 0x69, 0x1c, 0x62, 0x4a, 0xa5, 0x4e, 0x4c,
+	0x43, 0xfd, 0x82, 0x7c, 0xf4, 0xbe, 0xd7, 0x3f, 0xf4, 0x8c, 0xcf, 0xab, 0xac, 0x72, 0x1a, 0xc9,
+	0x36, 0x86, 0xb5, 0x07, 0x19, 0x2a, 0x92, 0x8f, 0xbe, 0xf8, 0xed, 0x97, 0xbc, 0xed, 0xa1, 0x85,
+	0xac, 0x3d, 0xf4, 0x87, 0xb4, 0x0f, 0xa2, 0x55, 0x5c, 0xa5, 0x2d, 0x79, 0xe0, 0xe4, 0x1f, 0xd7,
+	0x43, 0xee, 0xec, 0x76, 0x2d, 0x2b, 0xa5, 0xb3, 0x1b, 0xb7, 0xd3, 0x69, 0x50, 0x37, 0x90, 0x52,
+	0xc1, 0xf2, 0xc6, 0x6d, 0x8f, 0x63, 0x17, 0x78, 0x3d, 0x2b, 0xa4, 0x40, 0x6e, 0xa6, 0x2d, 0xad,
+	0xe9, 0xc4, 0x2c, 0x1a, 0x98, 0xc8, 0xf7, 0xdd, 0xf6, 0xf4, 0x2b, 0x9e, 0x96, 0x2e, 0x59, 0xe5,
+	0xb4, 0xa5, 0x36, 0x46, 0x4a, 0xc1, 0xa0, 0x45, 0x89, 0xe3, 0xf6, 0xe8, 0x77, 0x1f, 0x78, 0x92,
+	0xbb, 0x49, 0x2e, 0x2d, 0x1e, 0xe7, 0x5d, 0xa8, 0xa1, 0x84, 0x06, 0x72, 0xd1, 0xc0, 0x58, 0xab,
+	0x55, 0xea, 0x55, 0xf9, 0x8d, 0x97, 0xfe, 0xf6, 0x0f, 0x4f, 0x20, 0x1f, 0xb2, 0x0d, 0x2c, 0xf6,
+	0xed, 0x0b, 0x36, 0xf7, 0xea, 0x4a, 0xd9, 0xd0, 0x91, 0x52, 0x92, 0xef, 0xf8, 0xe0, 0xed, 0xdf,
+	0x79, 0xe7, 0x5e, 0xdb, 0xc0, 0xe6, 0x5e, 0xfb, 0x82, 0x76, 0xcc, 0xc0, 0x05, 0x52, 0x52, 0x57,
+	0x4c, 0xf9, 0xc1, 0xd7, 0xee, 0xf8, 0x9a, 0xa7, 0x63, 0x59, 0xab, 0x9c, 0x76, 0xcc, 0xc6, 0x50,
+	0xc6, 0x6a, 0x06, 0x26, 0xa6, 0x2e, 0xbf, 0xba, 0xfe, 0xd4, 0x2e, 0x97, 0xb1, 0x25, 0x56, 0x48,
+	0x19, 0xe3, 0x66, 0xe9, 0x93, 0x20, 0x1a, 0x85, 0x9a, 0x7c, 0xf7, 0xaf, 0x4f, 0xfe, 0x95, 0xd7,
+	0xd9, 0xcb, 0xea, 0x9c, 0x5f, 0xca, 0xf4, 0x64, 0xa9, 0x45, 0xba, 0x18, 0x22, 0x06, 0x2e, 0xa8,
+	0x44, 0x7e, 0xe4, 0xdd, 0xaf, 0xa7, 0x5d, 0x2d, 0xb3, 0xb4, 0x8c, 0x6a, 0xc9, 0x8c, 0xd2, 0xd5,
+	0x30, 0x6c, 0x4d, 0xb8, 0x74, 0xac, 0xe6, 0xb8, 0xc7, 0xcf, 0x5e, 0x7c, 0x70, 0x80, 0x79, 0x9c,
+	0xe7, 0x99, 0x9b, 0xa9, 0xdd, 0x76, 0x1e, 0xc2, 0x9b, 0xca, 0x28, 0x35, 0x44, 0xd3, 0x6f, 0x5c,
+	0xa9, 0xa0, 0x32, 0x96, 0x5f, 0x7a, 0xf4, 0xd5, 0xf7, 0x3c, 0xd4, 0x2c, 0xdb, 0x06, 0x4a, 0x8d,
+	0x83, 0x92, 0xa6, 0x00, 0xc8, 0x91, 0x4a, 0x8e, 0x60, 0x63, 0x15, 0x1b, 0xf2, 0xf1, 0x63, 0x3f,
+	0xfe, 0xa1, 0xd7, 0xe7, 0x86, 0x6b, 0x96, 0x99, 0x81, 0xf9, 0x1c, 0xa9, 0xf0, 0x0b, 0xe9, 0x22,
+	0x10, 0x09, 0x29, 0xc9, 0x1f, 0x3d, 0xf2, 0xfc, 0x4d, 0x6e, 0xa7, 0x97, 0x97, 0x33, 0xb4, 0xd3,
+	0x84, 0x94, 0x28, 0x7d, 0x64, 0x2d, 0x8f, 0x08, 0x96, 0xff, 0xf2, 0xfe, 0x33, 0x25, 0x97, 0xbe,
+	0x65, 0x56, 0x48, 0xe9, 0xe3, 0x66, 0x69, 0x0c, 0x62, 0x26, 0x36, 0x50, 0x01, 0x99, 0x48, 0xfe,
+	0xc6, 0x9b, 0xdf, 0xb9, 0xc8, 0x95, 0xe5, 0xb0, 0x55, 0x4c, 0x65, 0xb1, 0x21, 0x73, 0xf0, 0xc1,
+	0x7b, 0x0f, 0xf7, 0x46, 0xee, 0x7d, 0xfb, 0xe1, 0xde, 0x50, 0x1a, 0xa8, 0xa4, 0xfc, 0x39, 0x3f,
+	0xfa, 0x77, 0x01, 0xa2, 0xfc, 0x99, 0x2e, 0xed, 0x01, 0x41, 0x2d, 0xc8, 0xeb, 0xeb, 0xc2, 0xde,
+	0xd0, 0xbe, 0x78, 0x1a, 0xde, 0xa2, 0x0e, 0x0f, 0x51, 0x87, 0xac, 0xa0, 0x16, 0xa4, 0xbd, 0x10,
+	0xd6, 0x50, 0x15, 0xcb, 0x37, 0x07, 0xd8, 0x99, 0x85, 0x3e, 0x1c, 0x4b, 0x18, 0x55, 0xcc, 0xd2,
+	0x9a, 0x7c, 0x0b, 0x03, 0xc5, 0xd2, 0x83, 0x1b, 0x29, 0xe1, 0x33, 0x21, 0x0f, 0xd2, 0x46, 0x48,
+	0x97, 0x03, 0x20, 0x45, 0xc1, 0x84, 0xe4, 0xca, 0x78, 0x4d, 0x0e, 0xf9, 0xaa, 0x8c, 0x73, 0xeb,
+	0x22, 0x5e, 0x93, 0xa6, 0x61, 0x98, 0x60, 0xc5, 0xc0, 0x66, 0xce, 0xe3, 0xe1, 0x6f, 0xc4, 0x20,
+	0x07, 0xa5, 0x1c, 0xbf, 0x51, 0x88, 0xea, 0x75, 0xb3, 0x56, 0x37, 0x65, 0xd1, 0x07, 0xb6, 0x2c,
+	0xd2, 0x04, 0x0c, 0xd4, 0x74, 0xc3, 0xcc, 0xe9, 0xab, 0xd8, 0x30, 0xd4, 0x02, 0x96, 0xc3, 0x7b,
+	0x43, 0xfb, 0x22, 0x0d, 0xd0, 0x7e, 0x0a, 0xb8, 0xde, 0xb2, 0x4b, 0x93, 0x10, 0x35, 0x70, 0x51,
+	0xd5, 0x35, 0x39, 0xc2, 0x2a, 0x95, 0x37, 0x52, 0x7d, 0x73, 0xf1, 0x3a, 0x19, 0xc3, 0x88, 0x98,
+	0x63, 0x09, 0xef, 0x2d, 0x38, 0xce, 0xcb, 0xfc, 0xe8, 0x0b, 0x02, 0xc4, 0xec, 0xa4, 0x68, 0x7b,
+	0xf9, 0xde, 0x0f, 0x7d, 0x35, 0x43, 0x5d, 0x45, 0x26, 0x6e, 0x42, 0x38, 0x58, 0x66, 0xca, 0xdc,
+	0xc5, 0xd0, 0x5b, 0x33, 0xf4, 0xcf, 0x63, 0xc5, 0x0c, 0xe0, 0xd9, 0x36, 0xf9, 0xb9, 0x13, 0x4f,
+	0xc1, 0xdd, 0xa5, 0x10, 0xc3, 0x5a, 0xa1, 0xa6, 0xab, 0x9a, 0xc9, 0x78, 0x6e, 0xac, 0xd7, 0xb1,
+	0x51, 0x5c, 0x9d, 0x60, 0x83, 0x75, 0x3f, 0xe2, 0xc7, 0xd9, 0xb6, 0x06, 0x66, 0x6f, 0x13, 0x21,
+	0xee, 0x64, 0x8f, 0xdb, 0x4b, 0xed, 0xa5, 0x10, 0xa3, 0x0f, 0x5e, 0x56, 0xa5, 0x9f, 0x57, 0xc7,
+	0xd6, 0xd0, 0x2d, 0xa1, 0x79, 0xb7, 0x28, 0xae, 0x86, 0x08, 0xb9, 0x51, 0x37, 0x0a, 0x01, 0x91,
+	0xeb, 0xd8, 0x3a, 0x8f, 0xdd, 0xcb, 0x20, 0x4c, 0xaf, 0x19, 0xa7, 0x91, 0xf4, 0xc8, 0x46, 0x2a,
+	0x3a, 0x17, 0x3e, 0x38, 0x79, 0x60, 0xca, 0xdb, 0x7d, 0x0a, 0x90, 0xc6, 0xa0, 0xdf, 0xac, 0x90,
+	0x9c, 0x81, 0x8f, 0xd4, 0x55, 0x03, 0x17, 0xe4, 0x28, 0x63, 0xc0, 0x5b, 0x71, 0x9f, 0x59, 0x21,
+	0x59, 0xcb, 0xdc, 0xa0, 0xc3, 0xb3, 0x02, 0x44, 0x58, 0x5a, 0x7e, 0x76, 0x6a, 0xe0, 0xe3, 0x4c,
+	0x38, 0x75, 0xcc, 0x3a, 0xa2, 0x89, 0x6d, 0x8a, 0x16, 0x6e, 0x21, 0x5a, 0x90, 0x06, 0xb3, 0x93,
+	0xb3, 0x3e, 0x0d, 0x1a, 0x48, 0x7d, 0x59, 0x80, 0x98, 0xfd, 0x02, 0x73, 0x2e, 0x4e, 0xd3, 0xd6,
+	0x8c, 0x1a, 0x30, 0x4d, 0x73, 0x4b, 0xdb, 0x33, 0x87, 0x4f, 0xde, 0x48, 0x6b, 0x79, 0x7d, 0x2c,
+	0xdb, 0x6f, 0x7d, 0xdb, 0xcb, 0xb2, 0x4b, 0x41, 0xa8, 0x29, 0x05, 0xa7, 0x4b, 0xaf, 0x97, 0x3a,
+	0xb1, 0x05, 0x75, 0x8d, 0x4a, 0x87, 0x5b, 0x29, 0x7d, 0x46, 0x2c, 0xdf, 0x2a, 0x42, 0xaf, 0x95,
+	0x90, 0x75, 0xa7, 0xe9, 0xf6, 0xa7, 0xe9, 0xa9, 0xc9, 0xc9, 0xad, 0x9c, 0xa6, 0x7f, 0x21, 0xc2,
+	0x40, 0xc3, 0xea, 0xc3, 0xf6, 0x6a, 0xb1, 0x07, 0xc4, 0xba, 0x51, 0x09, 0x90, 0x81, 0x16, 0x4b,
+	0x9f, 0x86, 0x21, 0x0e, 0x54, 0x4a, 0x58, 0x29, 0xe7, 0x6a, 0xc8, 0x2c, 0x59, 0x4a, 0x0c, 0x6d,
+	0xa4, 0xc4, 0xb9, 0xd0, 0x84, 0x37, 0xde, 0x3d, 0xc8, 0x25, 0x64, 0x96, 0xb6, 0x7c, 0xc2, 0x9e,
+	0x81, 0xe1, 0x12, 0x46, 0x05, 0x6c, 0x90, 0x5c, 0xbe, 0x82, 0x94, 0x72, 0x45, 0x25, 0x66, 0x40,
+	0x56, 0x32, 0x64, 0x81, 0xd2, 0x36, 0x86, 0xaa, 0x53, 0xc0, 0x2b, 0xa8, 0x5e, 0x31, 0x79, 0x0f,
+	0xa2, 0x3e, 0x9f, 0x3e, 0xcb, 0xce, 0xda, 0x3d, 0x06, 0x71, 0x52, 0xcf, 0x17, 0xf4, 0x2a, 0x52,
+	0x35, 0xb9, 0x97, 0x61, 0x7d, 0xfc, 0xb9, 0x88, 0x06, 0x31, 0xff, 0x2d, 0x00, 0xb8, 0x8b, 0x41,
+	0xe7, 0x8c, 0x92, 0x81, 0xcc, 0x8b, 0xa7, 0xc1, 0x7c, 0xb8, 0x03, 0xe6, 0x23, 0x1d, 0x31, 0x7f,
+	0x8f, 0x08, 0x31, 0x7b, 0x49, 0xed, 0x9c, 0xe1, 0x7d, 0x3f, 0xf4, 0xa1, 0xba, 0x59, 0xca, 0x71,
+	0x5e, 0x03, 0x18, 0x07, 0x6a, 0xce, 0x30, 0x6b, 0xb0, 0x48, 0xe1, 0xd3, 0x10, 0x29, 0xd2, 0x81,
+	0x48, 0xd1, 0x8e, 0x44, 0xfa, 0x4d, 0x18, 0xc0, 0x5d, 0x85, 0x3c, 0x5b, 0x1f, 0x3a, 0x7c, 0xce,
+	0xe7, 0xe9, 0xa8, 0xb4, 0x91, 0x8a, 0xcc, 0x89, 0x07, 0x0e, 0x24, 0x7d, 0x53, 0xfe, 0x95, 0xb0,
+	0x5b, 0xc1, 0x86, 0xa9, 0xae, 0xa8, 0x0a, 0x7d, 0x95, 0xa3, 0x42, 0xe8, 0x86, 0x6a, 0xae, 0x05,
+	0xa8, 0x74, 0x9e, 0x07, 0x98, 0xb2, 0x71, 0xd2, 0x12, 0x5c, 0x14, 0x58, 0x41, 0x6e, 0x45, 0xad,
+	0x60, 0xd6, 0x4c, 0xbf, 0x78, 0x7b, 0x82, 0x6a, 0xba, 0xda, 0xc2, 0x4b, 0x07, 0x41, 0x52, 0x2a,
+	0x2a, 0xd6, 0xcc, 0x9c, 0x07, 0x16, 0x20, 0xe7, 0x30, 0x47, 0x5d, 0xe5, 0x82, 0xa4, 0xcf, 0xc2,
+	0x27, 0xfc, 0xae, 0x6e, 0x4b, 0xfc, 0x33, 0xe6, 0x05, 0xbe, 0x3a, 0x9c, 0x66, 0x5c, 0x0e, 0x60,
+	0xd5, 0x45, 0xf3, 0x97, 0x5e, 0x7f, 0xfe, 0xc2, 0xad, 0x34, 0x7f, 0x99, 0x83, 0x11, 0x17, 0xea,
+	0xde, 0x2e, 0xd6, 0xac, 0xc9, 0x8b, 0xd8, 0xe9, 0x6d, 0x43, 0x60, 0x9d, 0x10, 0x60, 0x24, 0x60,
+	0x79, 0x7b, 0x67, 0x47, 0xd8, 0x16, 0x3f, 0x3f, 0x1b, 0x08, 0x7b, 0x47, 0x84, 0xb8, 0xb3, 0x90,
+	0xbf, 0xed, 0x34, 0x39, 0x69, 0x70, 0xa8, 0xed, 0x34, 0x58, 0xe8, 0xf8, 0x85, 0x47, 0x3c, 0x75,
+	0x46, 0xde, 0x74, 0x0c, 0x87, 0xb7, 0x6c, 0x0c, 0x47, 0x3a, 0x1c, 0xc3, 0xee, 0x0b, 0x48, 0xb4,
+	0xe9, 0x0b, 0xc8, 0x18, 0xf4, 0xb3, 0x75, 0x76, 0x6c, 0xe4, 0xd8, 0x3d, 0xfc, 0x43, 0xac, 0xcf,
+	0xb2, 0x5f, 0xb7, 0x79, 0xa0, 0xfc, 0x5c, 0x84, 0xb8, 0xb3, 0x1b, 0x73, 0x76, 0xea, 0xde, 0x54,
+	0x14, 0x61, 0xcb, 0x44, 0x11, 0x3b, 0x14, 0x65, 0x0e, 0x46, 0x08, 0x36, 0x56, 0x55, 0x05, 0xd3,
+	0x00, 0xd3, 0xeb, 0xd6, 0xd4, 0xe6, 0x8f, 0x92, 0x61, 0x0b, 0x96, 0xe2, 0x28, 0x1a, 0x63, 0x8b,
+	0xb0, 0x27, 0xc0, 0xb7, 0x55, 0x80, 0x5c, 0xe0, 0xab, 0x24, 0x70, 0xce, 0xfb, 0x92, 0x00, 0x71,
+	0x67, 0x97, 0xec, 0x1c, 0x59, 0xe3, 0xd9, 0x67, 0x4d, 0x8d, 0x7c, 0xfd, 0xf2, 0xbc, 0x8d, 0x54,
+	0xef, 0x5c, 0x24, 0x91, 0x98, 0x4a, 0x24, 0x5a, 0x2e, 0xca, 0x9c, 0x08, 0xc3, 0xe0, 0xa6, 0x5d,
+	0xbf, 0xb3, 0x96, 0x0f, 0x96, 0xcf, 0x15, 0x90, 0x89, 0xd8, 0xce, 0x82, 0xff, 0xee, 0xfd, 0x14,
+	0x30, 0x6f, 0xd9, 0x4f, 0x6b, 0x61, 0xd7, 0x79, 0x66, 0x84, 0xdb, 0x7c, 0x66, 0x44, 0x5a, 0xbc,
+	0x73, 0xd9, 0x82, 0x44, 0x3d, 0x82, 0x4c, 0xcd, 0x4c, 0x26, 0x66, 0x7c, 0x4f, 0xab, 0xfd, 0xd0,
+	0xe7, 0xdd, 0xc1, 0xf4, 0xcf, 0x49, 0x60, 0xb8, 0xbb, 0x95, 0x69, 0x90, 0x14, 0x5d, 0xd3, 0xb0,
+	0x62, 0xe6, 0x4c, 0x67, 0xe7, 0x93, 0x3d, 0xf6, 0x63, 0xd6, 0x4d, 0x56, 0x50, 0x85, 0x60, 0x6f,
+	0xda, 0x6a, 0xe1, 0x0f, 0xdb, 0x9b, 0x9e, 0xbe, 0x77, 0xee, 0x78, 0xfb, 0xef, 0xdc, 0x8f, 0x84,
+	0x61, 0x77, 0xe0, 0xce, 0x6e, 0x37, 0x6c, 0xba, 0x61, 0xd3, 0x3c, 0x6c, 0x7e, 0x2f, 0x42, 0xdc,
+	0xd9, 0xc5, 0xef, 0x86, 0xca, 0x76, 0x87, 0xca, 0x28, 0x44, 0x89, 0x52, 0xc2, 0x55, 0x14, 0x10,
+	0x25, 0x96, 0xc5, 0xa7, 0x6e, 0xac, 0x7d, 0x75, 0x9d, 0xa7, 0x88, 0xe7, 0x54, 0x45, 0x57, 0xe3,
+	0xee, 0x74, 0xd0, 0x34, 0x60, 0x3e, 0x10, 0x20, 0xc2, 0x0f, 0xc7, 0xfc, 0x5f, 0xac, 0x9e, 0x5f,
+	0x0a, 0x31, 0x27, 0xe2, 0x02, 0x82, 0xa2, 0xd0, 0x34, 0xda, 0x22, 0x6d, 0xae, 0xb2, 0x47, 0x3d,
+	0xab, 0xec, 0xc9, 0xe4, 0xe4, 0x74, 0xcb, 0x9c, 0x6f, 0x5d, 0x84, 0x3e, 0xcf, 0x71, 0xa5, 0xae,
+	0x04, 0xdb, 0x2f, 0xc1, 0x87, 0x02, 0xc4, 0xec, 0xb3, 0x5f, 0x5d, 0xfe, 0xb7, 0x9f, 0x7f, 0x36,
+	0xff, 0xb0, 0x53, 0x74, 0x5d, 0xf2, 0xb7, 0x9d, 0xfc, 0xff, 0x08, 0x10, 0xe5, 0x67, 0x14, 0xbb,
+	0xec, 0x6f, 0x3f, 0xfb, 0xf7, 0x8b, 0x10, 0xe5, 0x07, 0x3f, 0xbb, 0xec, 0x7b, 0xd9, 0x0f, 0xda,
+	0xb0, 0x4e, 0x5c, 0x31, 0xe5, 0x5b, 0x3e, 0xf1, 0xcb, 0x14, 0x3d, 0x85, 0x4c, 0x9b, 0xf3, 0xa4,
+	0xde, 0xf6, 0xf3, 0xa4, 0xef, 0x89, 0x10, 0x73, 0x8e, 0xca, 0x76, 0xe5, 0xda, 0xea, 0xc1, 0x72,
+	0xc5, 0x81, 0xa4, 0xff, 0xdc, 0xd8, 0x0c, 0x0c, 0xdb, 0x95, 0xba, 0xef, 0x09, 0x7e, 0xcd, 0x86,
+	0x6c, 0x90, 0xfd, 0xae, 0xd0, 0x20, 0xdc, 0xe3, 0x22, 0xec, 0x6a, 0x3c, 0xfb, 0xdc, 0x95, 0x6f,
+	0x07, 0xc9, 0xf7, 0x98, 0x08, 0x71, 0xe7, 0xf4, 0x79, 0x57, 0xb9, 0x1d, 0xa6, 0x9c, 0xf3, 0x11,
+	0x40, 0x57, 0xb9, 0x1d, 0xa4, 0x1c, 0x7d, 0xd6, 0xd9, 0x1f, 0x63, 0x74, 0x85, 0xfb, 0x38, 0x84,
+	0x3b, 0xf8, 0xf1, 0x08, 0x47, 0x33, 0x4a, 0xfe, 0x61, 0xcc, 0x59, 0x2b, 0x9b, 0x23, 0x87, 0xd0,
+	0xa6, 0x1c, 0x62, 0x27, 0x72, 0x9c, 0xce, 0x59, 0xc8, 0xd9, 0xc9, 0xd9, 0xc9, 0x96, 0xc7, 0x16,
+	0xa2, 0x2d, 0x02, 0xec, 0x0c, 0x32, 0xca, 0x67, 0x04, 0x10, 0xb3, 0xf3, 0x4b, 0xdd, 0x53, 0xab,
+	0x6d, 0x2b, 0x95, 0x4c, 0xce, 0x1e, 0x6c, 0xfd, 0x46, 0x25, 0x40, 0x84, 0x7f, 0x7e, 0x75, 0xce,
+	0x7c, 0x2d, 0xd0, 0x16, 0xbb, 0x36, 0x59, 0x61, 0x0f, 0x59, 0xd3, 0xc9, 0x99, 0xd6, 0x64, 0xbd,
+	0x26, 0xc0, 0xd0, 0xe6, 0x4f, 0xd9, 0xba, 0xbc, 0x05, 0xf2, 0x26, 0x4d, 0x6f, 0x1a, 0xe6, 0x11,
+	0xd6, 0x33, 0xee, 0x60, 0x1a, 0x75, 0xdc, 0xce, 0x78, 0x7f, 0x5f, 0x80, 0xb8, 0xf3, 0xe5, 0x5f,
+	0xf7, 0xb1, 0xea, 0x9d, 0xc7, 0xdd, 0x4d, 0xb1, 0x48, 0xd3, 0x4d, 0xb1, 0x4e, 0x5f, 0xf6, 0x7d,
+	0x9b, 0x9e, 0xce, 0x17, 0x94, 0x5d, 0xee, 0xcf, 0x28, 0xa5, 0x71, 0xc5, 0x8a, 0x36, 0x15, 0xcb,
+	0x1e, 0x58, 0xbd, 0xde, 0x25, 0x9c, 0x03, 0xc9, 0x64, 0x7b, 0x69, 0x4f, 0xac, 0xc3, 0xb4, 0xe7,
+	0xb8, 0x00, 0xe2, 0xf2, 0x72, 0x66, 0x67, 0xeb, 0x7a, 0x49, 0xc3, 0xa9, 0xa1, 0xe1, 0x8d, 0x54,
+	0x78, 0x4e, 0x98, 0xf2, 0x27, 0xf8, 0xe3, 0x00, 0xb5, 0x7a, 0xbe, 0xa2, 0x2a, 0x9e, 0xc3, 0x5b,
+	0xfe, 0x93, 0xcb, 0x1c, 0xb2, 0x88, 0xd7, 0x1a, 0x78, 0x7a, 0x4e, 0x80, 0x28, 0xff, 0xf0, 0x77,
+	0x67, 0x53, 0xd5, 0xf1, 0x56, 0x70, 0xd0, 0x3c, 0x3f, 0x35, 0x9d, 0x9c, 0x0d, 0x4a, 0xfb, 0xda,
+	0xd9, 0x0b, 0x6e, 0x60, 0xf5, 0x79, 0x01, 0x62, 0xf6, 0x37, 0xd2, 0xdd, 0x64, 0xae, 0xed, 0x64,
+	0x2e, 0x31, 0x39, 0x75, 0x45, 0xab, 0xfc, 0x24, 0x3d, 0x01, 0x7b, 0x14, 0xbd, 0x3a, 0x4e, 0x4c,
+	0x43, 0xd7, 0x8a, 0x85, 0xea, 0x38, 0xaa, 0xa9, 0xe3, 0xab, 0x89, 0xf1, 0x5a, 0xa5, 0x5e, 0xcd,
+	0xab, 0x5a, 0x31, 0x3d, 0x38, 0xcf, 0xff, 0xaf, 0x66, 0xc9, 0x2a, 0xc8, 0x47, 0xd9, 0xff, 0xce,
+	0x24, 0xff, 0x17, 0x00, 0x00, 0xff, 0xff, 0x03, 0x84, 0xb1, 0x8e, 0xc9, 0x46, 0x00, 0x00,
 }

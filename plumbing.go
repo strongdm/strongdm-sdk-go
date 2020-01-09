@@ -54,20 +54,26 @@ func resourceToPlumbing(porcelain Resource) *proto.Resource {
 	plumbing := &proto.Resource{}
 
 	switch v := porcelain.(type) {
-	case *Sybase:
-		plumbing.Resource = &proto.Resource_Sybase{Sybase: sybaseToPlumbing(v)}
-	case *Presto:
-		plumbing.Resource = &proto.Resource_Presto{Presto: prestoToPlumbing(v)}
-	case *Teradata:
-		plumbing.Resource = &proto.Resource_Teradata{Teradata: teradataToPlumbing(v)}
+	case *Athena:
+		plumbing.Resource = &proto.Resource_Athena{Athena: athenaToPlumbing(v)}
+	case *BigQuery:
+		plumbing.Resource = &proto.Resource_BigQuery{BigQuery: bigQueryToPlumbing(v)}
+	case *Cassandra:
+		plumbing.Resource = &proto.Resource_Cassandra{Cassandra: cassandraToPlumbing(v)}
+	case *Druid:
+		plumbing.Resource = &proto.Resource_Druid{Druid: druidToPlumbing(v)}
+	case *DynamoDB:
+		plumbing.Resource = &proto.Resource_DynamoDb{DynamoDb: dynamoDbToPlumbing(v)}
 	case *AmazonES:
 		plumbing.Resource = &proto.Resource_AmazonEs{AmazonEs: amazonEsToPlumbing(v)}
 	case *Elastic:
 		plumbing.Resource = &proto.Resource_Elastic{Elastic: elasticToPlumbing(v)}
-	case *Redis:
-		plumbing.Resource = &proto.Resource_Redis{Redis: redisToPlumbing(v)}
-	case *ElasticacheRedis:
-		plumbing.Resource = &proto.Resource_ElasticacheRedis{ElasticacheRedis: elasticacheRedisToPlumbing(v)}
+	case *HTTPBasicAuth:
+		plumbing.Resource = &proto.Resource_HttpBasicAuth{HttpBasicAuth: httpBasicAuthToPlumbing(v)}
+	case *HTTPNoAuth:
+		plumbing.Resource = &proto.Resource_HttpNoAuth{HttpNoAuth: httpNoAuthToPlumbing(v)}
+	case *HTTPAuth:
+		plumbing.Resource = &proto.Resource_HttpAuth{HttpAuth: httpAuthToPlumbing(v)}
 	case *Kubernetes:
 		plumbing.Resource = &proto.Resource_Kubernetes{Kubernetes: kubernetesToPlumbing(v)}
 	case *KubernetesBasicAuth:
@@ -76,38 +82,16 @@ func resourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_AmazonEks{AmazonEks: amazonEksToPlumbing(v)}
 	case *GoogleGKE:
 		plumbing.Resource = &proto.Resource_GoogleGke{GoogleGke: googleGkeToPlumbing(v)}
-	case *Oracle:
-		plumbing.Resource = &proto.Resource_Oracle{Oracle: oracleToPlumbing(v)}
-	case *DynamoDB:
-		plumbing.Resource = &proto.Resource_DynamoDb{DynamoDb: dynamoDbToPlumbing(v)}
-	case *RDP:
-		plumbing.Resource = &proto.Resource_Rdp{Rdp: rdpToPlumbing(v)}
-	case *BigQuery:
-		plumbing.Resource = &proto.Resource_BigQuery{BigQuery: bigQueryToPlumbing(v)}
-	case *Snowflake:
-		plumbing.Resource = &proto.Resource_Snowflake{Snowflake: snowflakeToPlumbing(v)}
 	case *Memcached:
 		plumbing.Resource = &proto.Resource_Memcached{Memcached: memcachedToPlumbing(v)}
-	case *Postgres:
-		plumbing.Resource = &proto.Resource_Postgres{Postgres: postgresToPlumbing(v)}
-	case *AuroraPostgres:
-		plumbing.Resource = &proto.Resource_AuroraPostgres{AuroraPostgres: auroraPostgresToPlumbing(v)}
-	case *Greenplum:
-		plumbing.Resource = &proto.Resource_Greenplum{Greenplum: greenplumToPlumbing(v)}
-	case *Cockroach:
-		plumbing.Resource = &proto.Resource_Cockroach{Cockroach: cockroachToPlumbing(v)}
-	case *Redshift:
-		plumbing.Resource = &proto.Resource_Redshift{Redshift: redshiftToPlumbing(v)}
-	case *SSH:
-		plumbing.Resource = &proto.Resource_Ssh{Ssh: sshToPlumbing(v)}
-	case *HTTPBasicAuth:
-		plumbing.Resource = &proto.Resource_HttpBasicAuth{HttpBasicAuth: httpBasicAuthToPlumbing(v)}
-	case *HTTPNoAuth:
-		plumbing.Resource = &proto.Resource_HttpNoAuth{HttpNoAuth: httpNoAuthToPlumbing(v)}
-	case *HTTPAuth:
-		plumbing.Resource = &proto.Resource_HttpAuth{HttpAuth: httpAuthToPlumbing(v)}
-	case *Cassandra:
-		plumbing.Resource = &proto.Resource_Cassandra{Cassandra: cassandraToPlumbing(v)}
+	case *MongoLegacyHost:
+		plumbing.Resource = &proto.Resource_MongoLegacyHost{MongoLegacyHost: mongoLegacyHostToPlumbing(v)}
+	case *MongoLegacyReplicaset:
+		plumbing.Resource = &proto.Resource_MongoLegacyReplicaset{MongoLegacyReplicaset: mongoLegacyReplicasetToPlumbing(v)}
+	case *MongoHost:
+		plumbing.Resource = &proto.Resource_MongoHost{MongoHost: mongoHostToPlumbing(v)}
+	case *MongoReplicaSet:
+		plumbing.Resource = &proto.Resource_MongoReplicaSet{MongoReplicaSet: mongoReplicaSetToPlumbing(v)}
 	case *Mysql:
 		plumbing.Resource = &proto.Resource_Mysql{Mysql: mysqlToPlumbing(v)}
 	case *AuroraMysql:
@@ -118,33 +102,55 @@ func resourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_Maria{Maria: mariaToPlumbing(v)}
 	case *Memsql:
 		plumbing.Resource = &proto.Resource_Memsql{Memsql: memsqlToPlumbing(v)}
-	case *Druid:
-		plumbing.Resource = &proto.Resource_Druid{Druid: druidToPlumbing(v)}
+	case *Oracle:
+		plumbing.Resource = &proto.Resource_Oracle{Oracle: oracleToPlumbing(v)}
+	case *Postgres:
+		plumbing.Resource = &proto.Resource_Postgres{Postgres: postgresToPlumbing(v)}
+	case *AuroraPostgres:
+		plumbing.Resource = &proto.Resource_AuroraPostgres{AuroraPostgres: auroraPostgresToPlumbing(v)}
+	case *Greenplum:
+		plumbing.Resource = &proto.Resource_Greenplum{Greenplum: greenplumToPlumbing(v)}
+	case *Cockroach:
+		plumbing.Resource = &proto.Resource_Cockroach{Cockroach: cockroachToPlumbing(v)}
+	case *Redshift:
+		plumbing.Resource = &proto.Resource_Redshift{Redshift: redshiftToPlumbing(v)}
+	case *Presto:
+		plumbing.Resource = &proto.Resource_Presto{Presto: prestoToPlumbing(v)}
+	case *RDP:
+		plumbing.Resource = &proto.Resource_Rdp{Rdp: rdpToPlumbing(v)}
+	case *Redis:
+		plumbing.Resource = &proto.Resource_Redis{Redis: redisToPlumbing(v)}
+	case *ElasticacheRedis:
+		plumbing.Resource = &proto.Resource_ElasticacheRedis{ElasticacheRedis: elasticacheRedisToPlumbing(v)}
+	case *Snowflake:
+		plumbing.Resource = &proto.Resource_Snowflake{Snowflake: snowflakeToPlumbing(v)}
 	case *SQLServer:
 		plumbing.Resource = &proto.Resource_SqlServer{SqlServer: sqlServerToPlumbing(v)}
-	case *MongoLegacyHost:
-		plumbing.Resource = &proto.Resource_MongoLegacyHost{MongoLegacyHost: mongoLegacyHostToPlumbing(v)}
-	case *MongoLegacyReplicaset:
-		plumbing.Resource = &proto.Resource_MongoLegacyReplicaset{MongoLegacyReplicaset: mongoLegacyReplicasetToPlumbing(v)}
-	case *MongoHost:
-		plumbing.Resource = &proto.Resource_MongoHost{MongoHost: mongoHostToPlumbing(v)}
-	case *MongoReplicaSet:
-		plumbing.Resource = &proto.Resource_MongoReplicaSet{MongoReplicaSet: mongoReplicaSetToPlumbing(v)}
-	case *Athena:
-		plumbing.Resource = &proto.Resource_Athena{Athena: athenaToPlumbing(v)}
+	case *SSH:
+		plumbing.Resource = &proto.Resource_Ssh{Ssh: sshToPlumbing(v)}
+	case *Sybase:
+		plumbing.Resource = &proto.Resource_Sybase{Sybase: sybaseToPlumbing(v)}
+	case *Teradata:
+		plumbing.Resource = &proto.Resource_Teradata{Teradata: teradataToPlumbing(v)}
 	}
 	return plumbing
 }
 
 func resourceToPorcelain(plumbing *proto.Resource) Resource {
-	if plumbing.GetSybase() != nil {
-		return sybaseToPorcelain(plumbing.GetSybase())
+	if plumbing.GetAthena() != nil {
+		return athenaToPorcelain(plumbing.GetAthena())
 	}
-	if plumbing.GetPresto() != nil {
-		return prestoToPorcelain(plumbing.GetPresto())
+	if plumbing.GetBigQuery() != nil {
+		return bigQueryToPorcelain(plumbing.GetBigQuery())
 	}
-	if plumbing.GetTeradata() != nil {
-		return teradataToPorcelain(plumbing.GetTeradata())
+	if plumbing.GetCassandra() != nil {
+		return cassandraToPorcelain(plumbing.GetCassandra())
+	}
+	if plumbing.GetDruid() != nil {
+		return druidToPorcelain(plumbing.GetDruid())
+	}
+	if plumbing.GetDynamoDb() != nil {
+		return dynamoDbToPorcelain(plumbing.GetDynamoDb())
 	}
 	if plumbing.GetAmazonEs() != nil {
 		return amazonEsToPorcelain(plumbing.GetAmazonEs())
@@ -152,11 +158,14 @@ func resourceToPorcelain(plumbing *proto.Resource) Resource {
 	if plumbing.GetElastic() != nil {
 		return elasticToPorcelain(plumbing.GetElastic())
 	}
-	if plumbing.GetRedis() != nil {
-		return redisToPorcelain(plumbing.GetRedis())
+	if plumbing.GetHttpBasicAuth() != nil {
+		return httpBasicAuthToPorcelain(plumbing.GetHttpBasicAuth())
 	}
-	if plumbing.GetElasticacheRedis() != nil {
-		return elasticacheRedisToPorcelain(plumbing.GetElasticacheRedis())
+	if plumbing.GetHttpNoAuth() != nil {
+		return httpNoAuthToPorcelain(plumbing.GetHttpNoAuth())
+	}
+	if plumbing.GetHttpAuth() != nil {
+		return httpAuthToPorcelain(plumbing.GetHttpAuth())
 	}
 	if plumbing.GetKubernetes() != nil {
 		return kubernetesToPorcelain(plumbing.GetKubernetes())
@@ -170,53 +179,20 @@ func resourceToPorcelain(plumbing *proto.Resource) Resource {
 	if plumbing.GetGoogleGke() != nil {
 		return googleGkeToPorcelain(plumbing.GetGoogleGke())
 	}
-	if plumbing.GetOracle() != nil {
-		return oracleToPorcelain(plumbing.GetOracle())
-	}
-	if plumbing.GetDynamoDb() != nil {
-		return dynamoDbToPorcelain(plumbing.GetDynamoDb())
-	}
-	if plumbing.GetRdp() != nil {
-		return rdpToPorcelain(plumbing.GetRdp())
-	}
-	if plumbing.GetBigQuery() != nil {
-		return bigQueryToPorcelain(plumbing.GetBigQuery())
-	}
-	if plumbing.GetSnowflake() != nil {
-		return snowflakeToPorcelain(plumbing.GetSnowflake())
-	}
 	if plumbing.GetMemcached() != nil {
 		return memcachedToPorcelain(plumbing.GetMemcached())
 	}
-	if plumbing.GetPostgres() != nil {
-		return postgresToPorcelain(plumbing.GetPostgres())
+	if plumbing.GetMongoLegacyHost() != nil {
+		return mongoLegacyHostToPorcelain(plumbing.GetMongoLegacyHost())
 	}
-	if plumbing.GetAuroraPostgres() != nil {
-		return auroraPostgresToPorcelain(plumbing.GetAuroraPostgres())
+	if plumbing.GetMongoLegacyReplicaset() != nil {
+		return mongoLegacyReplicasetToPorcelain(plumbing.GetMongoLegacyReplicaset())
 	}
-	if plumbing.GetGreenplum() != nil {
-		return greenplumToPorcelain(plumbing.GetGreenplum())
+	if plumbing.GetMongoHost() != nil {
+		return mongoHostToPorcelain(plumbing.GetMongoHost())
 	}
-	if plumbing.GetCockroach() != nil {
-		return cockroachToPorcelain(plumbing.GetCockroach())
-	}
-	if plumbing.GetRedshift() != nil {
-		return redshiftToPorcelain(plumbing.GetRedshift())
-	}
-	if plumbing.GetSsh() != nil {
-		return sshToPorcelain(plumbing.GetSsh())
-	}
-	if plumbing.GetHttpBasicAuth() != nil {
-		return httpBasicAuthToPorcelain(plumbing.GetHttpBasicAuth())
-	}
-	if plumbing.GetHttpNoAuth() != nil {
-		return httpNoAuthToPorcelain(plumbing.GetHttpNoAuth())
-	}
-	if plumbing.GetHttpAuth() != nil {
-		return httpAuthToPorcelain(plumbing.GetHttpAuth())
-	}
-	if plumbing.GetCassandra() != nil {
-		return cassandraToPorcelain(plumbing.GetCassandra())
+	if plumbing.GetMongoReplicaSet() != nil {
+		return mongoReplicaSetToPorcelain(plumbing.GetMongoReplicaSet())
 	}
 	if plumbing.GetMysql() != nil {
 		return mysqlToPorcelain(plumbing.GetMysql())
@@ -233,26 +209,50 @@ func resourceToPorcelain(plumbing *proto.Resource) Resource {
 	if plumbing.GetMemsql() != nil {
 		return memsqlToPorcelain(plumbing.GetMemsql())
 	}
-	if plumbing.GetDruid() != nil {
-		return druidToPorcelain(plumbing.GetDruid())
+	if plumbing.GetOracle() != nil {
+		return oracleToPorcelain(plumbing.GetOracle())
+	}
+	if plumbing.GetPostgres() != nil {
+		return postgresToPorcelain(plumbing.GetPostgres())
+	}
+	if plumbing.GetAuroraPostgres() != nil {
+		return auroraPostgresToPorcelain(plumbing.GetAuroraPostgres())
+	}
+	if plumbing.GetGreenplum() != nil {
+		return greenplumToPorcelain(plumbing.GetGreenplum())
+	}
+	if plumbing.GetCockroach() != nil {
+		return cockroachToPorcelain(plumbing.GetCockroach())
+	}
+	if plumbing.GetRedshift() != nil {
+		return redshiftToPorcelain(plumbing.GetRedshift())
+	}
+	if plumbing.GetPresto() != nil {
+		return prestoToPorcelain(plumbing.GetPresto())
+	}
+	if plumbing.GetRdp() != nil {
+		return rdpToPorcelain(plumbing.GetRdp())
+	}
+	if plumbing.GetRedis() != nil {
+		return redisToPorcelain(plumbing.GetRedis())
+	}
+	if plumbing.GetElasticacheRedis() != nil {
+		return elasticacheRedisToPorcelain(plumbing.GetElasticacheRedis())
+	}
+	if plumbing.GetSnowflake() != nil {
+		return snowflakeToPorcelain(plumbing.GetSnowflake())
 	}
 	if plumbing.GetSqlServer() != nil {
 		return sqlServerToPorcelain(plumbing.GetSqlServer())
 	}
-	if plumbing.GetMongoLegacyHost() != nil {
-		return mongoLegacyHostToPorcelain(plumbing.GetMongoLegacyHost())
+	if plumbing.GetSsh() != nil {
+		return sshToPorcelain(plumbing.GetSsh())
 	}
-	if plumbing.GetMongoLegacyReplicaset() != nil {
-		return mongoLegacyReplicasetToPorcelain(plumbing.GetMongoLegacyReplicaset())
+	if plumbing.GetSybase() != nil {
+		return sybaseToPorcelain(plumbing.GetSybase())
 	}
-	if plumbing.GetMongoHost() != nil {
-		return mongoHostToPorcelain(plumbing.GetMongoHost())
-	}
-	if plumbing.GetMongoReplicaSet() != nil {
-		return mongoReplicaSetToPorcelain(plumbing.GetMongoReplicaSet())
-	}
-	if plumbing.GetAthena() != nil {
-		return athenaToPorcelain(plumbing.GetAthena())
+	if plumbing.GetTeradata() != nil {
+		return teradataToPorcelain(plumbing.GetTeradata())
 	}
 	return nil
 }
@@ -273,151 +273,245 @@ func repeatedResourceToPorcelain(plumbings []*proto.Resource) []Resource {
 	}
 	return items
 }
-func sybaseToPorcelain(plumbing *proto.Sybase) *Sybase {
+func athenaToPorcelain(plumbing *proto.Athena) *Athena {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &Sybase{}
+	porcelain := &Athena{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
-	porcelain.Hostname = plumbing.Hostname
-	porcelain.Username = plumbing.Username
+	porcelain.AccessKey = plumbing.AccessKey
+	porcelain.SecretAccessKey = plumbing.SecretAccessKey
+	porcelain.Output = plumbing.Output
 	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Port = plumbing.Port
-	porcelain.Password = plumbing.Password
+	porcelain.Region = plumbing.Region
 	return porcelain
 }
 
-func sybaseToPlumbing(porcelain *Sybase) *proto.Sybase {
+func athenaToPlumbing(porcelain *Athena) *proto.Athena {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.Sybase{}
+	plumbing := &proto.Athena{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
-	plumbing.Hostname = porcelain.Hostname
-	plumbing.Username = porcelain.Username
+	plumbing.AccessKey = porcelain.AccessKey
+	plumbing.SecretAccessKey = porcelain.SecretAccessKey
+	plumbing.Output = porcelain.Output
 	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Port = porcelain.Port
-	plumbing.Password = porcelain.Password
+	plumbing.Region = porcelain.Region
 	return plumbing
 }
-func repeatedSybaseToPlumbing(
-	porcelains []*Sybase,
-) []*proto.Sybase {
-	var items []*proto.Sybase
+func repeatedAthenaToPlumbing(
+	porcelains []*Athena,
+) []*proto.Athena {
+	var items []*proto.Athena
 	for _, porcelain := range porcelains {
-		items = append(items, sybaseToPlumbing(porcelain))
+		items = append(items, athenaToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedSybaseToPorcelain(plumbings []*proto.Sybase) []*Sybase {
-	var items []*Sybase
+func repeatedAthenaToPorcelain(plumbings []*proto.Athena) []*Athena {
+	var items []*Athena
 	for _, plumbing := range plumbings {
-		items = append(items, sybaseToPorcelain(plumbing))
+		items = append(items, athenaToPorcelain(plumbing))
 	}
 	return items
 }
-func prestoToPorcelain(plumbing *proto.Presto) *Presto {
+func bigQueryToPorcelain(plumbing *proto.BigQuery) *BigQuery {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &Presto{}
+	porcelain := &BigQuery{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.PrivateKey = plumbing.PrivateKey
+	porcelain.Project = plumbing.Project
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Endpoint = plumbing.Endpoint
+	porcelain.Username = plumbing.Username
+	return porcelain
+}
+
+func bigQueryToPlumbing(porcelain *BigQuery) *proto.BigQuery {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.BigQuery{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.PrivateKey = porcelain.PrivateKey
+	plumbing.Project = porcelain.Project
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Endpoint = porcelain.Endpoint
+	plumbing.Username = porcelain.Username
+	return plumbing
+}
+func repeatedBigQueryToPlumbing(
+	porcelains []*BigQuery,
+) []*proto.BigQuery {
+	var items []*proto.BigQuery
+	for _, porcelain := range porcelains {
+		items = append(items, bigQueryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedBigQueryToPorcelain(plumbings []*proto.BigQuery) []*BigQuery {
+	var items []*BigQuery
+	for _, plumbing := range plumbings {
+		items = append(items, bigQueryToPorcelain(plumbing))
+	}
+	return items
+}
+func cassandraToPorcelain(plumbing *proto.Cassandra) *Cassandra {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Cassandra{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
+	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
-	porcelain.Database = plumbing.Database
 	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Port = plumbing.Port
-	porcelain.Username = plumbing.Username
 	porcelain.TlsRequired = plumbing.TlsRequired
 	return porcelain
 }
 
-func prestoToPlumbing(porcelain *Presto) *proto.Presto {
+func cassandraToPlumbing(porcelain *Cassandra) *proto.Cassandra {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.Presto{}
+	plumbing := &proto.Cassandra{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
-	plumbing.Database = porcelain.Database
 	plumbing.PortOverride = porcelain.PortOverride
 	plumbing.Port = porcelain.Port
-	plumbing.Username = porcelain.Username
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-func repeatedPrestoToPlumbing(
-	porcelains []*Presto,
-) []*proto.Presto {
-	var items []*proto.Presto
+func repeatedCassandraToPlumbing(
+	porcelains []*Cassandra,
+) []*proto.Cassandra {
+	var items []*proto.Cassandra
 	for _, porcelain := range porcelains {
-		items = append(items, prestoToPlumbing(porcelain))
+		items = append(items, cassandraToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedPrestoToPorcelain(plumbings []*proto.Presto) []*Presto {
-	var items []*Presto
+func repeatedCassandraToPorcelain(plumbings []*proto.Cassandra) []*Cassandra {
+	var items []*Cassandra
 	for _, plumbing := range plumbings {
-		items = append(items, prestoToPorcelain(plumbing))
+		items = append(items, cassandraToPorcelain(plumbing))
 	}
 	return items
 }
-func teradataToPorcelain(plumbing *proto.Teradata) *Teradata {
+func druidToPorcelain(plumbing *proto.Druid) *Druid {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &Teradata{}
+	porcelain := &Druid{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
-	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Port = plumbing.Port
 	return porcelain
 }
 
-func teradataToPlumbing(porcelain *Teradata) *proto.Teradata {
+func druidToPlumbing(porcelain *Druid) *proto.Druid {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.Teradata{}
+	plumbing := &proto.Druid{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
+	plumbing.PortOverride = porcelain.PortOverride
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
-	plumbing.PortOverride = porcelain.PortOverride
 	plumbing.Port = porcelain.Port
 	return plumbing
 }
-func repeatedTeradataToPlumbing(
-	porcelains []*Teradata,
-) []*proto.Teradata {
-	var items []*proto.Teradata
+func repeatedDruidToPlumbing(
+	porcelains []*Druid,
+) []*proto.Druid {
+	var items []*proto.Druid
 	for _, porcelain := range porcelains {
-		items = append(items, teradataToPlumbing(porcelain))
+		items = append(items, druidToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedTeradataToPorcelain(plumbings []*proto.Teradata) []*Teradata {
-	var items []*Teradata
+func repeatedDruidToPorcelain(plumbings []*proto.Druid) []*Druid {
+	var items []*Druid
 	for _, plumbing := range plumbings {
-		items = append(items, teradataToPorcelain(plumbing))
+		items = append(items, druidToPorcelain(plumbing))
+	}
+	return items
+}
+func dynamoDbToPorcelain(plumbing *proto.DynamoDB) *DynamoDB {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &DynamoDB{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.AccessKey = plumbing.AccessKey
+	porcelain.SecretAccessKey = plumbing.SecretAccessKey
+	porcelain.Region = plumbing.Region
+	porcelain.Endpoint = plumbing.Endpoint
+	porcelain.PortOverride = plumbing.PortOverride
+	return porcelain
+}
+
+func dynamoDbToPlumbing(porcelain *DynamoDB) *proto.DynamoDB {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.DynamoDB{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.AccessKey = porcelain.AccessKey
+	plumbing.SecretAccessKey = porcelain.SecretAccessKey
+	plumbing.Region = porcelain.Region
+	plumbing.Endpoint = porcelain.Endpoint
+	plumbing.PortOverride = porcelain.PortOverride
+	return plumbing
+}
+func repeatedDynamoDBToPlumbing(
+	porcelains []*DynamoDB,
+) []*proto.DynamoDB {
+	var items []*proto.DynamoDB
+	for _, porcelain := range porcelains {
+		items = append(items, dynamoDbToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedDynamoDBToPorcelain(plumbings []*proto.DynamoDB) []*DynamoDB {
+	var items []*DynamoDB
+	for _, plumbing := range plumbings {
+		items = append(items, dynamoDbToPorcelain(plumbing))
 	}
 	return items
 }
@@ -519,97 +613,153 @@ func repeatedElasticToPorcelain(plumbings []*proto.Elastic) []*Elastic {
 	}
 	return items
 }
-func redisToPorcelain(plumbing *proto.Redis) *Redis {
+func httpBasicAuthToPorcelain(plumbing *proto.HTTPBasicAuth) *HTTPBasicAuth {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &Redis{}
+	porcelain := &HTTPBasicAuth{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
-	porcelain.Hostname = plumbing.Hostname
-	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Url = plumbing.Url
+	porcelain.HealthcheckPath = plumbing.HealthcheckPath
+	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
-	porcelain.Port = plumbing.Port
+	porcelain.HeadersBlacklist = plumbing.HeadersBlacklist
+	porcelain.DefaultPath = plumbing.DefaultPath
+	porcelain.Subdomain = plumbing.Subdomain
 	return porcelain
 }
 
-func redisToPlumbing(porcelain *Redis) *proto.Redis {
+func httpBasicAuthToPlumbing(porcelain *HTTPBasicAuth) *proto.HTTPBasicAuth {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.Redis{}
+	plumbing := &proto.HTTPBasicAuth{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
-	plumbing.Hostname = porcelain.Hostname
-	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Url = porcelain.Url
+	plumbing.HealthcheckPath = porcelain.HealthcheckPath
+	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
-	plumbing.Port = porcelain.Port
+	plumbing.HeadersBlacklist = porcelain.HeadersBlacklist
+	plumbing.DefaultPath = porcelain.DefaultPath
+	plumbing.Subdomain = porcelain.Subdomain
 	return plumbing
 }
-func repeatedRedisToPlumbing(
-	porcelains []*Redis,
-) []*proto.Redis {
-	var items []*proto.Redis
+func repeatedHTTPBasicAuthToPlumbing(
+	porcelains []*HTTPBasicAuth,
+) []*proto.HTTPBasicAuth {
+	var items []*proto.HTTPBasicAuth
 	for _, porcelain := range porcelains {
-		items = append(items, redisToPlumbing(porcelain))
+		items = append(items, httpBasicAuthToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedRedisToPorcelain(plumbings []*proto.Redis) []*Redis {
-	var items []*Redis
+func repeatedHTTPBasicAuthToPorcelain(plumbings []*proto.HTTPBasicAuth) []*HTTPBasicAuth {
+	var items []*HTTPBasicAuth
 	for _, plumbing := range plumbings {
-		items = append(items, redisToPorcelain(plumbing))
+		items = append(items, httpBasicAuthToPorcelain(plumbing))
 	}
 	return items
 }
-func elasticacheRedisToPorcelain(plumbing *proto.ElasticacheRedis) *ElasticacheRedis {
+func httpNoAuthToPorcelain(plumbing *proto.HTTPNoAuth) *HTTPNoAuth {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &ElasticacheRedis{}
+	porcelain := &HTTPNoAuth{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
-	porcelain.Hostname = plumbing.Hostname
-	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Password = plumbing.Password
-	porcelain.Port = plumbing.Port
-	porcelain.TlsRequired = plumbing.TlsRequired
+	porcelain.Url = plumbing.Url
+	porcelain.HealthcheckPath = plumbing.HealthcheckPath
+	porcelain.HeadersBlacklist = plumbing.HeadersBlacklist
+	porcelain.DefaultPath = plumbing.DefaultPath
+	porcelain.Subdomain = plumbing.Subdomain
 	return porcelain
 }
 
-func elasticacheRedisToPlumbing(porcelain *ElasticacheRedis) *proto.ElasticacheRedis {
+func httpNoAuthToPlumbing(porcelain *HTTPNoAuth) *proto.HTTPNoAuth {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.ElasticacheRedis{}
+	plumbing := &proto.HTTPNoAuth{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
-	plumbing.Hostname = porcelain.Hostname
-	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Password = porcelain.Password
-	plumbing.Port = porcelain.Port
-	plumbing.TlsRequired = porcelain.TlsRequired
+	plumbing.Url = porcelain.Url
+	plumbing.HealthcheckPath = porcelain.HealthcheckPath
+	plumbing.HeadersBlacklist = porcelain.HeadersBlacklist
+	plumbing.DefaultPath = porcelain.DefaultPath
+	plumbing.Subdomain = porcelain.Subdomain
 	return plumbing
 }
-func repeatedElasticacheRedisToPlumbing(
-	porcelains []*ElasticacheRedis,
-) []*proto.ElasticacheRedis {
-	var items []*proto.ElasticacheRedis
+func repeatedHTTPNoAuthToPlumbing(
+	porcelains []*HTTPNoAuth,
+) []*proto.HTTPNoAuth {
+	var items []*proto.HTTPNoAuth
 	for _, porcelain := range porcelains {
-		items = append(items, elasticacheRedisToPlumbing(porcelain))
+		items = append(items, httpNoAuthToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedElasticacheRedisToPorcelain(plumbings []*proto.ElasticacheRedis) []*ElasticacheRedis {
-	var items []*ElasticacheRedis
+func repeatedHTTPNoAuthToPorcelain(plumbings []*proto.HTTPNoAuth) []*HTTPNoAuth {
+	var items []*HTTPNoAuth
 	for _, plumbing := range plumbings {
-		items = append(items, elasticacheRedisToPorcelain(plumbing))
+		items = append(items, httpNoAuthToPorcelain(plumbing))
+	}
+	return items
+}
+func httpAuthToPorcelain(plumbing *proto.HTTPAuth) *HTTPAuth {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &HTTPAuth{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Url = plumbing.Url
+	porcelain.HealthcheckPath = plumbing.HealthcheckPath
+	porcelain.AuthHeader = plumbing.AuthHeader
+	porcelain.HeadersBlacklist = plumbing.HeadersBlacklist
+	porcelain.DefaultPath = plumbing.DefaultPath
+	porcelain.Subdomain = plumbing.Subdomain
+	return porcelain
+}
+
+func httpAuthToPlumbing(porcelain *HTTPAuth) *proto.HTTPAuth {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.HTTPAuth{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Url = porcelain.Url
+	plumbing.HealthcheckPath = porcelain.HealthcheckPath
+	plumbing.AuthHeader = porcelain.AuthHeader
+	plumbing.HeadersBlacklist = porcelain.HeadersBlacklist
+	plumbing.DefaultPath = porcelain.DefaultPath
+	plumbing.Subdomain = porcelain.Subdomain
+	return plumbing
+}
+func repeatedHTTPAuthToPlumbing(
+	porcelains []*HTTPAuth,
+) []*proto.HTTPAuth {
+	var items []*proto.HTTPAuth
+	for _, porcelain := range porcelains {
+		items = append(items, httpAuthToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedHTTPAuthToPorcelain(plumbings []*proto.HTTPAuth) []*HTTPAuth {
+	var items []*HTTPAuth
+	for _, plumbing := range plumbings {
+		items = append(items, httpAuthToPorcelain(plumbing))
 	}
 	return items
 }
@@ -813,6 +963,522 @@ func repeatedGoogleGKEToPorcelain(plumbings []*proto.GoogleGKE) []*GoogleGKE {
 	}
 	return items
 }
+func memcachedToPorcelain(plumbing *proto.Memcached) *Memcached {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Memcached{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func memcachedToPlumbing(porcelain *Memcached) *proto.Memcached {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Memcached{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+func repeatedMemcachedToPlumbing(
+	porcelains []*Memcached,
+) []*proto.Memcached {
+	var items []*proto.Memcached
+	for _, porcelain := range porcelains {
+		items = append(items, memcachedToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedMemcachedToPorcelain(plumbings []*proto.Memcached) []*Memcached {
+	var items []*Memcached
+	for _, plumbing := range plumbings {
+		items = append(items, memcachedToPorcelain(plumbing))
+	}
+	return items
+}
+func mongoLegacyHostToPorcelain(plumbing *proto.MongoLegacyHost) *MongoLegacyHost {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &MongoLegacyHost{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.AuthDatabase = plumbing.AuthDatabase
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Port = plumbing.Port
+	porcelain.ReplicaSet = plumbing.ReplicaSet
+	porcelain.ConnectToReplica = plumbing.ConnectToReplica
+	porcelain.TlsRequired = plumbing.TlsRequired
+	return porcelain
+}
+
+func mongoLegacyHostToPlumbing(porcelain *MongoLegacyHost) *proto.MongoLegacyHost {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.MongoLegacyHost{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.AuthDatabase = porcelain.AuthDatabase
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Port = porcelain.Port
+	plumbing.ReplicaSet = porcelain.ReplicaSet
+	plumbing.ConnectToReplica = porcelain.ConnectToReplica
+	plumbing.TlsRequired = porcelain.TlsRequired
+	return plumbing
+}
+func repeatedMongoLegacyHostToPlumbing(
+	porcelains []*MongoLegacyHost,
+) []*proto.MongoLegacyHost {
+	var items []*proto.MongoLegacyHost
+	for _, porcelain := range porcelains {
+		items = append(items, mongoLegacyHostToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedMongoLegacyHostToPorcelain(plumbings []*proto.MongoLegacyHost) []*MongoLegacyHost {
+	var items []*MongoLegacyHost
+	for _, plumbing := range plumbings {
+		items = append(items, mongoLegacyHostToPorcelain(plumbing))
+	}
+	return items
+}
+func mongoLegacyReplicasetToPorcelain(plumbing *proto.MongoLegacyReplicaset) *MongoLegacyReplicaset {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &MongoLegacyReplicaset{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.AuthDatabase = plumbing.AuthDatabase
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Port = plumbing.Port
+	porcelain.ReplicaSet = plumbing.ReplicaSet
+	porcelain.ConnectToReplica = plumbing.ConnectToReplica
+	porcelain.TlsRequired = plumbing.TlsRequired
+	return porcelain
+}
+
+func mongoLegacyReplicasetToPlumbing(porcelain *MongoLegacyReplicaset) *proto.MongoLegacyReplicaset {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.MongoLegacyReplicaset{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.AuthDatabase = porcelain.AuthDatabase
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Port = porcelain.Port
+	plumbing.ReplicaSet = porcelain.ReplicaSet
+	plumbing.ConnectToReplica = porcelain.ConnectToReplica
+	plumbing.TlsRequired = porcelain.TlsRequired
+	return plumbing
+}
+func repeatedMongoLegacyReplicasetToPlumbing(
+	porcelains []*MongoLegacyReplicaset,
+) []*proto.MongoLegacyReplicaset {
+	var items []*proto.MongoLegacyReplicaset
+	for _, porcelain := range porcelains {
+		items = append(items, mongoLegacyReplicasetToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedMongoLegacyReplicasetToPorcelain(plumbings []*proto.MongoLegacyReplicaset) []*MongoLegacyReplicaset {
+	var items []*MongoLegacyReplicaset
+	for _, plumbing := range plumbings {
+		items = append(items, mongoLegacyReplicasetToPorcelain(plumbing))
+	}
+	return items
+}
+func mongoHostToPorcelain(plumbing *proto.MongoHost) *MongoHost {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &MongoHost{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.AuthDatabase = plumbing.AuthDatabase
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Port = plumbing.Port
+	porcelain.Schema = plumbing.Schema
+	porcelain.TlsRequired = plumbing.TlsRequired
+	return porcelain
+}
+
+func mongoHostToPlumbing(porcelain *MongoHost) *proto.MongoHost {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.MongoHost{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.AuthDatabase = porcelain.AuthDatabase
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Port = porcelain.Port
+	plumbing.Schema = porcelain.Schema
+	plumbing.TlsRequired = porcelain.TlsRequired
+	return plumbing
+}
+func repeatedMongoHostToPlumbing(
+	porcelains []*MongoHost,
+) []*proto.MongoHost {
+	var items []*proto.MongoHost
+	for _, porcelain := range porcelains {
+		items = append(items, mongoHostToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedMongoHostToPorcelain(plumbings []*proto.MongoHost) []*MongoHost {
+	var items []*MongoHost
+	for _, plumbing := range plumbings {
+		items = append(items, mongoHostToPorcelain(plumbing))
+	}
+	return items
+}
+func mongoReplicaSetToPorcelain(plumbing *proto.MongoReplicaSet) *MongoReplicaSet {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &MongoReplicaSet{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.AuthDatabase = plumbing.AuthDatabase
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Port = plumbing.Port
+	porcelain.ReplicaSet = plumbing.ReplicaSet
+	porcelain.ConnectToReplica = plumbing.ConnectToReplica
+	porcelain.TlsRequired = plumbing.TlsRequired
+	return porcelain
+}
+
+func mongoReplicaSetToPlumbing(porcelain *MongoReplicaSet) *proto.MongoReplicaSet {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.MongoReplicaSet{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.AuthDatabase = porcelain.AuthDatabase
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Port = porcelain.Port
+	plumbing.ReplicaSet = porcelain.ReplicaSet
+	plumbing.ConnectToReplica = porcelain.ConnectToReplica
+	plumbing.TlsRequired = porcelain.TlsRequired
+	return plumbing
+}
+func repeatedMongoReplicaSetToPlumbing(
+	porcelains []*MongoReplicaSet,
+) []*proto.MongoReplicaSet {
+	var items []*proto.MongoReplicaSet
+	for _, porcelain := range porcelains {
+		items = append(items, mongoReplicaSetToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedMongoReplicaSetToPorcelain(plumbings []*proto.MongoReplicaSet) []*MongoReplicaSet {
+	var items []*MongoReplicaSet
+	for _, plumbing := range plumbings {
+		items = append(items, mongoReplicaSetToPorcelain(plumbing))
+	}
+	return items
+}
+func mysqlToPorcelain(plumbing *proto.Mysql) *Mysql {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Mysql{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Database = plumbing.Database
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func mysqlToPlumbing(porcelain *Mysql) *proto.Mysql {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Mysql{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Database = porcelain.Database
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+func repeatedMysqlToPlumbing(
+	porcelains []*Mysql,
+) []*proto.Mysql {
+	var items []*proto.Mysql
+	for _, porcelain := range porcelains {
+		items = append(items, mysqlToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedMysqlToPorcelain(plumbings []*proto.Mysql) []*Mysql {
+	var items []*Mysql
+	for _, plumbing := range plumbings {
+		items = append(items, mysqlToPorcelain(plumbing))
+	}
+	return items
+}
+func auroraMysqlToPorcelain(plumbing *proto.AuroraMysql) *AuroraMysql {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AuroraMysql{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Database = plumbing.Database
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func auroraMysqlToPlumbing(porcelain *AuroraMysql) *proto.AuroraMysql {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AuroraMysql{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Database = porcelain.Database
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+func repeatedAuroraMysqlToPlumbing(
+	porcelains []*AuroraMysql,
+) []*proto.AuroraMysql {
+	var items []*proto.AuroraMysql
+	for _, porcelain := range porcelains {
+		items = append(items, auroraMysqlToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAuroraMysqlToPorcelain(plumbings []*proto.AuroraMysql) []*AuroraMysql {
+	var items []*AuroraMysql
+	for _, plumbing := range plumbings {
+		items = append(items, auroraMysqlToPorcelain(plumbing))
+	}
+	return items
+}
+func clustrixToPorcelain(plumbing *proto.Clustrix) *Clustrix {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Clustrix{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Database = plumbing.Database
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func clustrixToPlumbing(porcelain *Clustrix) *proto.Clustrix {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Clustrix{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Database = porcelain.Database
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+func repeatedClustrixToPlumbing(
+	porcelains []*Clustrix,
+) []*proto.Clustrix {
+	var items []*proto.Clustrix
+	for _, porcelain := range porcelains {
+		items = append(items, clustrixToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedClustrixToPorcelain(plumbings []*proto.Clustrix) []*Clustrix {
+	var items []*Clustrix
+	for _, plumbing := range plumbings {
+		items = append(items, clustrixToPorcelain(plumbing))
+	}
+	return items
+}
+func mariaToPorcelain(plumbing *proto.Maria) *Maria {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Maria{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Database = plumbing.Database
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func mariaToPlumbing(porcelain *Maria) *proto.Maria {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Maria{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Database = porcelain.Database
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+func repeatedMariaToPlumbing(
+	porcelains []*Maria,
+) []*proto.Maria {
+	var items []*proto.Maria
+	for _, porcelain := range porcelains {
+		items = append(items, mariaToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedMariaToPorcelain(plumbings []*proto.Maria) []*Maria {
+	var items []*Maria
+	for _, plumbing := range plumbings {
+		items = append(items, mariaToPorcelain(plumbing))
+	}
+	return items
+}
+func memsqlToPorcelain(plumbing *proto.Memsql) *Memsql {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Memsql{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Database = plumbing.Database
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func memsqlToPlumbing(porcelain *Memsql) *proto.Memsql {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Memsql{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.Database = porcelain.Database
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+func repeatedMemsqlToPlumbing(
+	porcelains []*Memsql,
+) []*proto.Memsql {
+	var items []*proto.Memsql
+	for _, porcelain := range porcelains {
+		items = append(items, memsqlToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedMemsqlToPorcelain(plumbings []*proto.Memsql) []*Memsql {
+	var items []*Memsql
+	for _, plumbing := range plumbings {
+		items = append(items, memsqlToPorcelain(plumbing))
+	}
+	return items
+}
 func oracleToPorcelain(plumbing *proto.Oracle) *Oracle {
 	if plumbing == nil {
 		return nil
@@ -862,244 +1528,6 @@ func repeatedOracleToPorcelain(plumbings []*proto.Oracle) []*Oracle {
 	var items []*Oracle
 	for _, plumbing := range plumbings {
 		items = append(items, oracleToPorcelain(plumbing))
-	}
-	return items
-}
-func dynamoDbToPorcelain(plumbing *proto.DynamoDB) *DynamoDB {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &DynamoDB{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.AccessKey = plumbing.AccessKey
-	porcelain.SecretAccessKey = plumbing.SecretAccessKey
-	porcelain.Region = plumbing.Region
-	porcelain.Endpoint = plumbing.Endpoint
-	porcelain.PortOverride = plumbing.PortOverride
-	return porcelain
-}
-
-func dynamoDbToPlumbing(porcelain *DynamoDB) *proto.DynamoDB {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.DynamoDB{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.AccessKey = porcelain.AccessKey
-	plumbing.SecretAccessKey = porcelain.SecretAccessKey
-	plumbing.Region = porcelain.Region
-	plumbing.Endpoint = porcelain.Endpoint
-	plumbing.PortOverride = porcelain.PortOverride
-	return plumbing
-}
-func repeatedDynamoDBToPlumbing(
-	porcelains []*DynamoDB,
-) []*proto.DynamoDB {
-	var items []*proto.DynamoDB
-	for _, porcelain := range porcelains {
-		items = append(items, dynamoDbToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedDynamoDBToPorcelain(plumbings []*proto.DynamoDB) []*DynamoDB {
-	var items []*DynamoDB
-	for _, plumbing := range plumbings {
-		items = append(items, dynamoDbToPorcelain(plumbing))
-	}
-	return items
-}
-func rdpToPorcelain(plumbing *proto.RDP) *RDP {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &RDP{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Hostname = plumbing.Hostname
-	porcelain.Username = plumbing.Username
-	porcelain.Password = plumbing.Password
-	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Port = plumbing.Port
-	return porcelain
-}
-
-func rdpToPlumbing(porcelain *RDP) *proto.RDP {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.RDP{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Hostname = porcelain.Hostname
-	plumbing.Username = porcelain.Username
-	plumbing.Password = porcelain.Password
-	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Port = porcelain.Port
-	return plumbing
-}
-func repeatedRDPToPlumbing(
-	porcelains []*RDP,
-) []*proto.RDP {
-	var items []*proto.RDP
-	for _, porcelain := range porcelains {
-		items = append(items, rdpToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedRDPToPorcelain(plumbings []*proto.RDP) []*RDP {
-	var items []*RDP
-	for _, plumbing := range plumbings {
-		items = append(items, rdpToPorcelain(plumbing))
-	}
-	return items
-}
-func bigQueryToPorcelain(plumbing *proto.BigQuery) *BigQuery {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &BigQuery{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.PrivateKey = plumbing.PrivateKey
-	porcelain.Project = plumbing.Project
-	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Endpoint = plumbing.Endpoint
-	porcelain.Username = plumbing.Username
-	return porcelain
-}
-
-func bigQueryToPlumbing(porcelain *BigQuery) *proto.BigQuery {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.BigQuery{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.PrivateKey = porcelain.PrivateKey
-	plumbing.Project = porcelain.Project
-	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Endpoint = porcelain.Endpoint
-	plumbing.Username = porcelain.Username
-	return plumbing
-}
-func repeatedBigQueryToPlumbing(
-	porcelains []*BigQuery,
-) []*proto.BigQuery {
-	var items []*proto.BigQuery
-	for _, porcelain := range porcelains {
-		items = append(items, bigQueryToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedBigQueryToPorcelain(plumbings []*proto.BigQuery) []*BigQuery {
-	var items []*BigQuery
-	for _, plumbing := range plumbings {
-		items = append(items, bigQueryToPorcelain(plumbing))
-	}
-	return items
-}
-func snowflakeToPorcelain(plumbing *proto.Snowflake) *Snowflake {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &Snowflake{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Hostname = plumbing.Hostname
-	porcelain.Username = plumbing.Username
-	porcelain.Password = plumbing.Password
-	porcelain.Database = plumbing.Database
-	porcelain.Schema = plumbing.Schema
-	porcelain.PortOverride = plumbing.PortOverride
-	return porcelain
-}
-
-func snowflakeToPlumbing(porcelain *Snowflake) *proto.Snowflake {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.Snowflake{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Hostname = porcelain.Hostname
-	plumbing.Username = porcelain.Username
-	plumbing.Password = porcelain.Password
-	plumbing.Database = porcelain.Database
-	plumbing.Schema = porcelain.Schema
-	plumbing.PortOverride = porcelain.PortOverride
-	return plumbing
-}
-func repeatedSnowflakeToPlumbing(
-	porcelains []*Snowflake,
-) []*proto.Snowflake {
-	var items []*proto.Snowflake
-	for _, porcelain := range porcelains {
-		items = append(items, snowflakeToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedSnowflakeToPorcelain(plumbings []*proto.Snowflake) []*Snowflake {
-	var items []*Snowflake
-	for _, plumbing := range plumbings {
-		items = append(items, snowflakeToPorcelain(plumbing))
-	}
-	return items
-}
-func memcachedToPorcelain(plumbing *proto.Memcached) *Memcached {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &Memcached{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Hostname = plumbing.Hostname
-	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Port = plumbing.Port
-	return porcelain
-}
-
-func memcachedToPlumbing(porcelain *Memcached) *proto.Memcached {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.Memcached{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Hostname = porcelain.Hostname
-	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Port = porcelain.Port
-	return plumbing
-}
-func repeatedMemcachedToPlumbing(
-	porcelains []*Memcached,
-) []*proto.Memcached {
-	var items []*proto.Memcached
-	for _, porcelain := range porcelains {
-		items = append(items, memcachedToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedMemcachedToPorcelain(plumbings []*proto.Memcached) []*Memcached {
-	var items []*Memcached
-	for _, plumbing := range plumbings {
-		items = append(items, memcachedToPorcelain(plumbing))
 	}
 	return items
 }
@@ -1363,207 +1791,63 @@ func repeatedRedshiftToPorcelain(plumbings []*proto.Redshift) []*Redshift {
 	}
 	return items
 }
-func sshToPorcelain(plumbing *proto.SSH) *SSH {
+func prestoToPorcelain(plumbing *proto.Presto) *Presto {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &SSH{}
+	porcelain := &Presto{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
-	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	porcelain.Database = plumbing.Database
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Port = plumbing.Port
-	porcelain.PublicKey = plumbing.PublicKey
+	porcelain.Username = plumbing.Username
+	porcelain.TlsRequired = plumbing.TlsRequired
 	return porcelain
 }
 
-func sshToPlumbing(porcelain *SSH) *proto.SSH {
+func prestoToPlumbing(porcelain *Presto) *proto.Presto {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.SSH{}
+	plumbing := &proto.Presto{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
-	plumbing.Username = porcelain.Username
-	plumbing.Port = porcelain.Port
-	plumbing.PublicKey = porcelain.PublicKey
-	return plumbing
-}
-func repeatedSSHToPlumbing(
-	porcelains []*SSH,
-) []*proto.SSH {
-	var items []*proto.SSH
-	for _, porcelain := range porcelains {
-		items = append(items, sshToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedSSHToPorcelain(plumbings []*proto.SSH) []*SSH {
-	var items []*SSH
-	for _, plumbing := range plumbings {
-		items = append(items, sshToPorcelain(plumbing))
-	}
-	return items
-}
-func httpBasicAuthToPorcelain(plumbing *proto.HTTPBasicAuth) *HTTPBasicAuth {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &HTTPBasicAuth{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Url = plumbing.Url
-	porcelain.HealthcheckPath = plumbing.HealthcheckPath
-	porcelain.Username = plumbing.Username
-	porcelain.Password = plumbing.Password
-	porcelain.HeadersBlacklist = plumbing.HeadersBlacklist
-	porcelain.DefaultPath = plumbing.DefaultPath
-	porcelain.Subdomain = plumbing.Subdomain
-	return porcelain
-}
-
-func httpBasicAuthToPlumbing(porcelain *HTTPBasicAuth) *proto.HTTPBasicAuth {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.HTTPBasicAuth{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Url = porcelain.Url
-	plumbing.HealthcheckPath = porcelain.HealthcheckPath
-	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
-	plumbing.HeadersBlacklist = porcelain.HeadersBlacklist
-	plumbing.DefaultPath = porcelain.DefaultPath
-	plumbing.Subdomain = porcelain.Subdomain
+	plumbing.Database = porcelain.Database
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Port = porcelain.Port
+	plumbing.Username = porcelain.Username
+	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-func repeatedHTTPBasicAuthToPlumbing(
-	porcelains []*HTTPBasicAuth,
-) []*proto.HTTPBasicAuth {
-	var items []*proto.HTTPBasicAuth
+func repeatedPrestoToPlumbing(
+	porcelains []*Presto,
+) []*proto.Presto {
+	var items []*proto.Presto
 	for _, porcelain := range porcelains {
-		items = append(items, httpBasicAuthToPlumbing(porcelain))
+		items = append(items, prestoToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedHTTPBasicAuthToPorcelain(plumbings []*proto.HTTPBasicAuth) []*HTTPBasicAuth {
-	var items []*HTTPBasicAuth
+func repeatedPrestoToPorcelain(plumbings []*proto.Presto) []*Presto {
+	var items []*Presto
 	for _, plumbing := range plumbings {
-		items = append(items, httpBasicAuthToPorcelain(plumbing))
+		items = append(items, prestoToPorcelain(plumbing))
 	}
 	return items
 }
-func httpNoAuthToPorcelain(plumbing *proto.HTTPNoAuth) *HTTPNoAuth {
+func rdpToPorcelain(plumbing *proto.RDP) *RDP {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &HTTPNoAuth{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Url = plumbing.Url
-	porcelain.HealthcheckPath = plumbing.HealthcheckPath
-	porcelain.HeadersBlacklist = plumbing.HeadersBlacklist
-	porcelain.DefaultPath = plumbing.DefaultPath
-	porcelain.Subdomain = plumbing.Subdomain
-	return porcelain
-}
-
-func httpNoAuthToPlumbing(porcelain *HTTPNoAuth) *proto.HTTPNoAuth {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.HTTPNoAuth{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Url = porcelain.Url
-	plumbing.HealthcheckPath = porcelain.HealthcheckPath
-	plumbing.HeadersBlacklist = porcelain.HeadersBlacklist
-	plumbing.DefaultPath = porcelain.DefaultPath
-	plumbing.Subdomain = porcelain.Subdomain
-	return plumbing
-}
-func repeatedHTTPNoAuthToPlumbing(
-	porcelains []*HTTPNoAuth,
-) []*proto.HTTPNoAuth {
-	var items []*proto.HTTPNoAuth
-	for _, porcelain := range porcelains {
-		items = append(items, httpNoAuthToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedHTTPNoAuthToPorcelain(plumbings []*proto.HTTPNoAuth) []*HTTPNoAuth {
-	var items []*HTTPNoAuth
-	for _, plumbing := range plumbings {
-		items = append(items, httpNoAuthToPorcelain(plumbing))
-	}
-	return items
-}
-func httpAuthToPorcelain(plumbing *proto.HTTPAuth) *HTTPAuth {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &HTTPAuth{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Url = plumbing.Url
-	porcelain.HealthcheckPath = plumbing.HealthcheckPath
-	porcelain.AuthHeader = plumbing.AuthHeader
-	porcelain.HeadersBlacklist = plumbing.HeadersBlacklist
-	porcelain.DefaultPath = plumbing.DefaultPath
-	porcelain.Subdomain = plumbing.Subdomain
-	return porcelain
-}
-
-func httpAuthToPlumbing(porcelain *HTTPAuth) *proto.HTTPAuth {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.HTTPAuth{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Url = porcelain.Url
-	plumbing.HealthcheckPath = porcelain.HealthcheckPath
-	plumbing.AuthHeader = porcelain.AuthHeader
-	plumbing.HeadersBlacklist = porcelain.HeadersBlacklist
-	plumbing.DefaultPath = porcelain.DefaultPath
-	plumbing.Subdomain = porcelain.Subdomain
-	return plumbing
-}
-func repeatedHTTPAuthToPlumbing(
-	porcelains []*HTTPAuth,
-) []*proto.HTTPAuth {
-	var items []*proto.HTTPAuth
-	for _, porcelain := range porcelains {
-		items = append(items, httpAuthToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedHTTPAuthToPorcelain(plumbings []*proto.HTTPAuth) []*HTTPAuth {
-	var items []*HTTPAuth
-	for _, plumbing := range plumbings {
-		items = append(items, httpAuthToPorcelain(plumbing))
-	}
-	return items
-}
-func cassandraToPorcelain(plumbing *proto.Cassandra) *Cassandra {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &Cassandra{}
+	porcelain := &RDP{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
@@ -1571,49 +1855,141 @@ func cassandraToPorcelain(plumbing *proto.Cassandra) *Cassandra {
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
 	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func rdpToPlumbing(porcelain *RDP) *proto.RDP {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RDP{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+func repeatedRDPToPlumbing(
+	porcelains []*RDP,
+) []*proto.RDP {
+	var items []*proto.RDP
+	for _, porcelain := range porcelains {
+		items = append(items, rdpToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedRDPToPorcelain(plumbings []*proto.RDP) []*RDP {
+	var items []*RDP
+	for _, plumbing := range plumbings {
+		items = append(items, rdpToPorcelain(plumbing))
+	}
+	return items
+}
+func redisToPorcelain(plumbing *proto.Redis) *Redis {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Redis{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Password = plumbing.Password
+	porcelain.Port = plumbing.Port
+	return porcelain
+}
+
+func redisToPlumbing(porcelain *Redis) *proto.Redis {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Redis{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Password = porcelain.Password
+	plumbing.Port = porcelain.Port
+	return plumbing
+}
+func repeatedRedisToPlumbing(
+	porcelains []*Redis,
+) []*proto.Redis {
+	var items []*proto.Redis
+	for _, porcelain := range porcelains {
+		items = append(items, redisToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedRedisToPorcelain(plumbings []*proto.Redis) []*Redis {
+	var items []*Redis
+	for _, plumbing := range plumbings {
+		items = append(items, redisToPorcelain(plumbing))
+	}
+	return items
+}
+func elasticacheRedisToPorcelain(plumbing *proto.ElasticacheRedis) *ElasticacheRedis {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &ElasticacheRedis{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Password = plumbing.Password
 	porcelain.Port = plumbing.Port
 	porcelain.TlsRequired = plumbing.TlsRequired
 	return porcelain
 }
 
-func cassandraToPlumbing(porcelain *Cassandra) *proto.Cassandra {
+func elasticacheRedisToPlumbing(porcelain *ElasticacheRedis) *proto.ElasticacheRedis {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.Cassandra{}
+	plumbing := &proto.ElasticacheRedis{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
-	plumbing.Username = porcelain.Username
-	plumbing.Password = porcelain.Password
 	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Password = porcelain.Password
 	plumbing.Port = porcelain.Port
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-func repeatedCassandraToPlumbing(
-	porcelains []*Cassandra,
-) []*proto.Cassandra {
-	var items []*proto.Cassandra
+func repeatedElasticacheRedisToPlumbing(
+	porcelains []*ElasticacheRedis,
+) []*proto.ElasticacheRedis {
+	var items []*proto.ElasticacheRedis
 	for _, porcelain := range porcelains {
-		items = append(items, cassandraToPlumbing(porcelain))
+		items = append(items, elasticacheRedisToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedCassandraToPorcelain(plumbings []*proto.Cassandra) []*Cassandra {
-	var items []*Cassandra
+func repeatedElasticacheRedisToPorcelain(plumbings []*proto.ElasticacheRedis) []*ElasticacheRedis {
+	var items []*ElasticacheRedis
 	for _, plumbing := range plumbings {
-		items = append(items, cassandraToPorcelain(plumbing))
+		items = append(items, elasticacheRedisToPorcelain(plumbing))
 	}
 	return items
 }
-func mysqlToPorcelain(plumbing *proto.Mysql) *Mysql {
+func snowflakeToPorcelain(plumbing *proto.Snowflake) *Snowflake {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &Mysql{}
+	porcelain := &Snowflake{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
@@ -1621,16 +1997,16 @@ func mysqlToPorcelain(plumbing *proto.Mysql) *Mysql {
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
 	porcelain.Database = plumbing.Database
+	porcelain.Schema = plumbing.Schema
 	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Port = plumbing.Port
 	return porcelain
 }
 
-func mysqlToPlumbing(porcelain *Mysql) *proto.Mysql {
+func snowflakeToPlumbing(porcelain *Snowflake) *proto.Snowflake {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.Mysql{}
+	plumbing := &proto.Snowflake{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
@@ -1638,272 +2014,24 @@ func mysqlToPlumbing(porcelain *Mysql) *proto.Mysql {
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
 	plumbing.Database = porcelain.Database
+	plumbing.Schema = porcelain.Schema
 	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Port = porcelain.Port
 	return plumbing
 }
-func repeatedMysqlToPlumbing(
-	porcelains []*Mysql,
-) []*proto.Mysql {
-	var items []*proto.Mysql
+func repeatedSnowflakeToPlumbing(
+	porcelains []*Snowflake,
+) []*proto.Snowflake {
+	var items []*proto.Snowflake
 	for _, porcelain := range porcelains {
-		items = append(items, mysqlToPlumbing(porcelain))
+		items = append(items, snowflakeToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedMysqlToPorcelain(plumbings []*proto.Mysql) []*Mysql {
-	var items []*Mysql
+func repeatedSnowflakeToPorcelain(plumbings []*proto.Snowflake) []*Snowflake {
+	var items []*Snowflake
 	for _, plumbing := range plumbings {
-		items = append(items, mysqlToPorcelain(plumbing))
-	}
-	return items
-}
-func auroraMysqlToPorcelain(plumbing *proto.AuroraMysql) *AuroraMysql {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &AuroraMysql{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Hostname = plumbing.Hostname
-	porcelain.Username = plumbing.Username
-	porcelain.Password = plumbing.Password
-	porcelain.Database = plumbing.Database
-	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Port = plumbing.Port
-	return porcelain
-}
-
-func auroraMysqlToPlumbing(porcelain *AuroraMysql) *proto.AuroraMysql {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.AuroraMysql{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Hostname = porcelain.Hostname
-	plumbing.Username = porcelain.Username
-	plumbing.Password = porcelain.Password
-	plumbing.Database = porcelain.Database
-	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Port = porcelain.Port
-	return plumbing
-}
-func repeatedAuroraMysqlToPlumbing(
-	porcelains []*AuroraMysql,
-) []*proto.AuroraMysql {
-	var items []*proto.AuroraMysql
-	for _, porcelain := range porcelains {
-		items = append(items, auroraMysqlToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedAuroraMysqlToPorcelain(plumbings []*proto.AuroraMysql) []*AuroraMysql {
-	var items []*AuroraMysql
-	for _, plumbing := range plumbings {
-		items = append(items, auroraMysqlToPorcelain(plumbing))
-	}
-	return items
-}
-func clustrixToPorcelain(plumbing *proto.Clustrix) *Clustrix {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &Clustrix{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Hostname = plumbing.Hostname
-	porcelain.Username = plumbing.Username
-	porcelain.Password = plumbing.Password
-	porcelain.Database = plumbing.Database
-	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Port = plumbing.Port
-	return porcelain
-}
-
-func clustrixToPlumbing(porcelain *Clustrix) *proto.Clustrix {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.Clustrix{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Hostname = porcelain.Hostname
-	plumbing.Username = porcelain.Username
-	plumbing.Password = porcelain.Password
-	plumbing.Database = porcelain.Database
-	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Port = porcelain.Port
-	return plumbing
-}
-func repeatedClustrixToPlumbing(
-	porcelains []*Clustrix,
-) []*proto.Clustrix {
-	var items []*proto.Clustrix
-	for _, porcelain := range porcelains {
-		items = append(items, clustrixToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedClustrixToPorcelain(plumbings []*proto.Clustrix) []*Clustrix {
-	var items []*Clustrix
-	for _, plumbing := range plumbings {
-		items = append(items, clustrixToPorcelain(plumbing))
-	}
-	return items
-}
-func mariaToPorcelain(plumbing *proto.Maria) *Maria {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &Maria{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Hostname = plumbing.Hostname
-	porcelain.Username = plumbing.Username
-	porcelain.Password = plumbing.Password
-	porcelain.Database = plumbing.Database
-	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Port = plumbing.Port
-	return porcelain
-}
-
-func mariaToPlumbing(porcelain *Maria) *proto.Maria {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.Maria{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Hostname = porcelain.Hostname
-	plumbing.Username = porcelain.Username
-	plumbing.Password = porcelain.Password
-	plumbing.Database = porcelain.Database
-	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Port = porcelain.Port
-	return plumbing
-}
-func repeatedMariaToPlumbing(
-	porcelains []*Maria,
-) []*proto.Maria {
-	var items []*proto.Maria
-	for _, porcelain := range porcelains {
-		items = append(items, mariaToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedMariaToPorcelain(plumbings []*proto.Maria) []*Maria {
-	var items []*Maria
-	for _, plumbing := range plumbings {
-		items = append(items, mariaToPorcelain(plumbing))
-	}
-	return items
-}
-func memsqlToPorcelain(plumbing *proto.Memsql) *Memsql {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &Memsql{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Hostname = plumbing.Hostname
-	porcelain.Username = plumbing.Username
-	porcelain.Password = plumbing.Password
-	porcelain.Database = plumbing.Database
-	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Port = plumbing.Port
-	return porcelain
-}
-
-func memsqlToPlumbing(porcelain *Memsql) *proto.Memsql {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.Memsql{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Hostname = porcelain.Hostname
-	plumbing.Username = porcelain.Username
-	plumbing.Password = porcelain.Password
-	plumbing.Database = porcelain.Database
-	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Port = porcelain.Port
-	return plumbing
-}
-func repeatedMemsqlToPlumbing(
-	porcelains []*Memsql,
-) []*proto.Memsql {
-	var items []*proto.Memsql
-	for _, porcelain := range porcelains {
-		items = append(items, memsqlToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedMemsqlToPorcelain(plumbings []*proto.Memsql) []*Memsql {
-	var items []*Memsql
-	for _, plumbing := range plumbings {
-		items = append(items, memsqlToPorcelain(plumbing))
-	}
-	return items
-}
-func druidToPorcelain(plumbing *proto.Druid) *Druid {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &Druid{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Hostname = plumbing.Hostname
-	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Username = plumbing.Username
-	porcelain.Password = plumbing.Password
-	porcelain.Port = plumbing.Port
-	return porcelain
-}
-
-func druidToPlumbing(porcelain *Druid) *proto.Druid {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.Druid{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Hostname = porcelain.Hostname
-	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Username = porcelain.Username
-	plumbing.Password = porcelain.Password
-	plumbing.Port = porcelain.Port
-	return plumbing
-}
-func repeatedDruidToPlumbing(
-	porcelains []*Druid,
-) []*proto.Druid {
-	var items []*proto.Druid
-	for _, porcelain := range porcelains {
-		items = append(items, druidToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedDruidToPorcelain(plumbings []*proto.Druid) []*Druid {
-	var items []*Druid
-	for _, plumbing := range plumbings {
-		items = append(items, druidToPorcelain(plumbing))
+		items = append(items, snowflakeToPorcelain(plumbing))
 	}
 	return items
 }
@@ -1961,273 +2089,145 @@ func repeatedSQLServerToPorcelain(plumbings []*proto.SQLServer) []*SQLServer {
 	}
 	return items
 }
-func mongoLegacyHostToPorcelain(plumbing *proto.MongoLegacyHost) *MongoLegacyHost {
+func sshToPorcelain(plumbing *proto.SSH) *SSH {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &MongoLegacyHost{}
+	porcelain := &SSH{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
-	porcelain.AuthDatabase = plumbing.AuthDatabase
-	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Username = plumbing.Username
-	porcelain.Password = plumbing.Password
 	porcelain.Port = plumbing.Port
-	porcelain.ReplicaSet = plumbing.ReplicaSet
-	porcelain.ConnectToReplica = plumbing.ConnectToReplica
-	porcelain.TlsRequired = plumbing.TlsRequired
+	porcelain.PublicKey = plumbing.PublicKey
 	return porcelain
 }
 
-func mongoLegacyHostToPlumbing(porcelain *MongoLegacyHost) *proto.MongoLegacyHost {
+func sshToPlumbing(porcelain *SSH) *proto.SSH {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.MongoLegacyHost{}
+	plumbing := &proto.SSH{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
-	plumbing.AuthDatabase = porcelain.AuthDatabase
-	plumbing.PortOverride = porcelain.PortOverride
 	plumbing.Username = porcelain.Username
-	plumbing.Password = porcelain.Password
 	plumbing.Port = porcelain.Port
-	plumbing.ReplicaSet = porcelain.ReplicaSet
-	plumbing.ConnectToReplica = porcelain.ConnectToReplica
-	plumbing.TlsRequired = porcelain.TlsRequired
+	plumbing.PublicKey = porcelain.PublicKey
 	return plumbing
 }
-func repeatedMongoLegacyHostToPlumbing(
-	porcelains []*MongoLegacyHost,
-) []*proto.MongoLegacyHost {
-	var items []*proto.MongoLegacyHost
+func repeatedSSHToPlumbing(
+	porcelains []*SSH,
+) []*proto.SSH {
+	var items []*proto.SSH
 	for _, porcelain := range porcelains {
-		items = append(items, mongoLegacyHostToPlumbing(porcelain))
+		items = append(items, sshToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedMongoLegacyHostToPorcelain(plumbings []*proto.MongoLegacyHost) []*MongoLegacyHost {
-	var items []*MongoLegacyHost
+func repeatedSSHToPorcelain(plumbings []*proto.SSH) []*SSH {
+	var items []*SSH
 	for _, plumbing := range plumbings {
-		items = append(items, mongoLegacyHostToPorcelain(plumbing))
+		items = append(items, sshToPorcelain(plumbing))
 	}
 	return items
 }
-func mongoLegacyReplicasetToPorcelain(plumbing *proto.MongoLegacyReplicaset) *MongoLegacyReplicaset {
+func sybaseToPorcelain(plumbing *proto.Sybase) *Sybase {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &MongoLegacyReplicaset{}
+	porcelain := &Sybase{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
-	porcelain.AuthDatabase = plumbing.AuthDatabase
-	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Username = plumbing.Username
-	porcelain.Password = plumbing.Password
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Port = plumbing.Port
-	porcelain.ReplicaSet = plumbing.ReplicaSet
-	porcelain.ConnectToReplica = plumbing.ConnectToReplica
-	porcelain.TlsRequired = plumbing.TlsRequired
+	porcelain.Password = plumbing.Password
 	return porcelain
 }
 
-func mongoLegacyReplicasetToPlumbing(porcelain *MongoLegacyReplicaset) *proto.MongoLegacyReplicaset {
+func sybaseToPlumbing(porcelain *Sybase) *proto.Sybase {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.MongoLegacyReplicaset{}
+	plumbing := &proto.Sybase{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
-	plumbing.AuthDatabase = porcelain.AuthDatabase
-	plumbing.PortOverride = porcelain.PortOverride
 	plumbing.Username = porcelain.Username
-	plumbing.Password = porcelain.Password
+	plumbing.PortOverride = porcelain.PortOverride
 	plumbing.Port = porcelain.Port
-	plumbing.ReplicaSet = porcelain.ReplicaSet
-	plumbing.ConnectToReplica = porcelain.ConnectToReplica
-	plumbing.TlsRequired = porcelain.TlsRequired
+	plumbing.Password = porcelain.Password
 	return plumbing
 }
-func repeatedMongoLegacyReplicasetToPlumbing(
-	porcelains []*MongoLegacyReplicaset,
-) []*proto.MongoLegacyReplicaset {
-	var items []*proto.MongoLegacyReplicaset
+func repeatedSybaseToPlumbing(
+	porcelains []*Sybase,
+) []*proto.Sybase {
+	var items []*proto.Sybase
 	for _, porcelain := range porcelains {
-		items = append(items, mongoLegacyReplicasetToPlumbing(porcelain))
+		items = append(items, sybaseToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedMongoLegacyReplicasetToPorcelain(plumbings []*proto.MongoLegacyReplicaset) []*MongoLegacyReplicaset {
-	var items []*MongoLegacyReplicaset
+func repeatedSybaseToPorcelain(plumbings []*proto.Sybase) []*Sybase {
+	var items []*Sybase
 	for _, plumbing := range plumbings {
-		items = append(items, mongoLegacyReplicasetToPorcelain(plumbing))
+		items = append(items, sybaseToPorcelain(plumbing))
 	}
 	return items
 }
-func mongoHostToPorcelain(plumbing *proto.MongoHost) *MongoHost {
+func teradataToPorcelain(plumbing *proto.Teradata) *Teradata {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &MongoHost{}
+	porcelain := &Teradata{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
-	porcelain.AuthDatabase = plumbing.AuthDatabase
-	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Port = plumbing.Port
-	porcelain.Schema = plumbing.Schema
-	porcelain.TlsRequired = plumbing.TlsRequired
 	return porcelain
 }
 
-func mongoHostToPlumbing(porcelain *MongoHost) *proto.MongoHost {
+func teradataToPlumbing(porcelain *Teradata) *proto.Teradata {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.MongoHost{}
+	plumbing := &proto.Teradata{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
 	plumbing.Hostname = porcelain.Hostname
-	plumbing.AuthDatabase = porcelain.AuthDatabase
-	plumbing.PortOverride = porcelain.PortOverride
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
-	plumbing.Port = porcelain.Port
-	plumbing.Schema = porcelain.Schema
-	plumbing.TlsRequired = porcelain.TlsRequired
-	return plumbing
-}
-func repeatedMongoHostToPlumbing(
-	porcelains []*MongoHost,
-) []*proto.MongoHost {
-	var items []*proto.MongoHost
-	for _, porcelain := range porcelains {
-		items = append(items, mongoHostToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedMongoHostToPorcelain(plumbings []*proto.MongoHost) []*MongoHost {
-	var items []*MongoHost
-	for _, plumbing := range plumbings {
-		items = append(items, mongoHostToPorcelain(plumbing))
-	}
-	return items
-}
-func mongoReplicaSetToPorcelain(plumbing *proto.MongoReplicaSet) *MongoReplicaSet {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &MongoReplicaSet{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.Hostname = plumbing.Hostname
-	porcelain.AuthDatabase = plumbing.AuthDatabase
-	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Username = plumbing.Username
-	porcelain.Password = plumbing.Password
-	porcelain.Port = plumbing.Port
-	porcelain.ReplicaSet = plumbing.ReplicaSet
-	porcelain.ConnectToReplica = plumbing.ConnectToReplica
-	porcelain.TlsRequired = plumbing.TlsRequired
-	return porcelain
-}
-
-func mongoReplicaSetToPlumbing(porcelain *MongoReplicaSet) *proto.MongoReplicaSet {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.MongoReplicaSet{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.Hostname = porcelain.Hostname
-	plumbing.AuthDatabase = porcelain.AuthDatabase
 	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Username = porcelain.Username
-	plumbing.Password = porcelain.Password
 	plumbing.Port = porcelain.Port
-	plumbing.ReplicaSet = porcelain.ReplicaSet
-	plumbing.ConnectToReplica = porcelain.ConnectToReplica
-	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
-func repeatedMongoReplicaSetToPlumbing(
-	porcelains []*MongoReplicaSet,
-) []*proto.MongoReplicaSet {
-	var items []*proto.MongoReplicaSet
+func repeatedTeradataToPlumbing(
+	porcelains []*Teradata,
+) []*proto.Teradata {
+	var items []*proto.Teradata
 	for _, porcelain := range porcelains {
-		items = append(items, mongoReplicaSetToPlumbing(porcelain))
+		items = append(items, teradataToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedMongoReplicaSetToPorcelain(plumbings []*proto.MongoReplicaSet) []*MongoReplicaSet {
-	var items []*MongoReplicaSet
+func repeatedTeradataToPorcelain(plumbings []*proto.Teradata) []*Teradata {
+	var items []*Teradata
 	for _, plumbing := range plumbings {
-		items = append(items, mongoReplicaSetToPorcelain(plumbing))
-	}
-	return items
-}
-func athenaToPorcelain(plumbing *proto.Athena) *Athena {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &Athena{}
-	porcelain.ID = plumbing.Id
-	porcelain.Name = plumbing.Name
-	porcelain.Healthy = plumbing.Healthy
-	porcelain.AccessKey = plumbing.AccessKey
-	porcelain.SecretAccessKey = plumbing.SecretAccessKey
-	porcelain.Output = plumbing.Output
-	porcelain.PortOverride = plumbing.PortOverride
-	porcelain.Region = plumbing.Region
-	return porcelain
-}
-
-func athenaToPlumbing(porcelain *Athena) *proto.Athena {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.Athena{}
-	plumbing.Id = porcelain.ID
-	plumbing.Name = porcelain.Name
-	plumbing.Healthy = porcelain.Healthy
-	plumbing.AccessKey = porcelain.AccessKey
-	plumbing.SecretAccessKey = porcelain.SecretAccessKey
-	plumbing.Output = porcelain.Output
-	plumbing.PortOverride = porcelain.PortOverride
-	plumbing.Region = porcelain.Region
-	return plumbing
-}
-func repeatedAthenaToPlumbing(
-	porcelains []*Athena,
-) []*proto.Athena {
-	var items []*proto.Athena
-	for _, porcelain := range porcelains {
-		items = append(items, athenaToPlumbing(porcelain))
-	}
-	return items
-}
-
-func repeatedAthenaToPorcelain(plumbings []*proto.Athena) []*Athena {
-	var items []*Athena
-	for _, plumbing := range plumbings {
-		items = append(items, athenaToPorcelain(plumbing))
+		items = append(items, teradataToPorcelain(plumbing))
 	}
 	return items
 }
