@@ -4,6 +4,117 @@ import (
 	"time"
 )
 
+// CreateResponseMetadata is reserved for future use.
+type CreateResponseMetadata struct {
+}
+
+// GetResponseMetadata is reserved for future use.
+type GetResponseMetadata struct {
+}
+
+// UpdateResponseMetadata is reserved for future use.
+type UpdateResponseMetadata struct {
+}
+
+// DeleteResponseMetadata is reserved for future use.
+type DeleteResponseMetadata struct {
+}
+
+// RateLimitMetadata contains information about remaining requests avaialable
+// to the user over some timeframe.
+type RateLimitMetadata struct {
+	// How many total requests the user/token is authorized to make before being
+	// rate limited.
+	Limit int64
+	// How many remaining requests out of the limit are still avaialable.
+	Remaining int64
+	// The time when remaining will be reset to limit.
+	ResetAt time.Time
+	// The bucket this user/token is associated with, which may be shared between
+	// multiple users/tokens.
+	Bucket string
+}
+
+// AccountCreateResponse reports how the Accounts were created in the system.
+type AccountCreateResponse struct {
+	// Reserved for future use.
+	Meta *CreateResponseMetadata
+	// The created Account.
+	Account Account
+	// The auth token generated for the Account. The Account will use this token to
+	// authenticate with the strongDM API.
+	Token string
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// AccountGetResponse returns a requested Account.
+type AccountGetResponse struct {
+	// Reserved for future use.
+	Meta *GetResponseMetadata
+	// The requested Account.
+	Account Account
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// AccountUpdateResponse returns the fields of a Account after it has been updated by
+// a AccountUpdateRequest.
+type AccountUpdateResponse struct {
+	// Reserved for future use.
+	Meta *UpdateResponseMetadata
+	// The updated Account.
+	Account Account
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// AccountDeleteResponse returns information about a Account that was deleted.
+type AccountDeleteResponse struct {
+	// Reserved for future use.
+	Meta *DeleteResponseMetadata
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// An Account is one of many types of users or tokens that can use StrongDM.
+type Account interface {
+	// GetID returns the unique identifier of the Account.
+	GetID() string
+	isOneOf_Account()
+}
+
+func (*User) isOneOf_Account() {}
+
+// GetID returns the unique identifier of the User.
+func (m *User) GetID() string     { return m.ID }
+func (*Service) isOneOf_Account() {}
+
+// GetID returns the unique identifier of the Service.
+func (m *Service) GetID() string { return m.ID }
+
+// A User can connect to resources they are granted directly, or granted
+// via roles.
+type User struct {
+	// Unique identifier of the User.
+	ID string
+	// The User's email address. Must be unique.
+	Email string
+	// The User's first name.
+	FirstName string
+	// The User's last name.
+	LastName string
+}
+
+// A Service is a service account that can connect to resources they are granted
+// directly, or granted via roles. Services are typically automated jobs.
+type Service struct {
+	// Unique identifier of the Service.
+	ID string
+	// Unique human-readable name of the Service.
+	Name string
+}
+
 // A Resource is a server or service which clients connect to through relays.
 type Resource interface {
 	// GetID returns the unique identifier of the Resource.
@@ -995,37 +1106,6 @@ type Teradata struct {
 	Port int32
 }
 
-// CreateResponseMetadata is reserved for future use.
-type CreateResponseMetadata struct {
-}
-
-// GetResponseMetadata is reserved for future use.
-type GetResponseMetadata struct {
-}
-
-// UpdateResponseMetadata is reserved for future use.
-type UpdateResponseMetadata struct {
-}
-
-// DeleteResponseMetadata is reserved for future use.
-type DeleteResponseMetadata struct {
-}
-
-// RateLimitMetadata contains information about remaining requests avaialable
-// to the user over some timeframe.
-type RateLimitMetadata struct {
-	// How many total requests the user/token is authorized to make before being
-	// rate limited.
-	Limit int64
-	// How many remaining requests out of the limit are still avaialable.
-	Remaining int64
-	// The time when remaining will be reset to limit.
-	ResetAt time.Time
-	// The bucket this user/token is associated with, which may be shared between
-	// multiple users/tokens.
-	Bucket string
-}
-
 // NodeCreateResponse reports how the Nodes were created in the system.
 type NodeCreateResponse struct {
 	// Reserved for future use.
@@ -1240,6 +1320,22 @@ type Role struct {
 	Name string
 	// True if the Role is a composite role.
 	Composite bool
+}
+
+// AccountIterator provides read access to a list of Account.
+// Use it like so:
+//     for iterator.Next() {
+//         account := iterator.Value()
+//         // ...
+//     }
+type AccountIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() Account
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
 }
 
 // NodeIterator provides read access to a list of Node.

@@ -41,6 +41,7 @@ type Client struct {
 	maxRetries      int
 	baseRetryDelay  time.Duration
 	maxRetryDelay   time.Duration
+	accounts        *Accounts
 	nodes           *Nodes
 	resources       *Resources
 	roleAttachments *RoleAttachments
@@ -86,6 +87,10 @@ func New(host, token, secret string) (*Client, error) {
 		baseRetryDelay: defaultBaseRetryDelay,
 		maxRetryDelay:  defaultMaxRetryDelay,
 	}
+	client.accounts = &Accounts{
+		client: plumbing.NewAccountsClient(client.grpcConn),
+		parent: client,
+	}
 	client.nodes = &Nodes{
 		client: plumbing.NewNodesClient(client.grpcConn),
 		parent: client,
@@ -103,6 +108,11 @@ func New(host, token, secret string) (*Client, error) {
 		parent: client,
 	}
 	return client, nil
+}
+
+// Accounts are users, services or tokens who connect to and act within the strongDM network.
+func (c *Client) Accounts() *Accounts {
+	return c.accounts
 }
 
 // Nodes are proxies in the strongDM network. They come in two flavors: relays,

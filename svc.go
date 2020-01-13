@@ -6,6 +6,197 @@ import (
 	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 )
 
+// Accounts are users, services or tokens who connect to and act within the strongDM network.
+type Accounts struct {
+	client plumbing.AccountsClient
+	parent *Client
+}
+
+// Create registers a new Account.
+func (svc *Accounts) Create(
+	ctx context.Context,
+	account Account,
+) (
+	*AccountCreateResponse,
+	error,
+) {
+	req := &plumbing.AccountCreateRequest{}
+
+	req.Account = accountToPlumbing(account)
+	var plumbingResponse *plumbing.AccountCreateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Accounts.Create"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &AccountCreateResponse{}
+	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Account = accountToPorcelain(plumbingResponse.Account)
+	resp.Token = plumbingResponse.Token
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Get reads one Account by ID.
+func (svc *Accounts) Get(
+	ctx context.Context,
+	id string,
+) (
+	*AccountGetResponse,
+	error,
+) {
+	req := &plumbing.AccountGetRequest{}
+
+	req.Id = id
+	var plumbingResponse *plumbing.AccountGetResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Accounts.Get"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &AccountGetResponse{}
+	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Account = accountToPorcelain(plumbingResponse.Account)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Update patches a Account by ID.
+func (svc *Accounts) Update(
+	ctx context.Context,
+	account Account,
+) (
+	*AccountUpdateResponse,
+	error,
+) {
+	req := &plumbing.AccountUpdateRequest{}
+
+	req.Account = accountToPlumbing(account)
+	var plumbingResponse *plumbing.AccountUpdateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Accounts.Update"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &AccountUpdateResponse{}
+	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Account = accountToPorcelain(plumbingResponse.Account)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Delete removes a Account by ID.
+func (svc *Accounts) Delete(
+	ctx context.Context,
+	id string,
+) (
+	*AccountDeleteResponse,
+	error,
+) {
+	req := &plumbing.AccountDeleteRequest{}
+
+	req.Id = id
+	var plumbingResponse *plumbing.AccountDeleteResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Accounts.Delete"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &AccountDeleteResponse{}
+	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// List gets a list of Accounts matching a given set of criteria.
+func (svc *Accounts) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{},
+) (
+	AccountIterator,
+	error,
+) {
+	req := &plumbing.AccountListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if value := svc.parent.testOption("PageLimit"); value != nil {
+		v, ok := value.(int)
+		if ok {
+			req.Meta.Limit = int32(v)
+		}
+	}
+	return newAccountIteratorImpl(
+		func() (
+			[]Account,
+			bool, error) {
+			var plumbingResponse *plumbing.AccountListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Accounts.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, errorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result := repeatedAccountToPorcelain(plumbingResponse.Accounts)
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
 // Nodes are proxies in the strongDM network. They come in two flavors: relays,
 // which communicate with resources, and gateways, which communicate with
 // clients.
