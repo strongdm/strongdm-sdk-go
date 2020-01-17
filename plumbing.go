@@ -1459,7 +1459,6 @@ func mongoLegacyHostToPorcelain(plumbing *proto.MongoLegacyHost) *MongoLegacyHos
 	porcelain.Password = plumbing.Password
 	porcelain.Port = plumbing.Port
 	porcelain.ReplicaSet = plumbing.ReplicaSet
-	porcelain.ConnectToReplica = plumbing.ConnectToReplica
 	porcelain.TlsRequired = plumbing.TlsRequired
 	return porcelain
 }
@@ -1479,7 +1478,6 @@ func mongoLegacyHostToPlumbing(porcelain *MongoLegacyHost) *proto.MongoLegacyHos
 	plumbing.Password = porcelain.Password
 	plumbing.Port = porcelain.Port
 	plumbing.ReplicaSet = porcelain.ReplicaSet
-	plumbing.ConnectToReplica = porcelain.ConnectToReplica
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }
@@ -1570,7 +1568,6 @@ func mongoHostToPorcelain(plumbing *proto.MongoHost) *MongoHost {
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
 	porcelain.Port = plumbing.Port
-	porcelain.Schema = plumbing.Schema
 	porcelain.TlsRequired = plumbing.TlsRequired
 	return porcelain
 }
@@ -1589,7 +1586,6 @@ func mongoHostToPlumbing(porcelain *MongoHost) *proto.MongoHost {
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
 	plumbing.Port = porcelain.Port
-	plumbing.Schema = porcelain.Schema
 	plumbing.TlsRequired = porcelain.TlsRequired
 	return plumbing
 }

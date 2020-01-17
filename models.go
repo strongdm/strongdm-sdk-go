@@ -600,8 +600,6 @@ type MongoLegacyHost struct {
 
 	ReplicaSet string
 
-	ConnectToReplica bool
-
 	TlsRequired bool
 }
 
@@ -651,8 +649,6 @@ type MongoHost struct {
 	Password string
 
 	Port int32
-
-	Schema string
 
 	TlsRequired bool
 }
