@@ -15,11 +15,9 @@ type Accounts struct {
 // Create registers a new Account.
 func (svc *Accounts) Create(
 	ctx context.Context,
-	account Account,
-) (
+	account Account) (
 	*AccountCreateResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.AccountCreateRequest{}
 
 	req.Account = accountToPlumbing(account)
@@ -50,11 +48,9 @@ func (svc *Accounts) Create(
 // Get reads one Account by ID.
 func (svc *Accounts) Get(
 	ctx context.Context,
-	id string,
-) (
+	id string) (
 	*AccountGetResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.AccountGetRequest{}
 
 	req.Id = id
@@ -84,11 +80,9 @@ func (svc *Accounts) Get(
 // Update patches a Account by ID.
 func (svc *Accounts) Update(
 	ctx context.Context,
-	account Account,
-) (
+	account Account) (
 	*AccountUpdateResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.AccountUpdateRequest{}
 
 	req.Account = accountToPlumbing(account)
@@ -118,11 +112,9 @@ func (svc *Accounts) Update(
 // Delete removes a Account by ID.
 func (svc *Accounts) Delete(
 	ctx context.Context,
-	id string,
-) (
+	id string) (
 	*AccountDeleteResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.AccountDeleteRequest{}
 
 	req.Id = id
@@ -152,11 +144,9 @@ func (svc *Accounts) Delete(
 func (svc *Accounts) List(
 	ctx context.Context,
 	filter string,
-	args ...interface{},
-) (
+	args ...interface{}) (
 	AccountIterator,
-	error,
-) {
+	error) {
 	req := &plumbing.AccountListRequest{}
 
 	var filterErr error
@@ -208,11 +198,9 @@ type Nodes struct {
 // Create registers a new Node.
 func (svc *Nodes) Create(
 	ctx context.Context,
-	node Node,
-) (
+	node Node) (
 	*NodeCreateResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.NodeCreateRequest{}
 
 	req.Node = nodeToPlumbing(node)
@@ -243,11 +231,9 @@ func (svc *Nodes) Create(
 // Get reads one Node by ID.
 func (svc *Nodes) Get(
 	ctx context.Context,
-	id string,
-) (
+	id string) (
 	*NodeGetResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.NodeGetRequest{}
 
 	req.Id = id
@@ -277,11 +263,9 @@ func (svc *Nodes) Get(
 // Update patches a Node by ID.
 func (svc *Nodes) Update(
 	ctx context.Context,
-	node Node,
-) (
+	node Node) (
 	*NodeUpdateResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.NodeUpdateRequest{}
 
 	req.Node = nodeToPlumbing(node)
@@ -311,11 +295,9 @@ func (svc *Nodes) Update(
 // Delete removes a Node by ID.
 func (svc *Nodes) Delete(
 	ctx context.Context,
-	id string,
-) (
+	id string) (
 	*NodeDeleteResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.NodeDeleteRequest{}
 
 	req.Id = id
@@ -345,11 +327,9 @@ func (svc *Nodes) Delete(
 func (svc *Nodes) List(
 	ctx context.Context,
 	filter string,
-	args ...interface{},
-) (
+	args ...interface{}) (
 	NodeIterator,
-	error,
-) {
+	error) {
 	req := &plumbing.NodeListRequest{}
 
 	var filterErr error
@@ -398,11 +378,9 @@ type Resources struct {
 // Create registers a new Resource.
 func (svc *Resources) Create(
 	ctx context.Context,
-	resource Resource,
-) (
+	resource Resource) (
 	*ResourceCreateResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.ResourceCreateRequest{}
 
 	req.Resource = resourceToPlumbing(resource)
@@ -432,11 +410,9 @@ func (svc *Resources) Create(
 // Get reads one Resource by ID.
 func (svc *Resources) Get(
 	ctx context.Context,
-	id string,
-) (
+	id string) (
 	*ResourceGetResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.ResourceGetRequest{}
 
 	req.Id = id
@@ -466,11 +442,9 @@ func (svc *Resources) Get(
 // Update patches a Resource by ID.
 func (svc *Resources) Update(
 	ctx context.Context,
-	resource Resource,
-) (
+	resource Resource) (
 	*ResourceUpdateResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.ResourceUpdateRequest{}
 
 	req.Resource = resourceToPlumbing(resource)
@@ -500,11 +474,9 @@ func (svc *Resources) Update(
 // Delete removes a Resource by ID.
 func (svc *Resources) Delete(
 	ctx context.Context,
-	id string,
-) (
+	id string) (
 	*ResourceDeleteResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.ResourceDeleteRequest{}
 
 	req.Id = id
@@ -534,11 +506,9 @@ func (svc *Resources) Delete(
 func (svc *Resources) List(
 	ctx context.Context,
 	filter string,
-	args ...interface{},
-) (
+	args ...interface{}) (
 	ResourceIterator,
-	error,
-) {
+	error) {
 	req := &plumbing.ResourceListRequest{}
 
 	var filterErr error
@@ -591,11 +561,9 @@ type RoleAttachments struct {
 // Create registers a new RoleAttachment.
 func (svc *RoleAttachments) Create(
 	ctx context.Context,
-	roleAttachment *RoleAttachment,
-) (
+	roleAttachment *RoleAttachment) (
 	*RoleAttachmentCreateResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.RoleAttachmentCreateRequest{}
 
 	req.RoleAttachment = roleAttachmentToPlumbing(roleAttachment)
@@ -625,11 +593,9 @@ func (svc *RoleAttachments) Create(
 // Get reads one RoleAttachment by ID.
 func (svc *RoleAttachments) Get(
 	ctx context.Context,
-	id string,
-) (
+	id string) (
 	*RoleAttachmentGetResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.RoleAttachmentGetRequest{}
 
 	req.Id = id
@@ -659,11 +625,9 @@ func (svc *RoleAttachments) Get(
 // Delete removes a RoleAttachment by ID.
 func (svc *RoleAttachments) Delete(
 	ctx context.Context,
-	id string,
-) (
+	id string) (
 	*RoleAttachmentDeleteResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.RoleAttachmentDeleteRequest{}
 
 	req.Id = id
@@ -693,11 +657,9 @@ func (svc *RoleAttachments) Delete(
 func (svc *RoleAttachments) List(
 	ctx context.Context,
 	filter string,
-	args ...interface{},
-) (
+	args ...interface{}) (
 	RoleAttachmentIterator,
-	error,
-) {
+	error) {
 	req := &plumbing.RoleAttachmentListRequest{}
 
 	var filterErr error
@@ -751,11 +713,9 @@ type Roles struct {
 // Create registers a new Role.
 func (svc *Roles) Create(
 	ctx context.Context,
-	role *Role,
-) (
+	role *Role) (
 	*RoleCreateResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.RoleCreateRequest{}
 
 	req.Role = roleToPlumbing(role)
@@ -785,11 +745,9 @@ func (svc *Roles) Create(
 // Get reads one Role by ID.
 func (svc *Roles) Get(
 	ctx context.Context,
-	id string,
-) (
+	id string) (
 	*RoleGetResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.RoleGetRequest{}
 
 	req.Id = id
@@ -819,11 +777,9 @@ func (svc *Roles) Get(
 // Update patches a Role by ID.
 func (svc *Roles) Update(
 	ctx context.Context,
-	role *Role,
-) (
+	role *Role) (
 	*RoleUpdateResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.RoleUpdateRequest{}
 
 	req.Role = roleToPlumbing(role)
@@ -853,11 +809,9 @@ func (svc *Roles) Update(
 // Delete removes a Role by ID.
 func (svc *Roles) Delete(
 	ctx context.Context,
-	id string,
-) (
+	id string) (
 	*RoleDeleteResponse,
-	error,
-) {
+	error) {
 	req := &plumbing.RoleDeleteRequest{}
 
 	req.Id = id
@@ -887,11 +841,9 @@ func (svc *Roles) Delete(
 func (svc *Roles) List(
 	ctx context.Context,
 	filter string,
-	args ...interface{},
-) (
+	args ...interface{}) (
 	RoleIterator,
-	error,
-) {
+	error) {
 	req := &plumbing.RoleListRequest{}
 
 	var filterErr error
