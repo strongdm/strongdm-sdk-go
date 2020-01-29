@@ -519,6 +519,8 @@ func resourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_AmazonEks{AmazonEks: amazonEksToPlumbing(v)}
 	case *GoogleGKE:
 		plumbing.Resource = &proto.Resource_GoogleGke{GoogleGke: googleGkeToPlumbing(v)}
+	case *KubernetesServiceAccount:
+		plumbing.Resource = &proto.Resource_KubernetesServiceAccount{KubernetesServiceAccount: kubernetesServiceAccountToPlumbing(v)}
 	case *Memcached:
 		plumbing.Resource = &proto.Resource_Memcached{Memcached: memcachedToPlumbing(v)}
 	case *MongoLegacyHost:
@@ -615,6 +617,9 @@ func resourceToPorcelain(plumbing *proto.Resource) Resource {
 	}
 	if plumbing.GetGoogleGke() != nil {
 		return googleGkeToPorcelain(plumbing.GetGoogleGke())
+	}
+	if plumbing.GetKubernetesServiceAccount() != nil {
+		return kubernetesServiceAccountToPorcelain(plumbing.GetKubernetesServiceAccount())
 	}
 	if plumbing.GetMemcached() != nil {
 		return memcachedToPorcelain(plumbing.GetMemcached())
@@ -1397,6 +1402,50 @@ func repeatedGoogleGKEToPorcelain(plumbings []*proto.GoogleGKE) []*GoogleGKE {
 	var items []*GoogleGKE
 	for _, plumbing := range plumbings {
 		items = append(items, googleGkeToPorcelain(plumbing))
+	}
+	return items
+}
+func kubernetesServiceAccountToPorcelain(plumbing *proto.KubernetesServiceAccount) *KubernetesServiceAccount {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &KubernetesServiceAccount{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Port = plumbing.Port
+	porcelain.Token = plumbing.Token
+	return porcelain
+}
+
+func kubernetesServiceAccountToPlumbing(porcelain *KubernetesServiceAccount) *proto.KubernetesServiceAccount {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.KubernetesServiceAccount{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Port = porcelain.Port
+	plumbing.Token = porcelain.Token
+	return plumbing
+}
+func repeatedKubernetesServiceAccountToPlumbing(
+	porcelains []*KubernetesServiceAccount,
+) []*proto.KubernetesServiceAccount {
+	var items []*proto.KubernetesServiceAccount
+	for _, porcelain := range porcelains {
+		items = append(items, kubernetesServiceAccountToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedKubernetesServiceAccountToPorcelain(plumbings []*proto.KubernetesServiceAccount) []*KubernetesServiceAccount {
+	var items []*KubernetesServiceAccount
+	for _, plumbing := range plumbings {
+		items = append(items, kubernetesServiceAccountToPorcelain(plumbing))
 	}
 	return items
 }

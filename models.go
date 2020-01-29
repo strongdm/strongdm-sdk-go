@@ -177,8 +177,12 @@ func (m *AmazonEKS) GetID() string   { return m.ID }
 func (*GoogleGKE) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the GoogleGKE.
-func (m *GoogleGKE) GetID() string   { return m.ID }
-func (*Memcached) isOneOf_Resource() {}
+func (m *GoogleGKE) GetID() string                  { return m.ID }
+func (*KubernetesServiceAccount) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the KubernetesServiceAccount.
+func (m *KubernetesServiceAccount) GetID() string { return m.ID }
+func (*Memcached) isOneOf_Resource()              {}
 
 // GetID returns the unique identifier of the Memcached.
 func (m *Memcached) GetID() string         { return m.ID }
@@ -561,6 +565,21 @@ type GoogleGKE struct {
 	ServiceAccountKey string
 
 	ServiceAccountKeyFilename string
+}
+
+type KubernetesServiceAccount struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Port int32
+
+	Token string
 }
 
 type Memcached struct {
