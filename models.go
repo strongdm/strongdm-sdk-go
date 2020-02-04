@@ -278,6 +278,10 @@ func (*Sybase) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Sybase.
 func (m *Sybase) GetID() string     { return m.ID }
+func (*SybaseIQ) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the SybaseIQ.
+func (m *SybaseIQ) GetID() string   { return m.ID }
 func (*Teradata) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Teradata.
@@ -1084,6 +1088,25 @@ type SSH struct {
 }
 
 type Sybase struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Username string
+
+	PortOverride int32
+
+	Port int32
+
+	Password string
+}
+
+type SybaseIQ struct {
 	// Unique identifier of the Resource.
 	ID string
 	// Unique human-readable name of the Resource.

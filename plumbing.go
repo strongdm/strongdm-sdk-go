@@ -569,6 +569,8 @@ func resourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_Ssh{Ssh: sshToPlumbing(v)}
 	case *Sybase:
 		plumbing.Resource = &proto.Resource_Sybase{Sybase: sybaseToPlumbing(v)}
+	case *SybaseIQ:
+		plumbing.Resource = &proto.Resource_SybaseIq{SybaseIq: sybaseIqToPlumbing(v)}
 	case *Teradata:
 		plumbing.Resource = &proto.Resource_Teradata{Teradata: teradataToPlumbing(v)}
 	}
@@ -692,6 +694,9 @@ func resourceToPorcelain(plumbing *proto.Resource) Resource {
 	}
 	if plumbing.GetSybase() != nil {
 		return sybaseToPorcelain(plumbing.GetSybase())
+	}
+	if plumbing.GetSybaseIq() != nil {
+		return sybaseIqToPorcelain(plumbing.GetSybaseIq())
 	}
 	if plumbing.GetTeradata() != nil {
 		return teradataToPorcelain(plumbing.GetTeradata())
@@ -2662,6 +2667,54 @@ func repeatedSybaseToPorcelain(plumbings []*proto.Sybase) []*Sybase {
 	var items []*Sybase
 	for _, plumbing := range plumbings {
 		items = append(items, sybaseToPorcelain(plumbing))
+	}
+	return items
+}
+func sybaseIqToPorcelain(plumbing *proto.SybaseIQ) *SybaseIQ {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &SybaseIQ{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Username = plumbing.Username
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Port = plumbing.Port
+	porcelain.Password = plumbing.Password
+	return porcelain
+}
+
+func sybaseIqToPlumbing(porcelain *SybaseIQ) *proto.SybaseIQ {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SybaseIQ{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Username = porcelain.Username
+	plumbing.PortOverride = porcelain.PortOverride
+	plumbing.Port = porcelain.Port
+	plumbing.Password = porcelain.Password
+	return plumbing
+}
+func repeatedSybaseIQToPlumbing(
+	porcelains []*SybaseIQ,
+) []*proto.SybaseIQ {
+	var items []*proto.SybaseIQ
+	for _, porcelain := range porcelains {
+		items = append(items, sybaseIqToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedSybaseIQToPorcelain(plumbings []*proto.SybaseIQ) []*SybaseIQ {
+	var items []*SybaseIQ
+	for _, plumbing := range plumbings {
+		items = append(items, sybaseIqToPorcelain(plumbing))
 	}
 	return items
 }
