@@ -35,6 +35,45 @@ type RateLimitMetadata struct {
 	Bucket string
 }
 
+// AccountAttachmentCreateResponse reports how the AccountAttachments were created in the system.
+type AccountAttachmentCreateResponse struct {
+	// Reserved for future use.
+	Meta *CreateResponseMetadata
+	// The created AccountAttachment.
+	AccountAttachment *AccountAttachment
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// AccountAttachmentGetResponse returns a requested AccountAttachment.
+type AccountAttachmentGetResponse struct {
+	// Reserved for future use.
+	Meta *GetResponseMetadata
+	// The requested AccountAttachment.
+	AccountAttachment *AccountAttachment
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// AccountAttachmentDeleteResponse returns information about a AccountAttachment that was deleted.
+type AccountAttachmentDeleteResponse struct {
+	// Reserved for future use.
+	Meta *DeleteResponseMetadata
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// A AccountAttachment connects a composite role to another role, granting members
+// of the composite role the permissions granted to the attached role.
+type AccountAttachment struct {
+	// Unique identifier of the AccountAttachment.
+	ID string
+	// The id of the account of this AccountAttachment.
+	AccountID string
+	// The id of the attached role of this AccountAttachment.
+	RoleID string
+}
+
 // AccountGrantCreateResponse reports how the AccountGrants were created in the system.
 type AccountGrantCreateResponse struct {
 	// Reserved for future use.
@@ -1403,6 +1442,22 @@ type Role struct {
 	Name string
 	// True if the Role is a composite role.
 	Composite bool
+}
+
+// AccountAttachmentIterator provides read access to a list of AccountAttachment.
+// Use it like so:
+//     for iterator.Next() {
+//         accountAttachment := iterator.Value()
+//         // ...
+//     }
+type AccountAttachmentIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *AccountAttachment
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
 }
 
 // AccountGrantIterator provides read access to a list of AccountGrant.

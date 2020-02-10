@@ -215,6 +215,156 @@ func repeatedRateLimitMetadataToPorcelain(plumbings []*proto.RateLimitMetadata) 
 	}
 	return items
 }
+func accountAttachmentCreateResponseToPorcelain(plumbing *proto.AccountAttachmentCreateResponse) *AccountAttachmentCreateResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AccountAttachmentCreateResponse{}
+	porcelain.Meta = createResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.AccountAttachment = accountAttachmentToPorcelain(plumbing.AccountAttachment)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func accountAttachmentCreateResponseToPlumbing(porcelain *AccountAttachmentCreateResponse) *proto.AccountAttachmentCreateResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountAttachmentCreateResponse{}
+	plumbing.Meta = createResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.AccountAttachment = accountAttachmentToPlumbing(porcelain.AccountAttachment)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func repeatedAccountAttachmentCreateResponseToPlumbing(
+	porcelains []*AccountAttachmentCreateResponse,
+) []*proto.AccountAttachmentCreateResponse {
+	var items []*proto.AccountAttachmentCreateResponse
+	for _, porcelain := range porcelains {
+		items = append(items, accountAttachmentCreateResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAccountAttachmentCreateResponseToPorcelain(plumbings []*proto.AccountAttachmentCreateResponse) []*AccountAttachmentCreateResponse {
+	var items []*AccountAttachmentCreateResponse
+	for _, plumbing := range plumbings {
+		items = append(items, accountAttachmentCreateResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func accountAttachmentGetResponseToPorcelain(plumbing *proto.AccountAttachmentGetResponse) *AccountAttachmentGetResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AccountAttachmentGetResponse{}
+	porcelain.Meta = getResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.AccountAttachment = accountAttachmentToPorcelain(plumbing.AccountAttachment)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func accountAttachmentGetResponseToPlumbing(porcelain *AccountAttachmentGetResponse) *proto.AccountAttachmentGetResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountAttachmentGetResponse{}
+	plumbing.Meta = getResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.AccountAttachment = accountAttachmentToPlumbing(porcelain.AccountAttachment)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func repeatedAccountAttachmentGetResponseToPlumbing(
+	porcelains []*AccountAttachmentGetResponse,
+) []*proto.AccountAttachmentGetResponse {
+	var items []*proto.AccountAttachmentGetResponse
+	for _, porcelain := range porcelains {
+		items = append(items, accountAttachmentGetResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAccountAttachmentGetResponseToPorcelain(plumbings []*proto.AccountAttachmentGetResponse) []*AccountAttachmentGetResponse {
+	var items []*AccountAttachmentGetResponse
+	for _, plumbing := range plumbings {
+		items = append(items, accountAttachmentGetResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func accountAttachmentDeleteResponseToPorcelain(plumbing *proto.AccountAttachmentDeleteResponse) *AccountAttachmentDeleteResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AccountAttachmentDeleteResponse{}
+	porcelain.Meta = deleteResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func accountAttachmentDeleteResponseToPlumbing(porcelain *AccountAttachmentDeleteResponse) *proto.AccountAttachmentDeleteResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountAttachmentDeleteResponse{}
+	plumbing.Meta = deleteResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func repeatedAccountAttachmentDeleteResponseToPlumbing(
+	porcelains []*AccountAttachmentDeleteResponse,
+) []*proto.AccountAttachmentDeleteResponse {
+	var items []*proto.AccountAttachmentDeleteResponse
+	for _, porcelain := range porcelains {
+		items = append(items, accountAttachmentDeleteResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAccountAttachmentDeleteResponseToPorcelain(plumbings []*proto.AccountAttachmentDeleteResponse) []*AccountAttachmentDeleteResponse {
+	var items []*AccountAttachmentDeleteResponse
+	for _, plumbing := range plumbings {
+		items = append(items, accountAttachmentDeleteResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func accountAttachmentToPorcelain(plumbing *proto.AccountAttachment) *AccountAttachment {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AccountAttachment{}
+	porcelain.ID = plumbing.Id
+	porcelain.AccountID = plumbing.AccountId
+	porcelain.RoleID = plumbing.RoleId
+	return porcelain
+}
+
+func accountAttachmentToPlumbing(porcelain *AccountAttachment) *proto.AccountAttachment {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountAttachment{}
+	plumbing.Id = porcelain.ID
+	plumbing.AccountId = porcelain.AccountID
+	plumbing.RoleId = porcelain.RoleID
+	return plumbing
+}
+func repeatedAccountAttachmentToPlumbing(
+	porcelains []*AccountAttachment,
+) []*proto.AccountAttachment {
+	var items []*proto.AccountAttachment
+	for _, porcelain := range porcelains {
+		items = append(items, accountAttachmentToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAccountAttachmentToPorcelain(plumbings []*proto.AccountAttachment) []*AccountAttachment {
+	var items []*AccountAttachment
+	for _, plumbing := range plumbings {
+		items = append(items, accountAttachmentToPorcelain(plumbing))
+	}
+	return items
+}
 func accountGrantCreateResponseToPorcelain(plumbing *proto.AccountGrantCreateResponse) *AccountGrantCreateResponse {
 	if plumbing == nil {
 		return nil
@@ -3728,6 +3878,51 @@ func errorToPorcelain(err error) error {
 		return &rpcError{wrapped: err, code: int(s.Code())}
 	}
 	return &UnknownError{Wrapped: err}
+}
+
+type accountAttachmentIteratorImplFetchFunc func() (
+	[]*AccountAttachment,
+	bool, error)
+type accountAttachmentIteratorImpl struct {
+	buffer      []*AccountAttachment
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       accountAttachmentIteratorImplFetchFunc
+}
+
+func newAccountAttachmentIteratorImpl(f accountAttachmentIteratorImplFetchFunc) *accountAttachmentIteratorImpl {
+	return &accountAttachmentIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (a *accountAttachmentIteratorImpl) Next() bool {
+	if a.index < len(a.buffer)-1 {
+		a.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !a.hasNextPage {
+		return false
+	}
+
+	a.index = 0
+	a.buffer, a.hasNextPage, a.err = a.fetch()
+	return len(a.buffer) > 0
+}
+
+func (a *accountAttachmentIteratorImpl) Value() *AccountAttachment {
+	if a.index >= len(a.buffer) {
+		return nil
+	}
+	return a.buffer[a.index]
+}
+
+func (a *accountAttachmentIteratorImpl) Err() error {
+	return a.err
 }
 
 type accountGrantIteratorImplFetchFunc func() (

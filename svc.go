@@ -6,6 +6,156 @@ import (
 	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 )
 
+// AccountAttachments represent relationships between an account and a role.
+type AccountAttachments struct {
+	client plumbing.AccountAttachmentsClient
+	parent *Client
+}
+
+// Create registers a new AccountAttachment.
+func (svc *AccountAttachments) Create(
+	ctx context.Context,
+	accountAttachment *AccountAttachment,
+	overwrite bool) (
+	*AccountAttachmentCreateResponse,
+	error) {
+	req := &plumbing.AccountAttachmentCreateRequest{}
+
+	req.AccountAttachment = accountAttachmentToPlumbing(accountAttachment)
+	req.Overwrite = overwrite
+	var plumbingResponse *plumbing.AccountAttachmentCreateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "AccountAttachments.Create"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &AccountAttachmentCreateResponse{}
+	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.AccountAttachment = accountAttachmentToPorcelain(plumbingResponse.AccountAttachment)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Get reads one AccountAttachment by ID.
+func (svc *AccountAttachments) Get(
+	ctx context.Context,
+	id string) (
+	*AccountAttachmentGetResponse,
+	error) {
+	req := &plumbing.AccountAttachmentGetRequest{}
+
+	req.Id = id
+	var plumbingResponse *plumbing.AccountAttachmentGetResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "AccountAttachments.Get"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &AccountAttachmentGetResponse{}
+	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.AccountAttachment = accountAttachmentToPorcelain(plumbingResponse.AccountAttachment)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Delete removes a AccountAttachment by ID.
+func (svc *AccountAttachments) Delete(
+	ctx context.Context,
+	id string) (
+	*AccountAttachmentDeleteResponse,
+	error) {
+	req := &plumbing.AccountAttachmentDeleteRequest{}
+
+	req.Id = id
+	var plumbingResponse *plumbing.AccountAttachmentDeleteResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "AccountAttachments.Delete"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &AccountAttachmentDeleteResponse{}
+	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// List gets a list of AccountAttachments matching a given set of criteria.
+func (svc *AccountAttachments) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	AccountAttachmentIterator,
+	error) {
+	req := &plumbing.AccountAttachmentListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if value := svc.parent.testOption("PageLimit"); value != nil {
+		v, ok := value.(int)
+		if ok {
+			req.Meta.Limit = int32(v)
+		}
+	}
+	return newAccountAttachmentIteratorImpl(
+		func() (
+			[]*AccountAttachment,
+			bool, error) {
+			var plumbingResponse *plumbing.AccountAttachmentListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountAttachments.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, errorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result := repeatedAccountAttachmentToPorcelain(plumbingResponse.AccountAttachments)
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
 // AccountGrants represent relationships between composite roles and the roles
 // that make up those composite roles. When a composite role is attached to another
 // role, the permissions granted to members of the composite role are augmented to

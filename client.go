@@ -38,15 +38,16 @@ type Client struct {
 	apiSecret []byte
 	grpcConn  *grpc.ClientConn
 
-	maxRetries      int
-	baseRetryDelay  time.Duration
-	maxRetryDelay   time.Duration
-	accountGrants   *AccountGrants
-	accounts        *Accounts
-	nodes           *Nodes
-	resources       *Resources
-	roleAttachments *RoleAttachments
-	roles           *Roles
+	maxRetries         int
+	baseRetryDelay     time.Duration
+	maxRetryDelay      time.Duration
+	accountAttachments *AccountAttachments
+	accountGrants      *AccountGrants
+	accounts           *Accounts
+	nodes              *Nodes
+	resources          *Resources
+	roleAttachments    *RoleAttachments
+	roles              *Roles
 }
 
 // New creates a new strongDM API client.
@@ -88,6 +89,10 @@ func New(host, token, secret string) (*Client, error) {
 		baseRetryDelay: defaultBaseRetryDelay,
 		maxRetryDelay:  defaultMaxRetryDelay,
 	}
+	client.accountAttachments = &AccountAttachments{
+		client: plumbing.NewAccountAttachmentsClient(client.grpcConn),
+		parent: client,
+	}
 	client.accountGrants = &AccountGrants{
 		client: plumbing.NewAccountGrantsClient(client.grpcConn),
 		parent: client,
@@ -113,6 +118,11 @@ func New(host, token, secret string) (*Client, error) {
 		parent: client,
 	}
 	return client, nil
+}
+
+// AccountAttachments represent relationships between an account and a role.
+func (c *Client) AccountAttachments() *AccountAttachments {
+	return c.accountAttachments
 }
 
 // AccountGrants represent relationships between composite roles and the roles
