@@ -35,6 +35,51 @@ type RateLimitMetadata struct {
 	Bucket string
 }
 
+// AccountGrantCreateResponse reports how the AccountGrants were created in the system.
+type AccountGrantCreateResponse struct {
+	// Reserved for future use.
+	Meta *CreateResponseMetadata
+	// The created AccountGrant.
+	AccountGrant *AccountGrant
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// AccountGrantGetResponse returns a requested AccountGrant.
+type AccountGrantGetResponse struct {
+	// Reserved for future use.
+	Meta *GetResponseMetadata
+	// The requested AccountGrant.
+	AccountGrant *AccountGrant
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// AccountGrantDeleteResponse returns information about a AccountGrant that was deleted.
+type AccountGrantDeleteResponse struct {
+	// Reserved for future use.
+	Meta *DeleteResponseMetadata
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// A AccountGrant connects a composite role to another role, granting members
+// of the composite role the permissions granted to the attached role.
+type AccountGrant struct {
+	// Unique identifier of the AccountGrant.
+	ID string
+	// The id of the composite role of this AccountGrant.
+	ResourceID string
+	// The id of the attached role of this AccountGrant.
+	AccountID string
+	// The timestamp when the resource will be granted. Optional. Both start_at
+	// and end_at must be defined together, or not defined at all.
+	StartFrom time.Time
+	// The timestamp when the resource grant will expire. Optional. Both
+	// start_at and end_at must be defined together, or not defined at all.
+	ValidUntil time.Time
+}
+
 // AccountCreateResponse reports how the Accounts were created in the system.
 type AccountCreateResponse struct {
 	// Reserved for future use.
@@ -1358,6 +1403,22 @@ type Role struct {
 	Name string
 	// True if the Role is a composite role.
 	Composite bool
+}
+
+// AccountGrantIterator provides read access to a list of AccountGrant.
+// Use it like so:
+//     for iterator.Next() {
+//         accountGrant := iterator.Value()
+//         // ...
+//     }
+type AccountGrantIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *AccountGrant
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
 }
 
 // AccountIterator provides read access to a list of Account.

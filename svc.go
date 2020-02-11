@@ -6,6 +6,157 @@ import (
 	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 )
 
+// AccountGrants represent relationships between composite roles and the roles
+// that make up those composite roles. When a composite role is attached to another
+// role, the permissions granted to members of the composite role are augmented to
+// include the permissions granted to members of the attached role.
+type AccountGrants struct {
+	client plumbing.AccountGrantsClient
+	parent *Client
+}
+
+// Create registers a new AccountGrant.
+func (svc *AccountGrants) Create(
+	ctx context.Context,
+	accountGrant *AccountGrant) (
+	*AccountGrantCreateResponse,
+	error) {
+	req := &plumbing.AccountGrantCreateRequest{}
+
+	req.AccountGrant = accountGrantToPlumbing(accountGrant)
+	var plumbingResponse *plumbing.AccountGrantCreateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "AccountGrants.Create"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &AccountGrantCreateResponse{}
+	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.AccountGrant = accountGrantToPorcelain(plumbingResponse.AccountGrant)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Get reads one AccountGrant by ID.
+func (svc *AccountGrants) Get(
+	ctx context.Context,
+	id string) (
+	*AccountGrantGetResponse,
+	error) {
+	req := &plumbing.AccountGrantGetRequest{}
+
+	req.Id = id
+	var plumbingResponse *plumbing.AccountGrantGetResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "AccountGrants.Get"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &AccountGrantGetResponse{}
+	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.AccountGrant = accountGrantToPorcelain(plumbingResponse.AccountGrant)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Delete removes a AccountGrant by ID.
+func (svc *AccountGrants) Delete(
+	ctx context.Context,
+	id string) (
+	*AccountGrantDeleteResponse,
+	error) {
+	req := &plumbing.AccountGrantDeleteRequest{}
+
+	req.Id = id
+	var plumbingResponse *plumbing.AccountGrantDeleteResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "AccountGrants.Delete"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &AccountGrantDeleteResponse{}
+	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// List gets a list of AccountGrants matching a given set of criteria.
+func (svc *AccountGrants) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	AccountGrantIterator,
+	error) {
+	req := &plumbing.AccountGrantListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if value := svc.parent.testOption("PageLimit"); value != nil {
+		v, ok := value.(int)
+		if ok {
+			req.Meta.Limit = int32(v)
+		}
+	}
+	return newAccountGrantIteratorImpl(
+		func() (
+			[]*AccountGrant,
+			bool, error) {
+			var plumbingResponse *plumbing.AccountGrantListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountGrants.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, errorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result := repeatedAccountGrantToPorcelain(plumbingResponse.AccountGrants)
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
 // Accounts are users, services or tokens who connect to and act within the strongDM network.
 type Accounts struct {
 	client plumbing.AccountsClient

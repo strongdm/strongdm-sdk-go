@@ -41,6 +41,7 @@ type Client struct {
 	maxRetries      int
 	baseRetryDelay  time.Duration
 	maxRetryDelay   time.Duration
+	accountGrants   *AccountGrants
 	accounts        *Accounts
 	nodes           *Nodes
 	resources       *Resources
@@ -87,6 +88,10 @@ func New(host, token, secret string) (*Client, error) {
 		baseRetryDelay: defaultBaseRetryDelay,
 		maxRetryDelay:  defaultMaxRetryDelay,
 	}
+	client.accountGrants = &AccountGrants{
+		client: plumbing.NewAccountGrantsClient(client.grpcConn),
+		parent: client,
+	}
 	client.accounts = &Accounts{
 		client: plumbing.NewAccountsClient(client.grpcConn),
 		parent: client,
@@ -108,6 +113,14 @@ func New(host, token, secret string) (*Client, error) {
 		parent: client,
 	}
 	return client, nil
+}
+
+// AccountGrants represent relationships between composite roles and the roles
+// that make up those composite roles. When a composite role is attached to another
+// role, the permissions granted to members of the composite role are augmented to
+// include the permissions granted to members of the attached role.
+func (c *Client) AccountGrants() *AccountGrants {
+	return c.accountGrants
 }
 
 // Accounts are users, services or tokens who connect to and act within the strongDM network.

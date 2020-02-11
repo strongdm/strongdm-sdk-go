@@ -3,7 +3,6 @@ package sdm
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
 	proto "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	"google.golang.org/grpc/codes"
@@ -34,18 +33,19 @@ func quoteFilterArgs(filter string, args ...interface{}) (string, error) {
 
 func timestampToPorcelain(t *timestamp.Timestamp) time.Time {
 	if t == nil {
-		return time.Time{}
+		return time.Unix(0, 0).UTC()
 	}
-	res, _ := ptypes.Timestamp(t)
-	return res
+	return time.Unix(t.Seconds, int64(t.Nanos)).UTC()
 }
 
 func timestampToPlumbing(t time.Time) *timestamp.Timestamp {
-	res, err := ptypes.TimestampProto(t)
-	if err != nil {
+	if t.IsZero() {
 		return nil
 	}
-	return res
+	return &timestamp.Timestamp{
+		Seconds: t.Unix(),
+		Nanos:   int32(t.Nanosecond()),
+	}
 }
 func createResponseMetadataToPorcelain(plumbing *proto.CreateResponseMetadata) *CreateResponseMetadata {
 	if plumbing == nil {
@@ -212,6 +212,160 @@ func repeatedRateLimitMetadataToPorcelain(plumbings []*proto.RateLimitMetadata) 
 	var items []*RateLimitMetadata
 	for _, plumbing := range plumbings {
 		items = append(items, rateLimitMetadataToPorcelain(plumbing))
+	}
+	return items
+}
+func accountGrantCreateResponseToPorcelain(plumbing *proto.AccountGrantCreateResponse) *AccountGrantCreateResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AccountGrantCreateResponse{}
+	porcelain.Meta = createResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.AccountGrant = accountGrantToPorcelain(plumbing.AccountGrant)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func accountGrantCreateResponseToPlumbing(porcelain *AccountGrantCreateResponse) *proto.AccountGrantCreateResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountGrantCreateResponse{}
+	plumbing.Meta = createResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.AccountGrant = accountGrantToPlumbing(porcelain.AccountGrant)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func repeatedAccountGrantCreateResponseToPlumbing(
+	porcelains []*AccountGrantCreateResponse,
+) []*proto.AccountGrantCreateResponse {
+	var items []*proto.AccountGrantCreateResponse
+	for _, porcelain := range porcelains {
+		items = append(items, accountGrantCreateResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAccountGrantCreateResponseToPorcelain(plumbings []*proto.AccountGrantCreateResponse) []*AccountGrantCreateResponse {
+	var items []*AccountGrantCreateResponse
+	for _, plumbing := range plumbings {
+		items = append(items, accountGrantCreateResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func accountGrantGetResponseToPorcelain(plumbing *proto.AccountGrantGetResponse) *AccountGrantGetResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AccountGrantGetResponse{}
+	porcelain.Meta = getResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.AccountGrant = accountGrantToPorcelain(plumbing.AccountGrant)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func accountGrantGetResponseToPlumbing(porcelain *AccountGrantGetResponse) *proto.AccountGrantGetResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountGrantGetResponse{}
+	plumbing.Meta = getResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.AccountGrant = accountGrantToPlumbing(porcelain.AccountGrant)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func repeatedAccountGrantGetResponseToPlumbing(
+	porcelains []*AccountGrantGetResponse,
+) []*proto.AccountGrantGetResponse {
+	var items []*proto.AccountGrantGetResponse
+	for _, porcelain := range porcelains {
+		items = append(items, accountGrantGetResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAccountGrantGetResponseToPorcelain(plumbings []*proto.AccountGrantGetResponse) []*AccountGrantGetResponse {
+	var items []*AccountGrantGetResponse
+	for _, plumbing := range plumbings {
+		items = append(items, accountGrantGetResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func accountGrantDeleteResponseToPorcelain(plumbing *proto.AccountGrantDeleteResponse) *AccountGrantDeleteResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AccountGrantDeleteResponse{}
+	porcelain.Meta = deleteResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func accountGrantDeleteResponseToPlumbing(porcelain *AccountGrantDeleteResponse) *proto.AccountGrantDeleteResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountGrantDeleteResponse{}
+	plumbing.Meta = deleteResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func repeatedAccountGrantDeleteResponseToPlumbing(
+	porcelains []*AccountGrantDeleteResponse,
+) []*proto.AccountGrantDeleteResponse {
+	var items []*proto.AccountGrantDeleteResponse
+	for _, porcelain := range porcelains {
+		items = append(items, accountGrantDeleteResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAccountGrantDeleteResponseToPorcelain(plumbings []*proto.AccountGrantDeleteResponse) []*AccountGrantDeleteResponse {
+	var items []*AccountGrantDeleteResponse
+	for _, plumbing := range plumbings {
+		items = append(items, accountGrantDeleteResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func accountGrantToPorcelain(plumbing *proto.AccountGrant) *AccountGrant {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AccountGrant{}
+	porcelain.ID = plumbing.Id
+	porcelain.ResourceID = plumbing.ResourceId
+	porcelain.AccountID = plumbing.AccountId
+	porcelain.StartFrom = timestampToPorcelain(plumbing.StartFrom)
+	porcelain.ValidUntil = timestampToPorcelain(plumbing.ValidUntil)
+	return porcelain
+}
+
+func accountGrantToPlumbing(porcelain *AccountGrant) *proto.AccountGrant {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountGrant{}
+	plumbing.Id = porcelain.ID
+	plumbing.ResourceId = porcelain.ResourceID
+	plumbing.AccountId = porcelain.AccountID
+	plumbing.StartFrom = timestampToPlumbing(porcelain.StartFrom)
+	plumbing.ValidUntil = timestampToPlumbing(porcelain.ValidUntil)
+	return plumbing
+}
+func repeatedAccountGrantToPlumbing(
+	porcelains []*AccountGrant,
+) []*proto.AccountGrant {
+	var items []*proto.AccountGrant
+	for _, porcelain := range porcelains {
+		items = append(items, accountGrantToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAccountGrantToPorcelain(plumbings []*proto.AccountGrant) []*AccountGrant {
+	var items []*AccountGrant
+	for _, plumbing := range plumbings {
+		items = append(items, accountGrantToPorcelain(plumbing))
 	}
 	return items
 }
@@ -3574,6 +3728,51 @@ func errorToPorcelain(err error) error {
 		return &rpcError{wrapped: err, code: int(s.Code())}
 	}
 	return &UnknownError{Wrapped: err}
+}
+
+type accountGrantIteratorImplFetchFunc func() (
+	[]*AccountGrant,
+	bool, error)
+type accountGrantIteratorImpl struct {
+	buffer      []*AccountGrant
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       accountGrantIteratorImplFetchFunc
+}
+
+func newAccountGrantIteratorImpl(f accountGrantIteratorImplFetchFunc) *accountGrantIteratorImpl {
+	return &accountGrantIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (a *accountGrantIteratorImpl) Next() bool {
+	if a.index < len(a.buffer)-1 {
+		a.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !a.hasNextPage {
+		return false
+	}
+
+	a.index = 0
+	a.buffer, a.hasNextPage, a.err = a.fetch()
+	return len(a.buffer) > 0
+}
+
+func (a *accountGrantIteratorImpl) Value() *AccountGrant {
+	if a.index >= len(a.buffer) {
+		return nil
+	}
+	return a.buffer[a.index]
+}
+
+func (a *accountGrantIteratorImpl) Err() error {
+	return a.err
 }
 
 type accountIteratorImplFetchFunc func() (
