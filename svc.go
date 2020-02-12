@@ -22,8 +22,9 @@ func (svc *AccountAttachments) Create(
 	req := &plumbing.AccountAttachmentCreateRequest{}
 
 	req.AccountAttachment = accountAttachmentToPlumbing(accountAttachment)
-	if len(options) > 0 {
-		// TODO: how do we handle when more than one is setup? Error? Panic? Pick first? Pick last? KISS for now and just pick the first.
+	if len(options) > 1 {
+		return nil, &BadRequestError{Message: "use only one AccountAttachmentCreateOptions per Create call"}
+	} else if len(options) == 1 {
 		req.Options = accountAttachmentCreateOptionsToPlumbing(options[0])
 	}
 	var plumbingResponse *plumbing.AccountAttachmentCreateResponse
