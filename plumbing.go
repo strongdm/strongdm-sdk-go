@@ -215,6 +215,40 @@ func repeatedRateLimitMetadataToPorcelain(plumbings []*proto.RateLimitMetadata) 
 	}
 	return items
 }
+func accountAttachmentCreateOptionsToPorcelain(plumbing *proto.AccountAttachmentCreateOptions) *AccountAttachmentCreateOptions {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AccountAttachmentCreateOptions{}
+	porcelain.Overwrite = plumbing.Overwrite
+	return porcelain
+}
+
+func accountAttachmentCreateOptionsToPlumbing(porcelain *AccountAttachmentCreateOptions) *proto.AccountAttachmentCreateOptions {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountAttachmentCreateOptions{}
+	plumbing.Overwrite = porcelain.Overwrite
+	return plumbing
+}
+func repeatedAccountAttachmentCreateOptionsToPlumbing(
+	porcelains []*AccountAttachmentCreateOptions,
+) []*proto.AccountAttachmentCreateOptions {
+	var items []*proto.AccountAttachmentCreateOptions
+	for _, porcelain := range porcelains {
+		items = append(items, accountAttachmentCreateOptionsToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAccountAttachmentCreateOptionsToPorcelain(plumbings []*proto.AccountAttachmentCreateOptions) []*AccountAttachmentCreateOptions {
+	var items []*AccountAttachmentCreateOptions
+	for _, plumbing := range plumbings {
+		items = append(items, accountAttachmentCreateOptionsToPorcelain(plumbing))
+	}
+	return items
+}
 func accountAttachmentCreateResponseToPorcelain(plumbing *proto.AccountAttachmentCreateResponse) *AccountAttachmentCreateResponse {
 	if plumbing == nil {
 		return nil

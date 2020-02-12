@@ -35,6 +35,13 @@ type RateLimitMetadata struct {
 	Bucket string
 }
 
+// AccountAttachmentCreateOptions specifies extra options for creating an
+// AccountAttachment.
+type AccountAttachmentCreateOptions struct {
+	// Overwrite clears all account grants before the attachment.
+	Overwrite bool
+}
+
 // AccountAttachmentCreateResponse reports how the AccountAttachments were created in the system.
 type AccountAttachmentCreateResponse struct {
 	// Reserved for future use.

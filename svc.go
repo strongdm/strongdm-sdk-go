@@ -16,13 +16,13 @@ type AccountAttachments struct {
 func (svc *AccountAttachments) Create(
 	ctx context.Context,
 	accountAttachment *AccountAttachment,
-	overwrite bool) (
+	options *AccountAttachmentCreateOptions) (
 	*AccountAttachmentCreateResponse,
 	error) {
 	req := &plumbing.AccountAttachmentCreateRequest{}
 
 	req.AccountAttachment = accountAttachmentToPlumbing(accountAttachment)
-	req.Overwrite = overwrite
+	req.Options = accountAttachmentCreateOptionsToPlumbing(options)
 	var plumbingResponse *plumbing.AccountAttachmentCreateResponse
 	var err error
 	i := 0
