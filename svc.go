@@ -16,13 +16,16 @@ type AccountAttachments struct {
 func (svc *AccountAttachments) Create(
 	ctx context.Context,
 	accountAttachment *AccountAttachment,
-	options *AccountAttachmentCreateOptions) (
+	options ...*AccountAttachmentCreateOptions) (
 	*AccountAttachmentCreateResponse,
 	error) {
 	req := &plumbing.AccountAttachmentCreateRequest{}
 
 	req.AccountAttachment = accountAttachmentToPlumbing(accountAttachment)
-	req.Options = accountAttachmentCreateOptionsToPlumbing(options)
+	if len(options) > 0 {
+		// TODO: how do we handle when more than one is setup? Error? Panic? Pick first? Pick last? KISS for now and just pick the first.
+		req.Options = accountAttachmentCreateOptionsToPlumbing(options[0])
+	}
 	var plumbingResponse *plumbing.AccountAttachmentCreateResponse
 	var err error
 	i := 0
