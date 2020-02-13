@@ -3677,6 +3677,156 @@ func repeatedRoleAttachmentToPorcelain(plumbings []*proto.RoleAttachment) []*Rol
 	}
 	return items
 }
+func roleGrantCreateResponseToPorcelain(plumbing *proto.RoleGrantCreateResponse) *RoleGrantCreateResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &RoleGrantCreateResponse{}
+	porcelain.Meta = createResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RoleGrant = roleGrantToPorcelain(plumbing.RoleGrant)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func roleGrantCreateResponseToPlumbing(porcelain *RoleGrantCreateResponse) *proto.RoleGrantCreateResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RoleGrantCreateResponse{}
+	plumbing.Meta = createResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RoleGrant = roleGrantToPlumbing(porcelain.RoleGrant)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func repeatedRoleGrantCreateResponseToPlumbing(
+	porcelains []*RoleGrantCreateResponse,
+) []*proto.RoleGrantCreateResponse {
+	var items []*proto.RoleGrantCreateResponse
+	for _, porcelain := range porcelains {
+		items = append(items, roleGrantCreateResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedRoleGrantCreateResponseToPorcelain(plumbings []*proto.RoleGrantCreateResponse) []*RoleGrantCreateResponse {
+	var items []*RoleGrantCreateResponse
+	for _, plumbing := range plumbings {
+		items = append(items, roleGrantCreateResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func roleGrantGetResponseToPorcelain(plumbing *proto.RoleGrantGetResponse) *RoleGrantGetResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &RoleGrantGetResponse{}
+	porcelain.Meta = getResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RoleGrant = roleGrantToPorcelain(plumbing.RoleGrant)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func roleGrantGetResponseToPlumbing(porcelain *RoleGrantGetResponse) *proto.RoleGrantGetResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RoleGrantGetResponse{}
+	plumbing.Meta = getResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RoleGrant = roleGrantToPlumbing(porcelain.RoleGrant)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func repeatedRoleGrantGetResponseToPlumbing(
+	porcelains []*RoleGrantGetResponse,
+) []*proto.RoleGrantGetResponse {
+	var items []*proto.RoleGrantGetResponse
+	for _, porcelain := range porcelains {
+		items = append(items, roleGrantGetResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedRoleGrantGetResponseToPorcelain(plumbings []*proto.RoleGrantGetResponse) []*RoleGrantGetResponse {
+	var items []*RoleGrantGetResponse
+	for _, plumbing := range plumbings {
+		items = append(items, roleGrantGetResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func roleGrantDeleteResponseToPorcelain(plumbing *proto.RoleGrantDeleteResponse) *RoleGrantDeleteResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &RoleGrantDeleteResponse{}
+	porcelain.Meta = deleteResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RateLimit = rateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func roleGrantDeleteResponseToPlumbing(porcelain *RoleGrantDeleteResponse) *proto.RoleGrantDeleteResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RoleGrantDeleteResponse{}
+	plumbing.Meta = deleteResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RateLimit = rateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func repeatedRoleGrantDeleteResponseToPlumbing(
+	porcelains []*RoleGrantDeleteResponse,
+) []*proto.RoleGrantDeleteResponse {
+	var items []*proto.RoleGrantDeleteResponse
+	for _, porcelain := range porcelains {
+		items = append(items, roleGrantDeleteResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedRoleGrantDeleteResponseToPorcelain(plumbings []*proto.RoleGrantDeleteResponse) []*RoleGrantDeleteResponse {
+	var items []*RoleGrantDeleteResponse
+	for _, plumbing := range plumbings {
+		items = append(items, roleGrantDeleteResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func roleGrantToPorcelain(plumbing *proto.RoleGrant) *RoleGrant {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &RoleGrant{}
+	porcelain.ID = plumbing.Id
+	porcelain.ResourceID = plumbing.ResourceId
+	porcelain.RoleID = plumbing.RoleId
+	return porcelain
+}
+
+func roleGrantToPlumbing(porcelain *RoleGrant) *proto.RoleGrant {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RoleGrant{}
+	plumbing.Id = porcelain.ID
+	plumbing.ResourceId = porcelain.ResourceID
+	plumbing.RoleId = porcelain.RoleID
+	return plumbing
+}
+func repeatedRoleGrantToPlumbing(
+	porcelains []*RoleGrant,
+) []*proto.RoleGrant {
+	var items []*proto.RoleGrant
+	for _, porcelain := range porcelains {
+		items = append(items, roleGrantToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedRoleGrantToPorcelain(plumbings []*proto.RoleGrant) []*RoleGrant {
+	var items []*RoleGrant
+	for _, plumbing := range plumbings {
+		items = append(items, roleGrantToPorcelain(plumbing))
+	}
+	return items
+}
 func roleCreateResponseToPorcelain(plumbing *proto.RoleCreateResponse) *RoleCreateResponse {
 	if plumbing == nil {
 		return nil
@@ -4181,6 +4331,51 @@ func (r *roleAttachmentIteratorImpl) Value() *RoleAttachment {
 }
 
 func (r *roleAttachmentIteratorImpl) Err() error {
+	return r.err
+}
+
+type roleGrantIteratorImplFetchFunc func() (
+	[]*RoleGrant,
+	bool, error)
+type roleGrantIteratorImpl struct {
+	buffer      []*RoleGrant
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       roleGrantIteratorImplFetchFunc
+}
+
+func newRoleGrantIteratorImpl(f roleGrantIteratorImplFetchFunc) *roleGrantIteratorImpl {
+	return &roleGrantIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *roleGrantIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *roleGrantIteratorImpl) Value() *RoleGrant {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *roleGrantIteratorImpl) Err() error {
 	return r.err
 }
 

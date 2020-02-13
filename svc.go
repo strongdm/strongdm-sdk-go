@@ -1005,6 +1005,157 @@ func (svc *RoleAttachments) List(
 	), nil
 }
 
+// RoleGrants represent relationships between composite roles and the roles
+// that make up those composite roles. When a composite role is attached to another
+// role, the permissions granted to members of the composite role are augmented to
+// include the permissions granted to members of the attached role.
+type RoleGrants struct {
+	client plumbing.RoleGrantsClient
+	parent *Client
+}
+
+// Create registers a new RoleGrant.
+func (svc *RoleGrants) Create(
+	ctx context.Context,
+	roleGrant *RoleGrant) (
+	*RoleGrantCreateResponse,
+	error) {
+	req := &plumbing.RoleGrantCreateRequest{}
+
+	req.RoleGrant = roleGrantToPlumbing(roleGrant)
+	var plumbingResponse *plumbing.RoleGrantCreateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "RoleGrants.Create"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &RoleGrantCreateResponse{}
+	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RoleGrant = roleGrantToPorcelain(plumbingResponse.RoleGrant)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Get reads one RoleGrant by ID.
+func (svc *RoleGrants) Get(
+	ctx context.Context,
+	id string) (
+	*RoleGrantGetResponse,
+	error) {
+	req := &plumbing.RoleGrantGetRequest{}
+
+	req.Id = id
+	var plumbingResponse *plumbing.RoleGrantGetResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "RoleGrants.Get"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &RoleGrantGetResponse{}
+	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RoleGrant = roleGrantToPorcelain(plumbingResponse.RoleGrant)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// Delete removes a RoleGrant by ID.
+func (svc *RoleGrants) Delete(
+	ctx context.Context,
+	id string) (
+	*RoleGrantDeleteResponse,
+	error) {
+	req := &plumbing.RoleGrantDeleteRequest{}
+
+	req.Id = id
+	var plumbingResponse *plumbing.RoleGrantDeleteResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "RoleGrants.Delete"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, errorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &RoleGrantDeleteResponse{}
+	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
+// List gets a list of RoleGrants matching a given set of criteria.
+func (svc *RoleGrants) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	RoleGrantIterator,
+	error) {
+	req := &plumbing.RoleGrantListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if value := svc.parent.testOption("PageLimit"); value != nil {
+		v, ok := value.(int)
+		if ok {
+			req.Meta.Limit = int32(v)
+		}
+	}
+	return newRoleGrantIteratorImpl(
+		func() (
+			[]*RoleGrant,
+			bool, error) {
+			var plumbingResponse *plumbing.RoleGrantListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RoleGrants.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, errorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result := repeatedRoleGrantToPorcelain(plumbingResponse.RoleGrants)
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
 // Roles are tools for controlling user access to resources. Each Role holds a
 // list of resources which they grant access to. Composite roles are a special
 // type of Role which have no resource associations of their own, but instead

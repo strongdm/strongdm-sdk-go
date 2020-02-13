@@ -1399,6 +1399,45 @@ type RoleAttachment struct {
 	AttachedRoleID string
 }
 
+// RoleGrantCreateResponse reports how the RoleGrants were created in the system.
+type RoleGrantCreateResponse struct {
+	// Reserved for future use.
+	Meta *CreateResponseMetadata
+	// The created RoleGrant.
+	RoleGrant *RoleGrant
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// RoleGrantGetResponse returns a requested RoleGrant.
+type RoleGrantGetResponse struct {
+	// Reserved for future use.
+	Meta *GetResponseMetadata
+	// The requested RoleGrant.
+	RoleGrant *RoleGrant
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// RoleGrantDeleteResponse returns information about a RoleGrant that was deleted.
+type RoleGrantDeleteResponse struct {
+	// Reserved for future use.
+	Meta *DeleteResponseMetadata
+	// Rate limit information.
+	RateLimit *RateLimitMetadata
+}
+
+// A RoleGrant connects a resource to a role, granting members of the role
+// access to it.
+type RoleGrant struct {
+	// Unique identifier of the RoleGrant.
+	ID string
+	// The id of the resource of this RoleGrant.
+	ResourceID string
+	// The id of the attached role of this RoleGrant.
+	RoleID string
+}
+
 // RoleCreateResponse reports how the Roles were created in the system. It can
 // communicate partial successes or failures.
 type RoleCreateResponse struct {
@@ -1543,6 +1582,22 @@ type RoleAttachmentIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() *RoleAttachment
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// RoleGrantIterator provides read access to a list of RoleGrant.
+// Use it like so:
+//     for iterator.Next() {
+//         roleGrant := iterator.Value()
+//         // ...
+//     }
+type RoleGrantIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *RoleGrant
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }

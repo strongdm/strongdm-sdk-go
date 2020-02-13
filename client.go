@@ -47,6 +47,7 @@ type Client struct {
 	nodes              *Nodes
 	resources          *Resources
 	roleAttachments    *RoleAttachments
+	roleGrants         *RoleGrants
 	roles              *Roles
 }
 
@@ -113,6 +114,10 @@ func New(host, token, secret string) (*Client, error) {
 		client: plumbing.NewRoleAttachmentsClient(client.grpcConn),
 		parent: client,
 	}
+	client.roleGrants = &RoleGrants{
+		client: plumbing.NewRoleGrantsClient(client.grpcConn),
+		parent: client,
+	}
 	client.roles = &Roles{
 		client: plumbing.NewRolesClient(client.grpcConn),
 		parent: client,
@@ -155,6 +160,14 @@ func (c *Client) Resources() *Resources {
 // include the permissions granted to members of the attached role.
 func (c *Client) RoleAttachments() *RoleAttachments {
 	return c.roleAttachments
+}
+
+// RoleGrants represent relationships between composite roles and the roles
+// that make up those composite roles. When a composite role is attached to another
+// role, the permissions granted to members of the composite role are augmented to
+// include the permissions granted to members of the attached role.
+func (c *Client) RoleGrants() *RoleGrants {
+	return c.roleGrants
 }
 
 // Roles are tools for controlling user access to resources. Each Role holds a
