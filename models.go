@@ -70,8 +70,8 @@ type AccountAttachmentDeleteResponse struct {
 	RateLimit *RateLimitMetadata
 }
 
-// A AccountAttachment connects a composite role to another role, granting members
-// of the composite role the permissions granted to the attached role.
+// A AccountAttachment connects an account to a role, granting the account
+// the permissions granted to that role.
 type AccountAttachment struct {
 	// Unique identifier of the AccountAttachment.
 	ID string
@@ -109,8 +109,8 @@ type AccountGrantDeleteResponse struct {
 	RateLimit *RateLimitMetadata
 }
 
-// A AccountGrant connects a composite role to another role, granting members
-// of the composite role the permissions granted to the attached role.
+// An AccountGrant connects an account to a resource, granting the account
+// the ability to connect to that resource.
 type AccountGrant struct {
 	// Unique identifier of the AccountGrant.
 	ID string
@@ -168,7 +168,7 @@ type AccountDeleteResponse struct {
 	RateLimit *RateLimitMetadata
 }
 
-// An Account is one of many types of users or tokens that can use StrongDM.
+// An Account is one of many types of users or tokens that can access StrongDM.
 type Account interface {
 	// GetID returns the unique identifier of the Account.
 	GetID() string
@@ -1308,12 +1308,12 @@ type Relay struct {
 
 // Gateway represents a StrongDM CLI installation running in gateway mode.
 type Gateway struct {
-	// Unique identifier of the Relay.
+	// Unique identifier of the Gateway.
 	ID string
-	// Unique human-readable name of the Relay.
+	// Unique human-readable name of the Gateway.
 	Name string
 	// The current state of the gateway. One of: "new", "verifying_restart",
-	// "restarting", "started", "stopped", "dead", "unknown",
+	// "restarting", "started", "stopped", "dead", "unknown"
 	State string
 	// The public hostname/port tuple at which the gateway will be accessible to clients.
 	ListenAddress string
@@ -1428,7 +1428,7 @@ type RoleGrantDeleteResponse struct {
 }
 
 // A RoleGrant connects a resource to a role, granting members of the role
-// access to it.
+// access to the resource.
 type RoleGrant struct {
 	// Unique identifier of the RoleGrant.
 	ID string
