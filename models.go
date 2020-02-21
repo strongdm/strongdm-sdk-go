@@ -260,20 +260,32 @@ func (m *Kubernetes) GetID() string            { return m.ID }
 func (*KubernetesBasicAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the KubernetesBasicAuth.
-func (m *KubernetesBasicAuth) GetID() string { return m.ID }
-func (*AmazonEKS) isOneOf_Resource()         {}
+func (m *KubernetesBasicAuth) GetID() string        { return m.ID }
+func (*KubernetesServiceAccount) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the KubernetesServiceAccount.
+func (m *KubernetesServiceAccount) GetID() string { return m.ID }
+func (*AmazonEKS) isOneOf_Resource()              {}
 
 // GetID returns the unique identifier of the AmazonEKS.
 func (m *AmazonEKS) GetID() string   { return m.ID }
 func (*GoogleGKE) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the GoogleGKE.
-func (m *GoogleGKE) GetID() string                  { return m.ID }
-func (*KubernetesServiceAccount) isOneOf_Resource() {}
+func (m *GoogleGKE) GetID() string { return m.ID }
+func (*AKS) isOneOf_Resource()     {}
 
-// GetID returns the unique identifier of the KubernetesServiceAccount.
-func (m *KubernetesServiceAccount) GetID() string { return m.ID }
-func (*Memcached) isOneOf_Resource()              {}
+// GetID returns the unique identifier of the AKS.
+func (m *AKS) GetID() string            { return m.ID }
+func (*AKSBasicAuth) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the AKSBasicAuth.
+func (m *AKSBasicAuth) GetID() string        { return m.ID }
+func (*AKSServiceAccount) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the AKSServiceAccount.
+func (m *AKSServiceAccount) GetID() string { return m.ID }
+func (*Memcached) isOneOf_Resource()       {}
 
 // GetID returns the unique identifier of the Memcached.
 func (m *Memcached) GetID() string         { return m.ID }
@@ -620,6 +632,21 @@ type KubernetesBasicAuth struct {
 	Password string
 }
 
+type KubernetesServiceAccount struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Port int32
+
+	Token string
+}
+
 type AmazonEKS struct {
 	// Unique identifier of the Resource.
 	ID string
@@ -662,7 +689,49 @@ type GoogleGKE struct {
 	ServiceAccountKeyFilename string
 }
 
-type KubernetesServiceAccount struct {
+type AKS struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Port int32
+
+	CertificateAuthority string
+
+	CertificateAuthorityFilename string
+
+	ClientCertificate string
+
+	ClientCertificateFilename string
+
+	ClientKey string
+
+	ClientKeyFilename string
+}
+
+type AKSBasicAuth struct {
+	// Unique identifier of the Resource.
+	ID string
+	// Unique human-readable name of the Resource.
+	Name string
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool
+
+	Hostname string
+
+	Port int32
+
+	Username string
+
+	Password string
+}
+
+type AKSServiceAccount struct {
 	// Unique identifier of the Resource.
 	ID string
 	// Unique human-readable name of the Resource.
