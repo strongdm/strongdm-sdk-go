@@ -1,3 +1,18 @@
+// Copyright 2020 StrongDM Inc
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
 package sdm
 
 import (
@@ -853,12 +868,18 @@ func resourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_Kubernetes{Kubernetes: kubernetesToPlumbing(v)}
 	case *KubernetesBasicAuth:
 		plumbing.Resource = &proto.Resource_KubernetesBasicAuth{KubernetesBasicAuth: kubernetesBasicAuthToPlumbing(v)}
+	case *KubernetesServiceAccount:
+		plumbing.Resource = &proto.Resource_KubernetesServiceAccount{KubernetesServiceAccount: kubernetesServiceAccountToPlumbing(v)}
 	case *AmazonEKS:
 		plumbing.Resource = &proto.Resource_AmazonEks{AmazonEks: amazonEksToPlumbing(v)}
 	case *GoogleGKE:
 		plumbing.Resource = &proto.Resource_GoogleGke{GoogleGke: googleGkeToPlumbing(v)}
-	case *KubernetesServiceAccount:
-		plumbing.Resource = &proto.Resource_KubernetesServiceAccount{KubernetesServiceAccount: kubernetesServiceAccountToPlumbing(v)}
+	case *AKS:
+		plumbing.Resource = &proto.Resource_Aks{Aks: aksToPlumbing(v)}
+	case *AKSBasicAuth:
+		plumbing.Resource = &proto.Resource_AksBasicAuth{AksBasicAuth: aksBasicAuthToPlumbing(v)}
+	case *AKSServiceAccount:
+		plumbing.Resource = &proto.Resource_AksServiceAccount{AksServiceAccount: aksServiceAccountToPlumbing(v)}
 	case *Memcached:
 		plumbing.Resource = &proto.Resource_Memcached{Memcached: memcachedToPlumbing(v)}
 	case *MongoLegacyHost:
@@ -952,14 +973,23 @@ func resourceToPorcelain(plumbing *proto.Resource) Resource {
 	if plumbing.GetKubernetesBasicAuth() != nil {
 		return kubernetesBasicAuthToPorcelain(plumbing.GetKubernetesBasicAuth())
 	}
+	if plumbing.GetKubernetesServiceAccount() != nil {
+		return kubernetesServiceAccountToPorcelain(plumbing.GetKubernetesServiceAccount())
+	}
 	if plumbing.GetAmazonEks() != nil {
 		return amazonEksToPorcelain(plumbing.GetAmazonEks())
 	}
 	if plumbing.GetGoogleGke() != nil {
 		return googleGkeToPorcelain(plumbing.GetGoogleGke())
 	}
-	if plumbing.GetKubernetesServiceAccount() != nil {
-		return kubernetesServiceAccountToPorcelain(plumbing.GetKubernetesServiceAccount())
+	if plumbing.GetAks() != nil {
+		return aksToPorcelain(plumbing.GetAks())
+	}
+	if plumbing.GetAksBasicAuth() != nil {
+		return aksBasicAuthToPorcelain(plumbing.GetAksBasicAuth())
+	}
+	if plumbing.GetAksServiceAccount() != nil {
+		return aksServiceAccountToPorcelain(plumbing.GetAksServiceAccount())
 	}
 	if plumbing.GetMemcached() != nil {
 		return memcachedToPorcelain(plumbing.GetMemcached())
@@ -1648,6 +1678,50 @@ func repeatedKubernetesBasicAuthToPorcelain(plumbings []*proto.KubernetesBasicAu
 	}
 	return items
 }
+func kubernetesServiceAccountToPorcelain(plumbing *proto.KubernetesServiceAccount) *KubernetesServiceAccount {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &KubernetesServiceAccount{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Port = plumbing.Port
+	porcelain.Token = plumbing.Token
+	return porcelain
+}
+
+func kubernetesServiceAccountToPlumbing(porcelain *KubernetesServiceAccount) *proto.KubernetesServiceAccount {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.KubernetesServiceAccount{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Port = porcelain.Port
+	plumbing.Token = porcelain.Token
+	return plumbing
+}
+func repeatedKubernetesServiceAccountToPlumbing(
+	porcelains []*KubernetesServiceAccount,
+) []*proto.KubernetesServiceAccount {
+	var items []*proto.KubernetesServiceAccount
+	for _, porcelain := range porcelains {
+		items = append(items, kubernetesServiceAccountToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedKubernetesServiceAccountToPorcelain(plumbings []*proto.KubernetesServiceAccount) []*KubernetesServiceAccount {
+	var items []*KubernetesServiceAccount
+	for _, plumbing := range plumbings {
+		items = append(items, kubernetesServiceAccountToPorcelain(plumbing))
+	}
+	return items
+}
 func amazonEksToPorcelain(plumbing *proto.AmazonEKS) *AmazonEKS {
 	if plumbing == nil {
 		return nil
@@ -1748,11 +1822,111 @@ func repeatedGoogleGKEToPorcelain(plumbings []*proto.GoogleGKE) []*GoogleGKE {
 	}
 	return items
 }
-func kubernetesServiceAccountToPorcelain(plumbing *proto.KubernetesServiceAccount) *KubernetesServiceAccount {
+func aksToPorcelain(plumbing *proto.AKS) *AKS {
 	if plumbing == nil {
 		return nil
 	}
-	porcelain := &KubernetesServiceAccount{}
+	porcelain := &AKS{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Port = plumbing.Port
+	porcelain.CertificateAuthority = plumbing.CertificateAuthority
+	porcelain.CertificateAuthorityFilename = plumbing.CertificateAuthorityFilename
+	porcelain.ClientCertificate = plumbing.ClientCertificate
+	porcelain.ClientCertificateFilename = plumbing.ClientCertificateFilename
+	porcelain.ClientKey = plumbing.ClientKey
+	porcelain.ClientKeyFilename = plumbing.ClientKeyFilename
+	return porcelain
+}
+
+func aksToPlumbing(porcelain *AKS) *proto.AKS {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AKS{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Port = porcelain.Port
+	plumbing.CertificateAuthority = porcelain.CertificateAuthority
+	plumbing.CertificateAuthorityFilename = porcelain.CertificateAuthorityFilename
+	plumbing.ClientCertificate = porcelain.ClientCertificate
+	plumbing.ClientCertificateFilename = porcelain.ClientCertificateFilename
+	plumbing.ClientKey = porcelain.ClientKey
+	plumbing.ClientKeyFilename = porcelain.ClientKeyFilename
+	return plumbing
+}
+func repeatedAKSToPlumbing(
+	porcelains []*AKS,
+) []*proto.AKS {
+	var items []*proto.AKS
+	for _, porcelain := range porcelains {
+		items = append(items, aksToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAKSToPorcelain(plumbings []*proto.AKS) []*AKS {
+	var items []*AKS
+	for _, plumbing := range plumbings {
+		items = append(items, aksToPorcelain(plumbing))
+	}
+	return items
+}
+func aksBasicAuthToPorcelain(plumbing *proto.AKSBasicAuth) *AKSBasicAuth {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AKSBasicAuth{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.Port = plumbing.Port
+	porcelain.Username = plumbing.Username
+	porcelain.Password = plumbing.Password
+	return porcelain
+}
+
+func aksBasicAuthToPlumbing(porcelain *AKSBasicAuth) *proto.AKSBasicAuth {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AKSBasicAuth{}
+	plumbing.Id = porcelain.ID
+	plumbing.Name = porcelain.Name
+	plumbing.Healthy = porcelain.Healthy
+	plumbing.Hostname = porcelain.Hostname
+	plumbing.Port = porcelain.Port
+	plumbing.Username = porcelain.Username
+	plumbing.Password = porcelain.Password
+	return plumbing
+}
+func repeatedAKSBasicAuthToPlumbing(
+	porcelains []*AKSBasicAuth,
+) []*proto.AKSBasicAuth {
+	var items []*proto.AKSBasicAuth
+	for _, porcelain := range porcelains {
+		items = append(items, aksBasicAuthToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedAKSBasicAuthToPorcelain(plumbings []*proto.AKSBasicAuth) []*AKSBasicAuth {
+	var items []*AKSBasicAuth
+	for _, plumbing := range plumbings {
+		items = append(items, aksBasicAuthToPorcelain(plumbing))
+	}
+	return items
+}
+func aksServiceAccountToPorcelain(plumbing *proto.AKSServiceAccount) *AKSServiceAccount {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AKSServiceAccount{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
@@ -1762,11 +1936,11 @@ func kubernetesServiceAccountToPorcelain(plumbing *proto.KubernetesServiceAccoun
 	return porcelain
 }
 
-func kubernetesServiceAccountToPlumbing(porcelain *KubernetesServiceAccount) *proto.KubernetesServiceAccount {
+func aksServiceAccountToPlumbing(porcelain *AKSServiceAccount) *proto.AKSServiceAccount {
 	if porcelain == nil {
 		return nil
 	}
-	plumbing := &proto.KubernetesServiceAccount{}
+	plumbing := &proto.AKSServiceAccount{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
@@ -1775,20 +1949,20 @@ func kubernetesServiceAccountToPlumbing(porcelain *KubernetesServiceAccount) *pr
 	plumbing.Token = porcelain.Token
 	return plumbing
 }
-func repeatedKubernetesServiceAccountToPlumbing(
-	porcelains []*KubernetesServiceAccount,
-) []*proto.KubernetesServiceAccount {
-	var items []*proto.KubernetesServiceAccount
+func repeatedAKSServiceAccountToPlumbing(
+	porcelains []*AKSServiceAccount,
+) []*proto.AKSServiceAccount {
+	var items []*proto.AKSServiceAccount
 	for _, porcelain := range porcelains {
-		items = append(items, kubernetesServiceAccountToPlumbing(porcelain))
+		items = append(items, aksServiceAccountToPlumbing(porcelain))
 	}
 	return items
 }
 
-func repeatedKubernetesServiceAccountToPorcelain(plumbings []*proto.KubernetesServiceAccount) []*KubernetesServiceAccount {
-	var items []*KubernetesServiceAccount
+func repeatedAKSServiceAccountToPorcelain(plumbings []*proto.AKSServiceAccount) []*AKSServiceAccount {
+	var items []*AKSServiceAccount
 	for _, plumbing := range plumbings {
-		items = append(items, kubernetesServiceAccountToPorcelain(plumbing))
+		items = append(items, aksServiceAccountToPorcelain(plumbing))
 	}
 	return items
 }
