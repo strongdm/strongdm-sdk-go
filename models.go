@@ -210,6 +210,8 @@ type User struct {
 	FirstName string
 	// The User's last name.
 	LastName string
+	// The User's suspended state.
+	Suspended bool
 }
 
 // A Service is a service account that can connect to resources they are granted
@@ -219,6 +221,8 @@ type Service struct {
 	ID string
 	// Unique human-readable name of the Service.
 	Name string
+	// The Service's suspended state.
+	Suspended bool
 }
 
 // A Resource is a server or service which clients connect to through relays.
