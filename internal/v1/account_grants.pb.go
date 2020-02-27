@@ -470,8 +470,7 @@ func (m *AccountGrantListResponse) GetRateLimit() *RateLimitMetadata {
 	return nil
 }
 
-// An AccountGrant connects an account to a resource, granting the account
-// the ability to connect to that resource.
+// AccountGrants connect a resource directly to an account, giving the account the permission to connect to that resource.
 type AccountGrant struct {
 	// Unique identifier of the AccountGrant.
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`

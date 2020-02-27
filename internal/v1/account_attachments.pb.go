@@ -520,8 +520,7 @@ func (m *AccountAttachmentListResponse) GetRateLimit() *RateLimitMetadata {
 	return nil
 }
 
-// A AccountAttachment connects an account to a role, granting the account
-// the permissions granted to that role.
+// AccountAttachments assign an account to a role.
 type AccountAttachment struct {
 	// Unique identifier of the AccountAttachment.
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`

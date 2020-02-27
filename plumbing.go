@@ -770,6 +770,7 @@ func userToPorcelain(plumbing *proto.User) *User {
 	porcelain.Email = plumbing.Email
 	porcelain.FirstName = plumbing.FirstName
 	porcelain.LastName = plumbing.LastName
+	porcelain.Suspended = plumbing.Suspended
 	return porcelain
 }
 
@@ -782,6 +783,7 @@ func userToPlumbing(porcelain *User) *proto.User {
 	plumbing.Email = porcelain.Email
 	plumbing.FirstName = porcelain.FirstName
 	plumbing.LastName = porcelain.LastName
+	plumbing.Suspended = porcelain.Suspended
 	return plumbing
 }
 func repeatedUserToPlumbing(
@@ -808,6 +810,7 @@ func serviceToPorcelain(plumbing *proto.Service) *Service {
 	porcelain := &Service{}
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
+	porcelain.Suspended = plumbing.Suspended
 	return porcelain
 }
 
@@ -818,6 +821,7 @@ func serviceToPlumbing(porcelain *Service) *proto.Service {
 	plumbing := &proto.Service{}
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
+	plumbing.Suspended = porcelain.Suspended
 	return plumbing
 }
 func repeatedServiceToPlumbing(

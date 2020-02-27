@@ -85,8 +85,7 @@ type AccountAttachmentDeleteResponse struct {
 	RateLimit *RateLimitMetadata
 }
 
-// A AccountAttachment connects an account to a role, granting the account
-// the permissions granted to that role.
+// AccountAttachments assign an account to a role.
 type AccountAttachment struct {
 	// Unique identifier of the AccountAttachment.
 	ID string
@@ -124,8 +123,7 @@ type AccountGrantDeleteResponse struct {
 	RateLimit *RateLimitMetadata
 }
 
-// An AccountGrant connects an account to a resource, granting the account
-// the ability to connect to that resource.
+// AccountGrants connect a resource directly to an account, giving the account the permission to connect to that resource.
 type AccountGrant struct {
 	// Unique identifier of the AccountGrant.
 	ID string
@@ -183,7 +181,10 @@ type AccountDeleteResponse struct {
 	RateLimit *RateLimitMetadata
 }
 
-// An Account is one of many types of users or tokens that can access StrongDM.
+// Accounts are users that have access to strongDM.
+// There are two types of accounts:
+// 1. **Regular users:** humans who are authenticated through username and password or SSO
+// 2. **Service users:** machines that are authneticated using a service token
 type Account interface {
 	// GetID returns the unique identifier of the Account.
 	GetID() string
@@ -210,6 +211,8 @@ type User struct {
 	FirstName string
 	// The User's last name.
 	LastName string
+	// The User's suspended state.
+	Suspended bool
 }
 
 // A Service is a service account that can connect to resources they are granted
@@ -219,6 +222,8 @@ type Service struct {
 	ID string
 	// Unique human-readable name of the Service.
 	Name string
+	// The Service's suspended state.
+	Suspended bool
 }
 
 // A Resource is a server or service which clients connect to through relays.
@@ -1361,9 +1366,10 @@ type NodeDeleteResponse struct {
 	RateLimit *RateLimitMetadata
 }
 
-// A Node is a proxy in the strongDM network. They come in two flavors: relays,
-// which communicate with resources, and gateways, which communicate with
-// clients.
+// Nodes make up the strongDM network, and allow your users to connect securely to your resources.
+// There are two types of nodes:
+// 1. **Relay:** creates connectivity to your datasources, while maintaining the egress-only nature of your firewall
+// 1. **Gateways:** a relay that also listens for connections from strongDM clients
 type Node interface {
 	// GetID returns the unique identifier of the Node.
 	GetID() string
@@ -1383,7 +1389,7 @@ func (m *Gateway) GetID() string { return m.ID }
 type Relay struct {
 	// Unique identifier of the Relay.
 	ID string
-	// Unique human-readable name of the Relay.
+	// Unique human-readable name of the Relay. Generated if not provided on create.
 	Name string
 	// The current state of the relay. One of: "new", "verifying_restart",
 	// "restarting", "started", "stopped", "dead", "unknown",
@@ -1394,7 +1400,7 @@ type Relay struct {
 type Gateway struct {
 	// Unique identifier of the Gateway.
 	ID string
-	// Unique human-readable name of the Gateway.
+	// Unique human-readable name of the Gateway. Generated if not provided on create.
 	Name string
 	// The current state of the gateway. One of: "new", "verifying_restart",
 	// "restarting", "started", "stopped", "dead", "unknown"
@@ -1402,6 +1408,7 @@ type Gateway struct {
 	// The public hostname/port tuple at which the gateway will be accessible to clients.
 	ListenAddress string
 	// The hostname/port tuple which the gateway daemon will bind to.
+	// If not provided on create, set to "0.0.0.0:<listen_address_port>".
 	BindAddress string
 }
 
@@ -1472,8 +1479,7 @@ type RoleAttachmentDeleteResponse struct {
 	RateLimit *RateLimitMetadata
 }
 
-// A RoleAttachment connects a composite role to another role, granting members
-// of the composite role the permissions granted to the attached role.
+// A RoleAttachment assigns a role to a composite role.
 type RoleAttachment struct {
 	// Unique identifier of the RoleAttachment.
 	ID string
@@ -1512,7 +1518,7 @@ type RoleGrantDeleteResponse struct {
 }
 
 // A RoleGrant connects a resource to a role, granting members of the role
-// access to the resource.
+// access to that resource.
 type RoleGrant struct {
 	// Unique identifier of the RoleGrant.
 	ID string
@@ -1562,9 +1568,7 @@ type RoleDeleteResponse struct {
 	RateLimit *RateLimitMetadata
 }
 
-// A Role grants users access to a set of resources. Composite roles have no
-// resource associations of their own, but instead grant access to the combined
-// resources of their child roles.
+// A Role is a collection of permissions, and typically corresponds to a team, Active Directory OU, or other organizational unit. Users are granted access to resources by assigning them to roles.
 type Role struct {
 	// Unique identifier of the Role.
 	ID string

@@ -469,8 +469,7 @@ func (m *RoleAttachmentListResponse) GetRateLimit() *RateLimitMetadata {
 	return nil
 }
 
-// A RoleAttachment connects a composite role to another role, granting members
-// of the composite role the permissions granted to the attached role.
+// A RoleAttachment assigns a role to a composite role.
 type RoleAttachment struct {
 	// Unique identifier of the RoleAttachment.
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
