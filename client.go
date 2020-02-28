@@ -40,8 +40,8 @@ import (
 )
 
 var (
-	host = "api.strongdm.com"
-	_    = metadata.Pairs
+	defaultAPIHost = "api.strongdm.com:443"
+	_              = metadata.Pairs
 )
 
 // Client is the strongDM API client implementation.
@@ -49,9 +49,12 @@ type Client struct {
 	testOptionsMu sync.RWMutex
 	testOptions   map[string]interface{}
 
-	apiToken  string
-	apiSecret []byte
-	grpcConn  *grpc.ClientConn
+	apiHost              string
+	apiToken             string
+	apiSecret            []byte
+	apiInsecureTransport bool
+
+	grpcConn *grpc.ClientConn
 
 	maxRetries         int
 	baseRetryDelay     time.Duration
@@ -67,44 +70,40 @@ type Client struct {
 }
 
 // New creates a new strongDM API client.
-func New(host, token, secret string) (*Client, error) {
-	var opts []grpc.DialOption
-
-	_, port, err := net.SplitHostPort(host)
-	if err != nil {
-		return nil, errorToPorcelain(fmt.Errorf("cannot parse host and port: %w", err))
-	}
-
+func New(token, secret string, opts ...ClientOption) (*Client, error) {
 	decodedSecret, err := base64.StdEncoding.DecodeString(secret)
 	if err != nil {
 		return nil, errorToPorcelain(fmt.Errorf("invalid secret: %w", err))
 	}
 
-	if port == "443" {
-		tlsOpt := grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{
-			RootCAs:            nil,
-			InsecureSkipVerify: false,
-		}))
-		opts = append(opts, tlsOpt)
-	} else {
-		opts = append(opts, grpc.WithInsecure())
-	}
-	cc, err := grpc.Dial(
-		host,
-		opts...,
-	)
-	if err != nil {
-		return nil, errorToPorcelain(fmt.Errorf("cannot dial API server: %w", err))
-	}
 	client := &Client{
-		grpcConn:       cc,
-		testOptions:    map[string]interface{}{},
-		apiToken:       token,
-		apiSecret:      decodedSecret,
+		apiHost:        defaultAPIHost,
 		maxRetries:     defaultMaxRetries,
 		baseRetryDelay: defaultBaseRetryDelay,
 		maxRetryDelay:  defaultMaxRetryDelay,
+		testOptions:    map[string]interface{}{},
+		apiToken:       token,
+		apiSecret:      decodedSecret,
 	}
+
+	for _, opt := range opts {
+		opt(client)
+	}
+
+	var dialOpt grpc.DialOption
+	if c.apiInsecureTransport {
+		dialOpt = grpc.WithInsecure()
+	} else {
+		dialOpt = grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{
+			RootCAs:            nil,
+			InsecureSkipVerify: false,
+		}))
+	}
+	cc, err := grpc.Dial(client.apiHost, dialOpt)
+	if err != nil {
+		return nil, errorToPorcelain(fmt.Errorf("cannot dial API server: %w", err))
+	}
+	client.grpcConn = cc
 	client.accountAttachments = &AccountAttachments{
 		client: plumbing.NewAccountAttachmentsClient(client.grpcConn),
 		parent: client,
@@ -138,6 +137,20 @@ func New(host, token, secret string) (*Client, error) {
 		parent: client,
 	}
 	return client, nil
+}
+
+type ClientOption func(c *Client)
+
+func WithHost(host string) ClientOption {
+	return func(c *Client) {
+		c.apiHost = host
+	}
+}
+
+func WithInsecure() ClientOption {
+	return func(c *Client) {
+		c.apiInsecureTransport = true
+	}
 }
 
 // AccountAttachments assign an account to a role.
