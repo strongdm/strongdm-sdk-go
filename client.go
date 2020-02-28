@@ -26,7 +26,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"math/rand"
-	"net"
 	"sync"
 	"time"
 
@@ -91,7 +90,7 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 	}
 
 	var dialOpt grpc.DialOption
-	if c.apiInsecureTransport {
+	if client.apiInsecureTransport {
 		dialOpt = grpc.WithInsecure()
 	} else {
 		dialOpt = grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{
