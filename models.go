@@ -42,145 +42,145 @@ type DeleteResponseMetadata struct {
 type RateLimitMetadata struct {
 	// How many total requests the user/token is authorized to make before being
 	// rate limited.
-	Limit int64
+	Limit int64 `json:"limit"`
 	// How many remaining requests out of the limit are still avaialable.
-	Remaining int64
+	Remaining int64 `json:"remaining"`
 	// The time when remaining will be reset to limit.
-	ResetAt time.Time
+	ResetAt time.Time `json:"reset_at"`
 	// The bucket this user/token is associated with, which may be shared between
 	// multiple users/tokens.
-	Bucket string
+	Bucket string `json:"bucket"`
 }
 
 // AccountAttachmentCreateOptions specifies extra options for creating an
 // AccountAttachment.
 type AccountAttachmentCreateOptions struct {
 	// Overwrite clears all account grants before the attachment.
-	Overwrite bool
+	Overwrite bool `json:"overwrite"`
 }
 
 // AccountAttachmentCreateResponse reports how the AccountAttachments were created in the system.
 type AccountAttachmentCreateResponse struct {
 	// Reserved for future use.
-	Meta *CreateResponseMetadata
+	Meta *CreateResponseMetadata `json:"meta"`
 	// The created AccountAttachment.
-	AccountAttachment *AccountAttachment
+	AccountAttachment *AccountAttachment `json:"account_attachment"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // AccountAttachmentGetResponse returns a requested AccountAttachment.
 type AccountAttachmentGetResponse struct {
 	// Reserved for future use.
-	Meta *GetResponseMetadata
+	Meta *GetResponseMetadata `json:"meta"`
 	// The requested AccountAttachment.
-	AccountAttachment *AccountAttachment
+	AccountAttachment *AccountAttachment `json:"account_attachment"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // AccountAttachmentDeleteResponse returns information about a AccountAttachment that was deleted.
 type AccountAttachmentDeleteResponse struct {
 	// Reserved for future use.
-	Meta *DeleteResponseMetadata
+	Meta *DeleteResponseMetadata `json:"meta"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // AccountAttachments assign an account to a role.
 type AccountAttachment struct {
 	// Unique identifier of the AccountAttachment.
-	ID string
+	ID string `json:"id"`
 	// The id of the account of this AccountAttachment.
-	AccountID string
+	AccountID string `json:"account_id"`
 	// The id of the attached role of this AccountAttachment.
-	RoleID string
+	RoleID string `json:"role_id"`
 }
 
 // AccountGrantCreateResponse reports how the AccountGrants were created in the system.
 type AccountGrantCreateResponse struct {
 	// Reserved for future use.
-	Meta *CreateResponseMetadata
+	Meta *CreateResponseMetadata `json:"meta"`
 	// The created AccountGrant.
-	AccountGrant *AccountGrant
+	AccountGrant *AccountGrant `json:"account_grant"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // AccountGrantGetResponse returns a requested AccountGrant.
 type AccountGrantGetResponse struct {
 	// Reserved for future use.
-	Meta *GetResponseMetadata
+	Meta *GetResponseMetadata `json:"meta"`
 	// The requested AccountGrant.
-	AccountGrant *AccountGrant
+	AccountGrant *AccountGrant `json:"account_grant"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // AccountGrantDeleteResponse returns information about a AccountGrant that was deleted.
 type AccountGrantDeleteResponse struct {
 	// Reserved for future use.
-	Meta *DeleteResponseMetadata
+	Meta *DeleteResponseMetadata `json:"meta"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // AccountGrants connect a resource directly to an account, giving the account the permission to connect to that resource.
 type AccountGrant struct {
 	// Unique identifier of the AccountGrant.
-	ID string
+	ID string `json:"id"`
 	// The id of the composite role of this AccountGrant.
-	ResourceID string
+	ResourceID string `json:"resource_id"`
 	// The id of the attached role of this AccountGrant.
-	AccountID string
+	AccountID string `json:"account_id"`
 	// The timestamp when the resource will be granted. Optional. Both start_at
 	// and end_at must be defined together, or not defined at all.
-	StartFrom time.Time
+	StartFrom time.Time `json:"start_from"`
 	// The timestamp when the resource grant will expire. Optional. Both
 	// start_at and end_at must be defined together, or not defined at all.
-	ValidUntil time.Time
+	ValidUntil time.Time `json:"valid_until"`
 }
 
 // AccountCreateResponse reports how the Accounts were created in the system.
 type AccountCreateResponse struct {
 	// Reserved for future use.
-	Meta *CreateResponseMetadata
+	Meta *CreateResponseMetadata `json:"meta"`
 	// The created Account.
-	Account Account
+	Account Account `json:"account"`
 	// The auth token generated for the Account. The Account will use this token to
 	// authenticate with the strongDM API.
-	Token string
+	Token string `json:"token"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // AccountGetResponse returns a requested Account.
 type AccountGetResponse struct {
 	// Reserved for future use.
-	Meta *GetResponseMetadata
+	Meta *GetResponseMetadata `json:"meta"`
 	// The requested Account.
-	Account Account
+	Account Account `json:"account"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // AccountUpdateResponse returns the fields of a Account after it has been updated by
 // a AccountUpdateRequest.
 type AccountUpdateResponse struct {
 	// Reserved for future use.
-	Meta *UpdateResponseMetadata
+	Meta *UpdateResponseMetadata `json:"meta"`
 	// The updated Account.
-	Account Account
+	Account Account `json:"account"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // AccountDeleteResponse returns information about a Account that was deleted.
 type AccountDeleteResponse struct {
 	// Reserved for future use.
-	Meta *DeleteResponseMetadata
+	Meta *DeleteResponseMetadata `json:"meta"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // Accounts are users that have access to strongDM.
@@ -218,26 +218,26 @@ func (m *Service) IsSuspended() bool {
 // via roles.
 type User struct {
 	// Unique identifier of the User.
-	ID string
+	ID string `json:"id"`
 	// The User's email address. Must be unique.
-	Email string
+	Email string `json:"email"`
 	// The User's first name.
-	FirstName string
+	FirstName string `json:"first_name"`
 	// The User's last name.
-	LastName string
+	LastName string `json:"last_name"`
 	// The User's suspended state.
-	Suspended bool
+	Suspended bool `json:"suspended"`
 }
 
 // A Service is a service account that can connect to resources they are granted
 // directly, or granted via roles. Services are typically automated jobs.
 type Service struct {
 	// Unique identifier of the Service.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Service.
-	Name string
+	Name string `json:"name"`
 	// The Service's suspended state.
-	Suspended bool
+	Suspended bool `json:"suspended"`
 }
 
 // A Resource is a server or service which clients connect to through relays.
@@ -648,958 +648,958 @@ func (m *Teradata) GetName() string {
 
 type Athena struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	AccessKey string
+	AccessKey string `json:"access_key"`
 
-	SecretAccessKey string
+	SecretAccessKey string `json:"secret_access_key"`
 
-	Output string
+	Output string `json:"output"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Region string
+	Region string `json:"region"`
 }
 
 type BigQuery struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	PrivateKey string
+	PrivateKey string `json:"private_key"`
 
-	Project string
+	Project string `json:"project"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Endpoint string
+	Endpoint string `json:"endpoint"`
 
-	Username string
+	Username string `json:"username"`
 }
 
 type Cassandra struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	TlsRequired bool
+	TlsRequired bool `json:"tls_required"`
 }
 
 type Druid struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Port int32
+	Port int32 `json:"port"`
 }
 
 type DynamoDB struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	AccessKey string
+	AccessKey string `json:"access_key"`
 
-	SecretAccessKey string
+	SecretAccessKey string `json:"secret_access_key"`
 
-	Region string
+	Region string `json:"region"`
 
-	Endpoint string
+	Endpoint string `json:"endpoint"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 }
 
 type AmazonES struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Region string
+	Region string `json:"region"`
 
-	SecretAccessKey string
+	SecretAccessKey string `json:"secret_access_key"`
 
-	Endpoint string
+	Endpoint string `json:"endpoint"`
 
-	AccessKey string
+	AccessKey string `json:"access_key"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 }
 
 type Elastic struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	TlsRequired bool
+	TlsRequired bool `json:"tls_required"`
 }
 
 type HTTPBasicAuth struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Url string
+	Url string `json:"url"`
 
-	HealthcheckPath string
+	HealthcheckPath string `json:"healthcheck_path"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	HeadersBlacklist string
+	HeadersBlacklist string `json:"headers_blacklist"`
 
-	DefaultPath string
+	DefaultPath string `json:"default_path"`
 
-	Subdomain string
+	Subdomain string `json:"subdomain"`
 }
 
 type HTTPNoAuth struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Url string
+	Url string `json:"url"`
 
-	HealthcheckPath string
+	HealthcheckPath string `json:"healthcheck_path"`
 
-	HeadersBlacklist string
+	HeadersBlacklist string `json:"headers_blacklist"`
 
-	DefaultPath string
+	DefaultPath string `json:"default_path"`
 
-	Subdomain string
+	Subdomain string `json:"subdomain"`
 }
 
 type HTTPAuth struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Url string
+	Url string `json:"url"`
 
-	HealthcheckPath string
+	HealthcheckPath string `json:"healthcheck_path"`
 
-	AuthHeader string
+	AuthHeader string `json:"auth_header"`
 
-	HeadersBlacklist string
+	HeadersBlacklist string `json:"headers_blacklist"`
 
-	DefaultPath string
+	DefaultPath string `json:"default_path"`
 
-	Subdomain string
+	Subdomain string `json:"subdomain"`
 }
 
 type Kubernetes struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	CertificateAuthority string
+	CertificateAuthority string `json:"certificate_authority"`
 
-	CertificateAuthorityFilename string
+	CertificateAuthorityFilename string `json:"certificate_authority_filename"`
 
-	ClientCertificate string
+	ClientCertificate string `json:"client_certificate"`
 
-	ClientCertificateFilename string
+	ClientCertificateFilename string `json:"client_certificate_filename"`
 
-	ClientKey string
+	ClientKey string `json:"client_key"`
 
-	ClientKeyFilename string
+	ClientKeyFilename string `json:"client_key_filename"`
 }
 
 type KubernetesBasicAuth struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 }
 
 type KubernetesServiceAccount struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	Token string
+	Token string `json:"token"`
 }
 
 type AmazonEKS struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Endpoint string
+	Endpoint string `json:"endpoint"`
 
-	AccessKey string
+	AccessKey string `json:"access_key"`
 
-	SecretAccessKey string
+	SecretAccessKey string `json:"secret_access_key"`
 
-	CertificateAuthority string
+	CertificateAuthority string `json:"certificate_authority"`
 
-	CertificateAuthorityFilename string
+	CertificateAuthorityFilename string `json:"certificate_authority_filename"`
 
-	Region string
+	Region string `json:"region"`
 
-	ClusterName string
+	ClusterName string `json:"cluster_name"`
 }
 
 type GoogleGKE struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Endpoint string
+	Endpoint string `json:"endpoint"`
 
-	CertificateAuthority string
+	CertificateAuthority string `json:"certificate_authority"`
 
-	CertificateAuthorityFilename string
+	CertificateAuthorityFilename string `json:"certificate_authority_filename"`
 
-	ServiceAccountKey string
+	ServiceAccountKey string `json:"service_account_key"`
 
-	ServiceAccountKeyFilename string
+	ServiceAccountKeyFilename string `json:"service_account_key_filename"`
 }
 
 type AKS struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	CertificateAuthority string
+	CertificateAuthority string `json:"certificate_authority"`
 
-	CertificateAuthorityFilename string
+	CertificateAuthorityFilename string `json:"certificate_authority_filename"`
 
-	ClientCertificate string
+	ClientCertificate string `json:"client_certificate"`
 
-	ClientCertificateFilename string
+	ClientCertificateFilename string `json:"client_certificate_filename"`
 
-	ClientKey string
+	ClientKey string `json:"client_key"`
 
-	ClientKeyFilename string
+	ClientKeyFilename string `json:"client_key_filename"`
 }
 
 type AKSBasicAuth struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 }
 
 type AKSServiceAccount struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	Token string
+	Token string `json:"token"`
 }
 
 type Memcached struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 }
 
 type MongoLegacyHost struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	AuthDatabase string
+	AuthDatabase string `json:"auth_database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	ReplicaSet string
+	ReplicaSet string `json:"replica_set"`
 
-	TlsRequired bool
+	TlsRequired bool `json:"tls_required"`
 }
 
 type MongoLegacyReplicaset struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	AuthDatabase string
+	AuthDatabase string `json:"auth_database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	ReplicaSet string
+	ReplicaSet string `json:"replica_set"`
 
-	ConnectToReplica bool
+	ConnectToReplica bool `json:"connect_to_replica"`
 
-	TlsRequired bool
+	TlsRequired bool `json:"tls_required"`
 }
 
 type MongoHost struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	AuthDatabase string
+	AuthDatabase string `json:"auth_database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	TlsRequired bool
+	TlsRequired bool `json:"tls_required"`
 }
 
 type MongoReplicaSet struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	AuthDatabase string
+	AuthDatabase string `json:"auth_database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	ReplicaSet string
+	ReplicaSet string `json:"replica_set"`
 
-	ConnectToReplica bool
+	ConnectToReplica bool `json:"connect_to_replica"`
 
-	TlsRequired bool
+	TlsRequired bool `json:"tls_required"`
 }
 
 type Mysql struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 }
 
 type AuroraMysql struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 }
 
 type Clustrix struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 }
 
 type Maria struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 }
 
 type Memsql struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 }
 
 type Oracle struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	TlsRequired bool
+	TlsRequired bool `json:"tls_required"`
 }
 
 type Postgres struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	OverrideDatabase bool
+	OverrideDatabase bool `json:"override_database"`
 }
 
 type AuroraPostgres struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	OverrideDatabase bool
+	OverrideDatabase bool `json:"override_database"`
 }
 
 type Greenplum struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	OverrideDatabase bool
+	OverrideDatabase bool `json:"override_database"`
 }
 
 type Cockroach struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	OverrideDatabase bool
+	OverrideDatabase bool `json:"override_database"`
 }
 
 type Redshift struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	OverrideDatabase bool
+	OverrideDatabase bool `json:"override_database"`
 }
 
 type Presto struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	Username string
+	Username string `json:"username"`
 
-	TlsRequired bool
+	TlsRequired bool `json:"tls_required"`
 }
 
 type RDP struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 }
 
 type Redis struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Password string
+	Password string `json:"password"`
 
-	Port int32
+	Port int32 `json:"port"`
 }
 
 type ElasticacheRedis struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Password string
+	Password string `json:"password"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	TlsRequired bool
+	TlsRequired bool `json:"tls_required"`
 }
 
 type Snowflake struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	Schema string
+	Schema string `json:"schema"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 }
 
 type SQLServer struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	Database string
+	Database string `json:"database"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Schema string
+	Schema string `json:"schema"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	OverrideDatabase bool
+	OverrideDatabase bool `json:"override_database"`
 }
 
 type SSH struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	PublicKey string
+	PublicKey string `json:"public_key"`
 }
 
 type Sybase struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	Password string
+	Password string `json:"password"`
 }
 
 type SybaseIQ struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 
-	Password string
+	Password string `json:"password"`
 }
 
 type Teradata struct {
 	// Unique identifier of the Resource.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
-	Name string
+	Name string `json:"name"`
 	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool
+	Healthy bool `json:"healthy"`
 
-	Hostname string
+	Hostname string `json:"hostname"`
 
-	Username string
+	Username string `json:"username"`
 
-	Password string
+	Password string `json:"password"`
 
-	PortOverride int32
+	PortOverride int32 `json:"port_override"`
 
-	Port int32
+	Port int32 `json:"port"`
 }
 
 // NodeCreateResponse reports how the Nodes were created in the system.
 type NodeCreateResponse struct {
 	// Reserved for future use.
-	Meta *CreateResponseMetadata
+	Meta *CreateResponseMetadata `json:"meta"`
 	// The created Node.
-	Node Node
+	Node Node `json:"node"`
 	// The auth token generated for the Node. The Node will use this token to
 	// authenticate with the strongDM API.
-	Token string
+	Token string `json:"token"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // NodeGetResponse returns a requested Node.
 type NodeGetResponse struct {
 	// Reserved for future use.
-	Meta *GetResponseMetadata
+	Meta *GetResponseMetadata `json:"meta"`
 	// The requested Node.
-	Node Node
+	Node Node `json:"node"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // NodeUpdateResponse returns the fields of a Node after it has been updated by
 // a NodeUpdateRequest.
 type NodeUpdateResponse struct {
 	// Reserved for future use.
-	Meta *UpdateResponseMetadata
+	Meta *UpdateResponseMetadata `json:"meta"`
 	// The updated Node.
-	Node Node
+	Node Node `json:"node"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // NodeDeleteResponse returns information about a Node that was deleted.
 type NodeDeleteResponse struct {
 	// Reserved for future use.
-	Meta *DeleteResponseMetadata
+	Meta *DeleteResponseMetadata `json:"meta"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // Nodes make up the strongDM network, and allow your users to connect securely to your resources.
@@ -1624,194 +1624,194 @@ func (m *Gateway) GetID() string { return m.ID }
 // Relay represents a StrongDM CLI installation running in relay mode.
 type Relay struct {
 	// Unique identifier of the Relay.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Relay. Generated if not provided on create.
-	Name string
+	Name string `json:"name"`
 	// The current state of the relay. One of: "new", "verifying_restart",
 	// "restarting", "started", "stopped", "dead", "unknown",
-	State string
+	State string `json:"state"`
 }
 
 // Gateway represents a StrongDM CLI installation running in gateway mode.
 type Gateway struct {
 	// Unique identifier of the Gateway.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Gateway. Generated if not provided on create.
-	Name string
+	Name string `json:"name"`
 	// The current state of the gateway. One of: "new", "verifying_restart",
 	// "restarting", "started", "stopped", "dead", "unknown"
-	State string
+	State string `json:"state"`
 	// The public hostname/port tuple at which the gateway will be accessible to clients.
-	ListenAddress string
+	ListenAddress string `json:"listen_address"`
 	// The hostname/port tuple which the gateway daemon will bind to.
 	// If not provided on create, set to "0.0.0.0:<listen_address_port>".
-	BindAddress string
+	BindAddress string `json:"bind_address"`
 }
 
 // ResourceCreateResponse reports how the Resources were created in the system.
 type ResourceCreateResponse struct {
 	// Reserved for future use.
-	Meta *CreateResponseMetadata
+	Meta *CreateResponseMetadata `json:"meta"`
 	// The created Resource.
-	Resource Resource
+	Resource Resource `json:"resource"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // ResourceGetResponse returns a requested Resource.
 type ResourceGetResponse struct {
 	// Reserved for future use.
-	Meta *GetResponseMetadata
+	Meta *GetResponseMetadata `json:"meta"`
 	// The requested Resource.
-	Resource Resource
+	Resource Resource `json:"resource"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // ResourceUpdateResponse returns the fields of a Resource after it has been updated by
 // a ResourceUpdateRequest.
 type ResourceUpdateResponse struct {
 	// Reserved for future use.
-	Meta *UpdateResponseMetadata
+	Meta *UpdateResponseMetadata `json:"meta"`
 	// The updated Resource.
-	Resource Resource
+	Resource Resource `json:"resource"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // ResourceDeleteResponse returns information about a Resource that was deleted.
 type ResourceDeleteResponse struct {
 	// Reserved for future use.
-	Meta *DeleteResponseMetadata
+	Meta *DeleteResponseMetadata `json:"meta"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // RoleAttachmentCreateResponse reports how the RoleAttachments were created in the system.
 type RoleAttachmentCreateResponse struct {
 	// Reserved for future use.
-	Meta *CreateResponseMetadata
+	Meta *CreateResponseMetadata `json:"meta"`
 	// The created RoleAttachment.
-	RoleAttachment *RoleAttachment
+	RoleAttachment *RoleAttachment `json:"role_attachment"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // RoleAttachmentGetResponse returns a requested RoleAttachment.
 type RoleAttachmentGetResponse struct {
 	// Reserved for future use.
-	Meta *GetResponseMetadata
+	Meta *GetResponseMetadata `json:"meta"`
 	// The requested RoleAttachment.
-	RoleAttachment *RoleAttachment
+	RoleAttachment *RoleAttachment `json:"role_attachment"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // RoleAttachmentDeleteResponse returns information about a RoleAttachment that was deleted.
 type RoleAttachmentDeleteResponse struct {
 	// Reserved for future use.
-	Meta *DeleteResponseMetadata
+	Meta *DeleteResponseMetadata `json:"meta"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // A RoleAttachment assigns a role to a composite role.
 type RoleAttachment struct {
 	// Unique identifier of the RoleAttachment.
-	ID string
+	ID string `json:"id"`
 	// The id of the composite role of this RoleAttachment.
-	CompositeRoleID string
+	CompositeRoleID string `json:"composite_role_id"`
 	// The id of the attached role of this RoleAttachment.
-	AttachedRoleID string
+	AttachedRoleID string `json:"attached_role_id"`
 }
 
 // RoleGrantCreateResponse reports how the RoleGrants were created in the system.
 type RoleGrantCreateResponse struct {
 	// Reserved for future use.
-	Meta *CreateResponseMetadata
+	Meta *CreateResponseMetadata `json:"meta"`
 	// The created RoleGrant.
-	RoleGrant *RoleGrant
+	RoleGrant *RoleGrant `json:"role_grant"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // RoleGrantGetResponse returns a requested RoleGrant.
 type RoleGrantGetResponse struct {
 	// Reserved for future use.
-	Meta *GetResponseMetadata
+	Meta *GetResponseMetadata `json:"meta"`
 	// The requested RoleGrant.
-	RoleGrant *RoleGrant
+	RoleGrant *RoleGrant `json:"role_grant"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // RoleGrantDeleteResponse returns information about a RoleGrant that was deleted.
 type RoleGrantDeleteResponse struct {
 	// Reserved for future use.
-	Meta *DeleteResponseMetadata
+	Meta *DeleteResponseMetadata `json:"meta"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // A RoleGrant connects a resource to a role, granting members of the role
 // access to that resource.
 type RoleGrant struct {
 	// Unique identifier of the RoleGrant.
-	ID string
+	ID string `json:"id"`
 	// The id of the resource of this RoleGrant.
-	ResourceID string
+	ResourceID string `json:"resource_id"`
 	// The id of the attached role of this RoleGrant.
-	RoleID string
+	RoleID string `json:"role_id"`
 }
 
 // RoleCreateResponse reports how the Roles were created in the system. It can
 // communicate partial successes or failures.
 type RoleCreateResponse struct {
 	// Reserved for future use.
-	Meta *CreateResponseMetadata
+	Meta *CreateResponseMetadata `json:"meta"`
 	// The created Role.
-	Role *Role
+	Role *Role `json:"role"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // RoleGetResponse returns a requested Role.
 type RoleGetResponse struct {
 	// Reserved for future use.
-	Meta *GetResponseMetadata
+	Meta *GetResponseMetadata `json:"meta"`
 	// The requested Role.
-	Role *Role
+	Role *Role `json:"role"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // RoleUpdateResponse returns the fields of a Role after it has been updated by
 // a RoleUpdateRequest.
 type RoleUpdateResponse struct {
 	// Reserved for future use.
-	Meta *UpdateResponseMetadata
+	Meta *UpdateResponseMetadata `json:"meta"`
 	// The updated Role.
-	Role *Role
+	Role *Role `json:"role"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // RoleDeleteResponse returns information about a Role that was deleted.
 type RoleDeleteResponse struct {
 	// Reserved for future use.
-	Meta *DeleteResponseMetadata
+	Meta *DeleteResponseMetadata `json:"meta"`
 	// Rate limit information.
-	RateLimit *RateLimitMetadata
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
 // A Role is a collection of permissions, and typically corresponds to a team, Active Directory OU, or other organizational unit. Users are granted access to resources by assigning them to roles.
 type Role struct {
 	// Unique identifier of the Role.
-	ID string
+	ID string `json:"id"`
 	// Unique human-readable name of the Role.
-	Name string
+	Name string `json:"name"`
 	// True if the Role is a composite role.
-	Composite bool
+	Composite bool `json:"composite"`
 }
 
 // AccountAttachmentIterator provides read access to a list of AccountAttachment.
