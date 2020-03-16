@@ -3106,7 +3106,6 @@ func sshToPorcelain(plumbing *proto.SSH) *SSH {
 	porcelain.Username = plumbing.Username
 	porcelain.Port = plumbing.Port
 	porcelain.PublicKey = plumbing.PublicKey
-	porcelain.PortForwarding = plumbing.PortForwarding
 	return porcelain
 }
 
@@ -3122,7 +3121,6 @@ func sshToPlumbing(porcelain *SSH) *proto.SSH {
 	plumbing.Username = porcelain.Username
 	plumbing.Port = porcelain.Port
 	plumbing.PublicKey = porcelain.PublicKey
-	plumbing.PortForwarding = porcelain.PortForwarding
 	return plumbing
 }
 func repeatedSSHToPlumbing(
