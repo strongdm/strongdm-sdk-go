@@ -1501,6 +1501,8 @@ type SSH struct {
 	Port int32 `json:"port"`
 
 	PublicKey string `json:"public_key"`
+
+	PortForwarding bool `json:"port_forwarding"`
 }
 
 type Sybase struct {
