@@ -1102,6 +1102,7 @@ func athenaToPorcelain(plumbing *proto.Athena) *Athena {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.AccessKey = plumbing.AccessKey
 	porcelain.SecretAccessKey = plumbing.SecretAccessKey
 	porcelain.Output = plumbing.Output
@@ -1118,6 +1119,7 @@ func athenaToPlumbing(porcelain *Athena) *proto.Athena {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.AccessKey = porcelain.AccessKey
 	plumbing.SecretAccessKey = porcelain.SecretAccessKey
 	plumbing.Output = porcelain.Output
@@ -1150,6 +1152,7 @@ func bigQueryToPorcelain(plumbing *proto.BigQuery) *BigQuery {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.PrivateKey = plumbing.PrivateKey
 	porcelain.Project = plumbing.Project
 	porcelain.PortOverride = plumbing.PortOverride
@@ -1166,6 +1169,7 @@ func bigQueryToPlumbing(porcelain *BigQuery) *proto.BigQuery {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.PrivateKey = porcelain.PrivateKey
 	plumbing.Project = porcelain.Project
 	plumbing.PortOverride = porcelain.PortOverride
@@ -1198,6 +1202,7 @@ func cassandraToPorcelain(plumbing *proto.Cassandra) *Cassandra {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -1215,6 +1220,7 @@ func cassandraToPlumbing(porcelain *Cassandra) *proto.Cassandra {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -1248,6 +1254,7 @@ func druidToPorcelain(plumbing *proto.Druid) *Druid {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Username = plumbing.Username
@@ -1264,6 +1271,7 @@ func druidToPlumbing(porcelain *Druid) *proto.Druid {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.PortOverride = porcelain.PortOverride
 	plumbing.Username = porcelain.Username
@@ -1296,6 +1304,7 @@ func dynamoDbToPorcelain(plumbing *proto.DynamoDB) *DynamoDB {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.AccessKey = plumbing.AccessKey
 	porcelain.SecretAccessKey = plumbing.SecretAccessKey
 	porcelain.Region = plumbing.Region
@@ -1312,6 +1321,7 @@ func dynamoDbToPlumbing(porcelain *DynamoDB) *proto.DynamoDB {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.AccessKey = porcelain.AccessKey
 	plumbing.SecretAccessKey = porcelain.SecretAccessKey
 	plumbing.Region = porcelain.Region
@@ -1344,6 +1354,7 @@ func amazonEsToPorcelain(plumbing *proto.AmazonES) *AmazonES {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Region = plumbing.Region
 	porcelain.SecretAccessKey = plumbing.SecretAccessKey
 	porcelain.Endpoint = plumbing.Endpoint
@@ -1360,6 +1371,7 @@ func amazonEsToPlumbing(porcelain *AmazonES) *proto.AmazonES {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Region = porcelain.Region
 	plumbing.SecretAccessKey = porcelain.SecretAccessKey
 	plumbing.Endpoint = porcelain.Endpoint
@@ -1392,6 +1404,7 @@ func elasticToPorcelain(plumbing *proto.Elastic) *Elastic {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -1409,6 +1422,7 @@ func elasticToPlumbing(porcelain *Elastic) *proto.Elastic {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -1442,6 +1456,7 @@ func httpBasicAuthToPorcelain(plumbing *proto.HTTPBasicAuth) *HTTPBasicAuth {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Url = plumbing.Url
 	porcelain.HealthcheckPath = plumbing.HealthcheckPath
 	porcelain.Username = plumbing.Username
@@ -1460,6 +1475,7 @@ func httpBasicAuthToPlumbing(porcelain *HTTPBasicAuth) *proto.HTTPBasicAuth {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Url = porcelain.Url
 	plumbing.HealthcheckPath = porcelain.HealthcheckPath
 	plumbing.Username = porcelain.Username
@@ -1494,6 +1510,7 @@ func httpNoAuthToPorcelain(plumbing *proto.HTTPNoAuth) *HTTPNoAuth {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Url = plumbing.Url
 	porcelain.HealthcheckPath = plumbing.HealthcheckPath
 	porcelain.HeadersBlacklist = plumbing.HeadersBlacklist
@@ -1510,6 +1527,7 @@ func httpNoAuthToPlumbing(porcelain *HTTPNoAuth) *proto.HTTPNoAuth {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Url = porcelain.Url
 	plumbing.HealthcheckPath = porcelain.HealthcheckPath
 	plumbing.HeadersBlacklist = porcelain.HeadersBlacklist
@@ -1542,6 +1560,7 @@ func httpAuthToPorcelain(plumbing *proto.HTTPAuth) *HTTPAuth {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Url = plumbing.Url
 	porcelain.HealthcheckPath = plumbing.HealthcheckPath
 	porcelain.AuthHeader = plumbing.AuthHeader
@@ -1559,6 +1578,7 @@ func httpAuthToPlumbing(porcelain *HTTPAuth) *proto.HTTPAuth {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Url = porcelain.Url
 	plumbing.HealthcheckPath = porcelain.HealthcheckPath
 	plumbing.AuthHeader = porcelain.AuthHeader
@@ -1592,6 +1612,7 @@ func kubernetesToPorcelain(plumbing *proto.Kubernetes) *Kubernetes {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Port = plumbing.Port
 	porcelain.CertificateAuthority = plumbing.CertificateAuthority
@@ -1611,6 +1632,7 @@ func kubernetesToPlumbing(porcelain *Kubernetes) *proto.Kubernetes {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Port = porcelain.Port
 	plumbing.CertificateAuthority = porcelain.CertificateAuthority
@@ -1646,6 +1668,7 @@ func kubernetesBasicAuthToPorcelain(plumbing *proto.KubernetesBasicAuth) *Kubern
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Port = plumbing.Port
 	porcelain.Username = plumbing.Username
@@ -1661,6 +1684,7 @@ func kubernetesBasicAuthToPlumbing(porcelain *KubernetesBasicAuth) *proto.Kubern
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Port = porcelain.Port
 	plumbing.Username = porcelain.Username
@@ -1692,6 +1716,7 @@ func kubernetesServiceAccountToPorcelain(plumbing *proto.KubernetesServiceAccoun
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Port = plumbing.Port
 	porcelain.Token = plumbing.Token
@@ -1706,6 +1731,7 @@ func kubernetesServiceAccountToPlumbing(porcelain *KubernetesServiceAccount) *pr
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Port = porcelain.Port
 	plumbing.Token = porcelain.Token
@@ -1736,6 +1762,7 @@ func amazonEksToPorcelain(plumbing *proto.AmazonEKS) *AmazonEKS {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Endpoint = plumbing.Endpoint
 	porcelain.AccessKey = plumbing.AccessKey
 	porcelain.SecretAccessKey = plumbing.SecretAccessKey
@@ -1754,6 +1781,7 @@ func amazonEksToPlumbing(porcelain *AmazonEKS) *proto.AmazonEKS {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Endpoint = porcelain.Endpoint
 	plumbing.AccessKey = porcelain.AccessKey
 	plumbing.SecretAccessKey = porcelain.SecretAccessKey
@@ -1788,6 +1816,7 @@ func googleGkeToPorcelain(plumbing *proto.GoogleGKE) *GoogleGKE {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Endpoint = plumbing.Endpoint
 	porcelain.CertificateAuthority = plumbing.CertificateAuthority
 	porcelain.CertificateAuthorityFilename = plumbing.CertificateAuthorityFilename
@@ -1804,6 +1833,7 @@ func googleGkeToPlumbing(porcelain *GoogleGKE) *proto.GoogleGKE {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Endpoint = porcelain.Endpoint
 	plumbing.CertificateAuthority = porcelain.CertificateAuthority
 	plumbing.CertificateAuthorityFilename = porcelain.CertificateAuthorityFilename
@@ -1836,6 +1866,7 @@ func aksToPorcelain(plumbing *proto.AKS) *AKS {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Port = plumbing.Port
 	porcelain.CertificateAuthority = plumbing.CertificateAuthority
@@ -1855,6 +1886,7 @@ func aksToPlumbing(porcelain *AKS) *proto.AKS {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Port = porcelain.Port
 	plumbing.CertificateAuthority = porcelain.CertificateAuthority
@@ -1890,6 +1922,7 @@ func aksBasicAuthToPorcelain(plumbing *proto.AKSBasicAuth) *AKSBasicAuth {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Port = plumbing.Port
 	porcelain.Username = plumbing.Username
@@ -1905,6 +1938,7 @@ func aksBasicAuthToPlumbing(porcelain *AKSBasicAuth) *proto.AKSBasicAuth {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Port = porcelain.Port
 	plumbing.Username = porcelain.Username
@@ -1936,6 +1970,7 @@ func aksServiceAccountToPorcelain(plumbing *proto.AKSServiceAccount) *AKSService
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Port = plumbing.Port
 	porcelain.Token = plumbing.Token
@@ -1950,6 +1985,7 @@ func aksServiceAccountToPlumbing(porcelain *AKSServiceAccount) *proto.AKSService
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Port = porcelain.Port
 	plumbing.Token = porcelain.Token
@@ -1980,6 +2016,7 @@ func memcachedToPorcelain(plumbing *proto.Memcached) *Memcached {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Port = plumbing.Port
@@ -1994,6 +2031,7 @@ func memcachedToPlumbing(porcelain *Memcached) *proto.Memcached {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.PortOverride = porcelain.PortOverride
 	plumbing.Port = porcelain.Port
@@ -2024,6 +2062,7 @@ func mongoLegacyHostToPorcelain(plumbing *proto.MongoLegacyHost) *MongoLegacyHos
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.AuthDatabase = plumbing.AuthDatabase
 	porcelain.PortOverride = plumbing.PortOverride
@@ -2043,6 +2082,7 @@ func mongoLegacyHostToPlumbing(porcelain *MongoLegacyHost) *proto.MongoLegacyHos
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.AuthDatabase = porcelain.AuthDatabase
 	plumbing.PortOverride = porcelain.PortOverride
@@ -2078,6 +2118,7 @@ func mongoLegacyReplicasetToPorcelain(plumbing *proto.MongoLegacyReplicaset) *Mo
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.AuthDatabase = plumbing.AuthDatabase
 	porcelain.PortOverride = plumbing.PortOverride
@@ -2098,6 +2139,7 @@ func mongoLegacyReplicasetToPlumbing(porcelain *MongoLegacyReplicaset) *proto.Mo
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.AuthDatabase = porcelain.AuthDatabase
 	plumbing.PortOverride = porcelain.PortOverride
@@ -2134,6 +2176,7 @@ func mongoHostToPorcelain(plumbing *proto.MongoHost) *MongoHost {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.AuthDatabase = plumbing.AuthDatabase
 	porcelain.PortOverride = plumbing.PortOverride
@@ -2152,6 +2195,7 @@ func mongoHostToPlumbing(porcelain *MongoHost) *proto.MongoHost {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.AuthDatabase = porcelain.AuthDatabase
 	plumbing.PortOverride = porcelain.PortOverride
@@ -2186,6 +2230,7 @@ func mongoReplicaSetToPorcelain(plumbing *proto.MongoReplicaSet) *MongoReplicaSe
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.AuthDatabase = plumbing.AuthDatabase
 	porcelain.PortOverride = plumbing.PortOverride
@@ -2206,6 +2251,7 @@ func mongoReplicaSetToPlumbing(porcelain *MongoReplicaSet) *proto.MongoReplicaSe
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.AuthDatabase = porcelain.AuthDatabase
 	plumbing.PortOverride = porcelain.PortOverride
@@ -2242,6 +2288,7 @@ func mysqlToPorcelain(plumbing *proto.Mysql) *Mysql {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -2259,6 +2306,7 @@ func mysqlToPlumbing(porcelain *Mysql) *proto.Mysql {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -2292,6 +2340,7 @@ func auroraMysqlToPorcelain(plumbing *proto.AuroraMysql) *AuroraMysql {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -2309,6 +2358,7 @@ func auroraMysqlToPlumbing(porcelain *AuroraMysql) *proto.AuroraMysql {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -2342,6 +2392,7 @@ func clustrixToPorcelain(plumbing *proto.Clustrix) *Clustrix {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -2359,6 +2410,7 @@ func clustrixToPlumbing(porcelain *Clustrix) *proto.Clustrix {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -2392,6 +2444,7 @@ func mariaToPorcelain(plumbing *proto.Maria) *Maria {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -2409,6 +2462,7 @@ func mariaToPlumbing(porcelain *Maria) *proto.Maria {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -2442,6 +2496,7 @@ func memsqlToPorcelain(plumbing *proto.Memsql) *Memsql {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -2459,6 +2514,7 @@ func memsqlToPlumbing(porcelain *Memsql) *proto.Memsql {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -2492,6 +2548,7 @@ func oracleToPorcelain(plumbing *proto.Oracle) *Oracle {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -2510,6 +2567,7 @@ func oracleToPlumbing(porcelain *Oracle) *proto.Oracle {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -2544,6 +2602,7 @@ func postgresToPorcelain(plumbing *proto.Postgres) *Postgres {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -2562,6 +2621,7 @@ func postgresToPlumbing(porcelain *Postgres) *proto.Postgres {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -2596,6 +2656,7 @@ func auroraPostgresToPorcelain(plumbing *proto.AuroraPostgres) *AuroraPostgres {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -2614,6 +2675,7 @@ func auroraPostgresToPlumbing(porcelain *AuroraPostgres) *proto.AuroraPostgres {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -2648,6 +2710,7 @@ func greenplumToPorcelain(plumbing *proto.Greenplum) *Greenplum {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -2666,6 +2729,7 @@ func greenplumToPlumbing(porcelain *Greenplum) *proto.Greenplum {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -2700,6 +2764,7 @@ func cockroachToPorcelain(plumbing *proto.Cockroach) *Cockroach {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -2718,6 +2783,7 @@ func cockroachToPlumbing(porcelain *Cockroach) *proto.Cockroach {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -2752,6 +2818,7 @@ func redshiftToPorcelain(plumbing *proto.Redshift) *Redshift {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -2770,6 +2837,7 @@ func redshiftToPlumbing(porcelain *Redshift) *proto.Redshift {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -2804,6 +2872,7 @@ func prestoToPorcelain(plumbing *proto.Presto) *Presto {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Password = plumbing.Password
 	porcelain.Database = plumbing.Database
@@ -2822,6 +2891,7 @@ func prestoToPlumbing(porcelain *Presto) *proto.Presto {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Password = porcelain.Password
 	plumbing.Database = porcelain.Database
@@ -2856,6 +2926,7 @@ func rdpToPorcelain(plumbing *proto.RDP) *RDP {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -2872,6 +2943,7 @@ func rdpToPlumbing(porcelain *RDP) *proto.RDP {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -2904,6 +2976,7 @@ func redisToPorcelain(plumbing *proto.Redis) *Redis {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Password = plumbing.Password
@@ -2919,6 +2992,7 @@ func redisToPlumbing(porcelain *Redis) *proto.Redis {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.PortOverride = porcelain.PortOverride
 	plumbing.Password = porcelain.Password
@@ -2950,6 +3024,7 @@ func elasticacheRedisToPorcelain(plumbing *proto.ElasticacheRedis) *ElasticacheR
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Password = plumbing.Password
@@ -2966,6 +3041,7 @@ func elasticacheRedisToPlumbing(porcelain *ElasticacheRedis) *proto.ElasticacheR
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.PortOverride = porcelain.PortOverride
 	plumbing.Password = porcelain.Password
@@ -2998,6 +3074,7 @@ func snowflakeToPorcelain(plumbing *proto.Snowflake) *Snowflake {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -3015,6 +3092,7 @@ func snowflakeToPlumbing(porcelain *Snowflake) *proto.Snowflake {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -3048,6 +3126,7 @@ func sqlServerToPorcelain(plumbing *proto.SQLServer) *SQLServer {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -3067,6 +3146,7 @@ func sqlServerToPlumbing(porcelain *SQLServer) *proto.SQLServer {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -3102,6 +3182,7 @@ func sshToPorcelain(plumbing *proto.SSH) *SSH {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Port = plumbing.Port
@@ -3118,6 +3199,7 @@ func sshToPlumbing(porcelain *SSH) *proto.SSH {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Port = porcelain.Port
@@ -3150,6 +3232,7 @@ func sybaseToPorcelain(plumbing *proto.Sybase) *Sybase {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.PortOverride = plumbing.PortOverride
@@ -3166,6 +3249,7 @@ func sybaseToPlumbing(porcelain *Sybase) *proto.Sybase {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.PortOverride = porcelain.PortOverride
@@ -3198,6 +3282,7 @@ func sybaseIqToPorcelain(plumbing *proto.SybaseIQ) *SybaseIQ {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.PortOverride = plumbing.PortOverride
@@ -3214,6 +3299,7 @@ func sybaseIqToPlumbing(porcelain *SybaseIQ) *proto.SybaseIQ {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.PortOverride = porcelain.PortOverride
@@ -3246,6 +3332,7 @@ func teradataToPorcelain(plumbing *proto.Teradata) *Teradata {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Healthy = plumbing.Healthy
+	porcelain.Tags = repeatedPairToPorcelain(plumbing.Tags)
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.Username = plumbing.Username
 	porcelain.Password = plumbing.Password
@@ -3262,6 +3349,7 @@ func teradataToPlumbing(porcelain *Teradata) *proto.Teradata {
 	plumbing.Id = porcelain.ID
 	plumbing.Name = porcelain.Name
 	plumbing.Healthy = porcelain.Healthy
+	plumbing.Tags = repeatedPairToPlumbing(porcelain.Tags)
 	plumbing.Hostname = porcelain.Hostname
 	plumbing.Username = porcelain.Username
 	plumbing.Password = porcelain.Password
@@ -3283,6 +3371,42 @@ func repeatedTeradataToPorcelain(plumbings []*proto.Teradata) []*Teradata {
 	var items []*Teradata
 	for _, plumbing := range plumbings {
 		items = append(items, teradataToPorcelain(plumbing))
+	}
+	return items
+}
+func pairToPorcelain(plumbing *proto.Pair) *Pair {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Pair{}
+	porcelain.Name = plumbing.Name
+	porcelain.Value = plumbing.Value
+	return porcelain
+}
+
+func pairToPlumbing(porcelain *Pair) *proto.Pair {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Pair{}
+	plumbing.Name = porcelain.Name
+	plumbing.Value = porcelain.Value
+	return plumbing
+}
+func repeatedPairToPlumbing(
+	porcelains []*Pair,
+) []*proto.Pair {
+	var items []*proto.Pair
+	for _, porcelain := range porcelains {
+		items = append(items, pairToPlumbing(porcelain))
+	}
+	return items
+}
+
+func repeatedPairToPorcelain(plumbings []*proto.Pair) []*Pair {
+	var items []*Pair
+	for _, plumbing := range plumbings {
+		items = append(items, pairToPorcelain(plumbing))
 	}
 	return items
 }
