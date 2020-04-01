@@ -248,6 +248,8 @@ type Resource interface {
 	GetID() string
 	// GetName returns the name of the Resource.
 	GetName() string
+	// GetTags returns the tags of the Resource.
+	GetTags() Tags
 	isOneOf_Resource()
 }
 
@@ -260,6 +262,11 @@ func (m *Athena) GetID() string { return m.ID }
 func (m *Athena) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the Athena.
+func (m *Athena) GetTags() Tags {
+	return m.Tags
+}
 func (*BigQuery) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the BigQuery.
@@ -268,6 +275,11 @@ func (m *BigQuery) GetID() string { return m.ID }
 // GetName returns the name of the BigQuery.
 func (m *BigQuery) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the BigQuery.
+func (m *BigQuery) GetTags() Tags {
+	return m.Tags
 }
 func (*Cassandra) isOneOf_Resource() {}
 
@@ -278,6 +290,11 @@ func (m *Cassandra) GetID() string { return m.ID }
 func (m *Cassandra) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the Cassandra.
+func (m *Cassandra) GetTags() Tags {
+	return m.Tags
+}
 func (*Druid) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Druid.
@@ -286,6 +303,11 @@ func (m *Druid) GetID() string { return m.ID }
 // GetName returns the name of the Druid.
 func (m *Druid) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the Druid.
+func (m *Druid) GetTags() Tags {
+	return m.Tags
 }
 func (*DynamoDB) isOneOf_Resource() {}
 
@@ -296,6 +318,11 @@ func (m *DynamoDB) GetID() string { return m.ID }
 func (m *DynamoDB) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the DynamoDB.
+func (m *DynamoDB) GetTags() Tags {
+	return m.Tags
+}
 func (*AmazonES) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AmazonES.
@@ -304,6 +331,11 @@ func (m *AmazonES) GetID() string { return m.ID }
 // GetName returns the name of the AmazonES.
 func (m *AmazonES) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the AmazonES.
+func (m *AmazonES) GetTags() Tags {
+	return m.Tags
 }
 func (*Elastic) isOneOf_Resource() {}
 
@@ -314,6 +346,11 @@ func (m *Elastic) GetID() string { return m.ID }
 func (m *Elastic) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the Elastic.
+func (m *Elastic) GetTags() Tags {
+	return m.Tags
+}
 func (*HTTPBasicAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the HTTPBasicAuth.
@@ -322,6 +359,11 @@ func (m *HTTPBasicAuth) GetID() string { return m.ID }
 // GetName returns the name of the HTTPBasicAuth.
 func (m *HTTPBasicAuth) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the HTTPBasicAuth.
+func (m *HTTPBasicAuth) GetTags() Tags {
+	return m.Tags
 }
 func (*HTTPNoAuth) isOneOf_Resource() {}
 
@@ -332,6 +374,11 @@ func (m *HTTPNoAuth) GetID() string { return m.ID }
 func (m *HTTPNoAuth) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the HTTPNoAuth.
+func (m *HTTPNoAuth) GetTags() Tags {
+	return m.Tags
+}
 func (*HTTPAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the HTTPAuth.
@@ -340,6 +387,11 @@ func (m *HTTPAuth) GetID() string { return m.ID }
 // GetName returns the name of the HTTPAuth.
 func (m *HTTPAuth) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the HTTPAuth.
+func (m *HTTPAuth) GetTags() Tags {
+	return m.Tags
 }
 func (*Kubernetes) isOneOf_Resource() {}
 
@@ -350,6 +402,11 @@ func (m *Kubernetes) GetID() string { return m.ID }
 func (m *Kubernetes) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the Kubernetes.
+func (m *Kubernetes) GetTags() Tags {
+	return m.Tags
+}
 func (*KubernetesBasicAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the KubernetesBasicAuth.
@@ -358,6 +415,11 @@ func (m *KubernetesBasicAuth) GetID() string { return m.ID }
 // GetName returns the name of the KubernetesBasicAuth.
 func (m *KubernetesBasicAuth) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the KubernetesBasicAuth.
+func (m *KubernetesBasicAuth) GetTags() Tags {
+	return m.Tags
 }
 func (*KubernetesServiceAccount) isOneOf_Resource() {}
 
@@ -368,6 +430,11 @@ func (m *KubernetesServiceAccount) GetID() string { return m.ID }
 func (m *KubernetesServiceAccount) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the KubernetesServiceAccount.
+func (m *KubernetesServiceAccount) GetTags() Tags {
+	return m.Tags
+}
 func (*AmazonEKS) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AmazonEKS.
@@ -376,6 +443,11 @@ func (m *AmazonEKS) GetID() string { return m.ID }
 // GetName returns the name of the AmazonEKS.
 func (m *AmazonEKS) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the AmazonEKS.
+func (m *AmazonEKS) GetTags() Tags {
+	return m.Tags
 }
 func (*GoogleGKE) isOneOf_Resource() {}
 
@@ -386,6 +458,11 @@ func (m *GoogleGKE) GetID() string { return m.ID }
 func (m *GoogleGKE) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the GoogleGKE.
+func (m *GoogleGKE) GetTags() Tags {
+	return m.Tags
+}
 func (*AKS) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AKS.
@@ -394,6 +471,11 @@ func (m *AKS) GetID() string { return m.ID }
 // GetName returns the name of the AKS.
 func (m *AKS) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the AKS.
+func (m *AKS) GetTags() Tags {
+	return m.Tags
 }
 func (*AKSBasicAuth) isOneOf_Resource() {}
 
@@ -404,6 +486,11 @@ func (m *AKSBasicAuth) GetID() string { return m.ID }
 func (m *AKSBasicAuth) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the AKSBasicAuth.
+func (m *AKSBasicAuth) GetTags() Tags {
+	return m.Tags
+}
 func (*AKSServiceAccount) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AKSServiceAccount.
@@ -412,6 +499,11 @@ func (m *AKSServiceAccount) GetID() string { return m.ID }
 // GetName returns the name of the AKSServiceAccount.
 func (m *AKSServiceAccount) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the AKSServiceAccount.
+func (m *AKSServiceAccount) GetTags() Tags {
+	return m.Tags
 }
 func (*Memcached) isOneOf_Resource() {}
 
@@ -422,6 +514,11 @@ func (m *Memcached) GetID() string { return m.ID }
 func (m *Memcached) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the Memcached.
+func (m *Memcached) GetTags() Tags {
+	return m.Tags
+}
 func (*MongoLegacyHost) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MongoLegacyHost.
@@ -430,6 +527,11 @@ func (m *MongoLegacyHost) GetID() string { return m.ID }
 // GetName returns the name of the MongoLegacyHost.
 func (m *MongoLegacyHost) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the MongoLegacyHost.
+func (m *MongoLegacyHost) GetTags() Tags {
+	return m.Tags
 }
 func (*MongoLegacyReplicaset) isOneOf_Resource() {}
 
@@ -440,6 +542,11 @@ func (m *MongoLegacyReplicaset) GetID() string { return m.ID }
 func (m *MongoLegacyReplicaset) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the MongoLegacyReplicaset.
+func (m *MongoLegacyReplicaset) GetTags() Tags {
+	return m.Tags
+}
 func (*MongoHost) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MongoHost.
@@ -448,6 +555,11 @@ func (m *MongoHost) GetID() string { return m.ID }
 // GetName returns the name of the MongoHost.
 func (m *MongoHost) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the MongoHost.
+func (m *MongoHost) GetTags() Tags {
+	return m.Tags
 }
 func (*MongoReplicaSet) isOneOf_Resource() {}
 
@@ -458,6 +570,11 @@ func (m *MongoReplicaSet) GetID() string { return m.ID }
 func (m *MongoReplicaSet) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the MongoReplicaSet.
+func (m *MongoReplicaSet) GetTags() Tags {
+	return m.Tags
+}
 func (*Mysql) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Mysql.
@@ -466,6 +583,11 @@ func (m *Mysql) GetID() string { return m.ID }
 // GetName returns the name of the Mysql.
 func (m *Mysql) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the Mysql.
+func (m *Mysql) GetTags() Tags {
+	return m.Tags
 }
 func (*AuroraMysql) isOneOf_Resource() {}
 
@@ -476,6 +598,11 @@ func (m *AuroraMysql) GetID() string { return m.ID }
 func (m *AuroraMysql) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the AuroraMysql.
+func (m *AuroraMysql) GetTags() Tags {
+	return m.Tags
+}
 func (*Clustrix) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Clustrix.
@@ -484,6 +611,11 @@ func (m *Clustrix) GetID() string { return m.ID }
 // GetName returns the name of the Clustrix.
 func (m *Clustrix) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the Clustrix.
+func (m *Clustrix) GetTags() Tags {
+	return m.Tags
 }
 func (*Maria) isOneOf_Resource() {}
 
@@ -494,6 +626,11 @@ func (m *Maria) GetID() string { return m.ID }
 func (m *Maria) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the Maria.
+func (m *Maria) GetTags() Tags {
+	return m.Tags
+}
 func (*Memsql) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Memsql.
@@ -502,6 +639,11 @@ func (m *Memsql) GetID() string { return m.ID }
 // GetName returns the name of the Memsql.
 func (m *Memsql) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the Memsql.
+func (m *Memsql) GetTags() Tags {
+	return m.Tags
 }
 func (*Oracle) isOneOf_Resource() {}
 
@@ -512,6 +654,11 @@ func (m *Oracle) GetID() string { return m.ID }
 func (m *Oracle) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the Oracle.
+func (m *Oracle) GetTags() Tags {
+	return m.Tags
+}
 func (*Postgres) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Postgres.
@@ -520,6 +667,11 @@ func (m *Postgres) GetID() string { return m.ID }
 // GetName returns the name of the Postgres.
 func (m *Postgres) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the Postgres.
+func (m *Postgres) GetTags() Tags {
+	return m.Tags
 }
 func (*AuroraPostgres) isOneOf_Resource() {}
 
@@ -530,6 +682,11 @@ func (m *AuroraPostgres) GetID() string { return m.ID }
 func (m *AuroraPostgres) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the AuroraPostgres.
+func (m *AuroraPostgres) GetTags() Tags {
+	return m.Tags
+}
 func (*Greenplum) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Greenplum.
@@ -538,6 +695,11 @@ func (m *Greenplum) GetID() string { return m.ID }
 // GetName returns the name of the Greenplum.
 func (m *Greenplum) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the Greenplum.
+func (m *Greenplum) GetTags() Tags {
+	return m.Tags
 }
 func (*Cockroach) isOneOf_Resource() {}
 
@@ -548,6 +710,11 @@ func (m *Cockroach) GetID() string { return m.ID }
 func (m *Cockroach) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the Cockroach.
+func (m *Cockroach) GetTags() Tags {
+	return m.Tags
+}
 func (*Redshift) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Redshift.
@@ -556,6 +723,11 @@ func (m *Redshift) GetID() string { return m.ID }
 // GetName returns the name of the Redshift.
 func (m *Redshift) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the Redshift.
+func (m *Redshift) GetTags() Tags {
+	return m.Tags
 }
 func (*Presto) isOneOf_Resource() {}
 
@@ -566,6 +738,11 @@ func (m *Presto) GetID() string { return m.ID }
 func (m *Presto) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the Presto.
+func (m *Presto) GetTags() Tags {
+	return m.Tags
+}
 func (*RDP) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the RDP.
@@ -574,6 +751,11 @@ func (m *RDP) GetID() string { return m.ID }
 // GetName returns the name of the RDP.
 func (m *RDP) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the RDP.
+func (m *RDP) GetTags() Tags {
+	return m.Tags
 }
 func (*Redis) isOneOf_Resource() {}
 
@@ -584,6 +766,11 @@ func (m *Redis) GetID() string { return m.ID }
 func (m *Redis) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the Redis.
+func (m *Redis) GetTags() Tags {
+	return m.Tags
+}
 func (*ElasticacheRedis) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the ElasticacheRedis.
@@ -592,6 +779,11 @@ func (m *ElasticacheRedis) GetID() string { return m.ID }
 // GetName returns the name of the ElasticacheRedis.
 func (m *ElasticacheRedis) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the ElasticacheRedis.
+func (m *ElasticacheRedis) GetTags() Tags {
+	return m.Tags
 }
 func (*Snowflake) isOneOf_Resource() {}
 
@@ -602,6 +794,11 @@ func (m *Snowflake) GetID() string { return m.ID }
 func (m *Snowflake) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the Snowflake.
+func (m *Snowflake) GetTags() Tags {
+	return m.Tags
+}
 func (*SQLServer) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the SQLServer.
@@ -610,6 +807,11 @@ func (m *SQLServer) GetID() string { return m.ID }
 // GetName returns the name of the SQLServer.
 func (m *SQLServer) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the SQLServer.
+func (m *SQLServer) GetTags() Tags {
+	return m.Tags
 }
 func (*SSH) isOneOf_Resource() {}
 
@@ -620,6 +822,11 @@ func (m *SSH) GetID() string { return m.ID }
 func (m *SSH) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the SSH.
+func (m *SSH) GetTags() Tags {
+	return m.Tags
+}
 func (*Sybase) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Sybase.
@@ -628,6 +835,11 @@ func (m *Sybase) GetID() string { return m.ID }
 // GetName returns the name of the Sybase.
 func (m *Sybase) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the Sybase.
+func (m *Sybase) GetTags() Tags {
+	return m.Tags
 }
 func (*SybaseIQ) isOneOf_Resource() {}
 
@@ -638,6 +850,11 @@ func (m *SybaseIQ) GetID() string { return m.ID }
 func (m *SybaseIQ) GetName() string {
 	return m.Name
 }
+
+// GetTags returns the tags of the SybaseIQ.
+func (m *SybaseIQ) GetTags() Tags {
+	return m.Tags
+}
 func (*Teradata) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Teradata.
@@ -646,6 +863,11 @@ func (m *Teradata) GetID() string { return m.ID }
 // GetName returns the name of the Teradata.
 func (m *Teradata) GetName() string {
 	return m.Name
+}
+
+// GetTags returns the tags of the Teradata.
+func (m *Teradata) GetTags() Tags {
+	return m.Tags
 }
 
 type Athena struct {
