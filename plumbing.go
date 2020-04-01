@@ -3390,42 +3390,6 @@ func convertRepeatedTeradataToPorcelain(plumbings []*proto.Teradata) []*Teradata
 	}
 	return items
 }
-func convertPairToPorcelain(plumbing *proto.Pair) *Pair {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &Pair{}
-	porcelain.Name = (plumbing.Name)
-	porcelain.Value = (plumbing.Value)
-	return porcelain
-}
-
-func convertPairToPlumbing(porcelain *Pair) *proto.Pair {
-	if porcelain == nil {
-		return nil
-	}
-	plumbing := &proto.Pair{}
-	plumbing.Name = (porcelain.Name)
-	plumbing.Value = (porcelain.Value)
-	return plumbing
-}
-func convertRepeatedPairToPlumbing(
-	porcelains []*Pair,
-) []*proto.Pair {
-	var items []*proto.Pair
-	for _, porcelain := range porcelains {
-		items = append(items, convertPairToPlumbing(porcelain))
-	}
-	return items
-}
-
-func convertRepeatedPairToPorcelain(plumbings []*proto.Pair) []*Pair {
-	var items []*Pair
-	for _, plumbing := range plumbings {
-		items = append(items, convertPairToPorcelain(plumbing))
-	}
-	return items
-}
 func convertNodeCreateResponseToPorcelain(plumbing *proto.NodeCreateResponse) *NodeCreateResponse {
 	if plumbing == nil {
 		return nil

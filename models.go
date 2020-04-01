@@ -1652,12 +1652,6 @@ type Teradata struct {
 	Port int32 `json:"port"`
 }
 
-type Pair struct {
-	Name string `json:"name"`
-
-	Value string `json:"value"`
-}
-
 // NodeCreateResponse reports how the Nodes were created in the system.
 type NodeCreateResponse struct {
 	// Reserved for future use.
