@@ -51,7 +51,7 @@ func (svc *AccountAttachments) Create(
 		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "AccountAttachments.Create"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -61,9 +61,9 @@ func (svc *AccountAttachments) Create(
 	}
 
 	resp := &AccountAttachmentCreateResponse{}
-	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.AccountAttachment = accountAttachmentToPorcelain(plumbingResponse.AccountAttachment)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.AccountAttachment = convertAccountAttachmentToPorcelain(plumbingResponse.AccountAttachment)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -83,7 +83,7 @@ func (svc *AccountAttachments) Get(
 		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "AccountAttachments.Get"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -93,9 +93,9 @@ func (svc *AccountAttachments) Get(
 	}
 
 	resp := &AccountAttachmentGetResponse{}
-	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.AccountAttachment = accountAttachmentToPorcelain(plumbingResponse.AccountAttachment)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.AccountAttachment = convertAccountAttachmentToPorcelain(plumbingResponse.AccountAttachment)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -115,7 +115,7 @@ func (svc *AccountAttachments) Delete(
 		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "AccountAttachments.Delete"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -125,8 +125,8 @@ func (svc *AccountAttachments) Delete(
 	}
 
 	resp := &AccountAttachmentDeleteResponse{}
-	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -162,7 +162,7 @@ func (svc *AccountAttachments) List(
 				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountAttachments.List"), req)
 				if err != nil {
 					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, errorToPorcelain(err)
+						return nil, false, convertErrorToPorcelain(err)
 					}
 					i++
 					svc.parent.jitterSleep(i)
@@ -170,7 +170,7 @@ func (svc *AccountAttachments) List(
 				}
 				break
 			}
-			result := repeatedAccountAttachmentToPorcelain(plumbingResponse.AccountAttachments)
+			result := convertRepeatedAccountAttachmentToPorcelain(plumbingResponse.AccountAttachments)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -199,7 +199,7 @@ func (svc *AccountGrants) Create(
 		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "AccountGrants.Create"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -209,9 +209,9 @@ func (svc *AccountGrants) Create(
 	}
 
 	resp := &AccountGrantCreateResponse{}
-	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.AccountGrant = accountGrantToPorcelain(plumbingResponse.AccountGrant)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.AccountGrant = convertAccountGrantToPorcelain(plumbingResponse.AccountGrant)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -231,7 +231,7 @@ func (svc *AccountGrants) Get(
 		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "AccountGrants.Get"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -241,9 +241,9 @@ func (svc *AccountGrants) Get(
 	}
 
 	resp := &AccountGrantGetResponse{}
-	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.AccountGrant = accountGrantToPorcelain(plumbingResponse.AccountGrant)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.AccountGrant = convertAccountGrantToPorcelain(plumbingResponse.AccountGrant)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -263,7 +263,7 @@ func (svc *AccountGrants) Delete(
 		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "AccountGrants.Delete"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -273,8 +273,8 @@ func (svc *AccountGrants) Delete(
 	}
 
 	resp := &AccountGrantDeleteResponse{}
-	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -310,7 +310,7 @@ func (svc *AccountGrants) List(
 				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountGrants.List"), req)
 				if err != nil {
 					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, errorToPorcelain(err)
+						return nil, false, convertErrorToPorcelain(err)
 					}
 					i++
 					svc.parent.jitterSleep(i)
@@ -318,7 +318,7 @@ func (svc *AccountGrants) List(
 				}
 				break
 			}
-			result := repeatedAccountGrantToPorcelain(plumbingResponse.AccountGrants)
+			result := convertRepeatedAccountGrantToPorcelain(plumbingResponse.AccountGrants)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -350,7 +350,7 @@ func (svc *Accounts) Create(
 		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Accounts.Create"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -360,10 +360,10 @@ func (svc *Accounts) Create(
 	}
 
 	resp := &AccountCreateResponse{}
-	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Account = accountToPorcelain(plumbingResponse.Account)
-	resp.Token = plumbingResponse.Token
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Account = convertAccountToPorcelain(plumbingResponse.Account)
+	resp.Token = (plumbingResponse.Token)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -383,7 +383,7 @@ func (svc *Accounts) Get(
 		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Accounts.Get"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -393,9 +393,9 @@ func (svc *Accounts) Get(
 	}
 
 	resp := &AccountGetResponse{}
-	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Account = accountToPorcelain(plumbingResponse.Account)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Account = convertAccountToPorcelain(plumbingResponse.Account)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -415,7 +415,7 @@ func (svc *Accounts) Update(
 		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Accounts.Update"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -425,9 +425,9 @@ func (svc *Accounts) Update(
 	}
 
 	resp := &AccountUpdateResponse{}
-	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Account = accountToPorcelain(plumbingResponse.Account)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Account = convertAccountToPorcelain(plumbingResponse.Account)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -447,7 +447,7 @@ func (svc *Accounts) Delete(
 		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Accounts.Delete"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -457,8 +457,8 @@ func (svc *Accounts) Delete(
 	}
 
 	resp := &AccountDeleteResponse{}
-	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -494,7 +494,7 @@ func (svc *Accounts) List(
 				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Accounts.List"), req)
 				if err != nil {
 					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, errorToPorcelain(err)
+						return nil, false, convertErrorToPorcelain(err)
 					}
 					i++
 					svc.parent.jitterSleep(i)
@@ -502,7 +502,7 @@ func (svc *Accounts) List(
 				}
 				break
 			}
-			result := repeatedAccountToPorcelain(plumbingResponse.Accounts)
+			result := convertRepeatedAccountToPorcelain(plumbingResponse.Accounts)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -534,7 +534,7 @@ func (svc *Nodes) Create(
 		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Nodes.Create"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -544,10 +544,10 @@ func (svc *Nodes) Create(
 	}
 
 	resp := &NodeCreateResponse{}
-	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Node = nodeToPorcelain(plumbingResponse.Node)
-	resp.Token = plumbingResponse.Token
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Node = convertNodeToPorcelain(plumbingResponse.Node)
+	resp.Token = (plumbingResponse.Token)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -567,7 +567,7 @@ func (svc *Nodes) Get(
 		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Nodes.Get"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -577,9 +577,9 @@ func (svc *Nodes) Get(
 	}
 
 	resp := &NodeGetResponse{}
-	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Node = nodeToPorcelain(plumbingResponse.Node)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Node = convertNodeToPorcelain(plumbingResponse.Node)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -599,7 +599,7 @@ func (svc *Nodes) Update(
 		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Nodes.Update"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -609,9 +609,9 @@ func (svc *Nodes) Update(
 	}
 
 	resp := &NodeUpdateResponse{}
-	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Node = nodeToPorcelain(plumbingResponse.Node)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Node = convertNodeToPorcelain(plumbingResponse.Node)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -631,7 +631,7 @@ func (svc *Nodes) Delete(
 		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Nodes.Delete"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -641,8 +641,8 @@ func (svc *Nodes) Delete(
 	}
 
 	resp := &NodeDeleteResponse{}
-	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -678,7 +678,7 @@ func (svc *Nodes) List(
 				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Nodes.List"), req)
 				if err != nil {
 					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, errorToPorcelain(err)
+						return nil, false, convertErrorToPorcelain(err)
 					}
 					i++
 					svc.parent.jitterSleep(i)
@@ -686,7 +686,7 @@ func (svc *Nodes) List(
 				}
 				break
 			}
-			result := repeatedNodeToPorcelain(plumbingResponse.Nodes)
+			result := convertRepeatedNodeToPorcelain(plumbingResponse.Nodes)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -714,7 +714,7 @@ func (svc *Resources) Create(
 		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Resources.Create"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -724,9 +724,9 @@ func (svc *Resources) Create(
 	}
 
 	resp := &ResourceCreateResponse{}
-	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Resource = resourceToPorcelain(plumbingResponse.Resource)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Resource = convertResourceToPorcelain(plumbingResponse.Resource)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -746,7 +746,7 @@ func (svc *Resources) Get(
 		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Resources.Get"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -756,9 +756,9 @@ func (svc *Resources) Get(
 	}
 
 	resp := &ResourceGetResponse{}
-	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Resource = resourceToPorcelain(plumbingResponse.Resource)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Resource = convertResourceToPorcelain(plumbingResponse.Resource)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -778,7 +778,7 @@ func (svc *Resources) Update(
 		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Resources.Update"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -788,9 +788,9 @@ func (svc *Resources) Update(
 	}
 
 	resp := &ResourceUpdateResponse{}
-	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Resource = resourceToPorcelain(plumbingResponse.Resource)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Resource = convertResourceToPorcelain(plumbingResponse.Resource)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -810,7 +810,7 @@ func (svc *Resources) Delete(
 		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Resources.Delete"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -820,8 +820,8 @@ func (svc *Resources) Delete(
 	}
 
 	resp := &ResourceDeleteResponse{}
-	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -857,7 +857,7 @@ func (svc *Resources) List(
 				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Resources.List"), req)
 				if err != nil {
 					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, errorToPorcelain(err)
+						return nil, false, convertErrorToPorcelain(err)
 					}
 					i++
 					svc.parent.jitterSleep(i)
@@ -865,7 +865,7 @@ func (svc *Resources) List(
 				}
 				break
 			}
-			result := repeatedResourceToPorcelain(plumbingResponse.Resources)
+			result := convertRepeatedResourceToPorcelain(plumbingResponse.Resources)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -897,7 +897,7 @@ func (svc *RoleAttachments) Create(
 		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "RoleAttachments.Create"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -907,9 +907,9 @@ func (svc *RoleAttachments) Create(
 	}
 
 	resp := &RoleAttachmentCreateResponse{}
-	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RoleAttachment = roleAttachmentToPorcelain(plumbingResponse.RoleAttachment)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RoleAttachment = convertRoleAttachmentToPorcelain(plumbingResponse.RoleAttachment)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -929,7 +929,7 @@ func (svc *RoleAttachments) Get(
 		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "RoleAttachments.Get"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -939,9 +939,9 @@ func (svc *RoleAttachments) Get(
 	}
 
 	resp := &RoleAttachmentGetResponse{}
-	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RoleAttachment = roleAttachmentToPorcelain(plumbingResponse.RoleAttachment)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RoleAttachment = convertRoleAttachmentToPorcelain(plumbingResponse.RoleAttachment)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -961,7 +961,7 @@ func (svc *RoleAttachments) Delete(
 		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "RoleAttachments.Delete"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -971,8 +971,8 @@ func (svc *RoleAttachments) Delete(
 	}
 
 	resp := &RoleAttachmentDeleteResponse{}
-	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -1008,7 +1008,7 @@ func (svc *RoleAttachments) List(
 				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RoleAttachments.List"), req)
 				if err != nil {
 					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, errorToPorcelain(err)
+						return nil, false, convertErrorToPorcelain(err)
 					}
 					i++
 					svc.parent.jitterSleep(i)
@@ -1016,7 +1016,7 @@ func (svc *RoleAttachments) List(
 				}
 				break
 			}
-			result := repeatedRoleAttachmentToPorcelain(plumbingResponse.RoleAttachments)
+			result := convertRepeatedRoleAttachmentToPorcelain(plumbingResponse.RoleAttachments)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -1048,7 +1048,7 @@ func (svc *RoleGrants) Create(
 		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "RoleGrants.Create"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -1058,9 +1058,9 @@ func (svc *RoleGrants) Create(
 	}
 
 	resp := &RoleGrantCreateResponse{}
-	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RoleGrant = roleGrantToPorcelain(plumbingResponse.RoleGrant)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RoleGrant = convertRoleGrantToPorcelain(plumbingResponse.RoleGrant)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -1080,7 +1080,7 @@ func (svc *RoleGrants) Get(
 		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "RoleGrants.Get"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -1090,9 +1090,9 @@ func (svc *RoleGrants) Get(
 	}
 
 	resp := &RoleGrantGetResponse{}
-	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RoleGrant = roleGrantToPorcelain(plumbingResponse.RoleGrant)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RoleGrant = convertRoleGrantToPorcelain(plumbingResponse.RoleGrant)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -1112,7 +1112,7 @@ func (svc *RoleGrants) Delete(
 		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "RoleGrants.Delete"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -1122,8 +1122,8 @@ func (svc *RoleGrants) Delete(
 	}
 
 	resp := &RoleGrantDeleteResponse{}
-	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -1159,7 +1159,7 @@ func (svc *RoleGrants) List(
 				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RoleGrants.List"), req)
 				if err != nil {
 					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, errorToPorcelain(err)
+						return nil, false, convertErrorToPorcelain(err)
 					}
 					i++
 					svc.parent.jitterSleep(i)
@@ -1167,7 +1167,7 @@ func (svc *RoleGrants) List(
 				}
 				break
 			}
-			result := repeatedRoleGrantToPorcelain(plumbingResponse.RoleGrants)
+			result := convertRepeatedRoleGrantToPorcelain(plumbingResponse.RoleGrants)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -1200,7 +1200,7 @@ func (svc *Roles) Create(
 		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Roles.Create"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -1210,9 +1210,9 @@ func (svc *Roles) Create(
 	}
 
 	resp := &RoleCreateResponse{}
-	resp.Meta = createResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Role = roleToPorcelain(plumbingResponse.Role)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Role = convertRoleToPorcelain(plumbingResponse.Role)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -1232,7 +1232,7 @@ func (svc *Roles) Get(
 		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Roles.Get"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -1242,9 +1242,9 @@ func (svc *Roles) Get(
 	}
 
 	resp := &RoleGetResponse{}
-	resp.Meta = getResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Role = roleToPorcelain(plumbingResponse.Role)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Role = convertRoleToPorcelain(plumbingResponse.Role)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -1264,7 +1264,7 @@ func (svc *Roles) Update(
 		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Roles.Update"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -1274,9 +1274,9 @@ func (svc *Roles) Update(
 	}
 
 	resp := &RoleUpdateResponse{}
-	resp.Meta = updateResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.Role = roleToPorcelain(plumbingResponse.Role)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Role = convertRoleToPorcelain(plumbingResponse.Role)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -1296,7 +1296,7 @@ func (svc *Roles) Delete(
 		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Roles.Delete"), req)
 		if err != nil {
 			if !svc.parent.shouldRetry(i, err) {
-				return nil, errorToPorcelain(err)
+				return nil, convertErrorToPorcelain(err)
 			}
 			i++
 			svc.parent.jitterSleep(i)
@@ -1306,8 +1306,8 @@ func (svc *Roles) Delete(
 	}
 
 	resp := &RoleDeleteResponse{}
-	resp.Meta = deleteResponseMetadataToPorcelain(plumbingResponse.Meta)
-	resp.RateLimit = rateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -1343,7 +1343,7 @@ func (svc *Roles) List(
 				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Roles.List"), req)
 				if err != nil {
 					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, errorToPorcelain(err)
+						return nil, false, convertErrorToPorcelain(err)
 					}
 					i++
 					svc.parent.jitterSleep(i)
@@ -1351,7 +1351,7 @@ func (svc *Roles) List(
 				}
 				break
 			}
-			result := repeatedRoleToPorcelain(plumbingResponse.Roles)
+			result := convertRepeatedRoleToPorcelain(plumbingResponse.Roles)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},

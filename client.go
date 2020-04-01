@@ -74,7 +74,7 @@ type Client struct {
 func New(token, secret string, opts ...ClientOption) (*Client, error) {
 	decodedSecret, err := base64.StdEncoding.DecodeString(secret)
 	if err != nil {
-		return nil, errorToPorcelain(fmt.Errorf("invalid secret: %w", err))
+		return nil, convertErrorToPorcelain(fmt.Errorf("invalid secret: %w", err))
 	}
 
 	client := &Client{
@@ -102,7 +102,7 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 	}
 	cc, err := grpc.Dial(client.apiHost, dialOpt)
 	if err != nil {
-		return nil, errorToPorcelain(fmt.Errorf("cannot dial API server: %w", err))
+		return nil, convertErrorToPorcelain(fmt.Errorf("cannot dial API server: %w", err))
 	}
 	client.grpcConn = cc
 	client.accountAttachments = &AccountAttachments{
