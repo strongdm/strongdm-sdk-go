@@ -21,6 +21,8 @@ import (
 	"time"
 )
 
+type Tags map[string]string
+
 // CreateResponseMetadata is reserved for future use.
 type CreateResponseMetadata struct {
 }
@@ -654,7 +656,7 @@ type Athena struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	AccessKey string `json:"access_key"`
 
@@ -675,7 +677,7 @@ type BigQuery struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	PrivateKey string `json:"private_key"`
 
@@ -696,7 +698,7 @@ type Cassandra struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -719,7 +721,7 @@ type Druid struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -740,7 +742,7 @@ type DynamoDB struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	AccessKey string `json:"access_key"`
 
@@ -761,7 +763,7 @@ type AmazonES struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Region string `json:"region"`
 
@@ -782,7 +784,7 @@ type Elastic struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -805,7 +807,7 @@ type HTTPBasicAuth struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Url string `json:"url"`
 
@@ -830,7 +832,7 @@ type HTTPNoAuth struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Url string `json:"url"`
 
@@ -851,7 +853,7 @@ type HTTPAuth struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Url string `json:"url"`
 
@@ -874,7 +876,7 @@ type Kubernetes struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -901,7 +903,7 @@ type KubernetesBasicAuth struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -920,7 +922,7 @@ type KubernetesServiceAccount struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -937,7 +939,7 @@ type AmazonEKS struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Endpoint string `json:"endpoint"`
 
@@ -962,7 +964,7 @@ type GoogleGKE struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Endpoint string `json:"endpoint"`
 
@@ -983,7 +985,7 @@ type AKS struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1010,7 +1012,7 @@ type AKSBasicAuth struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1029,7 +1031,7 @@ type AKSServiceAccount struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1046,7 +1048,7 @@ type Memcached struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1063,7 +1065,7 @@ type MongoLegacyHost struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1090,7 +1092,7 @@ type MongoLegacyReplicaset struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1119,7 +1121,7 @@ type MongoHost struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1144,7 +1146,7 @@ type MongoReplicaSet struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1173,7 +1175,7 @@ type Mysql struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1196,7 +1198,7 @@ type AuroraMysql struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1219,7 +1221,7 @@ type Clustrix struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1242,7 +1244,7 @@ type Maria struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1265,7 +1267,7 @@ type Memsql struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1288,7 +1290,7 @@ type Oracle struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1313,7 +1315,7 @@ type Postgres struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1338,7 +1340,7 @@ type AuroraPostgres struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1363,7 +1365,7 @@ type Greenplum struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1388,7 +1390,7 @@ type Cockroach struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1413,7 +1415,7 @@ type Redshift struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1438,7 +1440,7 @@ type Presto struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1463,7 +1465,7 @@ type RDP struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1484,7 +1486,7 @@ type Redis struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1503,7 +1505,7 @@ type ElasticacheRedis struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1524,7 +1526,7 @@ type Snowflake struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1547,7 +1549,7 @@ type SQLServer struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1574,7 +1576,7 @@ type SSH struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1595,7 +1597,7 @@ type Sybase struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1616,7 +1618,7 @@ type SybaseIQ struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 
@@ -1637,7 +1639,7 @@ type Teradata struct {
 	// True if the datasource is reachable and the credentials are valid.
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
-	Tags map[string]string `json:"tags"`
+	Tags Tags `json:"tags"`
 
 	Hostname string `json:"hostname"`
 

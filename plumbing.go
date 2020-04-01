@@ -65,15 +65,15 @@ func convertTimestampToPlumbing(t time.Time) *timestamp.Timestamp {
 	}
 }
 
-func convertTagsToPorcelain(tags []*proto.Pair) map[string]string {
-	result := map[string]string{}
+func convertTagsToPorcelain(tags []*proto.Pair) Tags {
+	result := Tags{}
 	for _, tag := range tags {
 		result[tag.Name] = tag.Value
 	}
 	return result
 }
 
-func convertTagsToPlumbing(tags map[string]string) []*proto.Pair {
+func convertTagsToPlumbing(tags Tags) []*proto.Pair {
 	var result []*proto.Pair
 	for name, value := range tags {
 		result = append(result, &proto.Pair{Name: name, Value: value})
