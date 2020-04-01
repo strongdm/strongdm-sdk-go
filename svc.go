@@ -38,11 +38,11 @@ func (svc *AccountAttachments) Create(
 	error) {
 	req := &plumbing.AccountAttachmentCreateRequest{}
 
-	req.AccountAttachment = accountAttachmentToPlumbing(accountAttachment)
+	req.AccountAttachment = convertAccountAttachmentToPlumbing(accountAttachment)
 	if len(options) > 1 {
 		return nil, &BadRequestError{Message: "use only one AccountAttachmentCreateOptions per Create call"}
 	} else if len(options) == 1 {
-		req.Options = accountAttachmentCreateOptionsToPlumbing(options[0])
+		req.Options = convertAccountAttachmentCreateOptionsToPlumbing(options[0])
 	}
 	var plumbingResponse *plumbing.AccountAttachmentCreateResponse
 	var err error
@@ -75,7 +75,7 @@ func (svc *AccountAttachments) Get(
 	error) {
 	req := &plumbing.AccountAttachmentGetRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.AccountAttachmentGetResponse
 	var err error
 	i := 0
@@ -107,7 +107,7 @@ func (svc *AccountAttachments) Delete(
 	error) {
 	req := &plumbing.AccountAttachmentDeleteRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.AccountAttachmentDeleteResponse
 	var err error
 	i := 0
@@ -191,7 +191,7 @@ func (svc *AccountGrants) Create(
 	error) {
 	req := &plumbing.AccountGrantCreateRequest{}
 
-	req.AccountGrant = accountGrantToPlumbing(accountGrant)
+	req.AccountGrant = convertAccountGrantToPlumbing(accountGrant)
 	var plumbingResponse *plumbing.AccountGrantCreateResponse
 	var err error
 	i := 0
@@ -223,7 +223,7 @@ func (svc *AccountGrants) Get(
 	error) {
 	req := &plumbing.AccountGrantGetRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.AccountGrantGetResponse
 	var err error
 	i := 0
@@ -255,7 +255,7 @@ func (svc *AccountGrants) Delete(
 	error) {
 	req := &plumbing.AccountGrantDeleteRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.AccountGrantDeleteResponse
 	var err error
 	i := 0
@@ -342,7 +342,7 @@ func (svc *Accounts) Create(
 	error) {
 	req := &plumbing.AccountCreateRequest{}
 
-	req.Account = accountToPlumbing(account)
+	req.Account = convertAccountToPlumbing(account)
 	var plumbingResponse *plumbing.AccountCreateResponse
 	var err error
 	i := 0
@@ -375,7 +375,7 @@ func (svc *Accounts) Get(
 	error) {
 	req := &plumbing.AccountGetRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.AccountGetResponse
 	var err error
 	i := 0
@@ -407,7 +407,7 @@ func (svc *Accounts) Update(
 	error) {
 	req := &plumbing.AccountUpdateRequest{}
 
-	req.Account = accountToPlumbing(account)
+	req.Account = convertAccountToPlumbing(account)
 	var plumbingResponse *plumbing.AccountUpdateResponse
 	var err error
 	i := 0
@@ -439,7 +439,7 @@ func (svc *Accounts) Delete(
 	error) {
 	req := &plumbing.AccountDeleteRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.AccountDeleteResponse
 	var err error
 	i := 0
@@ -526,7 +526,7 @@ func (svc *Nodes) Create(
 	error) {
 	req := &plumbing.NodeCreateRequest{}
 
-	req.Node = nodeToPlumbing(node)
+	req.Node = convertNodeToPlumbing(node)
 	var plumbingResponse *plumbing.NodeCreateResponse
 	var err error
 	i := 0
@@ -559,7 +559,7 @@ func (svc *Nodes) Get(
 	error) {
 	req := &plumbing.NodeGetRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.NodeGetResponse
 	var err error
 	i := 0
@@ -591,7 +591,7 @@ func (svc *Nodes) Update(
 	error) {
 	req := &plumbing.NodeUpdateRequest{}
 
-	req.Node = nodeToPlumbing(node)
+	req.Node = convertNodeToPlumbing(node)
 	var plumbingResponse *plumbing.NodeUpdateResponse
 	var err error
 	i := 0
@@ -623,7 +623,7 @@ func (svc *Nodes) Delete(
 	error) {
 	req := &plumbing.NodeDeleteRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.NodeDeleteResponse
 	var err error
 	i := 0
@@ -706,7 +706,7 @@ func (svc *Resources) Create(
 	error) {
 	req := &plumbing.ResourceCreateRequest{}
 
-	req.Resource = resourceToPlumbing(resource)
+	req.Resource = convertResourceToPlumbing(resource)
 	var plumbingResponse *plumbing.ResourceCreateResponse
 	var err error
 	i := 0
@@ -738,7 +738,7 @@ func (svc *Resources) Get(
 	error) {
 	req := &plumbing.ResourceGetRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.ResourceGetResponse
 	var err error
 	i := 0
@@ -770,7 +770,7 @@ func (svc *Resources) Update(
 	error) {
 	req := &plumbing.ResourceUpdateRequest{}
 
-	req.Resource = resourceToPlumbing(resource)
+	req.Resource = convertResourceToPlumbing(resource)
 	var plumbingResponse *plumbing.ResourceUpdateResponse
 	var err error
 	i := 0
@@ -802,7 +802,7 @@ func (svc *Resources) Delete(
 	error) {
 	req := &plumbing.ResourceDeleteRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.ResourceDeleteResponse
 	var err error
 	i := 0
@@ -889,7 +889,7 @@ func (svc *RoleAttachments) Create(
 	error) {
 	req := &plumbing.RoleAttachmentCreateRequest{}
 
-	req.RoleAttachment = roleAttachmentToPlumbing(roleAttachment)
+	req.RoleAttachment = convertRoleAttachmentToPlumbing(roleAttachment)
 	var plumbingResponse *plumbing.RoleAttachmentCreateResponse
 	var err error
 	i := 0
@@ -921,7 +921,7 @@ func (svc *RoleAttachments) Get(
 	error) {
 	req := &plumbing.RoleAttachmentGetRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.RoleAttachmentGetResponse
 	var err error
 	i := 0
@@ -953,7 +953,7 @@ func (svc *RoleAttachments) Delete(
 	error) {
 	req := &plumbing.RoleAttachmentDeleteRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.RoleAttachmentDeleteResponse
 	var err error
 	i := 0
@@ -1040,7 +1040,7 @@ func (svc *RoleGrants) Create(
 	error) {
 	req := &plumbing.RoleGrantCreateRequest{}
 
-	req.RoleGrant = roleGrantToPlumbing(roleGrant)
+	req.RoleGrant = convertRoleGrantToPlumbing(roleGrant)
 	var plumbingResponse *plumbing.RoleGrantCreateResponse
 	var err error
 	i := 0
@@ -1072,7 +1072,7 @@ func (svc *RoleGrants) Get(
 	error) {
 	req := &plumbing.RoleGrantGetRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.RoleGrantGetResponse
 	var err error
 	i := 0
@@ -1104,7 +1104,7 @@ func (svc *RoleGrants) Delete(
 	error) {
 	req := &plumbing.RoleGrantDeleteRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.RoleGrantDeleteResponse
 	var err error
 	i := 0
@@ -1192,7 +1192,7 @@ func (svc *Roles) Create(
 	error) {
 	req := &plumbing.RoleCreateRequest{}
 
-	req.Role = roleToPlumbing(role)
+	req.Role = convertRoleToPlumbing(role)
 	var plumbingResponse *plumbing.RoleCreateResponse
 	var err error
 	i := 0
@@ -1224,7 +1224,7 @@ func (svc *Roles) Get(
 	error) {
 	req := &plumbing.RoleGetRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.RoleGetResponse
 	var err error
 	i := 0
@@ -1256,7 +1256,7 @@ func (svc *Roles) Update(
 	error) {
 	req := &plumbing.RoleUpdateRequest{}
 
-	req.Role = roleToPlumbing(role)
+	req.Role = convertRoleToPlumbing(role)
 	var plumbingResponse *plumbing.RoleUpdateResponse
 	var err error
 	i := 0
@@ -1288,7 +1288,7 @@ func (svc *Roles) Delete(
 	error) {
 	req := &plumbing.RoleDeleteRequest{}
 
-	req.Id = id
+	req.Id = (id)
 	var plumbingResponse *plumbing.RoleDeleteResponse
 	var err error
 	i := 0
