@@ -23,6 +23,14 @@ import (
 
 type Tags map[string]string
 
+func (t Tags) clone() Tags {
+	res := Tags{}
+	for k, v := range t {
+		res[k] = v
+	}
+	return res
+}
+
 // CreateResponseMetadata is reserved for future use.
 type CreateResponseMetadata struct {
 }
@@ -286,12 +294,12 @@ func (m *Athena) SetName(v string) {
 
 // GetTags returns the tags of the Athena.
 func (m *Athena) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Athena.
 func (m *Athena) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*BigQuery) isOneOf_Resource() {}
 
@@ -310,12 +318,12 @@ func (m *BigQuery) SetName(v string) {
 
 // GetTags returns the tags of the BigQuery.
 func (m *BigQuery) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the BigQuery.
 func (m *BigQuery) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Cassandra) isOneOf_Resource() {}
 
@@ -334,12 +342,12 @@ func (m *Cassandra) SetName(v string) {
 
 // GetTags returns the tags of the Cassandra.
 func (m *Cassandra) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Cassandra.
 func (m *Cassandra) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Druid) isOneOf_Resource() {}
 
@@ -358,12 +366,12 @@ func (m *Druid) SetName(v string) {
 
 // GetTags returns the tags of the Druid.
 func (m *Druid) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Druid.
 func (m *Druid) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*DynamoDB) isOneOf_Resource() {}
 
@@ -382,12 +390,12 @@ func (m *DynamoDB) SetName(v string) {
 
 // GetTags returns the tags of the DynamoDB.
 func (m *DynamoDB) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the DynamoDB.
 func (m *DynamoDB) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*AmazonES) isOneOf_Resource() {}
 
@@ -406,12 +414,12 @@ func (m *AmazonES) SetName(v string) {
 
 // GetTags returns the tags of the AmazonES.
 func (m *AmazonES) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the AmazonES.
 func (m *AmazonES) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Elastic) isOneOf_Resource() {}
 
@@ -430,12 +438,12 @@ func (m *Elastic) SetName(v string) {
 
 // GetTags returns the tags of the Elastic.
 func (m *Elastic) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Elastic.
 func (m *Elastic) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*HTTPBasicAuth) isOneOf_Resource() {}
 
@@ -454,12 +462,12 @@ func (m *HTTPBasicAuth) SetName(v string) {
 
 // GetTags returns the tags of the HTTPBasicAuth.
 func (m *HTTPBasicAuth) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the HTTPBasicAuth.
 func (m *HTTPBasicAuth) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*HTTPNoAuth) isOneOf_Resource() {}
 
@@ -478,12 +486,12 @@ func (m *HTTPNoAuth) SetName(v string) {
 
 // GetTags returns the tags of the HTTPNoAuth.
 func (m *HTTPNoAuth) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the HTTPNoAuth.
 func (m *HTTPNoAuth) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*HTTPAuth) isOneOf_Resource() {}
 
@@ -502,12 +510,12 @@ func (m *HTTPAuth) SetName(v string) {
 
 // GetTags returns the tags of the HTTPAuth.
 func (m *HTTPAuth) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the HTTPAuth.
 func (m *HTTPAuth) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Kubernetes) isOneOf_Resource() {}
 
@@ -526,12 +534,12 @@ func (m *Kubernetes) SetName(v string) {
 
 // GetTags returns the tags of the Kubernetes.
 func (m *Kubernetes) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Kubernetes.
 func (m *Kubernetes) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*KubernetesBasicAuth) isOneOf_Resource() {}
 
@@ -550,12 +558,12 @@ func (m *KubernetesBasicAuth) SetName(v string) {
 
 // GetTags returns the tags of the KubernetesBasicAuth.
 func (m *KubernetesBasicAuth) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the KubernetesBasicAuth.
 func (m *KubernetesBasicAuth) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*KubernetesServiceAccount) isOneOf_Resource() {}
 
@@ -574,12 +582,12 @@ func (m *KubernetesServiceAccount) SetName(v string) {
 
 // GetTags returns the tags of the KubernetesServiceAccount.
 func (m *KubernetesServiceAccount) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the KubernetesServiceAccount.
 func (m *KubernetesServiceAccount) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*AmazonEKS) isOneOf_Resource() {}
 
@@ -598,12 +606,12 @@ func (m *AmazonEKS) SetName(v string) {
 
 // GetTags returns the tags of the AmazonEKS.
 func (m *AmazonEKS) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the AmazonEKS.
 func (m *AmazonEKS) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*GoogleGKE) isOneOf_Resource() {}
 
@@ -622,12 +630,12 @@ func (m *GoogleGKE) SetName(v string) {
 
 // GetTags returns the tags of the GoogleGKE.
 func (m *GoogleGKE) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the GoogleGKE.
 func (m *GoogleGKE) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*AKS) isOneOf_Resource() {}
 
@@ -646,12 +654,12 @@ func (m *AKS) SetName(v string) {
 
 // GetTags returns the tags of the AKS.
 func (m *AKS) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the AKS.
 func (m *AKS) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*AKSBasicAuth) isOneOf_Resource() {}
 
@@ -670,12 +678,12 @@ func (m *AKSBasicAuth) SetName(v string) {
 
 // GetTags returns the tags of the AKSBasicAuth.
 func (m *AKSBasicAuth) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the AKSBasicAuth.
 func (m *AKSBasicAuth) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*AKSServiceAccount) isOneOf_Resource() {}
 
@@ -694,12 +702,12 @@ func (m *AKSServiceAccount) SetName(v string) {
 
 // GetTags returns the tags of the AKSServiceAccount.
 func (m *AKSServiceAccount) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the AKSServiceAccount.
 func (m *AKSServiceAccount) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Memcached) isOneOf_Resource() {}
 
@@ -718,12 +726,12 @@ func (m *Memcached) SetName(v string) {
 
 // GetTags returns the tags of the Memcached.
 func (m *Memcached) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Memcached.
 func (m *Memcached) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*MongoLegacyHost) isOneOf_Resource() {}
 
@@ -742,12 +750,12 @@ func (m *MongoLegacyHost) SetName(v string) {
 
 // GetTags returns the tags of the MongoLegacyHost.
 func (m *MongoLegacyHost) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the MongoLegacyHost.
 func (m *MongoLegacyHost) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*MongoLegacyReplicaset) isOneOf_Resource() {}
 
@@ -766,12 +774,12 @@ func (m *MongoLegacyReplicaset) SetName(v string) {
 
 // GetTags returns the tags of the MongoLegacyReplicaset.
 func (m *MongoLegacyReplicaset) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the MongoLegacyReplicaset.
 func (m *MongoLegacyReplicaset) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*MongoHost) isOneOf_Resource() {}
 
@@ -790,12 +798,12 @@ func (m *MongoHost) SetName(v string) {
 
 // GetTags returns the tags of the MongoHost.
 func (m *MongoHost) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the MongoHost.
 func (m *MongoHost) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*MongoReplicaSet) isOneOf_Resource() {}
 
@@ -814,12 +822,12 @@ func (m *MongoReplicaSet) SetName(v string) {
 
 // GetTags returns the tags of the MongoReplicaSet.
 func (m *MongoReplicaSet) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the MongoReplicaSet.
 func (m *MongoReplicaSet) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Mysql) isOneOf_Resource() {}
 
@@ -838,12 +846,12 @@ func (m *Mysql) SetName(v string) {
 
 // GetTags returns the tags of the Mysql.
 func (m *Mysql) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Mysql.
 func (m *Mysql) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*AuroraMysql) isOneOf_Resource() {}
 
@@ -862,12 +870,12 @@ func (m *AuroraMysql) SetName(v string) {
 
 // GetTags returns the tags of the AuroraMysql.
 func (m *AuroraMysql) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the AuroraMysql.
 func (m *AuroraMysql) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Clustrix) isOneOf_Resource() {}
 
@@ -886,12 +894,12 @@ func (m *Clustrix) SetName(v string) {
 
 // GetTags returns the tags of the Clustrix.
 func (m *Clustrix) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Clustrix.
 func (m *Clustrix) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Maria) isOneOf_Resource() {}
 
@@ -910,12 +918,12 @@ func (m *Maria) SetName(v string) {
 
 // GetTags returns the tags of the Maria.
 func (m *Maria) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Maria.
 func (m *Maria) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Memsql) isOneOf_Resource() {}
 
@@ -934,12 +942,12 @@ func (m *Memsql) SetName(v string) {
 
 // GetTags returns the tags of the Memsql.
 func (m *Memsql) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Memsql.
 func (m *Memsql) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Oracle) isOneOf_Resource() {}
 
@@ -958,12 +966,12 @@ func (m *Oracle) SetName(v string) {
 
 // GetTags returns the tags of the Oracle.
 func (m *Oracle) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Oracle.
 func (m *Oracle) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Postgres) isOneOf_Resource() {}
 
@@ -982,12 +990,12 @@ func (m *Postgres) SetName(v string) {
 
 // GetTags returns the tags of the Postgres.
 func (m *Postgres) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Postgres.
 func (m *Postgres) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*AuroraPostgres) isOneOf_Resource() {}
 
@@ -1006,12 +1014,12 @@ func (m *AuroraPostgres) SetName(v string) {
 
 // GetTags returns the tags of the AuroraPostgres.
 func (m *AuroraPostgres) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the AuroraPostgres.
 func (m *AuroraPostgres) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Greenplum) isOneOf_Resource() {}
 
@@ -1030,12 +1038,12 @@ func (m *Greenplum) SetName(v string) {
 
 // GetTags returns the tags of the Greenplum.
 func (m *Greenplum) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Greenplum.
 func (m *Greenplum) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Cockroach) isOneOf_Resource() {}
 
@@ -1054,12 +1062,12 @@ func (m *Cockroach) SetName(v string) {
 
 // GetTags returns the tags of the Cockroach.
 func (m *Cockroach) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Cockroach.
 func (m *Cockroach) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Redshift) isOneOf_Resource() {}
 
@@ -1078,12 +1086,12 @@ func (m *Redshift) SetName(v string) {
 
 // GetTags returns the tags of the Redshift.
 func (m *Redshift) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Redshift.
 func (m *Redshift) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Presto) isOneOf_Resource() {}
 
@@ -1102,12 +1110,12 @@ func (m *Presto) SetName(v string) {
 
 // GetTags returns the tags of the Presto.
 func (m *Presto) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Presto.
 func (m *Presto) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*RDP) isOneOf_Resource() {}
 
@@ -1126,12 +1134,12 @@ func (m *RDP) SetName(v string) {
 
 // GetTags returns the tags of the RDP.
 func (m *RDP) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the RDP.
 func (m *RDP) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Redis) isOneOf_Resource() {}
 
@@ -1150,12 +1158,12 @@ func (m *Redis) SetName(v string) {
 
 // GetTags returns the tags of the Redis.
 func (m *Redis) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Redis.
 func (m *Redis) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*ElasticacheRedis) isOneOf_Resource() {}
 
@@ -1174,12 +1182,12 @@ func (m *ElasticacheRedis) SetName(v string) {
 
 // GetTags returns the tags of the ElasticacheRedis.
 func (m *ElasticacheRedis) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the ElasticacheRedis.
 func (m *ElasticacheRedis) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Snowflake) isOneOf_Resource() {}
 
@@ -1198,12 +1206,12 @@ func (m *Snowflake) SetName(v string) {
 
 // GetTags returns the tags of the Snowflake.
 func (m *Snowflake) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Snowflake.
 func (m *Snowflake) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*SQLServer) isOneOf_Resource() {}
 
@@ -1222,12 +1230,12 @@ func (m *SQLServer) SetName(v string) {
 
 // GetTags returns the tags of the SQLServer.
 func (m *SQLServer) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the SQLServer.
 func (m *SQLServer) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*SSH) isOneOf_Resource() {}
 
@@ -1246,12 +1254,12 @@ func (m *SSH) SetName(v string) {
 
 // GetTags returns the tags of the SSH.
 func (m *SSH) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the SSH.
 func (m *SSH) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Sybase) isOneOf_Resource() {}
 
@@ -1270,12 +1278,12 @@ func (m *Sybase) SetName(v string) {
 
 // GetTags returns the tags of the Sybase.
 func (m *Sybase) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Sybase.
 func (m *Sybase) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*SybaseIQ) isOneOf_Resource() {}
 
@@ -1294,12 +1302,12 @@ func (m *SybaseIQ) SetName(v string) {
 
 // GetTags returns the tags of the SybaseIQ.
 func (m *SybaseIQ) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the SybaseIQ.
 func (m *SybaseIQ) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 func (*Teradata) isOneOf_Resource() {}
 
@@ -1318,12 +1326,12 @@ func (m *Teradata) SetName(v string) {
 
 // GetTags returns the tags of the Teradata.
 func (m *Teradata) GetTags() Tags {
-	return m.Tags
+	return m.Tags.clone()
 }
 
 // SetTags sets the tags of the Teradata.
 func (m *Teradata) SetTags(v Tags) {
-	m.Tags = v
+	m.Tags = v.clone()
 }
 
 type Athena struct {
