@@ -65,20 +65,20 @@ func convertTimestampToPlumbing(t time.Time) *timestamp.Timestamp {
 	}
 }
 
-func convertTagsToPorcelain(tags []*proto.Pair) Tags {
+func convertTagsToPorcelain(tags *proto.Tags) Tags {
 	result := Tags{}
-	for _, tag := range tags {
+	for _, tag := range tags.GetPairs() {
 		result[tag.Name] = tag.Value
 	}
 	return result
 }
 
-func convertTagsToPlumbing(tags Tags) []*proto.Pair {
+func convertTagsToPlumbing(tags Tags) *proto.Tags {
 	var result []*proto.Pair
 	for name, value := range tags {
 		result = append(result, &proto.Pair{Name: name, Value: value})
 	}
-	return result
+	return &proto.Tags{Pairs: result}
 }
 func convertCreateResponseMetadataToPorcelain(plumbing *proto.CreateResponseMetadata) *CreateResponseMetadata {
 	if plumbing == nil {
