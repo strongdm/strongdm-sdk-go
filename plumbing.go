@@ -1786,6 +1786,7 @@ func convertAmazonEKSToPorcelain(plumbing *proto.AmazonEKS) *AmazonEKS {
 	porcelain.CertificateAuthorityFilename = (plumbing.CertificateAuthorityFilename)
 	porcelain.Region = (plumbing.Region)
 	porcelain.ClusterName = (plumbing.ClusterName)
+	porcelain.RoleArn = (plumbing.RoleArn)
 	return porcelain
 }
 
@@ -1805,6 +1806,7 @@ func convertAmazonEKSToPlumbing(porcelain *AmazonEKS) *proto.AmazonEKS {
 	plumbing.CertificateAuthorityFilename = (porcelain.CertificateAuthorityFilename)
 	plumbing.Region = (porcelain.Region)
 	plumbing.ClusterName = (porcelain.ClusterName)
+	plumbing.RoleArn = (porcelain.RoleArn)
 	return plumbing
 }
 func convertRepeatedAmazonEKSToPlumbing(
