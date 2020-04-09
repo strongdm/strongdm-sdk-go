@@ -262,7 +262,7 @@ type Service struct {
 	Suspended bool `json:"suspended"`
 }
 
-// A Resource is a server or service which clients connect to through relays.
+// A Resource is a database or server for which strongDM manages access.
 type Resource interface {
 	// GetID returns the unique identifier of the Resource.
 	GetID() string

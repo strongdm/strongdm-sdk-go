@@ -74,9 +74,9 @@ func convertTagsToPorcelain(tags *proto.Tags) Tags {
 }
 
 func convertTagsToPlumbing(tags Tags) *proto.Tags {
-	var result []*proto.Pair
+	var result []*proto.Tags_Pair
 	for name, value := range tags {
-		result = append(result, &proto.Pair{Name: name, Value: value})
+		result = append(result, &proto.Tags_Pair{Name: name, Value: value})
 	}
 	return &proto.Tags{Pairs: result}
 }

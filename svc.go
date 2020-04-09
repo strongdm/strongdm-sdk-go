@@ -177,7 +177,7 @@ func (svc *AccountAttachments) List(
 	), nil
 }
 
-// AccountGrants connect a resource directly to an account, giving the account the permission to connect to that resource.
+// AccountGrants assign a resource directly to an account, giving the account the permission to connect to that resource.
 type AccountGrants struct {
 	client plumbing.AccountGrantsClient
 	parent *Client

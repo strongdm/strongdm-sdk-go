@@ -159,7 +159,7 @@ func (c *Client) AccountAttachments() *AccountAttachments {
 	return c.accountAttachments
 }
 
-// AccountGrants connect a resource directly to an account, giving the account the permission to connect to that resource.
+// AccountGrants assign a resource directly to an account, giving the account the permission to connect to that resource.
 func (c *Client) AccountGrants() *AccountGrants {
 	return c.accountGrants
 }
