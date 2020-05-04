@@ -1093,6 +1093,30 @@ func (m *Redshift) GetTags() Tags {
 func (m *Redshift) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+func (*Citus) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Citus.
+func (m *Citus) GetID() string { return m.ID }
+
+// GetName returns the name of the Citus.
+func (m *Citus) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the Citus.
+func (m *Citus) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the Citus.
+func (m *Citus) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the Citus.
+func (m *Citus) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
 func (*Presto) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Presto.
@@ -2096,6 +2120,31 @@ type Cockroach struct {
 }
 
 type Redshift struct {
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+
+	Hostname string `json:"hostname"`
+
+	Username string `json:"username"`
+
+	Password string `json:"password"`
+
+	Database string `json:"database"`
+
+	PortOverride int32 `json:"port_override"`
+
+	Port int32 `json:"port"`
+
+	OverrideDatabase bool `json:"override_database"`
+}
+
+type Citus struct {
 	// Unique identifier of the Resource.
 	ID string `json:"id"`
 	// Unique human-readable name of the Resource.

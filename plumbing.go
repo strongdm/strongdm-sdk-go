@@ -934,6 +934,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_Cockroach{Cockroach: convertCockroachToPlumbing(v)}
 	case *Redshift:
 		plumbing.Resource = &proto.Resource_Redshift{Redshift: convertRedshiftToPlumbing(v)}
+	case *Citus:
+		plumbing.Resource = &proto.Resource_Citus{Citus: convertCitusToPlumbing(v)}
 	case *Presto:
 		plumbing.Resource = &proto.Resource_Presto{Presto: convertPrestoToPlumbing(v)}
 	case *RDP:
@@ -1060,6 +1062,9 @@ func convertResourceToPorcelain(plumbing *proto.Resource) Resource {
 	}
 	if plumbing.GetRedshift() != nil {
 		return convertRedshiftToPorcelain(plumbing.GetRedshift())
+	}
+	if plumbing.GetCitus() != nil {
+		return convertCitusToPorcelain(plumbing.GetCitus())
 	}
 	if plumbing.GetPresto() != nil {
 		return convertPrestoToPorcelain(plumbing.GetPresto())
@@ -2879,6 +2884,60 @@ func convertRepeatedRedshiftToPorcelain(plumbings []*proto.Redshift) []*Redshift
 	var items []*Redshift
 	for _, plumbing := range plumbings {
 		items = append(items, convertRedshiftToPorcelain(plumbing))
+	}
+	return items
+}
+func convertCitusToPorcelain(plumbing *proto.Citus) *Citus {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Citus{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Healthy = (plumbing.Healthy)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.Hostname = (plumbing.Hostname)
+	porcelain.Username = (plumbing.Username)
+	porcelain.Password = (plumbing.Password)
+	porcelain.Database = (plumbing.Database)
+	porcelain.PortOverride = (plumbing.PortOverride)
+	porcelain.Port = (plumbing.Port)
+	porcelain.OverrideDatabase = (plumbing.OverrideDatabase)
+	return porcelain
+}
+
+func convertCitusToPlumbing(porcelain *Citus) *proto.Citus {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Citus{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Username = (porcelain.Username)
+	plumbing.Password = (porcelain.Password)
+	plumbing.Database = (porcelain.Database)
+	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.Port = (porcelain.Port)
+	plumbing.OverrideDatabase = (porcelain.OverrideDatabase)
+	return plumbing
+}
+func convertRepeatedCitusToPlumbing(
+	porcelains []*Citus,
+) []*proto.Citus {
+	var items []*proto.Citus
+	for _, porcelain := range porcelains {
+		items = append(items, convertCitusToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedCitusToPorcelain(plumbings []*proto.Citus) []*Citus {
+	var items []*Citus
+	for _, plumbing := range plumbings {
+		items = append(items, convertCitusToPorcelain(plumbing))
 	}
 	return items
 }
