@@ -1642,6 +1642,7 @@ func convertKubernetesToPorcelain(plumbing *proto.Kubernetes) *Kubernetes {
 	porcelain.ClientCertificateFilename = (plumbing.ClientCertificateFilename)
 	porcelain.ClientKey = (plumbing.ClientKey)
 	porcelain.ClientKeyFilename = (plumbing.ClientKeyFilename)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1662,6 +1663,7 @@ func convertKubernetesToPlumbing(porcelain *Kubernetes) *proto.Kubernetes {
 	plumbing.ClientCertificateFilename = (porcelain.ClientCertificateFilename)
 	plumbing.ClientKey = (porcelain.ClientKey)
 	plumbing.ClientKeyFilename = (porcelain.ClientKeyFilename)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedKubernetesToPlumbing(
@@ -1694,6 +1696,7 @@ func convertKubernetesBasicAuthToPorcelain(plumbing *proto.KubernetesBasicAuth) 
 	porcelain.Port = (plumbing.Port)
 	porcelain.Username = (plumbing.Username)
 	porcelain.Password = (plumbing.Password)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1710,6 +1713,7 @@ func convertKubernetesBasicAuthToPlumbing(porcelain *KubernetesBasicAuth) *proto
 	plumbing.Port = (porcelain.Port)
 	plumbing.Username = (porcelain.Username)
 	plumbing.Password = (porcelain.Password)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedKubernetesBasicAuthToPlumbing(
@@ -1741,6 +1745,7 @@ func convertKubernetesServiceAccountToPorcelain(plumbing *proto.KubernetesServic
 	porcelain.Hostname = (plumbing.Hostname)
 	porcelain.Port = (plumbing.Port)
 	porcelain.Token = (plumbing.Token)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1756,6 +1761,7 @@ func convertKubernetesServiceAccountToPlumbing(porcelain *KubernetesServiceAccou
 	plumbing.Hostname = (porcelain.Hostname)
 	plumbing.Port = (porcelain.Port)
 	plumbing.Token = (porcelain.Token)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedKubernetesServiceAccountToPlumbing(
@@ -1792,6 +1798,7 @@ func convertAmazonEKSToPorcelain(plumbing *proto.AmazonEKS) *AmazonEKS {
 	porcelain.Region = (plumbing.Region)
 	porcelain.ClusterName = (plumbing.ClusterName)
 	porcelain.RoleArn = (plumbing.RoleArn)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1812,6 +1819,7 @@ func convertAmazonEKSToPlumbing(porcelain *AmazonEKS) *proto.AmazonEKS {
 	plumbing.Region = (porcelain.Region)
 	plumbing.ClusterName = (porcelain.ClusterName)
 	plumbing.RoleArn = (porcelain.RoleArn)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedAmazonEKSToPlumbing(
@@ -1845,6 +1853,7 @@ func convertGoogleGKEToPorcelain(plumbing *proto.GoogleGKE) *GoogleGKE {
 	porcelain.CertificateAuthorityFilename = (plumbing.CertificateAuthorityFilename)
 	porcelain.ServiceAccountKey = (plumbing.ServiceAccountKey)
 	porcelain.ServiceAccountKeyFilename = (plumbing.ServiceAccountKeyFilename)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1862,6 +1871,7 @@ func convertGoogleGKEToPlumbing(porcelain *GoogleGKE) *proto.GoogleGKE {
 	plumbing.CertificateAuthorityFilename = (porcelain.CertificateAuthorityFilename)
 	plumbing.ServiceAccountKey = (porcelain.ServiceAccountKey)
 	plumbing.ServiceAccountKeyFilename = (porcelain.ServiceAccountKeyFilename)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedGoogleGKEToPlumbing(
@@ -1898,6 +1908,7 @@ func convertAKSToPorcelain(plumbing *proto.AKS) *AKS {
 	porcelain.ClientCertificateFilename = (plumbing.ClientCertificateFilename)
 	porcelain.ClientKey = (plumbing.ClientKey)
 	porcelain.ClientKeyFilename = (plumbing.ClientKeyFilename)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1918,6 +1929,7 @@ func convertAKSToPlumbing(porcelain *AKS) *proto.AKS {
 	plumbing.ClientCertificateFilename = (porcelain.ClientCertificateFilename)
 	plumbing.ClientKey = (porcelain.ClientKey)
 	plumbing.ClientKeyFilename = (porcelain.ClientKeyFilename)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedAKSToPlumbing(
@@ -1950,6 +1962,7 @@ func convertAKSBasicAuthToPorcelain(plumbing *proto.AKSBasicAuth) *AKSBasicAuth 
 	porcelain.Port = (plumbing.Port)
 	porcelain.Username = (plumbing.Username)
 	porcelain.Password = (plumbing.Password)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1966,6 +1979,7 @@ func convertAKSBasicAuthToPlumbing(porcelain *AKSBasicAuth) *proto.AKSBasicAuth 
 	plumbing.Port = (porcelain.Port)
 	plumbing.Username = (porcelain.Username)
 	plumbing.Password = (porcelain.Password)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedAKSBasicAuthToPlumbing(
@@ -1997,6 +2011,7 @@ func convertAKSServiceAccountToPorcelain(plumbing *proto.AKSServiceAccount) *AKS
 	porcelain.Hostname = (plumbing.Hostname)
 	porcelain.Port = (plumbing.Port)
 	porcelain.Token = (plumbing.Token)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -2012,6 +2027,7 @@ func convertAKSServiceAccountToPlumbing(porcelain *AKSServiceAccount) *proto.AKS
 	plumbing.Hostname = (porcelain.Hostname)
 	plumbing.Port = (porcelain.Port)
 	plumbing.Token = (porcelain.Token)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedAKSServiceAccountToPlumbing(

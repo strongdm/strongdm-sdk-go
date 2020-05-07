@@ -1603,6 +1603,8 @@ type Kubernetes struct {
 	ClientKey string `json:"client_key"`
 
 	ClientKeyFilename string `json:"client_key_filename"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type KubernetesBasicAuth struct {
@@ -1622,6 +1624,8 @@ type KubernetesBasicAuth struct {
 	Username string `json:"username"`
 
 	Password string `json:"password"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type KubernetesServiceAccount struct {
@@ -1639,6 +1643,8 @@ type KubernetesServiceAccount struct {
 	Port int32 `json:"port"`
 
 	Token string `json:"token"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type AmazonEKS struct {
@@ -1666,6 +1672,8 @@ type AmazonEKS struct {
 	ClusterName string `json:"cluster_name"`
 
 	RoleArn string `json:"role_arn"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type GoogleGKE struct {
@@ -1687,6 +1695,8 @@ type GoogleGKE struct {
 	ServiceAccountKey string `json:"service_account_key"`
 
 	ServiceAccountKeyFilename string `json:"service_account_key_filename"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type AKS struct {
@@ -1714,6 +1724,8 @@ type AKS struct {
 	ClientKey string `json:"client_key"`
 
 	ClientKeyFilename string `json:"client_key_filename"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type AKSBasicAuth struct {
@@ -1733,6 +1745,8 @@ type AKSBasicAuth struct {
 	Username string `json:"username"`
 
 	Password string `json:"password"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type AKSServiceAccount struct {
@@ -1750,6 +1764,8 @@ type AKSServiceAccount struct {
 	Port int32 `json:"port"`
 
 	Token string `json:"token"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type Memcached struct {
