@@ -1285,6 +1285,30 @@ func (m *SSH) GetTags() Tags {
 func (m *SSH) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+func (*SSHCert) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the SSHCert.
+func (m *SSHCert) GetID() string { return m.ID }
+
+// GetName returns the name of the SSHCert.
+func (m *SSHCert) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the SSHCert.
+func (m *SSHCert) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the SSHCert.
+func (m *SSHCert) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the SSHCert.
+func (m *SSHCert) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
 func (*Sybase) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Sybase.
@@ -2338,6 +2362,25 @@ type SSH struct {
 	Port int32 `json:"port"`
 
 	PublicKey string `json:"public_key"`
+
+	PortForwarding bool `json:"port_forwarding"`
+}
+
+type SSHCert struct {
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+
+	Hostname string `json:"hostname"`
+
+	Username string `json:"username"`
+
+	Port int32 `json:"port"`
 
 	PortForwarding bool `json:"port_forwarding"`
 }

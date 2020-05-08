@@ -950,6 +950,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_SqlServer{SqlServer: convertSQLServerToPlumbing(v)}
 	case *SSH:
 		plumbing.Resource = &proto.Resource_Ssh{Ssh: convertSSHToPlumbing(v)}
+	case *SSHCert:
+		plumbing.Resource = &proto.Resource_SshCert{SshCert: convertSSHCertToPlumbing(v)}
 	case *Sybase:
 		plumbing.Resource = &proto.Resource_Sybase{Sybase: convertSybaseToPlumbing(v)}
 	case *SybaseIQ:
@@ -1086,6 +1088,9 @@ func convertResourceToPorcelain(plumbing *proto.Resource) Resource {
 	}
 	if plumbing.GetSsh() != nil {
 		return convertSSHToPorcelain(plumbing.GetSsh())
+	}
+	if plumbing.GetSshCert() != nil {
+		return convertSSHCertToPorcelain(plumbing.GetSshCert())
 	}
 	if plumbing.GetSybase() != nil {
 		return convertSybaseToPorcelain(plumbing.GetSybase())
@@ -3314,6 +3319,54 @@ func convertRepeatedSSHToPorcelain(plumbings []*proto.SSH) []*SSH {
 	var items []*SSH
 	for _, plumbing := range plumbings {
 		items = append(items, convertSSHToPorcelain(plumbing))
+	}
+	return items
+}
+func convertSSHCertToPorcelain(plumbing *proto.SSHCert) *SSHCert {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &SSHCert{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Healthy = (plumbing.Healthy)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.Hostname = (plumbing.Hostname)
+	porcelain.Username = (plumbing.Username)
+	porcelain.Port = (plumbing.Port)
+	porcelain.PortForwarding = (plumbing.PortForwarding)
+	return porcelain
+}
+
+func convertSSHCertToPlumbing(porcelain *SSHCert) *proto.SSHCert {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SSHCert{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Username = (porcelain.Username)
+	plumbing.Port = (porcelain.Port)
+	plumbing.PortForwarding = (porcelain.PortForwarding)
+	return plumbing
+}
+func convertRepeatedSSHCertToPlumbing(
+	porcelains []*SSHCert,
+) []*proto.SSHCert {
+	var items []*proto.SSHCert
+	for _, porcelain := range porcelains {
+		items = append(items, convertSSHCertToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedSSHCertToPorcelain(plumbings []*proto.SSHCert) []*SSHCert {
+	var items []*SSHCert
+	for _, plumbing := range plumbings {
+		items = append(items, convertSSHCertToPorcelain(plumbing))
 	}
 	return items
 }
