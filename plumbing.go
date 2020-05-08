@@ -934,6 +934,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_Cockroach{Cockroach: convertCockroachToPlumbing(v)}
 	case *Redshift:
 		plumbing.Resource = &proto.Resource_Redshift{Redshift: convertRedshiftToPlumbing(v)}
+	case *Citus:
+		plumbing.Resource = &proto.Resource_Citus{Citus: convertCitusToPlumbing(v)}
 	case *Presto:
 		plumbing.Resource = &proto.Resource_Presto{Presto: convertPrestoToPlumbing(v)}
 	case *RDP:
@@ -948,6 +950,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_SqlServer{SqlServer: convertSQLServerToPlumbing(v)}
 	case *SSH:
 		plumbing.Resource = &proto.Resource_Ssh{Ssh: convertSSHToPlumbing(v)}
+	case *SSHCert:
+		plumbing.Resource = &proto.Resource_SshCert{SshCert: convertSSHCertToPlumbing(v)}
 	case *Sybase:
 		plumbing.Resource = &proto.Resource_Sybase{Sybase: convertSybaseToPlumbing(v)}
 	case *SybaseIQ:
@@ -1061,6 +1065,9 @@ func convertResourceToPorcelain(plumbing *proto.Resource) Resource {
 	if plumbing.GetRedshift() != nil {
 		return convertRedshiftToPorcelain(plumbing.GetRedshift())
 	}
+	if plumbing.GetCitus() != nil {
+		return convertCitusToPorcelain(plumbing.GetCitus())
+	}
 	if plumbing.GetPresto() != nil {
 		return convertPrestoToPorcelain(plumbing.GetPresto())
 	}
@@ -1081,6 +1088,9 @@ func convertResourceToPorcelain(plumbing *proto.Resource) Resource {
 	}
 	if plumbing.GetSsh() != nil {
 		return convertSSHToPorcelain(plumbing.GetSsh())
+	}
+	if plumbing.GetSshCert() != nil {
+		return convertSSHCertToPorcelain(plumbing.GetSshCert())
 	}
 	if plumbing.GetSybase() != nil {
 		return convertSybaseToPorcelain(plumbing.GetSybase())
@@ -1637,6 +1647,7 @@ func convertKubernetesToPorcelain(plumbing *proto.Kubernetes) *Kubernetes {
 	porcelain.ClientCertificateFilename = (plumbing.ClientCertificateFilename)
 	porcelain.ClientKey = (plumbing.ClientKey)
 	porcelain.ClientKeyFilename = (plumbing.ClientKeyFilename)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1657,6 +1668,7 @@ func convertKubernetesToPlumbing(porcelain *Kubernetes) *proto.Kubernetes {
 	plumbing.ClientCertificateFilename = (porcelain.ClientCertificateFilename)
 	plumbing.ClientKey = (porcelain.ClientKey)
 	plumbing.ClientKeyFilename = (porcelain.ClientKeyFilename)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedKubernetesToPlumbing(
@@ -1689,6 +1701,7 @@ func convertKubernetesBasicAuthToPorcelain(plumbing *proto.KubernetesBasicAuth) 
 	porcelain.Port = (plumbing.Port)
 	porcelain.Username = (plumbing.Username)
 	porcelain.Password = (plumbing.Password)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1705,6 +1718,7 @@ func convertKubernetesBasicAuthToPlumbing(porcelain *KubernetesBasicAuth) *proto
 	plumbing.Port = (porcelain.Port)
 	plumbing.Username = (porcelain.Username)
 	plumbing.Password = (porcelain.Password)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedKubernetesBasicAuthToPlumbing(
@@ -1736,6 +1750,7 @@ func convertKubernetesServiceAccountToPorcelain(plumbing *proto.KubernetesServic
 	porcelain.Hostname = (plumbing.Hostname)
 	porcelain.Port = (plumbing.Port)
 	porcelain.Token = (plumbing.Token)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1751,6 +1766,7 @@ func convertKubernetesServiceAccountToPlumbing(porcelain *KubernetesServiceAccou
 	plumbing.Hostname = (porcelain.Hostname)
 	plumbing.Port = (porcelain.Port)
 	plumbing.Token = (porcelain.Token)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedKubernetesServiceAccountToPlumbing(
@@ -1787,6 +1803,7 @@ func convertAmazonEKSToPorcelain(plumbing *proto.AmazonEKS) *AmazonEKS {
 	porcelain.Region = (plumbing.Region)
 	porcelain.ClusterName = (plumbing.ClusterName)
 	porcelain.RoleArn = (plumbing.RoleArn)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1807,6 +1824,7 @@ func convertAmazonEKSToPlumbing(porcelain *AmazonEKS) *proto.AmazonEKS {
 	plumbing.Region = (porcelain.Region)
 	plumbing.ClusterName = (porcelain.ClusterName)
 	plumbing.RoleArn = (porcelain.RoleArn)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedAmazonEKSToPlumbing(
@@ -1840,6 +1858,7 @@ func convertGoogleGKEToPorcelain(plumbing *proto.GoogleGKE) *GoogleGKE {
 	porcelain.CertificateAuthorityFilename = (plumbing.CertificateAuthorityFilename)
 	porcelain.ServiceAccountKey = (plumbing.ServiceAccountKey)
 	porcelain.ServiceAccountKeyFilename = (plumbing.ServiceAccountKeyFilename)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1857,6 +1876,7 @@ func convertGoogleGKEToPlumbing(porcelain *GoogleGKE) *proto.GoogleGKE {
 	plumbing.CertificateAuthorityFilename = (porcelain.CertificateAuthorityFilename)
 	plumbing.ServiceAccountKey = (porcelain.ServiceAccountKey)
 	plumbing.ServiceAccountKeyFilename = (porcelain.ServiceAccountKeyFilename)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedGoogleGKEToPlumbing(
@@ -1893,6 +1913,7 @@ func convertAKSToPorcelain(plumbing *proto.AKS) *AKS {
 	porcelain.ClientCertificateFilename = (plumbing.ClientCertificateFilename)
 	porcelain.ClientKey = (plumbing.ClientKey)
 	porcelain.ClientKeyFilename = (plumbing.ClientKeyFilename)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1913,6 +1934,7 @@ func convertAKSToPlumbing(porcelain *AKS) *proto.AKS {
 	plumbing.ClientCertificateFilename = (porcelain.ClientCertificateFilename)
 	plumbing.ClientKey = (porcelain.ClientKey)
 	plumbing.ClientKeyFilename = (porcelain.ClientKeyFilename)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedAKSToPlumbing(
@@ -1945,6 +1967,7 @@ func convertAKSBasicAuthToPorcelain(plumbing *proto.AKSBasicAuth) *AKSBasicAuth 
 	porcelain.Port = (plumbing.Port)
 	porcelain.Username = (plumbing.Username)
 	porcelain.Password = (plumbing.Password)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -1961,6 +1984,7 @@ func convertAKSBasicAuthToPlumbing(porcelain *AKSBasicAuth) *proto.AKSBasicAuth 
 	plumbing.Port = (porcelain.Port)
 	plumbing.Username = (porcelain.Username)
 	plumbing.Password = (porcelain.Password)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedAKSBasicAuthToPlumbing(
@@ -1992,6 +2016,7 @@ func convertAKSServiceAccountToPorcelain(plumbing *proto.AKSServiceAccount) *AKS
 	porcelain.Hostname = (plumbing.Hostname)
 	porcelain.Port = (plumbing.Port)
 	porcelain.Token = (plumbing.Token)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
 
@@ -2007,6 +2032,7 @@ func convertAKSServiceAccountToPlumbing(porcelain *AKSServiceAccount) *proto.AKS
 	plumbing.Hostname = (porcelain.Hostname)
 	plumbing.Port = (porcelain.Port)
 	plumbing.Token = (porcelain.Token)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }
 func convertRepeatedAKSServiceAccountToPlumbing(
@@ -2882,6 +2908,60 @@ func convertRepeatedRedshiftToPorcelain(plumbings []*proto.Redshift) []*Redshift
 	}
 	return items
 }
+func convertCitusToPorcelain(plumbing *proto.Citus) *Citus {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &Citus{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Healthy = (plumbing.Healthy)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.Hostname = (plumbing.Hostname)
+	porcelain.Username = (plumbing.Username)
+	porcelain.Password = (plumbing.Password)
+	porcelain.Database = (plumbing.Database)
+	porcelain.PortOverride = (plumbing.PortOverride)
+	porcelain.Port = (plumbing.Port)
+	porcelain.OverrideDatabase = (plumbing.OverrideDatabase)
+	return porcelain
+}
+
+func convertCitusToPlumbing(porcelain *Citus) *proto.Citus {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Citus{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Username = (porcelain.Username)
+	plumbing.Password = (porcelain.Password)
+	plumbing.Database = (porcelain.Database)
+	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.Port = (porcelain.Port)
+	plumbing.OverrideDatabase = (porcelain.OverrideDatabase)
+	return plumbing
+}
+func convertRepeatedCitusToPlumbing(
+	porcelains []*Citus,
+) []*proto.Citus {
+	var items []*proto.Citus
+	for _, porcelain := range porcelains {
+		items = append(items, convertCitusToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedCitusToPorcelain(plumbings []*proto.Citus) []*Citus {
+	var items []*Citus
+	for _, plumbing := range plumbings {
+		items = append(items, convertCitusToPorcelain(plumbing))
+	}
+	return items
+}
 func convertPrestoToPorcelain(plumbing *proto.Presto) *Presto {
 	if plumbing == nil {
 		return nil
@@ -3239,6 +3319,54 @@ func convertRepeatedSSHToPorcelain(plumbings []*proto.SSH) []*SSH {
 	var items []*SSH
 	for _, plumbing := range plumbings {
 		items = append(items, convertSSHToPorcelain(plumbing))
+	}
+	return items
+}
+func convertSSHCertToPorcelain(plumbing *proto.SSHCert) *SSHCert {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &SSHCert{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Healthy = (plumbing.Healthy)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.Hostname = (plumbing.Hostname)
+	porcelain.Username = (plumbing.Username)
+	porcelain.Port = (plumbing.Port)
+	porcelain.PortForwarding = (plumbing.PortForwarding)
+	return porcelain
+}
+
+func convertSSHCertToPlumbing(porcelain *SSHCert) *proto.SSHCert {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SSHCert{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Username = (porcelain.Username)
+	plumbing.Port = (porcelain.Port)
+	plumbing.PortForwarding = (porcelain.PortForwarding)
+	return plumbing
+}
+func convertRepeatedSSHCertToPlumbing(
+	porcelains []*SSHCert,
+) []*proto.SSHCert {
+	var items []*proto.SSHCert
+	for _, porcelain := range porcelains {
+		items = append(items, convertSSHCertToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedSSHCertToPorcelain(plumbings []*proto.SSHCert) []*SSHCert {
+	var items []*SSHCert
+	for _, plumbing := range plumbings {
+		items = append(items, convertSSHCertToPorcelain(plumbing))
 	}
 	return items
 }

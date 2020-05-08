@@ -1093,6 +1093,30 @@ func (m *Redshift) GetTags() Tags {
 func (m *Redshift) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+func (*Citus) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Citus.
+func (m *Citus) GetID() string { return m.ID }
+
+// GetName returns the name of the Citus.
+func (m *Citus) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the Citus.
+func (m *Citus) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the Citus.
+func (m *Citus) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the Citus.
+func (m *Citus) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
 func (*Presto) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Presto.
@@ -1259,6 +1283,30 @@ func (m *SSH) GetTags() Tags {
 
 // SetTags sets the tags of the SSH.
 func (m *SSH) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+func (*SSHCert) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the SSHCert.
+func (m *SSHCert) GetID() string { return m.ID }
+
+// GetName returns the name of the SSHCert.
+func (m *SSHCert) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the SSHCert.
+func (m *SSHCert) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the SSHCert.
+func (m *SSHCert) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the SSHCert.
+func (m *SSHCert) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
 func (*Sybase) isOneOf_Resource() {}
@@ -1579,6 +1627,8 @@ type Kubernetes struct {
 	ClientKey string `json:"client_key"`
 
 	ClientKeyFilename string `json:"client_key_filename"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type KubernetesBasicAuth struct {
@@ -1598,6 +1648,8 @@ type KubernetesBasicAuth struct {
 	Username string `json:"username"`
 
 	Password string `json:"password"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type KubernetesServiceAccount struct {
@@ -1615,6 +1667,8 @@ type KubernetesServiceAccount struct {
 	Port int32 `json:"port"`
 
 	Token string `json:"token"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type AmazonEKS struct {
@@ -1642,6 +1696,8 @@ type AmazonEKS struct {
 	ClusterName string `json:"cluster_name"`
 
 	RoleArn string `json:"role_arn"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type GoogleGKE struct {
@@ -1663,6 +1719,8 @@ type GoogleGKE struct {
 	ServiceAccountKey string `json:"service_account_key"`
 
 	ServiceAccountKeyFilename string `json:"service_account_key_filename"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type AKS struct {
@@ -1690,6 +1748,8 @@ type AKS struct {
 	ClientKey string `json:"client_key"`
 
 	ClientKeyFilename string `json:"client_key_filename"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type AKSBasicAuth struct {
@@ -1709,6 +1769,8 @@ type AKSBasicAuth struct {
 	Username string `json:"username"`
 
 	Password string `json:"password"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type AKSServiceAccount struct {
@@ -1726,6 +1788,8 @@ type AKSServiceAccount struct {
 	Port int32 `json:"port"`
 
 	Token string `json:"token"`
+
+	HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
 
 type Memcached struct {
@@ -2120,6 +2184,31 @@ type Redshift struct {
 	OverrideDatabase bool `json:"override_database"`
 }
 
+type Citus struct {
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+
+	Hostname string `json:"hostname"`
+
+	Username string `json:"username"`
+
+	Password string `json:"password"`
+
+	Database string `json:"database"`
+
+	PortOverride int32 `json:"port_override"`
+
+	Port int32 `json:"port"`
+
+	OverrideDatabase bool `json:"override_database"`
+}
+
 type Presto struct {
 	// Unique identifier of the Resource.
 	ID string `json:"id"`
@@ -2277,6 +2366,25 @@ type SSH struct {
 	PortForwarding bool `json:"port_forwarding"`
 }
 
+type SSHCert struct {
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+
+	Hostname string `json:"hostname"`
+
+	Username string `json:"username"`
+
+	Port int32 `json:"port"`
+
+	PortForwarding bool `json:"port_forwarding"`
+}
+
 type Sybase struct {
 	// Unique identifier of the Resource.
 	ID string `json:"id"`
@@ -2408,7 +2516,8 @@ type Relay struct {
 	// Unique human-readable name of the Relay. Generated if not provided on create.
 	Name string `json:"name"`
 	// The current state of the relay. One of: "new", "verifying_restart",
-	// "restarting", "started", "stopped", "dead", "unknown",
+	// "awaiting_restart", "restarting", "started", "stopped", "dead",
+	// "unknown".
 	State string `json:"state"`
 }
 
