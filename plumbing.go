@@ -872,6 +872,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_BigQuery{BigQuery: convertBigQueryToPlumbing(v)}
 	case *Cassandra:
 		plumbing.Resource = &proto.Resource_Cassandra{Cassandra: convertCassandraToPlumbing(v)}
+	case *DB2:
+		plumbing.Resource = &proto.Resource_Db_2{Db_2: convertDB2ToPlumbing(v)}
 	case *Druid:
 		plumbing.Resource = &proto.Resource_Druid{Druid: convertDruidToPlumbing(v)}
 	case *DynamoDB:
@@ -971,6 +973,9 @@ func convertResourceToPorcelain(plumbing *proto.Resource) Resource {
 	}
 	if plumbing.GetCassandra() != nil {
 		return convertCassandraToPorcelain(plumbing.GetCassandra())
+	}
+	if plumbing.GetDb_2() != nil {
+		return convertDB2ToPorcelain(plumbing.GetDb_2())
 	}
 	if plumbing.GetDruid() != nil {
 		return convertDruidToPorcelain(plumbing.GetDruid())
@@ -1269,6 +1274,58 @@ func convertRepeatedCassandraToPorcelain(plumbings []*proto.Cassandra) []*Cassan
 	var items []*Cassandra
 	for _, plumbing := range plumbings {
 		items = append(items, convertCassandraToPorcelain(plumbing))
+	}
+	return items
+}
+func convertDB2ToPorcelain(plumbing *proto.DB2) *DB2 {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &DB2{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Healthy = (plumbing.Healthy)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.Hostname = (plumbing.Hostname)
+	porcelain.Username = (plumbing.Username)
+	porcelain.Password = (plumbing.Password)
+	porcelain.Database = (plumbing.Database)
+	porcelain.PortOverride = (plumbing.PortOverride)
+	porcelain.Port = (plumbing.Port)
+	return porcelain
+}
+
+func convertDB2ToPlumbing(porcelain *DB2) *proto.DB2 {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.DB2{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Username = (porcelain.Username)
+	plumbing.Password = (porcelain.Password)
+	plumbing.Database = (porcelain.Database)
+	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.Port = (porcelain.Port)
+	return plumbing
+}
+func convertRepeatedDB2ToPlumbing(
+	porcelains []*DB2,
+) []*proto.DB2 {
+	var items []*proto.DB2
+	for _, porcelain := range porcelains {
+		items = append(items, convertDB2ToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedDB2ToPorcelain(plumbings []*proto.DB2) []*DB2 {
+	var items []*DB2
+	for _, plumbing := range plumbings {
+		items = append(items, convertDB2ToPorcelain(plumbing))
 	}
 	return items
 }
