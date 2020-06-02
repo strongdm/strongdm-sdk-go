@@ -789,6 +789,7 @@ func convertUserToPorcelain(plumbing *proto.User) *User {
 	porcelain.FirstName = (plumbing.FirstName)
 	porcelain.LastName = (plumbing.LastName)
 	porcelain.Suspended = (plumbing.Suspended)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
 	return porcelain
 }
 
@@ -802,6 +803,7 @@ func convertUserToPlumbing(porcelain *User) *proto.User {
 	plumbing.FirstName = (porcelain.FirstName)
 	plumbing.LastName = (porcelain.LastName)
 	plumbing.Suspended = (porcelain.Suspended)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	return plumbing
 }
 func convertRepeatedUserToPlumbing(
@@ -829,6 +831,7 @@ func convertServiceToPorcelain(plumbing *proto.Service) *Service {
 	porcelain.ID = (plumbing.Id)
 	porcelain.Name = (plumbing.Name)
 	porcelain.Suspended = (plumbing.Suspended)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
 	return porcelain
 }
 
@@ -840,6 +843,7 @@ func convertServiceToPlumbing(porcelain *Service) *proto.Service {
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
 	plumbing.Suspended = (porcelain.Suspended)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	return plumbing
 }
 func convertRepeatedServiceToPlumbing(
@@ -3778,6 +3782,7 @@ func convertRelayToPorcelain(plumbing *proto.Relay) *Relay {
 	porcelain.ID = (plumbing.Id)
 	porcelain.Name = (plumbing.Name)
 	porcelain.State = (plumbing.State)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
 	return porcelain
 }
 
@@ -3789,6 +3794,7 @@ func convertRelayToPlumbing(porcelain *Relay) *proto.Relay {
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
 	plumbing.State = (porcelain.State)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	return plumbing
 }
 func convertRepeatedRelayToPlumbing(
@@ -3818,6 +3824,7 @@ func convertGatewayToPorcelain(plumbing *proto.Gateway) *Gateway {
 	porcelain.State = (plumbing.State)
 	porcelain.ListenAddress = (plumbing.ListenAddress)
 	porcelain.BindAddress = (plumbing.BindAddress)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
 	return porcelain
 }
 
@@ -3831,6 +3838,7 @@ func convertGatewayToPlumbing(porcelain *Gateway) *proto.Gateway {
 	plumbing.State = (porcelain.State)
 	plumbing.ListenAddress = (porcelain.ListenAddress)
 	plumbing.BindAddress = (porcelain.BindAddress)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	return plumbing
 }
 func convertRepeatedGatewayToPlumbing(
@@ -4458,6 +4466,7 @@ func convertRoleToPorcelain(plumbing *proto.Role) *Role {
 	porcelain.ID = (plumbing.Id)
 	porcelain.Name = (plumbing.Name)
 	porcelain.Composite = (plumbing.Composite)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
 	return porcelain
 }
 
@@ -4469,6 +4478,7 @@ func convertRoleToPlumbing(porcelain *Role) *proto.Role {
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
 	plumbing.Composite = (porcelain.Composite)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	return plumbing
 }
 func convertRepeatedRoleToPlumbing(

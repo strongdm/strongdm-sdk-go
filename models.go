@@ -249,6 +249,8 @@ type User struct {
 	LastName string `json:"last_name"`
 	// The User's suspended state.
 	Suspended bool `json:"suspended"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
 }
 
 // A Service is a service account that can connect to resources they are granted
@@ -260,6 +262,8 @@ type Service struct {
 	Name string `json:"name"`
 	// The Service's suspended state.
 	Suspended bool `json:"suspended"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
 }
 
 // A Resource is a database or server for which strongDM manages access.
@@ -2566,6 +2570,8 @@ type Relay struct {
 	// "awaiting_restart", "restarting", "started", "stopped", "dead",
 	// "unknown".
 	State string `json:"state"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
 }
 
 // Gateway represents a StrongDM CLI installation running in gateway mode.
@@ -2582,6 +2588,8 @@ type Gateway struct {
 	// The hostname/port tuple which the gateway daemon will bind to.
 	// If not provided on create, set to "0.0.0.0:<listen_address_port>".
 	BindAddress string `json:"bind_address"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
 }
 
 // ResourceCreateResponse reports how the Resources were created in the system.
@@ -2748,6 +2756,8 @@ type Role struct {
 	Name string `json:"name"`
 	// True if the Role is a composite role.
 	Composite bool `json:"composite"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
 }
 
 // AccountAttachmentIterator provides read access to a list of AccountAttachment.
