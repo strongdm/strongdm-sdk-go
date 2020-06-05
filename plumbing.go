@@ -3347,6 +3347,7 @@ func convertSSHToPorcelain(plumbing *proto.SSH) *SSH {
 	porcelain.Port = (plumbing.Port)
 	porcelain.PublicKey = (plumbing.PublicKey)
 	porcelain.PortForwarding = (plumbing.PortForwarding)
+	porcelain.AllowDeprecatedKeyExchanges = (plumbing.AllowDeprecatedKeyExchanges)
 	return porcelain
 }
 
@@ -3364,6 +3365,7 @@ func convertSSHToPlumbing(porcelain *SSH) *proto.SSH {
 	plumbing.Port = (porcelain.Port)
 	plumbing.PublicKey = (porcelain.PublicKey)
 	plumbing.PortForwarding = (porcelain.PortForwarding)
+	plumbing.AllowDeprecatedKeyExchanges = (porcelain.AllowDeprecatedKeyExchanges)
 	return plumbing
 }
 func convertRepeatedSSHToPlumbing(
@@ -3396,6 +3398,7 @@ func convertSSHCertToPorcelain(plumbing *proto.SSHCert) *SSHCert {
 	porcelain.Username = (plumbing.Username)
 	porcelain.Port = (plumbing.Port)
 	porcelain.PortForwarding = (plumbing.PortForwarding)
+	porcelain.AllowDeprecatedKeyExchanges = (plumbing.AllowDeprecatedKeyExchanges)
 	return porcelain
 }
 
@@ -3412,6 +3415,7 @@ func convertSSHCertToPlumbing(porcelain *SSHCert) *proto.SSHCert {
 	plumbing.Username = (porcelain.Username)
 	plumbing.Port = (porcelain.Port)
 	plumbing.PortForwarding = (porcelain.PortForwarding)
+	plumbing.AllowDeprecatedKeyExchanges = (porcelain.AllowDeprecatedKeyExchanges)
 	return plumbing
 }
 func convertRepeatedSSHCertToPlumbing(

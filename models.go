@@ -2415,6 +2415,8 @@ type SSH struct {
 	PublicKey string `json:"public_key"`
 
 	PortForwarding bool `json:"port_forwarding"`
+
+	AllowDeprecatedKeyExchanges bool `json:"allow_deprecated_key_exchanges"`
 }
 
 type SSHCert struct {
@@ -2434,6 +2436,8 @@ type SSHCert struct {
 	Port int32 `json:"port"`
 
 	PortForwarding bool `json:"port_forwarding"`
+
+	AllowDeprecatedKeyExchanges bool `json:"allow_deprecated_key_exchanges"`
 }
 
 type Sybase struct {
