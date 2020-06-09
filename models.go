@@ -249,6 +249,8 @@ type User struct {
 	LastName string `json:"last_name"`
 	// The User's suspended state.
 	Suspended bool `json:"suspended"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
 }
 
 // A Service is a service account that can connect to resources they are granted
@@ -260,6 +262,8 @@ type Service struct {
 	Name string `json:"name"`
 	// The Service's suspended state.
 	Suspended bool `json:"suspended"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
 }
 
 // A Resource is a database or server for which strongDM manages access.
@@ -347,6 +351,30 @@ func (m *Cassandra) GetTags() Tags {
 
 // SetTags sets the tags of the Cassandra.
 func (m *Cassandra) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+func (*DB2) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the DB2.
+func (m *DB2) GetID() string { return m.ID }
+
+// GetName returns the name of the DB2.
+func (m *DB2) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the DB2.
+func (m *DB2) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the DB2.
+func (m *DB2) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the DB2.
+func (m *DB2) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
 func (*Druid) isOneOf_Resource() {}
@@ -1447,6 +1475,29 @@ type Cassandra struct {
 	TlsRequired bool `json:"tls_required"`
 }
 
+type DB2 struct {
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+
+	Hostname string `json:"hostname"`
+
+	Username string `json:"username"`
+
+	Password string `json:"password"`
+
+	Database string `json:"database"`
+
+	PortOverride int32 `json:"port_override"`
+
+	Port int32 `json:"port"`
+}
+
 type Druid struct {
 	// Unique identifier of the Resource.
 	ID string `json:"id"`
@@ -2364,6 +2415,8 @@ type SSH struct {
 	PublicKey string `json:"public_key"`
 
 	PortForwarding bool `json:"port_forwarding"`
+
+	AllowDeprecatedKeyExchanges bool `json:"allow_deprecated_key_exchanges"`
 }
 
 type SSHCert struct {
@@ -2383,6 +2436,8 @@ type SSHCert struct {
 	Port int32 `json:"port"`
 
 	PortForwarding bool `json:"port_forwarding"`
+
+	AllowDeprecatedKeyExchanges bool `json:"allow_deprecated_key_exchanges"`
 }
 
 type Sybase struct {
@@ -2519,6 +2574,8 @@ type Relay struct {
 	// "awaiting_restart", "restarting", "started", "stopped", "dead",
 	// "unknown".
 	State string `json:"state"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
 }
 
 // Gateway represents a StrongDM CLI installation running in gateway mode.
@@ -2535,6 +2592,8 @@ type Gateway struct {
 	// The hostname/port tuple which the gateway daemon will bind to.
 	// If not provided on create, set to "0.0.0.0:<listen_address_port>".
 	BindAddress string `json:"bind_address"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
 }
 
 // ResourceCreateResponse reports how the Resources were created in the system.
@@ -2701,6 +2760,8 @@ type Role struct {
 	Name string `json:"name"`
 	// True if the Role is a composite role.
 	Composite bool `json:"composite"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
 }
 
 // AccountAttachmentIterator provides read access to a list of AccountAttachment.
