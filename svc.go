@@ -32,18 +32,12 @@ type AccountAttachments struct {
 // Create registers a new AccountAttachment.
 func (svc *AccountAttachments) Create(
 	ctx context.Context,
-	accountAttachment *AccountAttachment,
-	options ...*AccountAttachmentCreateOptions) (
+	accountAttachment *AccountAttachment) (
 	*AccountAttachmentCreateResponse,
 	error) {
 	req := &plumbing.AccountAttachmentCreateRequest{}
 
 	req.AccountAttachment = convertAccountAttachmentToPlumbing(accountAttachment)
-	if len(options) > 1 {
-		return nil, &BadRequestError{Message: "use only one AccountAttachmentCreateOptions per Create call"}
-	} else if len(options) == 1 {
-		req.Options = convertAccountAttachmentCreateOptionsToPlumbing(options[0])
-	}
 	var plumbingResponse *plumbing.AccountAttachmentCreateResponse
 	var err error
 	i := 0
