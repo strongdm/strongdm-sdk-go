@@ -197,6 +197,10 @@ type Account interface {
 	IsSuspended() bool
 	// SetSuspended sets the suspended of the Account.
 	SetSuspended(bool)
+	// GetTags returns the tags of the Account.
+	GetTags() Tags
+	// SetTags sets the tags of the Account.
+	SetTags(Tags)
 	isOneOf_Account()
 }
 
@@ -214,6 +218,16 @@ func (m *User) IsSuspended() bool {
 func (m *User) SetSuspended(v bool) {
 	m.Suspended = v
 }
+
+// GetTags returns the tags of the User.
+func (m *User) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the User.
+func (m *User) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
 func (*Service) isOneOf_Account() {}
 
 // GetID returns the unique identifier of the Service.
@@ -227,6 +241,16 @@ func (m *Service) IsSuspended() bool {
 // SetSuspended sets the suspended of the Service.
 func (m *Service) SetSuspended(v bool) {
 	m.Suspended = v
+}
+
+// GetTags returns the tags of the Service.
+func (m *Service) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the Service.
+func (m *Service) SetTags(v Tags) {
+	m.Tags = v.clone()
 }
 
 // A User can connect to resources they are granted directly, or granted
@@ -2545,6 +2569,10 @@ type NodeDeleteResponse struct {
 type Node interface {
 	// GetID returns the unique identifier of the Node.
 	GetID() string
+	// GetTags returns the tags of the Node.
+	GetTags() Tags
+	// SetTags sets the tags of the Node.
+	SetTags(Tags)
 	isOneOf_Node()
 }
 
@@ -2552,10 +2580,30 @@ func (*Relay) isOneOf_Node() {}
 
 // GetID returns the unique identifier of the Relay.
 func (m *Relay) GetID() string { return m.ID }
+
+// GetTags returns the tags of the Relay.
+func (m *Relay) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the Relay.
+func (m *Relay) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
 func (*Gateway) isOneOf_Node() {}
 
 // GetID returns the unique identifier of the Gateway.
 func (m *Gateway) GetID() string { return m.ID }
+
+// GetTags returns the tags of the Gateway.
+func (m *Gateway) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the Gateway.
+func (m *Gateway) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
 
 // Relay represents a StrongDM CLI installation running in relay mode.
 type Relay struct {
