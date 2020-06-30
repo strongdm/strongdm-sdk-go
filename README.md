@@ -1,4 +1,4 @@
-# strongDM Go SDK
+# strongDM SDK for Go
 
 This is the official [strongDM](https://www.strongdm.com/) SDK for the Go programming language.
 
