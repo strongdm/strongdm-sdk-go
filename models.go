@@ -1532,8 +1532,6 @@ type DB2I struct {
 
 	Password string `json:"password"`
 
-	Database string `json:"database"`
-
 	PortOverride int32 `json:"port_override"`
 
 	Port int32 `json:"port"`
