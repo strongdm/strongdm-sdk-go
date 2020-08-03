@@ -156,7 +156,7 @@ func (e InternalError) Code() int {
 
 // RateLimitError is used for rate limit excess condition
 type RateLimitError struct {
-	Message   string
+	Message string
 	RateLimit *RateLimitMetadata
 }
 

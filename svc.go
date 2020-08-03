@@ -22,1332 +22,1288 @@ import (
 
 	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 )
-
 // AccountAttachments assign an account to a role.
 type AccountAttachments struct {
-	client plumbing.AccountAttachmentsClient
-	parent *Client
+	client   plumbing.AccountAttachmentsClient
+	parent   *Client
 }
-
 // Create registers a new AccountAttachment.
-func (svc *AccountAttachments) Create(
+func (svc *AccountAttachments) Create (
 	ctx context.Context,
-	accountAttachment *AccountAttachment) (
-	*AccountAttachmentCreateResponse,
-	error) {
+	accountAttachment *AccountAttachment,) (
+		*AccountAttachmentCreateResponse,
+		error,) {
 	req := &plumbing.AccountAttachmentCreateRequest{}
-
+		
 	req.AccountAttachment = convertAccountAttachmentToPlumbing(accountAttachment)
-	var plumbingResponse *plumbing.AccountAttachmentCreateResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "AccountAttachments.Create"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.AccountAttachmentCreateResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "AccountAttachments.Create"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &AccountAttachmentCreateResponse{}
 	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.AccountAttachment = convertAccountAttachmentToPorcelain(plumbingResponse.AccountAttachment)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Get reads one AccountAttachment by ID.
-func (svc *AccountAttachments) Get(
+func (svc *AccountAttachments) Get (
 	ctx context.Context,
-	id string) (
-	*AccountAttachmentGetResponse,
-	error) {
+	id string,) (
+		*AccountAttachmentGetResponse,
+		error,) {
 	req := &plumbing.AccountAttachmentGetRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.AccountAttachmentGetResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "AccountAttachments.Get"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.AccountAttachmentGetResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "AccountAttachments.Get"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &AccountAttachmentGetResponse{}
 	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.AccountAttachment = convertAccountAttachmentToPorcelain(plumbingResponse.AccountAttachment)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Delete removes a AccountAttachment by ID.
-func (svc *AccountAttachments) Delete(
+func (svc *AccountAttachments) Delete (
 	ctx context.Context,
-	id string) (
-	*AccountAttachmentDeleteResponse,
-	error) {
+	id string,) (
+		*AccountAttachmentDeleteResponse,
+		error,) {
 	req := &plumbing.AccountAttachmentDeleteRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.AccountAttachmentDeleteResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "AccountAttachments.Delete"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.AccountAttachmentDeleteResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "AccountAttachments.Delete"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &AccountAttachmentDeleteResponse{}
 	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // List gets a list of AccountAttachments matching a given set of criteria.
-func (svc *AccountAttachments) List(
+func (svc *AccountAttachments) List (
 	ctx context.Context,
 	filter string,
-	args ...interface{}) (
-	AccountAttachmentIterator,
-	error) {
+		args ...interface{},) (
+AccountAttachmentIterator,
+		error,) {
 	req := &plumbing.AccountAttachmentListRequest{}
-
+		
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
-	if filterErr != nil {
-		return nil, filterErr
-	}
-	req.Meta = &plumbing.ListRequestMetadata{}
-	if value := svc.parent.testOption("PageLimit"); value != nil {
-		v, ok := value.(int)
-		if ok {
-			req.Meta.Limit = int32(v)
+		if filterErr != nil {
+			return nil, filterErr
 		}
-	}
-	return newAccountAttachmentIteratorImpl(
-		func() (
-			[]*AccountAttachment,
-			bool, error) {
-			var plumbingResponse *plumbing.AccountAttachmentListResponse
-			var err error
-			i := 0
-			for {
-				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountAttachments.List"), req)
-				if err != nil {
-					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, convertErrorToPorcelain(err)
-					}
-					i++
-					svc.parent.jitterSleep(i)
-					continue
-				}
-				break
+		req.Meta = &plumbing.ListRequestMetadata{}
+		if value := svc.parent.testOption("PageLimit"); value != nil {
+			v, ok := value.(int)
+			if ok {
+				req.Meta.Limit = int32(v)
 			}
-			result := convertRepeatedAccountAttachmentToPorcelain(plumbingResponse.AccountAttachments)
-			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
-			return result, req.Meta.Cursor != "", nil
-		},
-	), nil
+		}
+		return newAccountAttachmentIteratorImpl(
+			func() (
+				[]*AccountAttachment,
+				bool, error) {
+				var plumbingResponse *plumbing.AccountAttachmentListResponse
+				var err error
+				i := 0
+				for {
+					plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountAttachments.List"), req)
+					if err != nil {
+						if !svc.parent.shouldRetry(i, err) {
+							return nil, false, convertErrorToPorcelain(err)
+						}
+						i++
+						svc.parent.jitterSleep(i)
+						continue
+					}
+					break
+				}
+				result := convertRepeatedAccountAttachmentToPorcelain(plumbingResponse.AccountAttachments)
+				req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+				return result, req.Meta.Cursor != "", nil
+			},
+		), nil
 }
-
 // AccountGrants assign a resource directly to an account, giving the account the permission to connect to that resource.
 type AccountGrants struct {
-	client plumbing.AccountGrantsClient
-	parent *Client
+	client   plumbing.AccountGrantsClient
+	parent   *Client
 }
-
 // Create registers a new AccountGrant.
-func (svc *AccountGrants) Create(
+func (svc *AccountGrants) Create (
 	ctx context.Context,
-	accountGrant *AccountGrant) (
-	*AccountGrantCreateResponse,
-	error) {
+	accountGrant *AccountGrant,) (
+		*AccountGrantCreateResponse,
+		error,) {
 	req := &plumbing.AccountGrantCreateRequest{}
-
+		
 	req.AccountGrant = convertAccountGrantToPlumbing(accountGrant)
-	var plumbingResponse *plumbing.AccountGrantCreateResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "AccountGrants.Create"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.AccountGrantCreateResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "AccountGrants.Create"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &AccountGrantCreateResponse{}
 	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.AccountGrant = convertAccountGrantToPorcelain(plumbingResponse.AccountGrant)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Get reads one AccountGrant by ID.
-func (svc *AccountGrants) Get(
+func (svc *AccountGrants) Get (
 	ctx context.Context,
-	id string) (
-	*AccountGrantGetResponse,
-	error) {
+	id string,) (
+		*AccountGrantGetResponse,
+		error,) {
 	req := &plumbing.AccountGrantGetRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.AccountGrantGetResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "AccountGrants.Get"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.AccountGrantGetResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "AccountGrants.Get"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &AccountGrantGetResponse{}
 	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.AccountGrant = convertAccountGrantToPorcelain(plumbingResponse.AccountGrant)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Delete removes a AccountGrant by ID.
-func (svc *AccountGrants) Delete(
+func (svc *AccountGrants) Delete (
 	ctx context.Context,
-	id string) (
-	*AccountGrantDeleteResponse,
-	error) {
+	id string,) (
+		*AccountGrantDeleteResponse,
+		error,) {
 	req := &plumbing.AccountGrantDeleteRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.AccountGrantDeleteResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "AccountGrants.Delete"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.AccountGrantDeleteResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "AccountGrants.Delete"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &AccountGrantDeleteResponse{}
 	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // List gets a list of AccountGrants matching a given set of criteria.
-func (svc *AccountGrants) List(
+func (svc *AccountGrants) List (
 	ctx context.Context,
 	filter string,
-	args ...interface{}) (
-	AccountGrantIterator,
-	error) {
+		args ...interface{},) (
+AccountGrantIterator,
+		error,) {
 	req := &plumbing.AccountGrantListRequest{}
-
+		
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
-	if filterErr != nil {
-		return nil, filterErr
-	}
-	req.Meta = &plumbing.ListRequestMetadata{}
-	if value := svc.parent.testOption("PageLimit"); value != nil {
-		v, ok := value.(int)
-		if ok {
-			req.Meta.Limit = int32(v)
+		if filterErr != nil {
+			return nil, filterErr
 		}
-	}
-	return newAccountGrantIteratorImpl(
-		func() (
-			[]*AccountGrant,
-			bool, error) {
-			var plumbingResponse *plumbing.AccountGrantListResponse
-			var err error
-			i := 0
-			for {
-				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountGrants.List"), req)
-				if err != nil {
-					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, convertErrorToPorcelain(err)
-					}
-					i++
-					svc.parent.jitterSleep(i)
-					continue
-				}
-				break
+		req.Meta = &plumbing.ListRequestMetadata{}
+		if value := svc.parent.testOption("PageLimit"); value != nil {
+			v, ok := value.(int)
+			if ok {
+				req.Meta.Limit = int32(v)
 			}
-			result := convertRepeatedAccountGrantToPorcelain(plumbingResponse.AccountGrants)
-			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
-			return result, req.Meta.Cursor != "", nil
-		},
-	), nil
+		}
+		return newAccountGrantIteratorImpl(
+			func() (
+				[]*AccountGrant,
+				bool, error) {
+				var plumbingResponse *plumbing.AccountGrantListResponse
+				var err error
+				i := 0
+				for {
+					plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountGrants.List"), req)
+					if err != nil {
+						if !svc.parent.shouldRetry(i, err) {
+							return nil, false, convertErrorToPorcelain(err)
+						}
+						i++
+						svc.parent.jitterSleep(i)
+						continue
+					}
+					break
+				}
+				result := convertRepeatedAccountGrantToPorcelain(plumbingResponse.AccountGrants)
+				req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+				return result, req.Meta.Cursor != "", nil
+			},
+		), nil
 }
-
 // Accounts are users that have access to strongDM.
 // There are two types of accounts:
 // 1. **Regular users:** humans who are authenticated through username and password or SSO
 // 2. **Service users:** machines that are authneticated using a service token
 type Accounts struct {
-	client plumbing.AccountsClient
-	parent *Client
+	client   plumbing.AccountsClient
+	parent   *Client
 }
-
 // Create registers a new Account.
-func (svc *Accounts) Create(
+func (svc *Accounts) Create (
 	ctx context.Context,
-	account Account) (
-	*AccountCreateResponse,
-	error) {
+	account Account,) (
+		*AccountCreateResponse,
+		error,) {
 	req := &plumbing.AccountCreateRequest{}
-
+		
 	req.Account = convertAccountToPlumbing(account)
-	var plumbingResponse *plumbing.AccountCreateResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Accounts.Create"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.AccountCreateResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Accounts.Create"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &AccountCreateResponse{}
 	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Account = convertAccountToPorcelain(plumbingResponse.Account)
 	resp.Token = (plumbingResponse.Token)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Get reads one Account by ID.
-func (svc *Accounts) Get(
+func (svc *Accounts) Get (
 	ctx context.Context,
-	id string) (
-	*AccountGetResponse,
-	error) {
+	id string,) (
+		*AccountGetResponse,
+		error,) {
 	req := &plumbing.AccountGetRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.AccountGetResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Accounts.Get"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.AccountGetResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Accounts.Get"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &AccountGetResponse{}
 	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Account = convertAccountToPorcelain(plumbingResponse.Account)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Update patches a Account by ID.
-func (svc *Accounts) Update(
+func (svc *Accounts) Update (
 	ctx context.Context,
-	account Account) (
-	*AccountUpdateResponse,
-	error) {
+	account Account,) (
+		*AccountUpdateResponse,
+		error,) {
 	req := &plumbing.AccountUpdateRequest{}
-
+		
 	req.Account = convertAccountToPlumbing(account)
-	var plumbingResponse *plumbing.AccountUpdateResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Accounts.Update"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.AccountUpdateResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Accounts.Update"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &AccountUpdateResponse{}
 	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Account = convertAccountToPorcelain(plumbingResponse.Account)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Delete removes a Account by ID.
-func (svc *Accounts) Delete(
+func (svc *Accounts) Delete (
 	ctx context.Context,
-	id string) (
-	*AccountDeleteResponse,
-	error) {
+	id string,) (
+		*AccountDeleteResponse,
+		error,) {
 	req := &plumbing.AccountDeleteRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.AccountDeleteResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Accounts.Delete"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.AccountDeleteResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Accounts.Delete"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &AccountDeleteResponse{}
 	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // List gets a list of Accounts matching a given set of criteria.
-func (svc *Accounts) List(
+func (svc *Accounts) List (
 	ctx context.Context,
 	filter string,
-	args ...interface{}) (
-	AccountIterator,
-	error) {
+		args ...interface{},) (
+AccountIterator,
+		error,) {
 	req := &plumbing.AccountListRequest{}
-
+		
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
-	if filterErr != nil {
-		return nil, filterErr
-	}
-	req.Meta = &plumbing.ListRequestMetadata{}
-	if value := svc.parent.testOption("PageLimit"); value != nil {
-		v, ok := value.(int)
-		if ok {
-			req.Meta.Limit = int32(v)
+		if filterErr != nil {
+			return nil, filterErr
 		}
-	}
-	return newAccountIteratorImpl(
-		func() (
-			[]Account,
-			bool, error) {
-			var plumbingResponse *plumbing.AccountListResponse
-			var err error
-			i := 0
-			for {
-				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Accounts.List"), req)
-				if err != nil {
-					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, convertErrorToPorcelain(err)
-					}
-					i++
-					svc.parent.jitterSleep(i)
-					continue
-				}
-				break
+		req.Meta = &plumbing.ListRequestMetadata{}
+		if value := svc.parent.testOption("PageLimit"); value != nil {
+			v, ok := value.(int)
+			if ok {
+				req.Meta.Limit = int32(v)
 			}
-			result := convertRepeatedAccountToPorcelain(plumbingResponse.Accounts)
-			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
-			return result, req.Meta.Cursor != "", nil
-		},
-	), nil
+		}
+		return newAccountIteratorImpl(
+			func() (
+				[]Account,
+				bool, error) {
+				var plumbingResponse *plumbing.AccountListResponse
+				var err error
+				i := 0
+				for {
+					plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Accounts.List"), req)
+					if err != nil {
+						if !svc.parent.shouldRetry(i, err) {
+							return nil, false, convertErrorToPorcelain(err)
+						}
+						i++
+						svc.parent.jitterSleep(i)
+						continue
+					}
+					break
+				}
+				result := convertRepeatedAccountToPorcelain(plumbingResponse.Accounts)
+				req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+				return result, req.Meta.Cursor != "", nil
+			},
+		), nil
 }
-
 // Nodes make up the strongDM network, and allow your users to connect securely to your resources.
 // There are two types of nodes:
 // 1. **Relay:** creates connectivity to your datasources, while maintaining the egress-only nature of your firewall
 // 1. **Gateways:** a relay that also listens for connections from strongDM clients
 type Nodes struct {
-	client plumbing.NodesClient
-	parent *Client
+	client   plumbing.NodesClient
+	parent   *Client
 }
-
 // Create registers a new Node.
-func (svc *Nodes) Create(
+func (svc *Nodes) Create (
 	ctx context.Context,
-	node Node) (
-	*NodeCreateResponse,
-	error) {
+	node Node,) (
+		*NodeCreateResponse,
+		error,) {
 	req := &plumbing.NodeCreateRequest{}
-
+		
 	req.Node = convertNodeToPlumbing(node)
-	var plumbingResponse *plumbing.NodeCreateResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Nodes.Create"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.NodeCreateResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Nodes.Create"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &NodeCreateResponse{}
 	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Node = convertNodeToPorcelain(plumbingResponse.Node)
 	resp.Token = (plumbingResponse.Token)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Get reads one Node by ID.
-func (svc *Nodes) Get(
+func (svc *Nodes) Get (
 	ctx context.Context,
-	id string) (
-	*NodeGetResponse,
-	error) {
+	id string,) (
+		*NodeGetResponse,
+		error,) {
 	req := &plumbing.NodeGetRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.NodeGetResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Nodes.Get"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.NodeGetResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Nodes.Get"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &NodeGetResponse{}
 	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Node = convertNodeToPorcelain(plumbingResponse.Node)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Update patches a Node by ID.
-func (svc *Nodes) Update(
+func (svc *Nodes) Update (
 	ctx context.Context,
-	node Node) (
-	*NodeUpdateResponse,
-	error) {
+	node Node,) (
+		*NodeUpdateResponse,
+		error,) {
 	req := &plumbing.NodeUpdateRequest{}
-
+		
 	req.Node = convertNodeToPlumbing(node)
-	var plumbingResponse *plumbing.NodeUpdateResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Nodes.Update"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.NodeUpdateResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Nodes.Update"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &NodeUpdateResponse{}
 	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Node = convertNodeToPorcelain(plumbingResponse.Node)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Delete removes a Node by ID.
-func (svc *Nodes) Delete(
+func (svc *Nodes) Delete (
 	ctx context.Context,
-	id string) (
-	*NodeDeleteResponse,
-	error) {
+	id string,) (
+		*NodeDeleteResponse,
+		error,) {
 	req := &plumbing.NodeDeleteRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.NodeDeleteResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Nodes.Delete"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.NodeDeleteResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Nodes.Delete"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &NodeDeleteResponse{}
 	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // List gets a list of Nodes matching a given set of criteria.
-func (svc *Nodes) List(
+func (svc *Nodes) List (
 	ctx context.Context,
 	filter string,
-	args ...interface{}) (
-	NodeIterator,
-	error) {
+		args ...interface{},) (
+NodeIterator,
+		error,) {
 	req := &plumbing.NodeListRequest{}
-
+		
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
-	if filterErr != nil {
-		return nil, filterErr
-	}
-	req.Meta = &plumbing.ListRequestMetadata{}
-	if value := svc.parent.testOption("PageLimit"); value != nil {
-		v, ok := value.(int)
-		if ok {
-			req.Meta.Limit = int32(v)
+		if filterErr != nil {
+			return nil, filterErr
 		}
-	}
-	return newNodeIteratorImpl(
-		func() (
-			[]Node,
-			bool, error) {
-			var plumbingResponse *plumbing.NodeListResponse
-			var err error
-			i := 0
-			for {
-				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Nodes.List"), req)
-				if err != nil {
-					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, convertErrorToPorcelain(err)
+		req.Meta = &plumbing.ListRequestMetadata{}
+		if value := svc.parent.testOption("PageLimit"); value != nil {
+			v, ok := value.(int)
+			if ok {
+				req.Meta.Limit = int32(v)
+			}
+		}
+		return newNodeIteratorImpl(
+			func() (
+				[]Node,
+				bool, error) {
+				var plumbingResponse *plumbing.NodeListResponse
+				var err error
+				i := 0
+				for {
+					plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Nodes.List"), req)
+					if err != nil {
+						if !svc.parent.shouldRetry(i, err) {
+							return nil, false, convertErrorToPorcelain(err)
+						}
+						i++
+						svc.parent.jitterSleep(i)
+						continue
 					}
-					i++
-					svc.parent.jitterSleep(i)
-					continue
+					break
 				}
-				break
-			}
-			result := convertRepeatedNodeToPorcelain(plumbingResponse.Nodes)
-			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
-			return result, req.Meta.Cursor != "", nil
-		},
-	), nil
+				result := convertRepeatedNodeToPorcelain(plumbingResponse.Nodes)
+				req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+				return result, req.Meta.Cursor != "", nil
+			},
+		), nil
 }
-
 type Resources struct {
-	client plumbing.ResourcesClient
-	parent *Client
+	client   plumbing.ResourcesClient
+	parent   *Client
 }
-
 // Create registers a new Resource.
-func (svc *Resources) Create(
+func (svc *Resources) Create (
 	ctx context.Context,
-	resource Resource) (
-	*ResourceCreateResponse,
-	error) {
+	resource Resource,) (
+		*ResourceCreateResponse,
+		error,) {
 	req := &plumbing.ResourceCreateRequest{}
-
+		
 	req.Resource = convertResourceToPlumbing(resource)
-	var plumbingResponse *plumbing.ResourceCreateResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Resources.Create"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.ResourceCreateResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Resources.Create"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &ResourceCreateResponse{}
 	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Resource = convertResourceToPorcelain(plumbingResponse.Resource)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Get reads one Resource by ID.
-func (svc *Resources) Get(
+func (svc *Resources) Get (
 	ctx context.Context,
-	id string) (
-	*ResourceGetResponse,
-	error) {
+	id string,) (
+		*ResourceGetResponse,
+		error,) {
 	req := &plumbing.ResourceGetRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.ResourceGetResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Resources.Get"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.ResourceGetResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Resources.Get"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &ResourceGetResponse{}
 	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Resource = convertResourceToPorcelain(plumbingResponse.Resource)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Update patches a Resource by ID.
-func (svc *Resources) Update(
+func (svc *Resources) Update (
 	ctx context.Context,
-	resource Resource) (
-	*ResourceUpdateResponse,
-	error) {
+	resource Resource,) (
+		*ResourceUpdateResponse,
+		error,) {
 	req := &plumbing.ResourceUpdateRequest{}
-
+		
 	req.Resource = convertResourceToPlumbing(resource)
-	var plumbingResponse *plumbing.ResourceUpdateResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Resources.Update"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.ResourceUpdateResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Resources.Update"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &ResourceUpdateResponse{}
 	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Resource = convertResourceToPorcelain(plumbingResponse.Resource)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Delete removes a Resource by ID.
-func (svc *Resources) Delete(
+func (svc *Resources) Delete (
 	ctx context.Context,
-	id string) (
-	*ResourceDeleteResponse,
-	error) {
+	id string,) (
+		*ResourceDeleteResponse,
+		error,) {
 	req := &plumbing.ResourceDeleteRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.ResourceDeleteResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Resources.Delete"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.ResourceDeleteResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Resources.Delete"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &ResourceDeleteResponse{}
 	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // List gets a list of Resources matching a given set of criteria.
-func (svc *Resources) List(
+func (svc *Resources) List (
 	ctx context.Context,
 	filter string,
-	args ...interface{}) (
-	ResourceIterator,
-	error) {
+		args ...interface{},) (
+ResourceIterator,
+		error,) {
 	req := &plumbing.ResourceListRequest{}
-
+		
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
-	if filterErr != nil {
-		return nil, filterErr
-	}
-	req.Meta = &plumbing.ListRequestMetadata{}
-	if value := svc.parent.testOption("PageLimit"); value != nil {
-		v, ok := value.(int)
-		if ok {
-			req.Meta.Limit = int32(v)
+		if filterErr != nil {
+			return nil, filterErr
 		}
-	}
-	return newResourceIteratorImpl(
-		func() (
-			[]Resource,
-			bool, error) {
-			var plumbingResponse *plumbing.ResourceListResponse
-			var err error
-			i := 0
-			for {
-				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Resources.List"), req)
-				if err != nil {
-					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, convertErrorToPorcelain(err)
-					}
-					i++
-					svc.parent.jitterSleep(i)
-					continue
-				}
-				break
+		req.Meta = &plumbing.ListRequestMetadata{}
+		if value := svc.parent.testOption("PageLimit"); value != nil {
+			v, ok := value.(int)
+			if ok {
+				req.Meta.Limit = int32(v)
 			}
-			result := convertRepeatedResourceToPorcelain(plumbingResponse.Resources)
-			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
-			return result, req.Meta.Cursor != "", nil
-		},
-	), nil
+		}
+		return newResourceIteratorImpl(
+			func() (
+				[]Resource,
+				bool, error) {
+				var plumbingResponse *plumbing.ResourceListResponse
+				var err error
+				i := 0
+				for {
+					plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Resources.List"), req)
+					if err != nil {
+						if !svc.parent.shouldRetry(i, err) {
+							return nil, false, convertErrorToPorcelain(err)
+						}
+						i++
+						svc.parent.jitterSleep(i)
+						continue
+					}
+					break
+				}
+				result := convertRepeatedResourceToPorcelain(plumbingResponse.Resources)
+				req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+				return result, req.Meta.Cursor != "", nil
+			},
+		), nil
 }
-
 // RoleAttachments represent relationships between composite roles and the roles
 // that make up those composite roles. When a composite role is attached to another
 // role, the permissions granted to members of the composite role are augmented to
 // include the permissions granted to members of the attached role.
 type RoleAttachments struct {
-	client plumbing.RoleAttachmentsClient
-	parent *Client
+	client   plumbing.RoleAttachmentsClient
+	parent   *Client
 }
-
 // Create registers a new RoleAttachment.
-func (svc *RoleAttachments) Create(
+func (svc *RoleAttachments) Create (
 	ctx context.Context,
-	roleAttachment *RoleAttachment) (
-	*RoleAttachmentCreateResponse,
-	error) {
+	roleAttachment *RoleAttachment,) (
+		*RoleAttachmentCreateResponse,
+		error,) {
 	req := &plumbing.RoleAttachmentCreateRequest{}
-
+		
 	req.RoleAttachment = convertRoleAttachmentToPlumbing(roleAttachment)
-	var plumbingResponse *plumbing.RoleAttachmentCreateResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "RoleAttachments.Create"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.RoleAttachmentCreateResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "RoleAttachments.Create"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &RoleAttachmentCreateResponse{}
 	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RoleAttachment = convertRoleAttachmentToPorcelain(plumbingResponse.RoleAttachment)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Get reads one RoleAttachment by ID.
-func (svc *RoleAttachments) Get(
+func (svc *RoleAttachments) Get (
 	ctx context.Context,
-	id string) (
-	*RoleAttachmentGetResponse,
-	error) {
+	id string,) (
+		*RoleAttachmentGetResponse,
+		error,) {
 	req := &plumbing.RoleAttachmentGetRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.RoleAttachmentGetResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "RoleAttachments.Get"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.RoleAttachmentGetResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "RoleAttachments.Get"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &RoleAttachmentGetResponse{}
 	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RoleAttachment = convertRoleAttachmentToPorcelain(plumbingResponse.RoleAttachment)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Delete removes a RoleAttachment by ID.
-func (svc *RoleAttachments) Delete(
+func (svc *RoleAttachments) Delete (
 	ctx context.Context,
-	id string) (
-	*RoleAttachmentDeleteResponse,
-	error) {
+	id string,) (
+		*RoleAttachmentDeleteResponse,
+		error,) {
 	req := &plumbing.RoleAttachmentDeleteRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.RoleAttachmentDeleteResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "RoleAttachments.Delete"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.RoleAttachmentDeleteResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "RoleAttachments.Delete"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &RoleAttachmentDeleteResponse{}
 	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // List gets a list of RoleAttachments matching a given set of criteria.
-func (svc *RoleAttachments) List(
+func (svc *RoleAttachments) List (
 	ctx context.Context,
 	filter string,
-	args ...interface{}) (
-	RoleAttachmentIterator,
-	error) {
+		args ...interface{},) (
+RoleAttachmentIterator,
+		error,) {
 	req := &plumbing.RoleAttachmentListRequest{}
-
+		
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
-	if filterErr != nil {
-		return nil, filterErr
-	}
-	req.Meta = &plumbing.ListRequestMetadata{}
-	if value := svc.parent.testOption("PageLimit"); value != nil {
-		v, ok := value.(int)
-		if ok {
-			req.Meta.Limit = int32(v)
+		if filterErr != nil {
+			return nil, filterErr
 		}
-	}
-	return newRoleAttachmentIteratorImpl(
-		func() (
-			[]*RoleAttachment,
-			bool, error) {
-			var plumbingResponse *plumbing.RoleAttachmentListResponse
-			var err error
-			i := 0
-			for {
-				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RoleAttachments.List"), req)
-				if err != nil {
-					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, convertErrorToPorcelain(err)
-					}
-					i++
-					svc.parent.jitterSleep(i)
-					continue
-				}
-				break
+		req.Meta = &plumbing.ListRequestMetadata{}
+		if value := svc.parent.testOption("PageLimit"); value != nil {
+			v, ok := value.(int)
+			if ok {
+				req.Meta.Limit = int32(v)
 			}
-			result := convertRepeatedRoleAttachmentToPorcelain(plumbingResponse.RoleAttachments)
-			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
-			return result, req.Meta.Cursor != "", nil
-		},
-	), nil
+		}
+		return newRoleAttachmentIteratorImpl(
+			func() (
+				[]*RoleAttachment,
+				bool, error) {
+				var plumbingResponse *plumbing.RoleAttachmentListResponse
+				var err error
+				i := 0
+				for {
+					plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RoleAttachments.List"), req)
+					if err != nil {
+						if !svc.parent.shouldRetry(i, err) {
+							return nil, false, convertErrorToPorcelain(err)
+						}
+						i++
+						svc.parent.jitterSleep(i)
+						continue
+					}
+					break
+				}
+				result := convertRepeatedRoleAttachmentToPorcelain(plumbingResponse.RoleAttachments)
+				req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+				return result, req.Meta.Cursor != "", nil
+			},
+		), nil
 }
-
 // RoleGrants represent relationships between composite roles and the roles
 // that make up those composite roles. When a composite role is attached to another
 // role, the permissions granted to members of the composite role are augmented to
 // include the permissions granted to members of the attached role.
 type RoleGrants struct {
-	client plumbing.RoleGrantsClient
-	parent *Client
+	client   plumbing.RoleGrantsClient
+	parent   *Client
 }
-
 // Create registers a new RoleGrant.
-func (svc *RoleGrants) Create(
+func (svc *RoleGrants) Create (
 	ctx context.Context,
-	roleGrant *RoleGrant) (
-	*RoleGrantCreateResponse,
-	error) {
+	roleGrant *RoleGrant,) (
+		*RoleGrantCreateResponse,
+		error,) {
 	req := &plumbing.RoleGrantCreateRequest{}
-
+		
 	req.RoleGrant = convertRoleGrantToPlumbing(roleGrant)
-	var plumbingResponse *plumbing.RoleGrantCreateResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "RoleGrants.Create"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.RoleGrantCreateResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "RoleGrants.Create"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &RoleGrantCreateResponse{}
 	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RoleGrant = convertRoleGrantToPorcelain(plumbingResponse.RoleGrant)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Get reads one RoleGrant by ID.
-func (svc *RoleGrants) Get(
+func (svc *RoleGrants) Get (
 	ctx context.Context,
-	id string) (
-	*RoleGrantGetResponse,
-	error) {
+	id string,) (
+		*RoleGrantGetResponse,
+		error,) {
 	req := &plumbing.RoleGrantGetRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.RoleGrantGetResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "RoleGrants.Get"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.RoleGrantGetResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "RoleGrants.Get"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &RoleGrantGetResponse{}
 	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RoleGrant = convertRoleGrantToPorcelain(plumbingResponse.RoleGrant)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Delete removes a RoleGrant by ID.
-func (svc *RoleGrants) Delete(
+func (svc *RoleGrants) Delete (
 	ctx context.Context,
-	id string) (
-	*RoleGrantDeleteResponse,
-	error) {
+	id string,) (
+		*RoleGrantDeleteResponse,
+		error,) {
 	req := &plumbing.RoleGrantDeleteRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.RoleGrantDeleteResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "RoleGrants.Delete"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.RoleGrantDeleteResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "RoleGrants.Delete"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &RoleGrantDeleteResponse{}
 	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // List gets a list of RoleGrants matching a given set of criteria.
-func (svc *RoleGrants) List(
+func (svc *RoleGrants) List (
 	ctx context.Context,
 	filter string,
-	args ...interface{}) (
-	RoleGrantIterator,
-	error) {
+		args ...interface{},) (
+RoleGrantIterator,
+		error,) {
 	req := &plumbing.RoleGrantListRequest{}
-
+		
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
-	if filterErr != nil {
-		return nil, filterErr
-	}
-	req.Meta = &plumbing.ListRequestMetadata{}
-	if value := svc.parent.testOption("PageLimit"); value != nil {
-		v, ok := value.(int)
-		if ok {
-			req.Meta.Limit = int32(v)
+		if filterErr != nil {
+			return nil, filterErr
 		}
-	}
-	return newRoleGrantIteratorImpl(
-		func() (
-			[]*RoleGrant,
-			bool, error) {
-			var plumbingResponse *plumbing.RoleGrantListResponse
-			var err error
-			i := 0
-			for {
-				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RoleGrants.List"), req)
-				if err != nil {
-					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, convertErrorToPorcelain(err)
-					}
-					i++
-					svc.parent.jitterSleep(i)
-					continue
-				}
-				break
+		req.Meta = &plumbing.ListRequestMetadata{}
+		if value := svc.parent.testOption("PageLimit"); value != nil {
+			v, ok := value.(int)
+			if ok {
+				req.Meta.Limit = int32(v)
 			}
-			result := convertRepeatedRoleGrantToPorcelain(plumbingResponse.RoleGrants)
-			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
-			return result, req.Meta.Cursor != "", nil
-		},
-	), nil
+		}
+		return newRoleGrantIteratorImpl(
+			func() (
+				[]*RoleGrant,
+				bool, error) {
+				var plumbingResponse *plumbing.RoleGrantListResponse
+				var err error
+				i := 0
+				for {
+					plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RoleGrants.List"), req)
+					if err != nil {
+						if !svc.parent.shouldRetry(i, err) {
+							return nil, false, convertErrorToPorcelain(err)
+						}
+						i++
+						svc.parent.jitterSleep(i)
+						continue
+					}
+					break
+				}
+				result := convertRepeatedRoleGrantToPorcelain(plumbingResponse.RoleGrants)
+				req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+				return result, req.Meta.Cursor != "", nil
+			},
+		), nil
 }
-
 // Roles are tools for controlling user access to resources. Each Role holds a
 // list of resources which they grant access to. Composite roles are a special
 // type of Role which have no resource associations of their own, but instead
 // grant access to the combined resources associated with a set of child roles.
 // Each user can be a member of one Role or composite role.
 type Roles struct {
-	client plumbing.RolesClient
-	parent *Client
+	client   plumbing.RolesClient
+	parent   *Client
 }
-
 // Create registers a new Role.
-func (svc *Roles) Create(
+func (svc *Roles) Create (
 	ctx context.Context,
-	role *Role) (
-	*RoleCreateResponse,
-	error) {
+	role *Role,) (
+		*RoleCreateResponse,
+		error,) {
 	req := &plumbing.RoleCreateRequest{}
-
+		
 	req.Role = convertRoleToPlumbing(role)
-	var plumbingResponse *plumbing.RoleCreateResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Roles.Create"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.RoleCreateResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Create(svc.parent.wrapContext(ctx, req, "Roles.Create"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &RoleCreateResponse{}
 	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Role = convertRoleToPorcelain(plumbingResponse.Role)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Get reads one Role by ID.
-func (svc *Roles) Get(
+func (svc *Roles) Get (
 	ctx context.Context,
-	id string) (
-	*RoleGetResponse,
-	error) {
+	id string,) (
+		*RoleGetResponse,
+		error,) {
 	req := &plumbing.RoleGetRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.RoleGetResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Roles.Get"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.RoleGetResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Roles.Get"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &RoleGetResponse{}
 	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Role = convertRoleToPorcelain(plumbingResponse.Role)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Update patches a Role by ID.
-func (svc *Roles) Update(
+func (svc *Roles) Update (
 	ctx context.Context,
-	role *Role) (
-	*RoleUpdateResponse,
-	error) {
+	role *Role,) (
+		*RoleUpdateResponse,
+		error,) {
 	req := &plumbing.RoleUpdateRequest{}
-
+		
 	req.Role = convertRoleToPlumbing(role)
-	var plumbingResponse *plumbing.RoleUpdateResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Roles.Update"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.RoleUpdateResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "Roles.Update"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &RoleUpdateResponse{}
 	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.Role = convertRoleToPorcelain(plumbingResponse.Role)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // Delete removes a Role by ID.
-func (svc *Roles) Delete(
+func (svc *Roles) Delete (
 	ctx context.Context,
-	id string) (
-	*RoleDeleteResponse,
-	error) {
+	id string,) (
+		*RoleDeleteResponse,
+		error,) {
 	req := &plumbing.RoleDeleteRequest{}
-
+		
 	req.Id = (id)
-	var plumbingResponse *plumbing.RoleDeleteResponse
-	var err error
-	i := 0
-	for {
-		plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Roles.Delete"), req)
-		if err != nil {
-			if !svc.parent.shouldRetry(i, err) {
-				return nil, convertErrorToPorcelain(err)
+		var plumbingResponse *plumbing.RoleDeleteResponse
+		var err error
+		i := 0
+		for {
+			plumbingResponse, err = svc.client.Delete(svc.parent.wrapContext(ctx, req, "Roles.Delete"), req)
+			if err != nil {
+				if !svc.parent.shouldRetry(i, err) {
+					return nil, convertErrorToPorcelain(err)
+				}
+				i++
+				svc.parent.jitterSleep(i)
+				continue
 			}
-			i++
-			svc.parent.jitterSleep(i)
-			continue
+			break
 		}
-		break
-	}
-
+			
 	resp := &RoleDeleteResponse{}
 	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
-	return resp, nil
+		return resp, nil
 }
-
 // List gets a list of Roles matching a given set of criteria.
-func (svc *Roles) List(
+func (svc *Roles) List (
 	ctx context.Context,
 	filter string,
-	args ...interface{}) (
-	RoleIterator,
-	error) {
+		args ...interface{},) (
+RoleIterator,
+		error,) {
 	req := &plumbing.RoleListRequest{}
-
+		
 	var filterErr error
 	req.Filter, filterErr = quoteFilterArgs(filter, args...)
-	if filterErr != nil {
-		return nil, filterErr
-	}
-	req.Meta = &plumbing.ListRequestMetadata{}
-	if value := svc.parent.testOption("PageLimit"); value != nil {
-		v, ok := value.(int)
-		if ok {
-			req.Meta.Limit = int32(v)
+		if filterErr != nil {
+			return nil, filterErr
 		}
-	}
-	return newRoleIteratorImpl(
-		func() (
-			[]*Role,
-			bool, error) {
-			var plumbingResponse *plumbing.RoleListResponse
-			var err error
-			i := 0
-			for {
-				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Roles.List"), req)
-				if err != nil {
-					if !svc.parent.shouldRetry(i, err) {
-						return nil, false, convertErrorToPorcelain(err)
-					}
-					i++
-					svc.parent.jitterSleep(i)
-					continue
-				}
-				break
+		req.Meta = &plumbing.ListRequestMetadata{}
+		if value := svc.parent.testOption("PageLimit"); value != nil {
+			v, ok := value.(int)
+			if ok {
+				req.Meta.Limit = int32(v)
 			}
-			result := convertRepeatedRoleToPorcelain(plumbingResponse.Roles)
-			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
-			return result, req.Meta.Cursor != "", nil
-		},
-	), nil
+		}
+		return newRoleIteratorImpl(
+			func() (
+				[]*Role,
+				bool, error) {
+				var plumbingResponse *plumbing.RoleListResponse
+				var err error
+				i := 0
+				for {
+					plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Roles.List"), req)
+					if err != nil {
+						if !svc.parent.shouldRetry(i, err) {
+							return nil, false, convertErrorToPorcelain(err)
+						}
+						i++
+						svc.parent.jitterSleep(i)
+						continue
+					}
+					break
+				}
+				result := convertRepeatedRoleToPorcelain(plumbingResponse.Roles)
+				req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+				return result, req.Meta.Cursor != "", nil
+			},
+		), nil
 }
