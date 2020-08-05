@@ -22,27 +22,27 @@ package sdm
 
 import (
 	"context"
-	"math/rand"
 	"crypto/hmac"
 	"crypto/sha256"
 	"crypto/tls"
 	"encoding/base64"
 	"fmt"
+	"math/rand"
 	"sync"
 	"time"
 
 	"github.com/golang/protobuf/proto"
+	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
-	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 )
 
 var (
 	defaultAPIHost = "api.strongdm.com:443"
-	_ = metadata.Pairs
+	_              = metadata.Pairs
 )
 
 // Client is the strongDM API client implementation.
@@ -50,24 +50,24 @@ type Client struct {
 	testOptionsMu sync.RWMutex
 	testOptions   map[string]interface{}
 
-	apiHost string
-	apiToken string
-	apiSecret []byte
+	apiHost              string
+	apiToken             string
+	apiSecret            []byte
 	apiInsecureTransport bool
 
 	grpcConn *grpc.ClientConn
 
-	maxRetries int
-	baseRetryDelay time.Duration
-	maxRetryDelay time.Duration
-accountAttachments *AccountAttachments
-accountGrants *AccountGrants
-accounts *Accounts
-nodes *Nodes
-resources *Resources
-roleAttachments *RoleAttachments
-roleGrants *RoleGrants
-roles *Roles
+	maxRetries         int
+	baseRetryDelay     time.Duration
+	maxRetryDelay      time.Duration
+	accountAttachments *AccountAttachments
+	accountGrants      *AccountGrants
+	accounts           *Accounts
+	nodes              *Nodes
+	resources          *Resources
+	roleAttachments    *RoleAttachments
+	roleGrants         *RoleGrants
+	roles              *Roles
 }
 
 // New creates a new strongDM API client.
@@ -78,13 +78,13 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 	}
 
 	client := &Client{
-		apiHost: defaultAPIHost,
-		maxRetries: defaultMaxRetries,
+		apiHost:        defaultAPIHost,
+		maxRetries:     defaultMaxRetries,
 		baseRetryDelay: defaultBaseRetryDelay,
-		maxRetryDelay: defaultMaxRetryDelay,
-		testOptions: map[string]interface{}{},
-		apiToken: token,
-		apiSecret: decodedSecret,
+		maxRetryDelay:  defaultMaxRetryDelay,
+		testOptions:    map[string]interface{}{},
+		apiToken:       token,
+		apiSecret:      decodedSecret,
 	}
 
 	for _, opt := range opts {
@@ -153,54 +153,62 @@ func WithInsecure() ClientOption {
 		c.apiInsecureTransport = true
 	}
 }
+
 // AccountAttachments assign an account to a role.
-func (c *Client) AccountAttachments() *AccountAttachments{
+func (c *Client) AccountAttachments() *AccountAttachments {
 	return c.accountAttachments
 }
+
 // AccountGrants assign a resource directly to an account, giving the account the permission to connect to that resource.
-func (c *Client) AccountGrants() *AccountGrants{
+func (c *Client) AccountGrants() *AccountGrants {
 	return c.accountGrants
 }
+
 // Accounts are users that have access to strongDM.
 // There are two types of accounts:
 // 1. **Regular users:** humans who are authenticated through username and password or SSO
 // 2. **Service users:** machines that are authneticated using a service token
-func (c *Client) Accounts() *Accounts{
+func (c *Client) Accounts() *Accounts {
 	return c.accounts
 }
+
 // Nodes make up the strongDM network, and allow your users to connect securely to your resources.
 // There are two types of nodes:
 // 1. **Relay:** creates connectivity to your datasources, while maintaining the egress-only nature of your firewall
 // 1. **Gateways:** a relay that also listens for connections from strongDM clients
-func (c *Client) Nodes() *Nodes{
+func (c *Client) Nodes() *Nodes {
 	return c.nodes
 }
 
-func (c *Client) Resources() *Resources{
+func (c *Client) Resources() *Resources {
 	return c.resources
 }
+
 // RoleAttachments represent relationships between composite roles and the roles
 // that make up those composite roles. When a composite role is attached to another
 // role, the permissions granted to members of the composite role are augmented to
 // include the permissions granted to members of the attached role.
-func (c *Client) RoleAttachments() *RoleAttachments{
+func (c *Client) RoleAttachments() *RoleAttachments {
 	return c.roleAttachments
 }
+
 // RoleGrants represent relationships between composite roles and the roles
 // that make up those composite roles. When a composite role is attached to another
 // role, the permissions granted to members of the composite role are augmented to
 // include the permissions granted to members of the attached role.
-func (c *Client) RoleGrants() *RoleGrants{
+func (c *Client) RoleGrants() *RoleGrants {
 	return c.roleGrants
 }
+
 // Roles are tools for controlling user access to resources. Each Role holds a
 // list of resources which they grant access to. Composite roles are a special
 // type of Role which have no resource associations of their own, but instead
 // grant access to the combined resources associated with a set of child roles.
 // Each user can be a member of one Role or composite role.
-func (c *Client) Roles() *Roles{
+func (c *Client) Roles() *Roles {
 	return c.roles
 }
+
 // Sign returns the signature for the given byte array
 func (c *Client) Sign(methodName string, message []byte) string {
 	// Current UTC date
@@ -225,15 +233,13 @@ func hmacHelper(key, msg []byte) []byte {
 	return mac.Sum(nil)
 }
 
-
 func (c *Client) wrapContext(ctx context.Context, req proto.Message, methodName string) context.Context {
 	msg, _ := proto.Marshal(req)
 	return metadata.NewOutgoingContext(ctx, metadata.New(map[string]string{
-		"x-sdm-authentication":   c.apiToken,
-		"x-sdm-signature": c.Sign(methodName, msg),
+		"x-sdm-authentication": c.apiToken,
+		"x-sdm-signature":      c.Sign(methodName, msg),
 	}))
 }
-
 
 func (c *Client) testOption(key string) interface{} {
 	c.testOptionsMu.RLock()
@@ -244,21 +250,21 @@ func (c *Client) testOption(key string) interface{} {
 // These defaults are taken from AWS. Customization of these values
 // is a future step in the API.
 const (
-	defaultMaxRetries = 3
+	defaultMaxRetries     = 3
 	defaultBaseRetryDelay = 30 * time.Millisecond
-	defaultMaxRetryDelay = 300 * time.Second
+	defaultMaxRetryDelay  = 300 * time.Second
 )
 
 func (c *Client) jitterSleep(iter int) {
-    durMax := c.baseRetryDelay * time.Duration(2<<iter)
-    if durMax > c.maxRetryDelay {
-        durMax = c.maxRetryDelay
-    }
+	durMax := c.baseRetryDelay * time.Duration(2<<iter)
+	if durMax > c.maxRetryDelay {
+		durMax = c.maxRetryDelay
+	}
 	// This is a full jitter, ranging from no delay to the maximum
 	// this jittering aims to prevent clients that start and conflict
 	// at the same time from retrying at the same intervals
-    dur := rand.Intn(int(durMax))
-    time.Sleep(time.Duration(dur))
+	dur := rand.Intn(int(durMax))
+	time.Sleep(time.Duration(dur))
 }
 
 func (c *Client) shouldRetry(iter int, err error) bool {
