@@ -1459,15 +1459,9 @@ Port int32 `json:"port"`
 
 CertificateAuthority string `json:"certificate_authority"`
 
-CertificateAuthorityFilename string `json:"certificate_authority_filename"`
-
 ClientCertificate string `json:"client_certificate"`
 
-ClientCertificateFilename string `json:"client_certificate_filename"`
-
 ClientKey string `json:"client_key"`
-
-ClientKeyFilename string `json:"client_key_filename"`
 
 HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
@@ -1530,8 +1524,6 @@ SecretAccessKey string `json:"secret_access_key"`
 
 CertificateAuthority string `json:"certificate_authority"`
 
-CertificateAuthorityFilename string `json:"certificate_authority_filename"`
-
 Region string `json:"region"`
 
 ClusterName string `json:"cluster_name"`
@@ -1555,11 +1547,7 @@ Endpoint string `json:"endpoint"`
 
 CertificateAuthority string `json:"certificate_authority"`
 
-CertificateAuthorityFilename string `json:"certificate_authority_filename"`
-
 ServiceAccountKey string `json:"service_account_key"`
-
-ServiceAccountKeyFilename string `json:"service_account_key_filename"`
 
 HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
@@ -1580,15 +1568,9 @@ Port int32 `json:"port"`
 
 CertificateAuthority string `json:"certificate_authority"`
 
-CertificateAuthorityFilename string `json:"certificate_authority_filename"`
-
 ClientCertificate string `json:"client_certificate"`
 
-ClientCertificateFilename string `json:"client_certificate_filename"`
-
 ClientKey string `json:"client_key"`
-
-ClientKeyFilename string `json:"client_key_filename"`
 
 HealthcheckNamespace string `json:"healthcheck_namespace"`
 }
