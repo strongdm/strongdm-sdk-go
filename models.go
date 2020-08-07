@@ -90,7 +90,7 @@ type AccountAttachmentDeleteResponse struct {
 	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
-// AccountAttachments assign an account to a role.
+// AccountAttachments assign an account to a role or composite role.
 type AccountAttachment struct {
 	// Unique identifier of the AccountAttachment.
 	ID string `json:"id"`
@@ -186,10 +186,9 @@ type AccountDeleteResponse struct {
 	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
-// Accounts are users that have access to strongDM.
-// There are two types of accounts:
-// 1. **Regular users:** humans who are authenticated through username and password or SSO
-// 2. **Service users:** machines that are authneticated using a service token
+// Accounts are users that have access to strongDM. There are two types of accounts:
+// 1. **Users:** humans who are authenticated through username and password or SSO.
+// 2. **Service Accounts:** machines that are authenticated using a service token.
 type Account interface {
 	// GetID returns the unique identifier of the Account.
 	GetID() string
@@ -2638,7 +2637,7 @@ func (m *Gateway) SetTags(v Tags) {
 type Relay struct {
 	// Unique identifier of the Relay.
 	ID string `json:"id"`
-	// Unique human-readable name of the Relay. Generated if not provided on create.
+	// Unique human-readable name of the Relay. Node names must include only letters, numbers, and hyphens (no spaces, underscores, or other special characters). Generated if not provided on create.
 	Name string `json:"name"`
 	// The current state of the relay. One of: "new", "verifying_restart",
 	// "awaiting_restart", "restarting", "started", "stopped", "dead",
@@ -2652,7 +2651,7 @@ type Relay struct {
 type Gateway struct {
 	// Unique identifier of the Gateway.
 	ID string `json:"id"`
-	// Unique human-readable name of the Gateway. Generated if not provided on create.
+	// Unique human-readable name of the Gateway. Node names must include only letters, numbers, and hyphens (no spaces, underscores, or other special characters). Generated if not provided on create.
 	Name string `json:"name"`
 	// The current state of the gateway. One of: "new", "verifying_restart",
 	// "restarting", "started", "stopped", "dead", "unknown"
@@ -2771,8 +2770,7 @@ type RoleGrantDeleteResponse struct {
 	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
-// A RoleGrant connects a resource to a role, granting members of the role
-// access to that resource.
+// A RoleGrant connects a resource to a role, granting members of the role access to that resource.
 type RoleGrant struct {
 	// Unique identifier of the RoleGrant.
 	ID string `json:"id"`
@@ -2822,7 +2820,7 @@ type RoleDeleteResponse struct {
 	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
 
-// A Role is a collection of permissions, and typically corresponds to a team, Active Directory OU, or other organizational unit. Users are granted access to resources by assigning them to roles.
+// A Role is a collection of access grants, and typically corresponds to a team, Active Directory OU, or other organizational unit. Users are granted access to resources by assigning them to roles.
 type Role struct {
 	// Unique identifier of the Role.
 	ID string `json:"id"`

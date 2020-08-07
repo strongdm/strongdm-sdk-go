@@ -23,7 +23,7 @@ import (
 	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 )
 
-// AccountAttachments assign an account to a role.
+// AccountAttachments assign an account to a role or composite role.
 type AccountAttachments struct {
 	client plumbing.AccountAttachmentsClient
 	parent *Client
@@ -319,10 +319,9 @@ func (svc *AccountGrants) List(
 	), nil
 }
 
-// Accounts are users that have access to strongDM.
-// There are two types of accounts:
-// 1. **Regular users:** humans who are authenticated through username and password or SSO
-// 2. **Service users:** machines that are authneticated using a service token
+// Accounts are users that have access to strongDM. There are two types of accounts:
+// 1. **Users:** humans who are authenticated through username and password or SSO.
+// 2. **Service Accounts:** machines that are authenticated using a service token.
 type Accounts struct {
 	client plumbing.AccountsClient
 	parent *Client
@@ -503,10 +502,9 @@ func (svc *Accounts) List(
 	), nil
 }
 
-// Nodes make up the strongDM network, and allow your users to connect securely to your resources.
-// There are two types of nodes:
-// 1. **Relay:** creates connectivity to your datasources, while maintaining the egress-only nature of your firewall
-// 1. **Gateways:** a relay that also listens for connections from strongDM clients
+// Nodes make up the strongDM network, and allow your users to connect securely to your resources. There are two types of nodes:
+// - **Gateways** are the entry points into network. They listen for connection from the strongDM client, and provide access to databases and servers.
+// - **Relays** are used to extend the strongDM network into segmented subnets. They provide access to databases and servers but do not listen for incoming connections.
 type Nodes struct {
 	client plumbing.NodesClient
 	parent *Client

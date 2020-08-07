@@ -154,7 +154,7 @@ func WithInsecure() ClientOption {
 	}
 }
 
-// AccountAttachments assign an account to a role.
+// AccountAttachments assign an account to a role or composite role.
 func (c *Client) AccountAttachments() *AccountAttachments {
 	return c.accountAttachments
 }
@@ -164,18 +164,16 @@ func (c *Client) AccountGrants() *AccountGrants {
 	return c.accountGrants
 }
 
-// Accounts are users that have access to strongDM.
-// There are two types of accounts:
-// 1. **Regular users:** humans who are authenticated through username and password or SSO
-// 2. **Service users:** machines that are authneticated using a service token
+// Accounts are users that have access to strongDM. There are two types of accounts:
+// 1. **Users:** humans who are authenticated through username and password or SSO.
+// 2. **Service Accounts:** machines that are authenticated using a service token.
 func (c *Client) Accounts() *Accounts {
 	return c.accounts
 }
 
-// Nodes make up the strongDM network, and allow your users to connect securely to your resources.
-// There are two types of nodes:
-// 1. **Relay:** creates connectivity to your datasources, while maintaining the egress-only nature of your firewall
-// 1. **Gateways:** a relay that also listens for connections from strongDM clients
+// Nodes make up the strongDM network, and allow your users to connect securely to your resources. There are two types of nodes:
+// - **Gateways** are the entry points into network. They listen for connection from the strongDM client, and provide access to databases and servers.
+// - **Relays** are used to extend the strongDM network into segmented subnets. They provide access to databases and servers but do not listen for incoming connections.
 func (c *Client) Nodes() *Nodes {
 	return c.nodes
 }
