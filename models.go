@@ -282,6 +282,18 @@ type Service struct {
 	Tags Tags `json:"tags"`
 }
 
+// ControlPanelGetSSHCAPublicKeyResponse represents a request for an
+// organization's SSH Certificate Authority public key.
+type ControlPanelGetSSHCAPublicKeyResponse struct {
+	// Reserved for future use.
+	Meta *GetResponseMetadata `json:"meta"`
+	// The public key of the SSH Certificate Authority, in OpenSSH RSA public
+	// key format.
+	PublicKey string `json:"public_key"`
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
+}
+
 // A Resource is a database or server for which strongDM manages access.
 type Resource interface {
 	// GetID returns the unique identifier of the Resource.

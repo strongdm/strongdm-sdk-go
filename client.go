@@ -63,6 +63,7 @@ type Client struct {
 	accountAttachments *AccountAttachments
 	accountGrants      *AccountGrants
 	accounts           *Accounts
+	controlPanel       *ControlPanel
 	nodes              *Nodes
 	resources          *Resources
 	roleAttachments    *RoleAttachments
@@ -117,6 +118,10 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 		client: plumbing.NewAccountsClient(client.grpcConn),
 		parent: client,
 	}
+	client.controlPanel = &ControlPanel{
+		client: plumbing.NewControlPanelClient(client.grpcConn),
+		parent: client,
+	}
 	client.nodes = &Nodes{
 		client: plumbing.NewNodesClient(client.grpcConn),
 		parent: client,
@@ -169,6 +174,11 @@ func (c *Client) AccountGrants() *AccountGrants {
 // 2. **Service Accounts:** machines that are authenticated using a service token.
 func (c *Client) Accounts() *Accounts {
 	return c.accounts
+}
+
+// ControlPanel contains all administrative controls.
+func (c *Client) ControlPanel() *ControlPanel {
+	return c.controlPanel
 }
 
 // Nodes make up the strongDM network, and allow your users to connect securely to your resources. There are two types of nodes:

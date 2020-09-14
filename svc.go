@@ -502,6 +502,42 @@ func (svc *Accounts) List(
 	), nil
 }
 
+// ControlPanel contains all administrative controls.
+type ControlPanel struct {
+	client plumbing.ControlPanelClient
+	parent *Client
+}
+
+// GetSSHCAPublicKey retrieves the SSH CA public key.
+func (svc *ControlPanel) GetSSHCAPublicKey(
+	ctx context.Context) (
+	*ControlPanelGetSSHCAPublicKeyResponse,
+	error) {
+	req := &plumbing.ControlPanelGetSSHCAPublicKeyRequest{}
+
+	var plumbingResponse *plumbing.ControlPanelGetSSHCAPublicKeyResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.GetSSHCAPublicKey(svc.parent.wrapContext(ctx, req, "ControlPanel.GetSSHCAPublicKey"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, convertErrorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &ControlPanelGetSSHCAPublicKeyResponse{}
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.PublicKey = (plumbingResponse.PublicKey)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	return resp, nil
+}
+
 // Nodes make up the strongDM network, and allow your users to connect securely to your resources. There are two types of nodes:
 // - **Gateways** are the entry points into network. They listen for connection from the strongDM client, and provide access to databases and servers.
 // - **Relays** are used to extend the strongDM network into segmented subnets. They provide access to databases and servers but do not listen for incoming connections.
