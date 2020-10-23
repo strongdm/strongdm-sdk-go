@@ -2844,6 +2844,62 @@ type Role struct {
 	Tags Tags `json:"tags"`
 }
 
+// SecretStoreCreateResponse reports how the SecretStores were created in the system.
+type SecretStoreCreateResponse struct {
+	// Reserved for future use.
+	Meta *CreateResponseMetadata `json:"meta"`
+	// The created SecretStore.
+	SecretStore *SecretStore `json:"secret_store"`
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
+}
+
+// SecretStoreGetResponse returns a requested SecretStore.
+type SecretStoreGetResponse struct {
+	// Reserved for future use.
+	Meta *GetResponseMetadata `json:"meta"`
+	// The requested SecretStore.
+	SecretStore *SecretStore `json:"secret_store"`
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
+}
+
+// SecretStoreUpdateResponse returns the fields of a SecretStore after it has been updated by
+// a SecretStoreUpdateRequest.
+type SecretStoreUpdateResponse struct {
+	// Reserved for future use.
+	Meta *UpdateResponseMetadata `json:"meta"`
+	// The updated SecretStore.
+	SecretStore *SecretStore `json:"secret_store"`
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
+}
+
+// SecretStoreDeleteResponse returns information about a SecretStore that was deleted.
+type SecretStoreDeleteResponse struct {
+	// Reserved for future use.
+	Meta *DeleteResponseMetadata `json:"meta"`
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rate_limit"`
+}
+
+// A SecretStore is a ...
+type SecretStore struct {
+	// option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+	// example: { value: '{ "id": "r-7", "name": "happy-goat"}' }
+	// };
+	// Unique identifier of the SecretStore.
+	ID string `json:"id"`
+	// Unique human-readable name of the SecretStore.
+	Name string `json:"name"`
+
+	ServerAddress string `json:"server_address"`
+
+	Kind string `json:"kind"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+}
+
 // AccountAttachmentIterator provides read access to a list of AccountAttachment.
 // Use it like so:
 //     for iterator.Next() {
@@ -2968,6 +3024,22 @@ type RoleIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() *Role
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// SecretStoreIterator provides read access to a list of SecretStore.
+// Use it like so:
+//     for iterator.Next() {
+//         secretStore := iterator.Value()
+//         // ...
+//     }
+type SecretStoreIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *SecretStore
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }

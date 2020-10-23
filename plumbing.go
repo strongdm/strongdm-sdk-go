@@ -4545,6 +4545,198 @@ func convertRepeatedRoleToPorcelain(plumbings []*proto.Role) []*Role {
 	}
 	return items
 }
+func convertSecretStoreCreateResponseToPorcelain(plumbing *proto.SecretStoreCreateResponse) *SecretStoreCreateResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &SecretStoreCreateResponse{}
+	porcelain.Meta = convertCreateResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.SecretStore = convertSecretStoreToPorcelain(plumbing.SecretStore)
+	porcelain.RateLimit = convertRateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func convertSecretStoreCreateResponseToPlumbing(porcelain *SecretStoreCreateResponse) *proto.SecretStoreCreateResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SecretStoreCreateResponse{}
+	plumbing.Meta = convertCreateResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.SecretStore = convertSecretStoreToPlumbing(porcelain.SecretStore)
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedSecretStoreCreateResponseToPlumbing(
+	porcelains []*SecretStoreCreateResponse,
+) []*proto.SecretStoreCreateResponse {
+	var items []*proto.SecretStoreCreateResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertSecretStoreCreateResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedSecretStoreCreateResponseToPorcelain(plumbings []*proto.SecretStoreCreateResponse) []*SecretStoreCreateResponse {
+	var items []*SecretStoreCreateResponse
+	for _, plumbing := range plumbings {
+		items = append(items, convertSecretStoreCreateResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func convertSecretStoreGetResponseToPorcelain(plumbing *proto.SecretStoreGetResponse) *SecretStoreGetResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &SecretStoreGetResponse{}
+	porcelain.Meta = convertGetResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.SecretStore = convertSecretStoreToPorcelain(plumbing.SecretStore)
+	porcelain.RateLimit = convertRateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func convertSecretStoreGetResponseToPlumbing(porcelain *SecretStoreGetResponse) *proto.SecretStoreGetResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SecretStoreGetResponse{}
+	plumbing.Meta = convertGetResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.SecretStore = convertSecretStoreToPlumbing(porcelain.SecretStore)
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedSecretStoreGetResponseToPlumbing(
+	porcelains []*SecretStoreGetResponse,
+) []*proto.SecretStoreGetResponse {
+	var items []*proto.SecretStoreGetResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertSecretStoreGetResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedSecretStoreGetResponseToPorcelain(plumbings []*proto.SecretStoreGetResponse) []*SecretStoreGetResponse {
+	var items []*SecretStoreGetResponse
+	for _, plumbing := range plumbings {
+		items = append(items, convertSecretStoreGetResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func convertSecretStoreUpdateResponseToPorcelain(plumbing *proto.SecretStoreUpdateResponse) *SecretStoreUpdateResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &SecretStoreUpdateResponse{}
+	porcelain.Meta = convertUpdateResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.SecretStore = convertSecretStoreToPorcelain(plumbing.SecretStore)
+	porcelain.RateLimit = convertRateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func convertSecretStoreUpdateResponseToPlumbing(porcelain *SecretStoreUpdateResponse) *proto.SecretStoreUpdateResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SecretStoreUpdateResponse{}
+	plumbing.Meta = convertUpdateResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.SecretStore = convertSecretStoreToPlumbing(porcelain.SecretStore)
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedSecretStoreUpdateResponseToPlumbing(
+	porcelains []*SecretStoreUpdateResponse,
+) []*proto.SecretStoreUpdateResponse {
+	var items []*proto.SecretStoreUpdateResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertSecretStoreUpdateResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedSecretStoreUpdateResponseToPorcelain(plumbings []*proto.SecretStoreUpdateResponse) []*SecretStoreUpdateResponse {
+	var items []*SecretStoreUpdateResponse
+	for _, plumbing := range plumbings {
+		items = append(items, convertSecretStoreUpdateResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func convertSecretStoreDeleteResponseToPorcelain(plumbing *proto.SecretStoreDeleteResponse) *SecretStoreDeleteResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &SecretStoreDeleteResponse{}
+	porcelain.Meta = convertDeleteResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.RateLimit = convertRateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func convertSecretStoreDeleteResponseToPlumbing(porcelain *SecretStoreDeleteResponse) *proto.SecretStoreDeleteResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SecretStoreDeleteResponse{}
+	plumbing.Meta = convertDeleteResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedSecretStoreDeleteResponseToPlumbing(
+	porcelains []*SecretStoreDeleteResponse,
+) []*proto.SecretStoreDeleteResponse {
+	var items []*proto.SecretStoreDeleteResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertSecretStoreDeleteResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedSecretStoreDeleteResponseToPorcelain(plumbings []*proto.SecretStoreDeleteResponse) []*SecretStoreDeleteResponse {
+	var items []*SecretStoreDeleteResponse
+	for _, plumbing := range plumbings {
+		items = append(items, convertSecretStoreDeleteResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func convertSecretStoreToPorcelain(plumbing *proto.SecretStore) *SecretStore {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &SecretStore{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.ServerAddress = (plumbing.ServerAddress)
+	porcelain.Kind = (plumbing.Kind)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	return porcelain
+}
+
+func convertSecretStoreToPlumbing(porcelain *SecretStore) *proto.SecretStore {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SecretStore{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.ServerAddress = (porcelain.ServerAddress)
+	plumbing.Kind = (porcelain.Kind)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedSecretStoreToPlumbing(
+	porcelains []*SecretStore,
+) []*proto.SecretStore {
+	var items []*proto.SecretStore
+	for _, porcelain := range porcelains {
+		items = append(items, convertSecretStoreToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedSecretStoreToPorcelain(plumbings []*proto.SecretStore) []*SecretStore {
+	var items []*SecretStore
+	for _, plumbing := range plumbings {
+		items = append(items, convertSecretStoreToPorcelain(plumbing))
+	}
+	return items
+}
 
 type rpcError struct {
 	wrapped error
@@ -4952,4 +5144,49 @@ func (r *roleIteratorImpl) Value() *Role {
 
 func (r *roleIteratorImpl) Err() error {
 	return r.err
+}
+
+type secretStoreIteratorImplFetchFunc func() (
+	[]*SecretStore,
+	bool, error)
+type secretStoreIteratorImpl struct {
+	buffer      []*SecretStore
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       secretStoreIteratorImplFetchFunc
+}
+
+func newSecretStoreIteratorImpl(f secretStoreIteratorImplFetchFunc) *secretStoreIteratorImpl {
+	return &secretStoreIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (s *secretStoreIteratorImpl) Next() bool {
+	if s.index < len(s.buffer)-1 {
+		s.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !s.hasNextPage {
+		return false
+	}
+
+	s.index = 0
+	s.buffer, s.hasNextPage, s.err = s.fetch()
+	return len(s.buffer) > 0
+}
+
+func (s *secretStoreIteratorImpl) Value() *SecretStore {
+	if s.index >= len(s.buffer) {
+		return nil
+	}
+	return s.buffer[s.index]
+}
+
+func (s *secretStoreIteratorImpl) Err() error {
+	return s.err
 }
