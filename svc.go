@@ -1386,7 +1386,7 @@ func (svc *Roles) List(
 	), nil
 }
 
-// SecretStores are ...
+// SecretStores are servers where resource secrets (passwords, keys) are stored.
 type SecretStores struct {
 	client plumbing.SecretStoresClient
 	parent *Client

@@ -222,7 +222,7 @@ func (c *Client) Roles() *Roles {
 	return c.roles
 }
 
-// SecretStores are ...
+// SecretStores are servers where resource secrets (passwords, keys) are stored.
 func (c *Client) SecretStores() *SecretStores {
 	return c.secretStores
 }
