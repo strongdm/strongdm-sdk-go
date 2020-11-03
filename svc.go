@@ -1394,7 +1394,7 @@ type SecretStores struct {
 
 func (svc *SecretStores) Create(
 	ctx context.Context,
-	secretStore *SecretStore) (
+	secretStore SecretStore) (
 	*SecretStoreCreateResponse,
 	error) {
 	req := &plumbing.SecretStoreCreateRequest{}
@@ -1458,7 +1458,7 @@ func (svc *SecretStores) Get(
 // Update patches a SecretStore by ID.
 func (svc *SecretStores) Update(
 	ctx context.Context,
-	secretStore *SecretStore) (
+	secretStore SecretStore) (
 	*SecretStoreUpdateResponse,
 	error) {
 	req := &plumbing.SecretStoreUpdateRequest{}
@@ -1541,7 +1541,7 @@ func (svc *SecretStores) List(
 	}
 	return newSecretStoreIteratorImpl(
 		func() (
-			[]*SecretStore,
+			[]SecretStore,
 			bool, error) {
 			var plumbingResponse *plumbing.SecretStoreListResponse
 			var err error

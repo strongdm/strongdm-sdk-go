@@ -4695,33 +4695,32 @@ func convertRepeatedSecretStoreDeleteResponseToPorcelain(plumbings []*proto.Secr
 	}
 	return items
 }
-func convertSecretStoreToPorcelain(plumbing *proto.SecretStore) *SecretStore {
-	if plumbing == nil {
-		return nil
-	}
-	porcelain := &SecretStore{}
-	porcelain.ID = (plumbing.Id)
-	porcelain.Name = (plumbing.Name)
-	porcelain.ServerAddress = (plumbing.ServerAddress)
-	porcelain.Kind = (plumbing.Kind)
-	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
-	return porcelain
-}
-
-func convertSecretStoreToPlumbing(porcelain *SecretStore) *proto.SecretStore {
+func convertSecretStoreToPlumbing(porcelain SecretStore) *proto.SecretStore {
 	if porcelain == nil {
 		return nil
 	}
 	plumbing := &proto.SecretStore{}
-	plumbing.Id = (porcelain.ID)
-	plumbing.Name = (porcelain.Name)
-	plumbing.ServerAddress = (porcelain.ServerAddress)
-	plumbing.Kind = (porcelain.Kind)
-	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+
+	switch v := porcelain.(type) {
+	case *VaultTLSStore:
+		plumbing.SecretStore = &proto.SecretStore_VaultTls{VaultTls: convertVaultTLSStoreToPlumbing(v)}
+	case *VaultTokenStore:
+		plumbing.SecretStore = &proto.SecretStore_VaultToken{VaultToken: convertVaultTokenStoreToPlumbing(v)}
+	}
 	return plumbing
 }
+
+func convertSecretStoreToPorcelain(plumbing *proto.SecretStore) SecretStore {
+	if plumbing.GetVaultTls() != nil {
+		return convertVaultTLSStoreToPorcelain(plumbing.GetVaultTls())
+	}
+	if plumbing.GetVaultToken() != nil {
+		return convertVaultTokenStoreToPorcelain(plumbing.GetVaultToken())
+	}
+	return nil
+}
 func convertRepeatedSecretStoreToPlumbing(
-	porcelains []*SecretStore,
+	porcelains []SecretStore,
 ) []*proto.SecretStore {
 	var items []*proto.SecretStore
 	for _, porcelain := range porcelains {
@@ -4730,10 +4729,96 @@ func convertRepeatedSecretStoreToPlumbing(
 	return items
 }
 
-func convertRepeatedSecretStoreToPorcelain(plumbings []*proto.SecretStore) []*SecretStore {
-	var items []*SecretStore
+func convertRepeatedSecretStoreToPorcelain(plumbings []*proto.SecretStore) []SecretStore {
+	var items []SecretStore
 	for _, plumbing := range plumbings {
 		items = append(items, convertSecretStoreToPorcelain(plumbing))
+	}
+	return items
+}
+func convertVaultTokenStoreToPorcelain(plumbing *proto.VaultTokenStore) *VaultTokenStore {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &VaultTokenStore{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.ServerAddress = (plumbing.ServerAddress)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	return porcelain
+}
+
+func convertVaultTokenStoreToPlumbing(porcelain *VaultTokenStore) *proto.VaultTokenStore {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.VaultTokenStore{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.ServerAddress = (porcelain.ServerAddress)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedVaultTokenStoreToPlumbing(
+	porcelains []*VaultTokenStore,
+) []*proto.VaultTokenStore {
+	var items []*proto.VaultTokenStore
+	for _, porcelain := range porcelains {
+		items = append(items, convertVaultTokenStoreToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedVaultTokenStoreToPorcelain(plumbings []*proto.VaultTokenStore) []*VaultTokenStore {
+	var items []*VaultTokenStore
+	for _, plumbing := range plumbings {
+		items = append(items, convertVaultTokenStoreToPorcelain(plumbing))
+	}
+	return items
+}
+func convertVaultTLSStoreToPorcelain(plumbing *proto.VaultTLSStore) *VaultTLSStore {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &VaultTLSStore{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.ServerAddress = (plumbing.ServerAddress)
+	porcelain.CaCertPath = (plumbing.CaCertPath)
+	porcelain.ClientCertPath = (plumbing.ClientCertPath)
+	porcelain.ClientKeyPath = (plumbing.ClientKeyPath)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	return porcelain
+}
+
+func convertVaultTLSStoreToPlumbing(porcelain *VaultTLSStore) *proto.VaultTLSStore {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.VaultTLSStore{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.ServerAddress = (porcelain.ServerAddress)
+	plumbing.CaCertPath = (porcelain.CaCertPath)
+	plumbing.ClientCertPath = (porcelain.ClientCertPath)
+	plumbing.ClientKeyPath = (porcelain.ClientKeyPath)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedVaultTLSStoreToPlumbing(
+	porcelains []*VaultTLSStore,
+) []*proto.VaultTLSStore {
+	var items []*proto.VaultTLSStore
+	for _, porcelain := range porcelains {
+		items = append(items, convertVaultTLSStoreToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedVaultTLSStoreToPorcelain(plumbings []*proto.VaultTLSStore) []*VaultTLSStore {
+	var items []*VaultTLSStore
+	for _, plumbing := range plumbings {
+		items = append(items, convertVaultTLSStoreToPorcelain(plumbing))
 	}
 	return items
 }
@@ -5147,10 +5232,10 @@ func (r *roleIteratorImpl) Err() error {
 }
 
 type secretStoreIteratorImplFetchFunc func() (
-	[]*SecretStore,
+	[]SecretStore,
 	bool, error)
 type secretStoreIteratorImpl struct {
-	buffer      []*SecretStore
+	buffer      []SecretStore
 	index       int
 	hasNextPage bool
 	err         error
@@ -5180,7 +5265,7 @@ func (s *secretStoreIteratorImpl) Next() bool {
 	return len(s.buffer) > 0
 }
 
-func (s *secretStoreIteratorImpl) Value() *SecretStore {
+func (s *secretStoreIteratorImpl) Value() SecretStore {
 	if s.index >= len(s.buffer) {
 		return nil
 	}

@@ -2849,7 +2849,7 @@ type SecretStoreCreateResponse struct {
 	// Reserved for future use.
 	Meta *CreateResponseMetadata `json:"meta"`
 	// The created SecretStore.
-	SecretStore *SecretStore `json:"secret_store"`
+	SecretStore SecretStore `json:"secret_store"`
 	// Rate limit information.
 	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
@@ -2859,7 +2859,7 @@ type SecretStoreGetResponse struct {
 	// Reserved for future use.
 	Meta *GetResponseMetadata `json:"meta"`
 	// The requested SecretStore.
-	SecretStore *SecretStore `json:"secret_store"`
+	SecretStore SecretStore `json:"secret_store"`
 	// Rate limit information.
 	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
@@ -2870,7 +2870,7 @@ type SecretStoreUpdateResponse struct {
 	// Reserved for future use.
 	Meta *UpdateResponseMetadata `json:"meta"`
 	// The updated SecretStore.
-	SecretStore *SecretStore `json:"secret_store"`
+	SecretStore SecretStore `json:"secret_store"`
 	// Rate limit information.
 	RateLimit *RateLimitMetadata `json:"rate_limit"`
 }
@@ -2885,7 +2885,84 @@ type SecretStoreDeleteResponse struct {
 
 // A SecretStore is a server where resource secrets (passwords, keys) are stored.
 // Coming soon support for HashiCorp Vault and AWS Secret Store. Contact support@strongdm.com to request access to the beta.
-type SecretStore struct {
+type SecretStore interface {
+	// GetID returns the unique identifier of the SecretStore.
+	GetID() string
+	// GetTags returns the tags of the SecretStore.
+	GetTags() Tags
+	// SetTags sets the tags of the SecretStore.
+	SetTags(Tags)
+	// GetName returns the name of the SecretStore.
+	GetName() string
+	// SetName sets the name of the SecretStore.
+	SetName(string)
+	isOneOf_SecretStore()
+}
+
+func (*VaultTLSStore) isOneOf_SecretStore() {}
+
+// GetID returns the unique identifier of the VaultTLSStore.
+func (m *VaultTLSStore) GetID() string { return m.ID }
+
+// GetTags returns the tags of the VaultTLSStore.
+func (m *VaultTLSStore) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the VaultTLSStore.
+func (m *VaultTLSStore) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetName returns the name of the VaultTLSStore.
+func (m *VaultTLSStore) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the VaultTLSStore.
+func (m *VaultTLSStore) SetName(v string) {
+	m.Name = v
+}
+func (*VaultTokenStore) isOneOf_SecretStore() {}
+
+// GetID returns the unique identifier of the VaultTokenStore.
+func (m *VaultTokenStore) GetID() string { return m.ID }
+
+// GetTags returns the tags of the VaultTokenStore.
+func (m *VaultTokenStore) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the VaultTokenStore.
+func (m *VaultTokenStore) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetName returns the name of the VaultTokenStore.
+func (m *VaultTokenStore) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the VaultTokenStore.
+func (m *VaultTokenStore) SetName(v string) {
+	m.Name = v
+}
+
+type VaultTokenStore struct {
+	// option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
+	// example: { value: '{ "id": "r-7", "name": "happy-goat"}' }
+	// };
+	// Unique identifier of the SecretStore.
+	ID string `json:"id"`
+	// Unique human-readable name of the SecretStore.
+	Name string `json:"name"`
+
+	ServerAddress string `json:"server_address"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+}
+
+type VaultTLSStore struct {
 	// option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {
 	// example: { value: '{ "id": "r-7", "name": "happy-goat"}' }
 	// };
@@ -2896,7 +2973,11 @@ type SecretStore struct {
 
 	ServerAddress string `json:"server_address"`
 
-	Kind string `json:"kind"`
+	CaCertPath string `json:"ca_cert_path"`
+
+	ClientCertPath string `json:"client_cert_path"`
+
+	ClientKeyPath string `json:"client_key_path"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
 }
@@ -3040,7 +3121,7 @@ type SecretStoreIterator interface {
 	// true if an item is available to retrieve via the `Value()` function.
 	Next() bool
 	// Value returns the current item, if one is available.
-	Value() *SecretStore
+	Value() SecretStore
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }
