@@ -2973,7 +2973,7 @@ type VaultTLSStore struct {
 
 	ServerAddress string `json:"server_address"`
 
-	CaCertPath string `json:"ca_cert_path"`
+	CACertPath string `json:"ca_cert_path"`
 
 	ClientCertPath string `json:"client_cert_path"`
 
