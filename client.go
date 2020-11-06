@@ -31,7 +31,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"

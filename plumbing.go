@@ -20,7 +20,7 @@ package sdm
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/golang/protobuf/ptypes/timestamp"
+	"google.golang.org/protobuf/ptypes/timestamp"
 	proto "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
