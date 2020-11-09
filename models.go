@@ -2949,6 +2949,9 @@ func (m *VaultTokenStore) SetName(v string) {
 }
 
 type VaultTokenStore struct {
+	// option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+	// example:  '{ "id": "r-7", "name": "happy-goat"}'
+	// };
 	// Unique identifier of the SecretStore.
 	ID string `json:"id"`
 	// Unique human-readable name of the SecretStore.
@@ -2960,6 +2963,9 @@ type VaultTokenStore struct {
 }
 
 type VaultTLSStore struct {
+	// option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+	// example:  '{ "id": "r-7", "name": "happy-goat"}'
+	// };
 	// Unique identifier of the SecretStore.
 	ID string `json:"id"`
 	// Unique human-readable name of the SecretStore.

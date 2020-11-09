@@ -31,13 +31,13 @@ import (
 	"sync"
 	"time"
 
-	"google.golang.org/protobuf/proto"
 	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/proto"
 )
 
 var (

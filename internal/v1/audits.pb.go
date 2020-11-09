@@ -21,12 +21,8 @@
 package v1
 
 import (
-	context "context"
 	proto "github.com/golang/protobuf/proto"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
-	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -306,86 +302,4 @@ func file_audits_proto_init() {
 	file_audits_proto_rawDesc = nil
 	file_audits_proto_goTypes = nil
 	file_audits_proto_depIdxs = nil
-}
-
-// Reference imports to suppress errors if they are not otherwise used.
-var _ context.Context
-var _ grpc.ClientConnInterface
-
-// This is a compile-time assertion to ensure that this generated file
-// is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion6
-
-// AuditsClient is the client API for Audits service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type AuditsClient interface {
-	// GetAccessRules gets a list of Access Rules at point-in-time.
-	GetAccessRules(ctx context.Context, in *GetAccessRulesRequest, opts ...grpc.CallOption) (*GetAccessRulesResponse, error)
-}
-
-type auditsClient struct {
-	cc grpc.ClientConnInterface
-}
-
-func NewAuditsClient(cc grpc.ClientConnInterface) AuditsClient {
-	return &auditsClient{cc}
-}
-
-func (c *auditsClient) GetAccessRules(ctx context.Context, in *GetAccessRulesRequest, opts ...grpc.CallOption) (*GetAccessRulesResponse, error) {
-	out := new(GetAccessRulesResponse)
-	err := c.cc.Invoke(ctx, "/v1.Audits/GetAccessRules", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// AuditsServer is the server API for Audits service.
-type AuditsServer interface {
-	// GetAccessRules gets a list of Access Rules at point-in-time.
-	GetAccessRules(context.Context, *GetAccessRulesRequest) (*GetAccessRulesResponse, error)
-}
-
-// UnimplementedAuditsServer can be embedded to have forward compatible implementations.
-type UnimplementedAuditsServer struct {
-}
-
-func (*UnimplementedAuditsServer) GetAccessRules(context.Context, *GetAccessRulesRequest) (*GetAccessRulesResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAccessRules not implemented")
-}
-
-func RegisterAuditsServer(s *grpc.Server, srv AuditsServer) {
-	s.RegisterService(&_Audits_serviceDesc, srv)
-}
-
-func _Audits_GetAccessRules_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetAccessRulesRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuditsServer).GetAccessRules(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/v1.Audits/GetAccessRules",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuditsServer).GetAccessRules(ctx, req.(*GetAccessRulesRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-var _Audits_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "v1.Audits",
-	HandlerType: (*AuditsServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "GetAccessRules",
-			Handler:    _Audits_GetAccessRules_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "audits.proto",
 }

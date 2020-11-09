@@ -20,10 +20,10 @@ package sdm
 import (
 	"encoding/json"
 	"fmt"
-	"google.golang.org/protobuf/ptypes/timestamp"
 	proto "github.com/strongdm/strongdm-sdk-go/internal/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"strings"
 	"time"
 )
@@ -48,18 +48,18 @@ func quoteFilterArgs(filter string, args ...interface{}) (string, error) {
 	return b.String(), nil
 }
 
-func convertTimestampToPorcelain(t *timestamp.Timestamp) time.Time {
+func convertTimestampToPorcelain(t *timestamppb.Timestamp) time.Time {
 	if t == nil {
 		return time.Unix(0, 0).UTC()
 	}
 	return time.Unix(t.Seconds, int64(t.Nanos)).UTC()
 }
 
-func convertTimestampToPlumbing(t time.Time) *timestamp.Timestamp {
+func convertTimestampToPlumbing(t time.Time) *timestamppb.Timestamp {
 	if t.IsZero() {
 		return nil
 	}
-	return &timestamp.Timestamp{
+	return &timestamppb.Timestamp{
 		Seconds: t.Unix(),
 		Nanos:   int32(t.Nanosecond()),
 	}
