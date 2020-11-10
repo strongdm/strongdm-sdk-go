@@ -139,7 +139,7 @@ type UnsafeSecretStoresServer interface {
 	mustEmbedUnimplementedSecretStoresServer()
 }
 
-func RegisterSecretStoresServer(s *grpc.Server, srv SecretStoresServer) {
+func RegisterSecretStoresServer(s grpc.ServiceRegistrar, srv SecretStoresServer) {
 	s.RegisterService(&_SecretStores_serviceDesc, srv)
 }
 

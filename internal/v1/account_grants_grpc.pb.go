@@ -125,7 +125,7 @@ type UnsafeAccountGrantsServer interface {
 	mustEmbedUnimplementedAccountGrantsServer()
 }
 
-func RegisterAccountGrantsServer(s *grpc.Server, srv AccountGrantsServer) {
+func RegisterAccountGrantsServer(s grpc.ServiceRegistrar, srv AccountGrantsServer) {
 	s.RegisterService(&_AccountGrants_serviceDesc, srv)
 }
 

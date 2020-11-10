@@ -141,7 +141,7 @@ type UnsafeNodesServer interface {
 	mustEmbedUnimplementedNodesServer()
 }
 
-func RegisterNodesServer(s *grpc.Server, srv NodesServer) {
+func RegisterNodesServer(s grpc.ServiceRegistrar, srv NodesServer) {
 	s.RegisterService(&_Nodes_serviceDesc, srv)
 }
 

@@ -77,7 +77,7 @@ type UnsafeControlPanelServer interface {
 	mustEmbedUnimplementedControlPanelServer()
 }
 
-func RegisterControlPanelServer(s *grpc.Server, srv ControlPanelServer) {
+func RegisterControlPanelServer(s grpc.ServiceRegistrar, srv ControlPanelServer) {
 	s.RegisterService(&_ControlPanel_serviceDesc, srv)
 }
 

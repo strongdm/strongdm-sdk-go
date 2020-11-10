@@ -77,7 +77,7 @@ type UnsafeAuditsServer interface {
 	mustEmbedUnimplementedAuditsServer()
 }
 
-func RegisterAuditsServer(s *grpc.Server, srv AuditsServer) {
+func RegisterAuditsServer(s grpc.ServiceRegistrar, srv AuditsServer) {
 	s.RegisterService(&_Audits_serviceDesc, srv)
 }
 

@@ -852,7 +852,8 @@ type VaultTLSStore struct {
 	ClientCertPath string `protobuf:"bytes,5,opt,name=client_cert_path,json=clientCertPath,proto3" json:"client_cert_path,omitempty"`
 	ClientKeyPath  string `protobuf:"bytes,6,opt,name=client_key_path,json=clientKeyPath,proto3" json:"client_key_path,omitempty"`
 	// Tags is a map of key, value pairs.
-	Tags *Tags `protobuf:"bytes,7,opt,name=tags,proto3" json:"tags,omitempty"`
+	Tags     *Tags             `protobuf:"bytes,7,opt,name=tags,json=-,proto3" json:"tags,omitempty"`
+	JsonTags map[string]string `protobuf:"bytes,8,rep,name=json_tags,json=tags,proto3" json:"json_tags,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 }
 
 func (x *VaultTLSStore) Reset() {
@@ -932,6 +933,13 @@ func (x *VaultTLSStore) GetClientKeyPath() string {
 func (x *VaultTLSStore) GetTags() *Tags {
 	if x != nil {
 		return x.Tags
+	}
+	return nil
+}
+
+func (x *VaultTLSStore) GetJsonTags() map[string]string {
+	if x != nil {
+		return x.JsonTags
 	}
 	return nil
 }
@@ -1085,7 +1093,7 @@ var file_secret_stores_proto_rawDesc = []byte{
 	0xa2, 0xf3, 0xb3, 0x07, 0x0b, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65,
 	0xa8, 0xf3, 0xb3, 0x07, 0x01, 0xda, 0xf3, 0xb3, 0x07, 0x0a, 0x76, 0x61, 0x75, 0x6c, 0x74, 0x54,
 	0x6f, 0x6b, 0x65, 0x6e, 0xe2, 0xf3, 0xb3, 0x07, 0x0a, 0x76, 0x61, 0x75, 0x6c, 0x74, 0x54, 0x6f,
-	0x6b, 0x65, 0x6e, 0x22, 0xa7, 0x04, 0x0a, 0x0d, 0x56, 0x61, 0x75, 0x6c, 0x74, 0x54, 0x4c, 0x53,
+	0x6b, 0x65, 0x6e, 0x22, 0xa7, 0x05, 0x0a, 0x0d, 0x56, 0x61, 0x75, 0x6c, 0x74, 0x54, 0x4c, 0x53,
 	0x53, 0x74, 0x6f, 0x72, 0x65, 0x12, 0x31, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28,
 	0x09, 0x42, 0x21, 0xf2, 0xf8, 0xb3, 0x07, 0x1c, 0xa2, 0xf3, 0xb3, 0x07, 0x02, 0x49, 0x44, 0xb0,
 	0xf3, 0xb3, 0x07, 0x01, 0xca, 0xf3, 0xb3, 0x07, 0x0b, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x53,
@@ -1113,10 +1121,18 @@ var file_secret_stores_proto_rawDesc = []byte{
 	0xf8, 0xb3, 0x07, 0x21, 0xa2, 0xf3, 0xb3, 0x07, 0x0d, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x4b,
 	0x65, 0x79, 0x50, 0x61, 0x74, 0x68, 0xb0, 0xf3, 0xb3, 0x07, 0x01, 0xc0, 0xf3, 0xb3, 0x07, 0x01,
 	0xd0, 0xf3, 0xb3, 0x07, 0x01, 0x52, 0x0d, 0x63, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x4b, 0x65, 0x79,
-	0x50, 0x61, 0x74, 0x68, 0x12, 0x31, 0x0a, 0x04, 0x74, 0x61, 0x67, 0x73, 0x18, 0x07, 0x20, 0x01,
+	0x50, 0x61, 0x74, 0x68, 0x12, 0x2e, 0x0a, 0x04, 0x74, 0x61, 0x67, 0x73, 0x18, 0x07, 0x20, 0x01,
 	0x28, 0x0b, 0x32, 0x08, 0x2e, 0x76, 0x31, 0x2e, 0x54, 0x61, 0x67, 0x73, 0x42, 0x13, 0xf2, 0xf8,
 	0xb3, 0x07, 0x0e, 0xa2, 0xf3, 0xb3, 0x07, 0x04, 0x54, 0x61, 0x67, 0x73, 0xb0, 0xf3, 0xb3, 0x07,
-	0x01, 0x52, 0x04, 0x74, 0x61, 0x67, 0x73, 0x3a, 0x34, 0xfa, 0xf8, 0xb3, 0x07, 0x2f, 0xa2, 0xf3,
+	0x01, 0x52, 0x01, 0x2d, 0x12, 0x44, 0x0a, 0x09, 0x6a, 0x73, 0x6f, 0x6e, 0x5f, 0x74, 0x61, 0x67,
+	0x73, 0x18, 0x08, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x76, 0x31, 0x2e, 0x56, 0x61, 0x75,
+	0x6c, 0x74, 0x54, 0x4c, 0x53, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x2e, 0x4a, 0x73, 0x6f, 0x6e, 0x54,
+	0x61, 0x67, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x42, 0x0a, 0xf2, 0xf8, 0xb3, 0x07, 0x05, 0xd0,
+	0xf3, 0xb3, 0x07, 0x01, 0x52, 0x04, 0x74, 0x61, 0x67, 0x73, 0x1a, 0x3b, 0x0a, 0x0d, 0x4a, 0x73,
+	0x6f, 0x6e, 0x54, 0x61, 0x67, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03, 0x6b,
+	0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14, 0x0a,
+	0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61,
+	0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x3a, 0x34, 0xfa, 0xf8, 0xb3, 0x07, 0x2f, 0xa2, 0xf3,
 	0xb3, 0x07, 0x0b, 0x53, 0x65, 0x63, 0x72, 0x65, 0x74, 0x53, 0x74, 0x6f, 0x72, 0x65, 0xa8, 0xf3,
 	0xb3, 0x07, 0x01, 0xda, 0xf3, 0xb3, 0x07, 0x08, 0x76, 0x61, 0x75, 0x6c, 0x74, 0x54, 0x4c, 0x53,
 	0xe2, 0xf3, 0xb3, 0x07, 0x08, 0x76, 0x61, 0x75, 0x6c, 0x74, 0x54, 0x4c, 0x53, 0x32, 0xf8, 0x04,
@@ -1181,7 +1197,7 @@ func file_secret_stores_proto_rawDescGZIP() []byte {
 	return file_secret_stores_proto_rawDescData
 }
 
-var file_secret_stores_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+var file_secret_stores_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_secret_stores_proto_goTypes = []interface{}{
 	(*SecretStoreCreateRequest)(nil),  // 0: v1.SecretStoreCreateRequest
 	(*SecretStoreCreateResponse)(nil), // 1: v1.SecretStoreCreateResponse
@@ -1196,60 +1212,62 @@ var file_secret_stores_proto_goTypes = []interface{}{
 	(*SecretStore)(nil),               // 10: v1.SecretStore
 	(*VaultTokenStore)(nil),           // 11: v1.VaultTokenStore
 	(*VaultTLSStore)(nil),             // 12: v1.VaultTLSStore
-	(*CreateRequestMetadata)(nil),     // 13: v1.CreateRequestMetadata
-	(*CreateResponseMetadata)(nil),    // 14: v1.CreateResponseMetadata
-	(*RateLimitMetadata)(nil),         // 15: v1.RateLimitMetadata
-	(*GetRequestMetadata)(nil),        // 16: v1.GetRequestMetadata
-	(*GetResponseMetadata)(nil),       // 17: v1.GetResponseMetadata
-	(*UpdateRequestMetadata)(nil),     // 18: v1.UpdateRequestMetadata
-	(*UpdateResponseMetadata)(nil),    // 19: v1.UpdateResponseMetadata
-	(*DeleteRequestMetadata)(nil),     // 20: v1.DeleteRequestMetadata
-	(*DeleteResponseMetadata)(nil),    // 21: v1.DeleteResponseMetadata
-	(*ListRequestMetadata)(nil),       // 22: v1.ListRequestMetadata
-	(*ListResponseMetadata)(nil),      // 23: v1.ListResponseMetadata
-	(*Tags)(nil),                      // 24: v1.Tags
+	nil,                               // 13: v1.VaultTLSStore.JsonTagsEntry
+	(*CreateRequestMetadata)(nil),     // 14: v1.CreateRequestMetadata
+	(*CreateResponseMetadata)(nil),    // 15: v1.CreateResponseMetadata
+	(*RateLimitMetadata)(nil),         // 16: v1.RateLimitMetadata
+	(*GetRequestMetadata)(nil),        // 17: v1.GetRequestMetadata
+	(*GetResponseMetadata)(nil),       // 18: v1.GetResponseMetadata
+	(*UpdateRequestMetadata)(nil),     // 19: v1.UpdateRequestMetadata
+	(*UpdateResponseMetadata)(nil),    // 20: v1.UpdateResponseMetadata
+	(*DeleteRequestMetadata)(nil),     // 21: v1.DeleteRequestMetadata
+	(*DeleteResponseMetadata)(nil),    // 22: v1.DeleteResponseMetadata
+	(*ListRequestMetadata)(nil),       // 23: v1.ListRequestMetadata
+	(*ListResponseMetadata)(nil),      // 24: v1.ListResponseMetadata
+	(*Tags)(nil),                      // 25: v1.Tags
 }
 var file_secret_stores_proto_depIdxs = []int32{
-	13, // 0: v1.SecretStoreCreateRequest.meta:type_name -> v1.CreateRequestMetadata
+	14, // 0: v1.SecretStoreCreateRequest.meta:type_name -> v1.CreateRequestMetadata
 	10, // 1: v1.SecretStoreCreateRequest.secret_store:type_name -> v1.SecretStore
-	14, // 2: v1.SecretStoreCreateResponse.meta:type_name -> v1.CreateResponseMetadata
+	15, // 2: v1.SecretStoreCreateResponse.meta:type_name -> v1.CreateResponseMetadata
 	10, // 3: v1.SecretStoreCreateResponse.secret_store:type_name -> v1.SecretStore
-	15, // 4: v1.SecretStoreCreateResponse.rate_limit:type_name -> v1.RateLimitMetadata
-	16, // 5: v1.SecretStoreGetRequest.meta:type_name -> v1.GetRequestMetadata
-	17, // 6: v1.SecretStoreGetResponse.meta:type_name -> v1.GetResponseMetadata
+	16, // 4: v1.SecretStoreCreateResponse.rate_limit:type_name -> v1.RateLimitMetadata
+	17, // 5: v1.SecretStoreGetRequest.meta:type_name -> v1.GetRequestMetadata
+	18, // 6: v1.SecretStoreGetResponse.meta:type_name -> v1.GetResponseMetadata
 	10, // 7: v1.SecretStoreGetResponse.secret_store:type_name -> v1.SecretStore
-	15, // 8: v1.SecretStoreGetResponse.rate_limit:type_name -> v1.RateLimitMetadata
-	18, // 9: v1.SecretStoreUpdateRequest.meta:type_name -> v1.UpdateRequestMetadata
+	16, // 8: v1.SecretStoreGetResponse.rate_limit:type_name -> v1.RateLimitMetadata
+	19, // 9: v1.SecretStoreUpdateRequest.meta:type_name -> v1.UpdateRequestMetadata
 	10, // 10: v1.SecretStoreUpdateRequest.secret_store:type_name -> v1.SecretStore
-	19, // 11: v1.SecretStoreUpdateResponse.meta:type_name -> v1.UpdateResponseMetadata
+	20, // 11: v1.SecretStoreUpdateResponse.meta:type_name -> v1.UpdateResponseMetadata
 	10, // 12: v1.SecretStoreUpdateResponse.secret_store:type_name -> v1.SecretStore
-	15, // 13: v1.SecretStoreUpdateResponse.rate_limit:type_name -> v1.RateLimitMetadata
-	20, // 14: v1.SecretStoreDeleteRequest.meta:type_name -> v1.DeleteRequestMetadata
-	21, // 15: v1.SecretStoreDeleteResponse.meta:type_name -> v1.DeleteResponseMetadata
-	15, // 16: v1.SecretStoreDeleteResponse.rate_limit:type_name -> v1.RateLimitMetadata
-	22, // 17: v1.SecretStoreListRequest.meta:type_name -> v1.ListRequestMetadata
-	23, // 18: v1.SecretStoreListResponse.meta:type_name -> v1.ListResponseMetadata
+	16, // 13: v1.SecretStoreUpdateResponse.rate_limit:type_name -> v1.RateLimitMetadata
+	21, // 14: v1.SecretStoreDeleteRequest.meta:type_name -> v1.DeleteRequestMetadata
+	22, // 15: v1.SecretStoreDeleteResponse.meta:type_name -> v1.DeleteResponseMetadata
+	16, // 16: v1.SecretStoreDeleteResponse.rate_limit:type_name -> v1.RateLimitMetadata
+	23, // 17: v1.SecretStoreListRequest.meta:type_name -> v1.ListRequestMetadata
+	24, // 18: v1.SecretStoreListResponse.meta:type_name -> v1.ListResponseMetadata
 	10, // 19: v1.SecretStoreListResponse.secret_stores:type_name -> v1.SecretStore
-	15, // 20: v1.SecretStoreListResponse.rate_limit:type_name -> v1.RateLimitMetadata
+	16, // 20: v1.SecretStoreListResponse.rate_limit:type_name -> v1.RateLimitMetadata
 	12, // 21: v1.SecretStore.vault_tls:type_name -> v1.VaultTLSStore
 	11, // 22: v1.SecretStore.vault_token:type_name -> v1.VaultTokenStore
-	24, // 23: v1.VaultTokenStore.tags:type_name -> v1.Tags
-	24, // 24: v1.VaultTLSStore.tags:type_name -> v1.Tags
-	0,  // 25: v1.SecretStores.Create:input_type -> v1.SecretStoreCreateRequest
-	2,  // 26: v1.SecretStores.Get:input_type -> v1.SecretStoreGetRequest
-	4,  // 27: v1.SecretStores.Update:input_type -> v1.SecretStoreUpdateRequest
-	6,  // 28: v1.SecretStores.Delete:input_type -> v1.SecretStoreDeleteRequest
-	8,  // 29: v1.SecretStores.List:input_type -> v1.SecretStoreListRequest
-	1,  // 30: v1.SecretStores.Create:output_type -> v1.SecretStoreCreateResponse
-	3,  // 31: v1.SecretStores.Get:output_type -> v1.SecretStoreGetResponse
-	5,  // 32: v1.SecretStores.Update:output_type -> v1.SecretStoreUpdateResponse
-	7,  // 33: v1.SecretStores.Delete:output_type -> v1.SecretStoreDeleteResponse
-	9,  // 34: v1.SecretStores.List:output_type -> v1.SecretStoreListResponse
-	30, // [30:35] is the sub-list for method output_type
-	25, // [25:30] is the sub-list for method input_type
-	25, // [25:25] is the sub-list for extension type_name
-	25, // [25:25] is the sub-list for extension extendee
-	0,  // [0:25] is the sub-list for field type_name
+	25, // 23: v1.VaultTokenStore.tags:type_name -> v1.Tags
+	25, // 24: v1.VaultTLSStore.tags:type_name -> v1.Tags
+	13, // 25: v1.VaultTLSStore.json_tags:type_name -> v1.VaultTLSStore.JsonTagsEntry
+	0,  // 26: v1.SecretStores.Create:input_type -> v1.SecretStoreCreateRequest
+	2,  // 27: v1.SecretStores.Get:input_type -> v1.SecretStoreGetRequest
+	4,  // 28: v1.SecretStores.Update:input_type -> v1.SecretStoreUpdateRequest
+	6,  // 29: v1.SecretStores.Delete:input_type -> v1.SecretStoreDeleteRequest
+	8,  // 30: v1.SecretStores.List:input_type -> v1.SecretStoreListRequest
+	1,  // 31: v1.SecretStores.Create:output_type -> v1.SecretStoreCreateResponse
+	3,  // 32: v1.SecretStores.Get:output_type -> v1.SecretStoreGetResponse
+	5,  // 33: v1.SecretStores.Update:output_type -> v1.SecretStoreUpdateResponse
+	7,  // 34: v1.SecretStores.Delete:output_type -> v1.SecretStoreDeleteResponse
+	9,  // 35: v1.SecretStores.List:output_type -> v1.SecretStoreListResponse
+	31, // [31:36] is the sub-list for method output_type
+	26, // [26:31] is the sub-list for method input_type
+	26, // [26:26] is the sub-list for extension type_name
+	26, // [26:26] is the sub-list for extension extendee
+	0,  // [0:26] is the sub-list for field type_name
 }
 
 func init() { file_secret_stores_proto_init() }
@@ -1428,7 +1446,7 @@ func file_secret_stores_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_secret_stores_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   13,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

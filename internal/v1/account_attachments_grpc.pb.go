@@ -125,7 +125,7 @@ type UnsafeAccountAttachmentsServer interface {
 	mustEmbedUnimplementedAccountAttachmentsServer()
 }
 
-func RegisterAccountAttachmentsServer(s *grpc.Server, srv AccountAttachmentsServer) {
+func RegisterAccountAttachmentsServer(s grpc.ServiceRegistrar, srv AccountAttachmentsServer) {
 	s.RegisterService(&_AccountAttachments_serviceDesc, srv)
 }
 

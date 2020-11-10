@@ -141,7 +141,7 @@ type UnsafeRolesServer interface {
 	mustEmbedUnimplementedRolesServer()
 }
 
-func RegisterRolesServer(s *grpc.Server, srv RolesServer) {
+func RegisterRolesServer(s grpc.ServiceRegistrar, srv RolesServer) {
 	s.RegisterService(&_Roles_serviceDesc, srv)
 }
 

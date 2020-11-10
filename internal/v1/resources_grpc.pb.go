@@ -141,7 +141,7 @@ type UnsafeResourcesServer interface {
 	mustEmbedUnimplementedResourcesServer()
 }
 
-func RegisterResourcesServer(s *grpc.Server, srv ResourcesServer) {
+func RegisterResourcesServer(s grpc.ServiceRegistrar, srv ResourcesServer) {
 	s.RegisterService(&_Resources_serviceDesc, srv)
 }
 

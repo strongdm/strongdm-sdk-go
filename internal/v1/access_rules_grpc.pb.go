@@ -157,7 +157,7 @@ type UnsafeAccessRulesServer interface {
 	mustEmbedUnimplementedAccessRulesServer()
 }
 
-func RegisterAccessRulesServer(s *grpc.Server, srv AccessRulesServer) {
+func RegisterAccessRulesServer(s grpc.ServiceRegistrar, srv AccessRulesServer) {
 	s.RegisterService(&_AccessRules_serviceDesc, srv)
 }
 

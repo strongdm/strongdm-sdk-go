@@ -125,7 +125,7 @@ type UnsafeRoleAttachmentsServer interface {
 	mustEmbedUnimplementedRoleAttachmentsServer()
 }
 
-func RegisterRoleAttachmentsServer(s *grpc.Server, srv RoleAttachmentsServer) {
+func RegisterRoleAttachmentsServer(s grpc.ServiceRegistrar, srv RoleAttachmentsServer) {
 	s.RegisterService(&_RoleAttachments_serviceDesc, srv)
 }
 
