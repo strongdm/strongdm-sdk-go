@@ -43,6 +43,8 @@ type AccessRulesClient interface {
 	Delete(ctx context.Context, in *AccessRuleDeleteRequest, opts ...grpc.CallOption) (*AccessRuleDeleteResponse, error)
 	// List gets a list of Access Rules matching a given set of criteria.
 	List(ctx context.Context, in *AccessRuleListRequest, opts ...grpc.CallOption) (*AccessRuleListResponse, error)
+	// Apply resets a role and apply all given access rules.
+	Apply(ctx context.Context, in *ApplyAccessRuleRequest, opts ...grpc.CallOption) (*ApplyAccessRuleResponse, error)
 }
 
 type accessRulesClient struct {
@@ -107,6 +109,15 @@ func (c *accessRulesClient) List(ctx context.Context, in *AccessRuleListRequest,
 	return out, nil
 }
 
+func (c *accessRulesClient) Apply(ctx context.Context, in *ApplyAccessRuleRequest, opts ...grpc.CallOption) (*ApplyAccessRuleResponse, error) {
+	out := new(ApplyAccessRuleResponse)
+	err := c.cc.Invoke(ctx, "/v1.AccessRules/Apply", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccessRulesServer is the server API for AccessRules service.
 // All implementations must embed UnimplementedAccessRulesServer
 // for forward compatibility
@@ -123,6 +134,8 @@ type AccessRulesServer interface {
 	Delete(context.Context, *AccessRuleDeleteRequest) (*AccessRuleDeleteResponse, error)
 	// List gets a list of Access Rules matching a given set of criteria.
 	List(context.Context, *AccessRuleListRequest) (*AccessRuleListResponse, error)
+	// Apply resets a role and apply all given access rules.
+	Apply(context.Context, *ApplyAccessRuleRequest) (*ApplyAccessRuleResponse, error)
 	mustEmbedUnimplementedAccessRulesServer()
 }
 
@@ -147,6 +160,9 @@ func (UnimplementedAccessRulesServer) Delete(context.Context, *AccessRuleDeleteR
 }
 func (UnimplementedAccessRulesServer) List(context.Context, *AccessRuleListRequest) (*AccessRuleListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
+}
+func (UnimplementedAccessRulesServer) Apply(context.Context, *ApplyAccessRuleRequest) (*ApplyAccessRuleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Apply not implemented")
 }
 func (UnimplementedAccessRulesServer) mustEmbedUnimplementedAccessRulesServer() {}
 
@@ -269,6 +285,24 @@ func _AccessRules_List_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccessRules_Apply_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ApplyAccessRuleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccessRulesServer).Apply(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.AccessRules/Apply",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccessRulesServer).Apply(ctx, req.(*ApplyAccessRuleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _AccessRules_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "v1.AccessRules",
 	HandlerType: (*AccessRulesServer)(nil),
@@ -296,6 +330,10 @@ var _AccessRules_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "List",
 			Handler:    _AccessRules_List_Handler,
+		},
+		{
+			MethodName: "Apply",
+			Handler:    _AccessRules_Apply_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
