@@ -306,6 +306,10 @@ type Resource interface {
 	GetTags() Tags
 	// SetTags sets the tags of the Resource.
 	SetTags(Tags)
+	// GetSecretStoreID returns the secret store id of the Resource.
+	GetSecretStoreID() string
+	// SetSecretStoreID sets the secret store id of the Resource.
+	SetSecretStoreID(string)
 	isOneOf_Resource()
 }
 
@@ -333,6 +337,16 @@ func (m *Athena) GetTags() Tags {
 func (m *Athena) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the Athena.
+func (m *Athena) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Athena.
+func (m *Athena) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*BigQuery) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the BigQuery.
@@ -356,6 +370,16 @@ func (m *BigQuery) GetTags() Tags {
 // SetTags sets the tags of the BigQuery.
 func (m *BigQuery) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the BigQuery.
+func (m *BigQuery) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the BigQuery.
+func (m *BigQuery) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*Cassandra) isOneOf_Resource() {}
 
@@ -381,6 +405,16 @@ func (m *Cassandra) GetTags() Tags {
 func (m *Cassandra) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the Cassandra.
+func (m *Cassandra) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Cassandra.
+func (m *Cassandra) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*DB2I) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the DB2I.
@@ -404,6 +438,16 @@ func (m *DB2I) GetTags() Tags {
 // SetTags sets the tags of the DB2I.
 func (m *DB2I) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the DB2I.
+func (m *DB2I) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the DB2I.
+func (m *DB2I) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*DB2LUW) isOneOf_Resource() {}
 
@@ -429,6 +473,16 @@ func (m *DB2LUW) GetTags() Tags {
 func (m *DB2LUW) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the DB2LUW.
+func (m *DB2LUW) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the DB2LUW.
+func (m *DB2LUW) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*Druid) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Druid.
@@ -452,6 +506,16 @@ func (m *Druid) GetTags() Tags {
 // SetTags sets the tags of the Druid.
 func (m *Druid) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the Druid.
+func (m *Druid) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Druid.
+func (m *Druid) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*DynamoDB) isOneOf_Resource() {}
 
@@ -477,6 +541,16 @@ func (m *DynamoDB) GetTags() Tags {
 func (m *DynamoDB) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the DynamoDB.
+func (m *DynamoDB) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the DynamoDB.
+func (m *DynamoDB) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*AmazonES) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AmazonES.
@@ -500,6 +574,16 @@ func (m *AmazonES) GetTags() Tags {
 // SetTags sets the tags of the AmazonES.
 func (m *AmazonES) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the AmazonES.
+func (m *AmazonES) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the AmazonES.
+func (m *AmazonES) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*Elastic) isOneOf_Resource() {}
 
@@ -525,6 +609,16 @@ func (m *Elastic) GetTags() Tags {
 func (m *Elastic) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the Elastic.
+func (m *Elastic) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Elastic.
+func (m *Elastic) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*HTTPBasicAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the HTTPBasicAuth.
@@ -548,6 +642,16 @@ func (m *HTTPBasicAuth) GetTags() Tags {
 // SetTags sets the tags of the HTTPBasicAuth.
 func (m *HTTPBasicAuth) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the HTTPBasicAuth.
+func (m *HTTPBasicAuth) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the HTTPBasicAuth.
+func (m *HTTPBasicAuth) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*HTTPNoAuth) isOneOf_Resource() {}
 
@@ -573,6 +677,16 @@ func (m *HTTPNoAuth) GetTags() Tags {
 func (m *HTTPNoAuth) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the HTTPNoAuth.
+func (m *HTTPNoAuth) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the HTTPNoAuth.
+func (m *HTTPNoAuth) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*HTTPAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the HTTPAuth.
@@ -596,6 +710,16 @@ func (m *HTTPAuth) GetTags() Tags {
 // SetTags sets the tags of the HTTPAuth.
 func (m *HTTPAuth) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the HTTPAuth.
+func (m *HTTPAuth) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the HTTPAuth.
+func (m *HTTPAuth) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*Kubernetes) isOneOf_Resource() {}
 
@@ -621,6 +745,16 @@ func (m *Kubernetes) GetTags() Tags {
 func (m *Kubernetes) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the Kubernetes.
+func (m *Kubernetes) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Kubernetes.
+func (m *Kubernetes) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*KubernetesBasicAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the KubernetesBasicAuth.
@@ -644,6 +778,16 @@ func (m *KubernetesBasicAuth) GetTags() Tags {
 // SetTags sets the tags of the KubernetesBasicAuth.
 func (m *KubernetesBasicAuth) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the KubernetesBasicAuth.
+func (m *KubernetesBasicAuth) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the KubernetesBasicAuth.
+func (m *KubernetesBasicAuth) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*KubernetesServiceAccount) isOneOf_Resource() {}
 
@@ -669,6 +813,16 @@ func (m *KubernetesServiceAccount) GetTags() Tags {
 func (m *KubernetesServiceAccount) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the KubernetesServiceAccount.
+func (m *KubernetesServiceAccount) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the KubernetesServiceAccount.
+func (m *KubernetesServiceAccount) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*AmazonEKS) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AmazonEKS.
@@ -692,6 +846,16 @@ func (m *AmazonEKS) GetTags() Tags {
 // SetTags sets the tags of the AmazonEKS.
 func (m *AmazonEKS) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the AmazonEKS.
+func (m *AmazonEKS) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the AmazonEKS.
+func (m *AmazonEKS) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*GoogleGKE) isOneOf_Resource() {}
 
@@ -717,6 +881,16 @@ func (m *GoogleGKE) GetTags() Tags {
 func (m *GoogleGKE) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the GoogleGKE.
+func (m *GoogleGKE) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the GoogleGKE.
+func (m *GoogleGKE) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*AKS) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AKS.
@@ -740,6 +914,16 @@ func (m *AKS) GetTags() Tags {
 // SetTags sets the tags of the AKS.
 func (m *AKS) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the AKS.
+func (m *AKS) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the AKS.
+func (m *AKS) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*AKSBasicAuth) isOneOf_Resource() {}
 
@@ -765,6 +949,16 @@ func (m *AKSBasicAuth) GetTags() Tags {
 func (m *AKSBasicAuth) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the AKSBasicAuth.
+func (m *AKSBasicAuth) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the AKSBasicAuth.
+func (m *AKSBasicAuth) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*AKSServiceAccount) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AKSServiceAccount.
@@ -788,6 +982,16 @@ func (m *AKSServiceAccount) GetTags() Tags {
 // SetTags sets the tags of the AKSServiceAccount.
 func (m *AKSServiceAccount) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the AKSServiceAccount.
+func (m *AKSServiceAccount) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the AKSServiceAccount.
+func (m *AKSServiceAccount) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*Memcached) isOneOf_Resource() {}
 
@@ -813,6 +1017,16 @@ func (m *Memcached) GetTags() Tags {
 func (m *Memcached) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the Memcached.
+func (m *Memcached) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Memcached.
+func (m *Memcached) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*MongoLegacyHost) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MongoLegacyHost.
@@ -836,6 +1050,16 @@ func (m *MongoLegacyHost) GetTags() Tags {
 // SetTags sets the tags of the MongoLegacyHost.
 func (m *MongoLegacyHost) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the MongoLegacyHost.
+func (m *MongoLegacyHost) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the MongoLegacyHost.
+func (m *MongoLegacyHost) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*MongoLegacyReplicaset) isOneOf_Resource() {}
 
@@ -861,6 +1085,16 @@ func (m *MongoLegacyReplicaset) GetTags() Tags {
 func (m *MongoLegacyReplicaset) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the MongoLegacyReplicaset.
+func (m *MongoLegacyReplicaset) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the MongoLegacyReplicaset.
+func (m *MongoLegacyReplicaset) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*MongoHost) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MongoHost.
@@ -884,6 +1118,16 @@ func (m *MongoHost) GetTags() Tags {
 // SetTags sets the tags of the MongoHost.
 func (m *MongoHost) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the MongoHost.
+func (m *MongoHost) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the MongoHost.
+func (m *MongoHost) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*MongoReplicaSet) isOneOf_Resource() {}
 
@@ -909,6 +1153,16 @@ func (m *MongoReplicaSet) GetTags() Tags {
 func (m *MongoReplicaSet) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the MongoReplicaSet.
+func (m *MongoReplicaSet) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the MongoReplicaSet.
+func (m *MongoReplicaSet) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*Mysql) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Mysql.
@@ -932,6 +1186,16 @@ func (m *Mysql) GetTags() Tags {
 // SetTags sets the tags of the Mysql.
 func (m *Mysql) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the Mysql.
+func (m *Mysql) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Mysql.
+func (m *Mysql) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*AuroraMysql) isOneOf_Resource() {}
 
@@ -957,6 +1221,16 @@ func (m *AuroraMysql) GetTags() Tags {
 func (m *AuroraMysql) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the AuroraMysql.
+func (m *AuroraMysql) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the AuroraMysql.
+func (m *AuroraMysql) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*Clustrix) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Clustrix.
@@ -980,6 +1254,16 @@ func (m *Clustrix) GetTags() Tags {
 // SetTags sets the tags of the Clustrix.
 func (m *Clustrix) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the Clustrix.
+func (m *Clustrix) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Clustrix.
+func (m *Clustrix) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*Maria) isOneOf_Resource() {}
 
@@ -1005,6 +1289,16 @@ func (m *Maria) GetTags() Tags {
 func (m *Maria) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the Maria.
+func (m *Maria) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Maria.
+func (m *Maria) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*Memsql) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Memsql.
@@ -1028,6 +1322,16 @@ func (m *Memsql) GetTags() Tags {
 // SetTags sets the tags of the Memsql.
 func (m *Memsql) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the Memsql.
+func (m *Memsql) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Memsql.
+func (m *Memsql) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*Oracle) isOneOf_Resource() {}
 
@@ -1053,6 +1357,16 @@ func (m *Oracle) GetTags() Tags {
 func (m *Oracle) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the Oracle.
+func (m *Oracle) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Oracle.
+func (m *Oracle) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*Postgres) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Postgres.
@@ -1076,6 +1390,16 @@ func (m *Postgres) GetTags() Tags {
 // SetTags sets the tags of the Postgres.
 func (m *Postgres) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the Postgres.
+func (m *Postgres) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Postgres.
+func (m *Postgres) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*AuroraPostgres) isOneOf_Resource() {}
 
@@ -1101,6 +1425,16 @@ func (m *AuroraPostgres) GetTags() Tags {
 func (m *AuroraPostgres) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the AuroraPostgres.
+func (m *AuroraPostgres) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the AuroraPostgres.
+func (m *AuroraPostgres) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*Greenplum) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Greenplum.
@@ -1124,6 +1458,16 @@ func (m *Greenplum) GetTags() Tags {
 // SetTags sets the tags of the Greenplum.
 func (m *Greenplum) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the Greenplum.
+func (m *Greenplum) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Greenplum.
+func (m *Greenplum) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*Cockroach) isOneOf_Resource() {}
 
@@ -1149,6 +1493,16 @@ func (m *Cockroach) GetTags() Tags {
 func (m *Cockroach) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the Cockroach.
+func (m *Cockroach) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Cockroach.
+func (m *Cockroach) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*Redshift) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Redshift.
@@ -1172,6 +1526,16 @@ func (m *Redshift) GetTags() Tags {
 // SetTags sets the tags of the Redshift.
 func (m *Redshift) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the Redshift.
+func (m *Redshift) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Redshift.
+func (m *Redshift) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*Citus) isOneOf_Resource() {}
 
@@ -1197,6 +1561,16 @@ func (m *Citus) GetTags() Tags {
 func (m *Citus) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the Citus.
+func (m *Citus) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Citus.
+func (m *Citus) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*Presto) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Presto.
@@ -1220,6 +1594,16 @@ func (m *Presto) GetTags() Tags {
 // SetTags sets the tags of the Presto.
 func (m *Presto) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the Presto.
+func (m *Presto) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Presto.
+func (m *Presto) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*RDP) isOneOf_Resource() {}
 
@@ -1245,6 +1629,16 @@ func (m *RDP) GetTags() Tags {
 func (m *RDP) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the RDP.
+func (m *RDP) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the RDP.
+func (m *RDP) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*Redis) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Redis.
@@ -1268,6 +1662,16 @@ func (m *Redis) GetTags() Tags {
 // SetTags sets the tags of the Redis.
 func (m *Redis) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the Redis.
+func (m *Redis) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Redis.
+func (m *Redis) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*ElasticacheRedis) isOneOf_Resource() {}
 
@@ -1293,6 +1697,16 @@ func (m *ElasticacheRedis) GetTags() Tags {
 func (m *ElasticacheRedis) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the ElasticacheRedis.
+func (m *ElasticacheRedis) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the ElasticacheRedis.
+func (m *ElasticacheRedis) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*Snowflake) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Snowflake.
@@ -1316,6 +1730,16 @@ func (m *Snowflake) GetTags() Tags {
 // SetTags sets the tags of the Snowflake.
 func (m *Snowflake) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the Snowflake.
+func (m *Snowflake) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Snowflake.
+func (m *Snowflake) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*SQLServer) isOneOf_Resource() {}
 
@@ -1341,6 +1765,16 @@ func (m *SQLServer) GetTags() Tags {
 func (m *SQLServer) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the SQLServer.
+func (m *SQLServer) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the SQLServer.
+func (m *SQLServer) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*SSH) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the SSH.
@@ -1364,6 +1798,16 @@ func (m *SSH) GetTags() Tags {
 // SetTags sets the tags of the SSH.
 func (m *SSH) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the SSH.
+func (m *SSH) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the SSH.
+func (m *SSH) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*SSHCert) isOneOf_Resource() {}
 
@@ -1389,6 +1833,16 @@ func (m *SSHCert) GetTags() Tags {
 func (m *SSHCert) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the SSHCert.
+func (m *SSHCert) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the SSHCert.
+func (m *SSHCert) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*Sybase) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Sybase.
@@ -1413,6 +1867,16 @@ func (m *Sybase) GetTags() Tags {
 func (m *Sybase) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
+
+// GetSecretStoreID returns the secret store id of the Sybase.
+func (m *Sybase) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Sybase.
+func (m *Sybase) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*SybaseIQ) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the SybaseIQ.
@@ -1436,6 +1900,16 @@ func (m *SybaseIQ) GetTags() Tags {
 // SetTags sets the tags of the SybaseIQ.
 func (m *SybaseIQ) SetTags(v Tags) {
 	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the SybaseIQ.
+func (m *SybaseIQ) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the SybaseIQ.
+func (m *SybaseIQ) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
 }
 func (*Teradata) isOneOf_Resource() {}
 
@@ -1462,6 +1936,16 @@ func (m *Teradata) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
 
+// GetSecretStoreID returns the secret store id of the Teradata.
+func (m *Teradata) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Teradata.
+func (m *Teradata) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+
 type Athena struct {
 	// Unique identifier of the Resource.
 	ID string `json:"id"`
@@ -1471,6 +1955,8 @@ type Athena struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	AccessKey string `json:"accessKey"`
 
@@ -1492,6 +1978,8 @@ type BigQuery struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	PrivateKey string `json:"privateKey"`
 
@@ -1513,6 +2001,8 @@ type Cassandra struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1536,6 +2026,8 @@ type DB2I struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1559,6 +2051,8 @@ type DB2LUW struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1582,6 +2076,8 @@ type Druid struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1603,6 +2099,8 @@ type DynamoDB struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	AccessKey string `json:"accessKey"`
 
@@ -1624,6 +2122,8 @@ type AmazonES struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Region string `json:"region"`
 
@@ -1645,6 +2145,8 @@ type Elastic struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1668,6 +2170,8 @@ type HTTPBasicAuth struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Url string `json:"url"`
 
@@ -1693,6 +2197,8 @@ type HTTPNoAuth struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Url string `json:"url"`
 
@@ -1714,6 +2220,8 @@ type HTTPAuth struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Url string `json:"url"`
 
@@ -1737,6 +2245,8 @@ type Kubernetes struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1760,6 +2270,8 @@ type KubernetesBasicAuth struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1781,6 +2293,8 @@ type KubernetesServiceAccount struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1800,6 +2314,8 @@ type AmazonEKS struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Endpoint string `json:"endpoint"`
 
@@ -1827,6 +2343,8 @@ type GoogleGKE struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Endpoint string `json:"endpoint"`
 
@@ -1846,6 +2364,8 @@ type AKS struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1869,6 +2389,8 @@ type AKSBasicAuth struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1890,6 +2412,8 @@ type AKSServiceAccount struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1909,6 +2433,8 @@ type Memcached struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1926,6 +2452,8 @@ type MongoLegacyHost struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1953,6 +2481,8 @@ type MongoLegacyReplicaset struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -1982,6 +2512,8 @@ type MongoHost struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2007,6 +2539,8 @@ type MongoReplicaSet struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2036,6 +2570,8 @@ type Mysql struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2059,6 +2595,8 @@ type AuroraMysql struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2082,6 +2620,8 @@ type Clustrix struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2105,6 +2645,8 @@ type Maria struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2128,6 +2670,8 @@ type Memsql struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2151,6 +2695,8 @@ type Oracle struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2176,6 +2722,8 @@ type Postgres struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2201,6 +2749,8 @@ type AuroraPostgres struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2226,6 +2776,8 @@ type Greenplum struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2251,6 +2803,8 @@ type Cockroach struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2276,6 +2830,8 @@ type Redshift struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2301,6 +2857,8 @@ type Citus struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2326,6 +2884,8 @@ type Presto struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2351,6 +2911,8 @@ type RDP struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2372,6 +2934,8 @@ type Redis struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2391,6 +2955,8 @@ type ElasticacheRedis struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2412,6 +2978,8 @@ type Snowflake struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2435,6 +3003,8 @@ type SQLServer struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2462,6 +3032,8 @@ type SSH struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2485,6 +3057,8 @@ type SSHCert struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2506,6 +3080,8 @@ type Sybase struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2527,6 +3103,8 @@ type SybaseIQ struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
@@ -2548,6 +3126,8 @@ type Teradata struct {
 	Healthy bool `json:"healthy"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
 
 	Hostname string `json:"hostname"`
 
