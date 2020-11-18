@@ -4802,6 +4802,8 @@ func convertSecretStoreToPlumbing(porcelain SecretStore) *proto.SecretStore {
 		plumbing.SecretStore = &proto.SecretStore_VaultTls{VaultTls: convertVaultTLSStoreToPlumbing(v)}
 	case *VaultTokenStore:
 		plumbing.SecretStore = &proto.SecretStore_VaultToken{VaultToken: convertVaultTokenStoreToPlumbing(v)}
+	case *AWSStore:
+		plumbing.SecretStore = &proto.SecretStore_Aws{Aws: convertAWSStoreToPlumbing(v)}
 	}
 	return plumbing
 }
@@ -4812,6 +4814,9 @@ func convertSecretStoreToPorcelain(plumbing *proto.SecretStore) SecretStore {
 	}
 	if plumbing.GetVaultToken() != nil {
 		return convertVaultTokenStoreToPorcelain(plumbing.GetVaultToken())
+	}
+	if plumbing.GetAws() != nil {
+		return convertAWSStoreToPorcelain(plumbing.GetAws())
 	}
 	return nil
 }
@@ -4915,6 +4920,46 @@ func convertRepeatedVaultTLSStoreToPorcelain(plumbings []*proto.VaultTLSStore) [
 	var items []*VaultTLSStore
 	for _, plumbing := range plumbings {
 		items = append(items, convertVaultTLSStoreToPorcelain(plumbing))
+	}
+	return items
+}
+func convertAWSStoreToPorcelain(plumbing *proto.AWSStore) *AWSStore {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AWSStore{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Region = (plumbing.Region)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	return porcelain
+}
+
+func convertAWSStoreToPlumbing(porcelain *AWSStore) *proto.AWSStore {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AWSStore{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Region = (porcelain.Region)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedAWSStoreToPlumbing(
+	porcelains []*AWSStore,
+) []*proto.AWSStore {
+	var items []*proto.AWSStore
+	for _, porcelain := range porcelains {
+		items = append(items, convertAWSStoreToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAWSStoreToPorcelain(plumbings []*proto.AWSStore) []*AWSStore {
+	var items []*AWSStore
+	for _, plumbing := range plumbings {
+		items = append(items, convertAWSStoreToPorcelain(plumbing))
 	}
 	return items
 }

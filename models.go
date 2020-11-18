@@ -3527,6 +3527,30 @@ func (m *VaultTokenStore) GetName() string {
 func (m *VaultTokenStore) SetName(v string) {
 	m.Name = v
 }
+func (*AWSStore) isOneOf_SecretStore() {}
+
+// GetID returns the unique identifier of the AWSStore.
+func (m *AWSStore) GetID() string { return m.ID }
+
+// GetTags returns the tags of the AWSStore.
+func (m *AWSStore) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the AWSStore.
+func (m *AWSStore) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetName returns the name of the AWSStore.
+func (m *AWSStore) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the AWSStore.
+func (m *AWSStore) SetName(v string) {
+	m.Name = v
+}
 
 type VaultTokenStore struct {
 	// Unique identifier of the SecretStore.
@@ -3552,6 +3576,17 @@ type VaultTLSStore struct {
 	ClientCertPath string `json:"clientCertPath"`
 
 	ClientKeyPath string `json:"clientKeyPath"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+}
+
+type AWSStore struct {
+	// Unique identifier of the SecretStore.
+	ID string `json:"id"`
+	// Unique human-readable name of the SecretStore.
+	Name string `json:"name"`
+
+	Region string `json:"region"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
 }
