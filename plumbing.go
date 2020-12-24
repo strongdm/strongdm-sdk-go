@@ -4963,6 +4963,122 @@ func convertRepeatedSecretStoreDeleteResponseToPorcelain(plumbings []*proto.Secr
 	}
 	return items
 }
+func convertTrialResourceCreateResponseToPorcelain(plumbing *proto.TrialResourceCreateResponse) *TrialResourceCreateResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &TrialResourceCreateResponse{}
+	porcelain.Meta = convertCreateResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.TrialResource = convertTrialResourceToPorcelain(plumbing.TrialResource)
+	porcelain.RateLimit = convertRateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func convertTrialResourceCreateResponseToPlumbing(porcelain *TrialResourceCreateResponse) *proto.TrialResourceCreateResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.TrialResourceCreateResponse{}
+	plumbing.Meta = convertCreateResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.TrialResource = convertTrialResourceToPlumbing(porcelain.TrialResource)
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedTrialResourceCreateResponseToPlumbing(
+	porcelains []*TrialResourceCreateResponse,
+) []*proto.TrialResourceCreateResponse {
+	var items []*proto.TrialResourceCreateResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertTrialResourceCreateResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedTrialResourceCreateResponseToPorcelain(plumbings []*proto.TrialResourceCreateResponse) []*TrialResourceCreateResponse {
+	var items []*TrialResourceCreateResponse
+	for _, plumbing := range plumbings {
+		items = append(items, convertTrialResourceCreateResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func convertTrialResourceUpdateResponseToPorcelain(plumbing *proto.TrialResourceUpdateResponse) *TrialResourceUpdateResponse {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &TrialResourceUpdateResponse{}
+	porcelain.Meta = convertUpdateResponseMetadataToPorcelain(plumbing.Meta)
+	porcelain.TrialResource = convertTrialResourceToPorcelain(plumbing.TrialResource)
+	porcelain.RateLimit = convertRateLimitMetadataToPorcelain(plumbing.RateLimit)
+	return porcelain
+}
+
+func convertTrialResourceUpdateResponseToPlumbing(porcelain *TrialResourceUpdateResponse) *proto.TrialResourceUpdateResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.TrialResourceUpdateResponse{}
+	plumbing.Meta = convertUpdateResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.TrialResource = convertTrialResourceToPlumbing(porcelain.TrialResource)
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedTrialResourceUpdateResponseToPlumbing(
+	porcelains []*TrialResourceUpdateResponse,
+) []*proto.TrialResourceUpdateResponse {
+	var items []*proto.TrialResourceUpdateResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertTrialResourceUpdateResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedTrialResourceUpdateResponseToPorcelain(plumbings []*proto.TrialResourceUpdateResponse) []*TrialResourceUpdateResponse {
+	var items []*TrialResourceUpdateResponse
+	for _, plumbing := range plumbings {
+		items = append(items, convertTrialResourceUpdateResponseToPorcelain(plumbing))
+	}
+	return items
+}
+func convertTrialResourceToPorcelain(plumbing *proto.TrialResource) *TrialResource {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &TrialResource{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.RequestType = (plumbing.RequestType)
+	porcelain.CreatedResourceID = (plumbing.CreatedResourceId)
+	porcelain.CreatedNodeID = (plumbing.CreatedNodeId)
+	return porcelain
+}
+
+func convertTrialResourceToPlumbing(porcelain *TrialResource) *proto.TrialResource {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.TrialResource{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.RequestType = (porcelain.RequestType)
+	plumbing.CreatedResourceId = (porcelain.CreatedResourceID)
+	plumbing.CreatedNodeId = (porcelain.CreatedNodeID)
+	return plumbing
+}
+func convertRepeatedTrialResourceToPlumbing(
+	porcelains []*TrialResource,
+) []*proto.TrialResource {
+	var items []*proto.TrialResource
+	for _, porcelain := range porcelains {
+		items = append(items, convertTrialResourceToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedTrialResourceToPorcelain(plumbings []*proto.TrialResource) []*TrialResource {
+	var items []*TrialResource
+	for _, plumbing := range plumbings {
+		items = append(items, convertTrialResourceToPorcelain(plumbing))
+	}
+	return items
+}
 
 type rpcError struct {
 	wrapped error
@@ -5415,4 +5531,49 @@ func (s *secretStoreIteratorImpl) Value() SecretStore {
 
 func (s *secretStoreIteratorImpl) Err() error {
 	return s.err
+}
+
+type trialResourceIteratorImplFetchFunc func() (
+	[]*TrialResource,
+	bool, error)
+type trialResourceIteratorImpl struct {
+	buffer      []*TrialResource
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       trialResourceIteratorImplFetchFunc
+}
+
+func newTrialResourceIteratorImpl(f trialResourceIteratorImplFetchFunc) *trialResourceIteratorImpl {
+	return &trialResourceIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (t *trialResourceIteratorImpl) Next() bool {
+	if t.index < len(t.buffer)-1 {
+		t.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !t.hasNextPage {
+		return false
+	}
+
+	t.index = 0
+	t.buffer, t.hasNextPage, t.err = t.fetch()
+	return len(t.buffer) > 0
+}
+
+func (t *trialResourceIteratorImpl) Value() *TrialResource {
+	if t.index >= len(t.buffer) {
+		return nil
+	}
+	return t.buffer[t.index]
+}
+
+func (t *trialResourceIteratorImpl) Err() error {
+	return t.err
 }
