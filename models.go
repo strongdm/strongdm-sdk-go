@@ -294,6 +294,40 @@ type ControlPanelGetSSHCAPublicKeyResponse struct {
 	RateLimit *RateLimitMetadata `json:"rateLimit"`
 }
 
+// DemoProvisioningRequestCreateResponse reports how the DemoProvisioningRequest was created in the system.
+type DemoProvisioningRequestCreateResponse struct {
+	// Reserved for future use.
+	Meta *CreateResponseMetadata `json:"meta"`
+	// The created DemoProvisioningRequest.
+	DemoProvisioningRequest *DemoProvisioningRequest `json:"demoProvisioningRequest"`
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rateLimit"`
+}
+
+// DemoProvisioningRequestUpdateResponse returns the fields of a DemoProvisioningRequest after it has been updated by
+// a DemoProvisioningRequestUpdateRequest.
+type DemoProvisioningRequestUpdateResponse struct {
+	// Reserved for future use.
+	Meta *UpdateResponseMetadata `json:"meta"`
+	// The updated DemoProvisioningRequest.
+	DemoProvisioningRequest *DemoProvisioningRequest `json:"demoProvisioningRequest"`
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rateLimit"`
+}
+
+// DemoProvisioningRequests represent a resource or gateway provisioned automatically for
+// a trial organization.
+type DemoProvisioningRequest struct {
+	// Unique identifier of the DemoProvisioningRequest.
+	ID string `json:"id"`
+
+	RequestType string `json:"requestType"`
+	// The ID of the resource created for this DemoProvisioningRequest, if any.
+	CreatedResourceID string `json:"createdResourceId"`
+	// The ID of the node created for this DemoProvisioningRequest, if any.
+	CreatedNodeID string `json:"createdNodeId"`
+}
+
 // A Resource is a database or server for which strongDM manages access.
 type Resource interface {
 	// GetID returns the unique identifier of the Resource.
@@ -3591,40 +3625,6 @@ type SecretStoreDeleteResponse struct {
 	RateLimit *RateLimitMetadata `json:"rateLimit"`
 }
 
-// TrialResourceCreateResponse reports how the TrialResource was created in the system.
-type TrialResourceCreateResponse struct {
-	// Reserved for future use.
-	Meta *CreateResponseMetadata `json:"meta"`
-	// The created TrialResource.
-	TrialResource *TrialResource `json:"trialResource"`
-	// Rate limit information.
-	RateLimit *RateLimitMetadata `json:"rateLimit"`
-}
-
-// TrialResourceUpdateResponse returns the fields of a TrialResource after it has been updated by
-// a TrialResourceUpdateRequest.
-type TrialResourceUpdateResponse struct {
-	// Reserved for future use.
-	Meta *UpdateResponseMetadata `json:"meta"`
-	// The updated TrialResource.
-	TrialResource *TrialResource `json:"trialResource"`
-	// Rate limit information.
-	RateLimit *RateLimitMetadata `json:"rateLimit"`
-}
-
-// TrialResources represent a resource or gateway provisioned automatically for
-// a trial organization.
-type TrialResource struct {
-	// Unique identifier of the TrialResource.
-	ID string `json:"id"`
-
-	RequestType string `json:"requestType"`
-	// The ID of the resource created for this TrialResource, if any.
-	CreatedResourceID string `json:"createdResourceId"`
-	// The ID of the node created for this TrialResource, if any.
-	CreatedNodeID string `json:"createdNodeId"`
-}
-
 // AccountAttachmentIterator provides read access to a list of AccountAttachment.
 // Use it like so:
 //     for iterator.Next() {
@@ -3669,6 +3669,22 @@ type AccountIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() Account
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// DemoProvisioningRequestIterator provides read access to a list of DemoProvisioningRequest.
+// Use it like so:
+//     for iterator.Next() {
+//         demoProvisioningRequest := iterator.Value()
+//         // ...
+//     }
+type DemoProvisioningRequestIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *DemoProvisioningRequest
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }
@@ -3765,22 +3781,6 @@ type SecretStoreIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() SecretStore
-	// Err returns the first error encountered during iteration, if any.
-	Err() error
-}
-
-// TrialResourceIterator provides read access to a list of TrialResource.
-// Use it like so:
-//     for iterator.Next() {
-//         trialResource := iterator.Value()
-//         // ...
-//     }
-type TrialResourceIterator interface {
-	// Next advances the iterator to the next item in the list. It returns
-	// true if an item is available to retrieve via the `Value()` function.
-	Next() bool
-	// Value returns the current item, if one is available.
-	Value() *TrialResource
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }
