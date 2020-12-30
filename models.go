@@ -325,6 +325,12 @@ type DemoProvisioningRequest struct {
 	CreatedResourceID string `json:"createdResourceId"`
 	// The ID of the node created for this DemoProvisioningRequest, if any.
 	CreatedNodeID string `json:"createdNodeId"`
+	// The temporary access key to be used by the provisioner to fulfill this
+	// request.
+	AccessKey string `json:"accessKey"`
+	// The temporary secret key to be used by the provisioner to fulfill this
+	// request.
+	SecretKey string `json:"secretKey"`
 }
 
 // A Resource is a database or server for which strongDM manages access.

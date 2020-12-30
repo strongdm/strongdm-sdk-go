@@ -952,6 +952,8 @@ func convertDemoProvisioningRequestToPorcelain(plumbing *proto.DemoProvisioningR
 	porcelain.RequestType = (plumbing.RequestType)
 	porcelain.CreatedResourceID = (plumbing.CreatedResourceId)
 	porcelain.CreatedNodeID = (plumbing.CreatedNodeId)
+	porcelain.AccessKey = (plumbing.AccessKey)
+	porcelain.SecretKey = (plumbing.SecretKey)
 	return porcelain
 }
 
@@ -964,6 +966,8 @@ func convertDemoProvisioningRequestToPlumbing(porcelain *DemoProvisioningRequest
 	plumbing.RequestType = (porcelain.RequestType)
 	plumbing.CreatedResourceId = (porcelain.CreatedResourceID)
 	plumbing.CreatedNodeId = (porcelain.CreatedNodeID)
+	plumbing.AccessKey = (porcelain.AccessKey)
+	plumbing.SecretKey = (porcelain.SecretKey)
 	return plumbing
 }
 func convertRepeatedDemoProvisioningRequestToPlumbing(
