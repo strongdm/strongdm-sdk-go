@@ -315,8 +315,7 @@ type DemoProvisioningRequestUpdateResponse struct {
 	RateLimit *RateLimitMetadata `json:"rateLimit"`
 }
 
-// DemoProvisioningRequests represent a resource or gateway provisioned automatically for
-// a trial organization.
+// DemoProvisioningRequests represent a demo resource or gateway provisioned automatically for an organization.
 type DemoProvisioningRequest struct {
 	// Unique identifier of the DemoProvisioningRequest.
 	ID string `json:"id"`
