@@ -294,45 +294,6 @@ type ControlPanelGetSSHCAPublicKeyResponse struct {
 	RateLimit *RateLimitMetadata `json:"rateLimit"`
 }
 
-// DemoProvisioningRequestCreateResponse reports how the DemoProvisioningRequest was created in the system.
-type DemoProvisioningRequestCreateResponse struct {
-	// Reserved for future use.
-	Meta *CreateResponseMetadata `json:"meta"`
-	// The created DemoProvisioningRequest.
-	DemoProvisioningRequest *DemoProvisioningRequest `json:"demoProvisioningRequest"`
-	// Rate limit information.
-	RateLimit *RateLimitMetadata `json:"rateLimit"`
-}
-
-// DemoProvisioningRequestUpdateResponse returns the fields of a DemoProvisioningRequest after it has been updated by
-// a DemoProvisioningRequestUpdateRequest.
-type DemoProvisioningRequestUpdateResponse struct {
-	// Reserved for future use.
-	Meta *UpdateResponseMetadata `json:"meta"`
-	// The updated DemoProvisioningRequest.
-	DemoProvisioningRequest *DemoProvisioningRequest `json:"demoProvisioningRequest"`
-	// Rate limit information.
-	RateLimit *RateLimitMetadata `json:"rateLimit"`
-}
-
-// DemoProvisioningRequests represent a demo resource or gateway provisioned automatically for an organization.
-type DemoProvisioningRequest struct {
-	// Unique identifier of the DemoProvisioningRequest.
-	ID string `json:"id"`
-
-	RequestType string `json:"requestType"`
-	// The ID of the resource created for this DemoProvisioningRequest, if any.
-	CreatedResourceID string `json:"createdResourceId"`
-	// The ID of the node created for this DemoProvisioningRequest, if any.
-	CreatedNodeID string `json:"createdNodeId"`
-	// The temporary access key to be used by the provisioner to fulfill this
-	// request.
-	AccessKey string `json:"accessKey"`
-	// The temporary secret key to be used by the provisioner to fulfill this
-	// request.
-	SecretKey string `json:"secretKey"`
-}
-
 // A Resource is a database or server for which strongDM manages access.
 type Resource interface {
 	// GetID returns the unique identifier of the Resource.
@@ -3674,22 +3635,6 @@ type AccountIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() Account
-	// Err returns the first error encountered during iteration, if any.
-	Err() error
-}
-
-// DemoProvisioningRequestIterator provides read access to a list of DemoProvisioningRequest.
-// Use it like so:
-//     for iterator.Next() {
-//         demoProvisioningRequest := iterator.Value()
-//         // ...
-//     }
-type DemoProvisioningRequestIterator interface {
-	// Next advances the iterator to the next item in the list. It returns
-	// true if an item is available to retrieve via the `Value()` function.
-	Next() bool
-	// Value returns the current item, if one is available.
-	Value() *DemoProvisioningRequest
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }
