@@ -37,6 +37,8 @@ type DemoProvisioningRequestsClient interface {
 	// matching a given set of criteria. This operation can be done by account
 	// administrators.
 	ListForOrganization(ctx context.Context, in *DemoProvisioningRequestListForOrganizationRequest, opts ...grpc.CallOption) (*DemoProvisioningRequestListForOrganizationResponse, error)
+	// Delete deletes a DemoProvisioningRequest.
+	Delete(ctx context.Context, in *DemoProvisioningRequestDeleteRequest, opts ...grpc.CallOption) (*DemoProvisioningRequestDeleteResponse, error)
 	// ListAll gets a list of DemoProvisioningRequests across all orgs matching a given
 	// set of criteria. This operation can only be done by operators and the
 	// trial provisioner.
@@ -71,6 +73,15 @@ func (c *demoProvisioningRequestsClient) ListForOrganization(ctx context.Context
 	return out, nil
 }
 
+func (c *demoProvisioningRequestsClient) Delete(ctx context.Context, in *DemoProvisioningRequestDeleteRequest, opts ...grpc.CallOption) (*DemoProvisioningRequestDeleteResponse, error) {
+	out := new(DemoProvisioningRequestDeleteResponse)
+	err := c.cc.Invoke(ctx, "/v1.DemoProvisioningRequests/Delete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *demoProvisioningRequestsClient) ListAll(ctx context.Context, in *DemoProvisioningRequestListAllRequest, opts ...grpc.CallOption) (*DemoProvisioningRequestListAllResponse, error) {
 	out := new(DemoProvisioningRequestListAllResponse)
 	err := c.cc.Invoke(ctx, "/v1.DemoProvisioningRequests/ListAll", in, out, opts...)
@@ -99,6 +110,8 @@ type DemoProvisioningRequestsServer interface {
 	// matching a given set of criteria. This operation can be done by account
 	// administrators.
 	ListForOrganization(context.Context, *DemoProvisioningRequestListForOrganizationRequest) (*DemoProvisioningRequestListForOrganizationResponse, error)
+	// Delete deletes a DemoProvisioningRequest.
+	Delete(context.Context, *DemoProvisioningRequestDeleteRequest) (*DemoProvisioningRequestDeleteResponse, error)
 	// ListAll gets a list of DemoProvisioningRequests across all orgs matching a given
 	// set of criteria. This operation can only be done by operators and the
 	// trial provisioner.
@@ -117,6 +130,9 @@ func (UnimplementedDemoProvisioningRequestsServer) Create(context.Context, *Demo
 }
 func (UnimplementedDemoProvisioningRequestsServer) ListForOrganization(context.Context, *DemoProvisioningRequestListForOrganizationRequest) (*DemoProvisioningRequestListForOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListForOrganization not implemented")
+}
+func (UnimplementedDemoProvisioningRequestsServer) Delete(context.Context, *DemoProvisioningRequestDeleteRequest) (*DemoProvisioningRequestDeleteResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
 }
 func (UnimplementedDemoProvisioningRequestsServer) ListAll(context.Context, *DemoProvisioningRequestListAllRequest) (*DemoProvisioningRequestListAllResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListAll not implemented")
@@ -174,6 +190,24 @@ func _DemoProvisioningRequests_ListForOrganization_Handler(srv interface{}, ctx 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DemoProvisioningRequests_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DemoProvisioningRequestDeleteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DemoProvisioningRequestsServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.DemoProvisioningRequests/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DemoProvisioningRequestsServer).Delete(ctx, req.(*DemoProvisioningRequestDeleteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _DemoProvisioningRequests_ListAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DemoProvisioningRequestListAllRequest)
 	if err := dec(in); err != nil {
@@ -221,6 +255,10 @@ var _DemoProvisioningRequests_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListForOrganization",
 			Handler:    _DemoProvisioningRequests_ListForOrganization_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _DemoProvisioningRequests_Delete_Handler,
 		},
 		{
 			MethodName: "ListAll",
