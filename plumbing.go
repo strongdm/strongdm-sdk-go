@@ -876,6 +876,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 	switch v := porcelain.(type) {
 	case *Athena:
 		plumbing.Resource = &proto.Resource_Athena{Athena: convertAthenaToPlumbing(v)}
+	case *AWS:
+		plumbing.Resource = &proto.Resource_Aws{Aws: convertAWSToPlumbing(v)}
 	case *BigQuery:
 		plumbing.Resource = &proto.Resource_BigQuery{BigQuery: convertBigQueryToPlumbing(v)}
 	case *Cassandra:
@@ -977,6 +979,9 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 func convertResourceToPorcelain(plumbing *proto.Resource) Resource {
 	if plumbing.GetAthena() != nil {
 		return convertAthenaToPorcelain(plumbing.GetAthena())
+	}
+	if plumbing.GetAws() != nil {
+		return convertAWSToPorcelain(plumbing.GetAws())
 	}
 	if plumbing.GetBigQuery() != nil {
 		return convertBigQueryToPorcelain(plumbing.GetBigQuery())
@@ -1187,6 +1192,56 @@ func convertRepeatedAthenaToPorcelain(plumbings []*proto.Athena) []*Athena {
 	var items []*Athena
 	for _, plumbing := range plumbings {
 		items = append(items, convertAthenaToPorcelain(plumbing))
+	}
+	return items
+}
+func convertAWSToPorcelain(plumbing *proto.AWS) *AWS {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AWS{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Healthy = (plumbing.Healthy)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.SecretStoreID = (plumbing.SecretStoreId)
+	porcelain.AccessKey = (plumbing.AccessKey)
+	porcelain.SecretAccessKey = (plumbing.SecretAccessKey)
+	porcelain.HealthcheckRegion = (plumbing.HealthcheckRegion)
+	porcelain.RoleArn = (plumbing.RoleArn)
+	return porcelain
+}
+
+func convertAWSToPlumbing(porcelain *AWS) *proto.AWS {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AWS{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.AccessKey = (porcelain.AccessKey)
+	plumbing.SecretAccessKey = (porcelain.SecretAccessKey)
+	plumbing.HealthcheckRegion = (porcelain.HealthcheckRegion)
+	plumbing.RoleArn = (porcelain.RoleArn)
+	return plumbing
+}
+func convertRepeatedAWSToPlumbing(
+	porcelains []*AWS,
+) []*proto.AWS {
+	var items []*proto.AWS
+	for _, porcelain := range porcelains {
+		items = append(items, convertAWSToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAWSToPorcelain(plumbings []*proto.AWS) []*AWS {
+	var items []*AWS
+	for _, plumbing := range plumbings {
+		items = append(items, convertAWSToPorcelain(plumbing))
 	}
 	return items
 }

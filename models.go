@@ -347,6 +347,40 @@ func (m *Athena) GetSecretStoreID() string {
 func (m *Athena) SetSecretStoreID(v string) {
 	m.SecretStoreID = v
 }
+func (*AWS) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the AWS.
+func (m *AWS) GetID() string { return m.ID }
+
+// GetName returns the name of the AWS.
+func (m *AWS) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the AWS.
+func (m *AWS) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the AWS.
+func (m *AWS) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the AWS.
+func (m *AWS) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the AWS.
+func (m *AWS) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the AWS.
+func (m *AWS) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*BigQuery) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the BigQuery.
@@ -1967,6 +2001,27 @@ type Athena struct {
 	PortOverride int32 `json:"portOverride"`
 
 	Region string `json:"region"`
+}
+
+type AWS struct {
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+
+	AccessKey string `json:"accessKey"`
+
+	SecretAccessKey string `json:"secretAccessKey"`
+
+	HealthcheckRegion string `json:"healthcheckRegion"`
+
+	RoleArn string `json:"roleArn"`
 }
 
 type BigQuery struct {
