@@ -2001,6 +2001,10 @@ type Athena struct {
 	PortOverride int32 `json:"portOverride"`
 
 	Region string `json:"region"`
+
+	RoleArn string `json:"roleArn"`
+
+	RoleExternalID string `json:"roleExternalId"`
 }
 
 type AWS struct {
@@ -2168,6 +2172,10 @@ type DynamoDB struct {
 	Endpoint string `json:"endpoint"`
 
 	PortOverride int32 `json:"portOverride"`
+
+	RoleArn string `json:"roleArn"`
+
+	RoleExternalID string `json:"roleExternalId"`
 }
 
 type AmazonES struct {
@@ -2191,6 +2199,10 @@ type AmazonES struct {
 	AccessKey string `json:"accessKey"`
 
 	PortOverride int32 `json:"portOverride"`
+
+	RoleArn string `json:"roleArn"`
+
+	RoleExternalID string `json:"roleExternalId"`
 }
 
 type Elastic struct {

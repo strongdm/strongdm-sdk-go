@@ -1158,6 +1158,8 @@ func convertAthenaToPorcelain(plumbing *proto.Athena) *Athena {
 	porcelain.Output = (plumbing.Output)
 	porcelain.PortOverride = (plumbing.PortOverride)
 	porcelain.Region = (plumbing.Region)
+	porcelain.RoleArn = (plumbing.RoleArn)
+	porcelain.RoleExternalID = (plumbing.RoleExternalId)
 	return porcelain
 }
 
@@ -1176,6 +1178,8 @@ func convertAthenaToPlumbing(porcelain *Athena) *proto.Athena {
 	plumbing.Output = (porcelain.Output)
 	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.Region = (porcelain.Region)
+	plumbing.RoleArn = (porcelain.RoleArn)
+	plumbing.RoleExternalId = (porcelain.RoleExternalID)
 	return plumbing
 }
 func convertRepeatedAthenaToPlumbing(
@@ -1528,6 +1532,8 @@ func convertDynamoDBToPorcelain(plumbing *proto.DynamoDB) *DynamoDB {
 	porcelain.Region = (plumbing.Region)
 	porcelain.Endpoint = (plumbing.Endpoint)
 	porcelain.PortOverride = (plumbing.PortOverride)
+	porcelain.RoleArn = (plumbing.RoleArn)
+	porcelain.RoleExternalID = (plumbing.RoleExternalId)
 	return porcelain
 }
 
@@ -1546,6 +1552,8 @@ func convertDynamoDBToPlumbing(porcelain *DynamoDB) *proto.DynamoDB {
 	plumbing.Region = (porcelain.Region)
 	plumbing.Endpoint = (porcelain.Endpoint)
 	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.RoleArn = (porcelain.RoleArn)
+	plumbing.RoleExternalId = (porcelain.RoleExternalID)
 	return plumbing
 }
 func convertRepeatedDynamoDBToPlumbing(
@@ -1580,6 +1588,8 @@ func convertAmazonESToPorcelain(plumbing *proto.AmazonES) *AmazonES {
 	porcelain.Endpoint = (plumbing.Endpoint)
 	porcelain.AccessKey = (plumbing.AccessKey)
 	porcelain.PortOverride = (plumbing.PortOverride)
+	porcelain.RoleArn = (plumbing.RoleArn)
+	porcelain.RoleExternalID = (plumbing.RoleExternalId)
 	return porcelain
 }
 
@@ -1598,6 +1608,8 @@ func convertAmazonESToPlumbing(porcelain *AmazonES) *proto.AmazonES {
 	plumbing.Endpoint = (porcelain.Endpoint)
 	plumbing.AccessKey = (porcelain.AccessKey)
 	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.RoleArn = (porcelain.RoleArn)
+	plumbing.RoleExternalId = (porcelain.RoleExternalID)
 	return plumbing
 }
 func convertRepeatedAmazonESToPlumbing(
