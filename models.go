@@ -62,6 +62,12 @@ type RateLimitMetadata struct {
 	Bucket string `json:"bucket"`
 }
 
+type Tag struct {
+	Name string `json:"name"`
+
+	Value string `json:"value"`
+}
+
 // AccountAttachmentCreateResponse reports how the AccountAttachments were created in the system.
 type AccountAttachmentCreateResponse struct {
 	// Reserved for future use.
@@ -3722,6 +3728,22 @@ type NodeIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() Node
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// TagIterator provides read access to a list of Tag.
+// Use it like so:
+//     for iterator.Next() {
+//         tag := iterator.Value()
+//         // ...
+//     }
+type TagIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *Tag
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }
