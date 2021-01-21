@@ -1209,6 +1209,7 @@ func convertAWSToPorcelain(plumbing *proto.AWS) *AWS {
 	porcelain.SecretAccessKey = (plumbing.SecretAccessKey)
 	porcelain.HealthcheckRegion = (plumbing.HealthcheckRegion)
 	porcelain.RoleArn = (plumbing.RoleArn)
+	porcelain.RoleExternalID = (plumbing.RoleExternalId)
 	return porcelain
 }
 
@@ -1226,6 +1227,7 @@ func convertAWSToPlumbing(porcelain *AWS) *proto.AWS {
 	plumbing.SecretAccessKey = (porcelain.SecretAccessKey)
 	plumbing.HealthcheckRegion = (porcelain.HealthcheckRegion)
 	plumbing.RoleArn = (porcelain.RoleArn)
+	plumbing.RoleExternalId = (porcelain.RoleExternalID)
 	return plumbing
 }
 func convertRepeatedAWSToPlumbing(
@@ -2004,6 +2006,7 @@ func convertAmazonEKSToPorcelain(plumbing *proto.AmazonEKS) *AmazonEKS {
 	porcelain.Region = (plumbing.Region)
 	porcelain.ClusterName = (plumbing.ClusterName)
 	porcelain.RoleArn = (plumbing.RoleArn)
+	porcelain.RoleExternalID = (plumbing.RoleExternalId)
 	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
 	return porcelain
 }
@@ -2025,6 +2028,7 @@ func convertAmazonEKSToPlumbing(porcelain *AmazonEKS) *proto.AmazonEKS {
 	plumbing.Region = (porcelain.Region)
 	plumbing.ClusterName = (porcelain.ClusterName)
 	plumbing.RoleArn = (porcelain.RoleArn)
+	plumbing.RoleExternalId = (porcelain.RoleExternalID)
 	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
 	return plumbing
 }

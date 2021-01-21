@@ -2022,6 +2022,8 @@ type AWS struct {
 	HealthcheckRegion string `json:"healthcheckRegion"`
 
 	RoleArn string `json:"roleArn"`
+
+	RoleExternalID string `json:"roleExternalId"`
 }
 
 type BigQuery struct {
@@ -2385,6 +2387,8 @@ type AmazonEKS struct {
 	ClusterName string `json:"clusterName"`
 
 	RoleArn string `json:"roleArn"`
+
+	RoleExternalID string `json:"roleExternalId"`
 
 	HealthcheckNamespace string `json:"healthcheckNamespace"`
 }
