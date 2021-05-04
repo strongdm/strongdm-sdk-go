@@ -805,6 +805,40 @@ func (m *Kubernetes) GetSecretStoreID() string {
 func (m *Kubernetes) SetSecretStoreID(v string) {
 	m.SecretStoreID = v
 }
+func (*KubernetesUserImpersonation) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the KubernetesUserImpersonation.
+func (m *KubernetesUserImpersonation) GetID() string { return m.ID }
+
+// GetName returns the name of the KubernetesUserImpersonation.
+func (m *KubernetesUserImpersonation) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the KubernetesUserImpersonation.
+func (m *KubernetesUserImpersonation) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the KubernetesUserImpersonation.
+func (m *KubernetesUserImpersonation) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the KubernetesUserImpersonation.
+func (m *KubernetesUserImpersonation) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the KubernetesUserImpersonation.
+func (m *KubernetesUserImpersonation) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the KubernetesUserImpersonation.
+func (m *KubernetesUserImpersonation) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*KubernetesBasicAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the KubernetesBasicAuth.
@@ -873,6 +907,40 @@ func (m *KubernetesServiceAccount) GetSecretStoreID() string {
 func (m *KubernetesServiceAccount) SetSecretStoreID(v string) {
 	m.SecretStoreID = v
 }
+func (*KubernetesServiceAccountUserImpersonation) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the KubernetesServiceAccountUserImpersonation.
+func (m *KubernetesServiceAccountUserImpersonation) GetID() string { return m.ID }
+
+// GetName returns the name of the KubernetesServiceAccountUserImpersonation.
+func (m *KubernetesServiceAccountUserImpersonation) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the KubernetesServiceAccountUserImpersonation.
+func (m *KubernetesServiceAccountUserImpersonation) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the KubernetesServiceAccountUserImpersonation.
+func (m *KubernetesServiceAccountUserImpersonation) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the KubernetesServiceAccountUserImpersonation.
+func (m *KubernetesServiceAccountUserImpersonation) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the KubernetesServiceAccountUserImpersonation.
+func (m *KubernetesServiceAccountUserImpersonation) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the KubernetesServiceAccountUserImpersonation.
+func (m *KubernetesServiceAccountUserImpersonation) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*AmazonEKS) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AmazonEKS.
@@ -905,6 +973,40 @@ func (m *AmazonEKS) GetSecretStoreID() string {
 
 // SetSecretStoreID sets the secret store id of the AmazonEKS.
 func (m *AmazonEKS) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+func (*AmazonEKSUserImpersonation) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the AmazonEKSUserImpersonation.
+func (m *AmazonEKSUserImpersonation) GetID() string { return m.ID }
+
+// GetName returns the name of the AmazonEKSUserImpersonation.
+func (m *AmazonEKSUserImpersonation) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the AmazonEKSUserImpersonation.
+func (m *AmazonEKSUserImpersonation) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the AmazonEKSUserImpersonation.
+func (m *AmazonEKSUserImpersonation) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the AmazonEKSUserImpersonation.
+func (m *AmazonEKSUserImpersonation) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the AmazonEKSUserImpersonation.
+func (m *AmazonEKSUserImpersonation) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the AmazonEKSUserImpersonation.
+func (m *AmazonEKSUserImpersonation) SetSecretStoreID(v string) {
 	m.SecretStoreID = v
 }
 func (*GoogleGKE) isOneOf_Resource() {}
@@ -941,6 +1043,40 @@ func (m *GoogleGKE) GetSecretStoreID() string {
 func (m *GoogleGKE) SetSecretStoreID(v string) {
 	m.SecretStoreID = v
 }
+func (*GoogleGKEUserImpersonation) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the GoogleGKEUserImpersonation.
+func (m *GoogleGKEUserImpersonation) GetID() string { return m.ID }
+
+// GetName returns the name of the GoogleGKEUserImpersonation.
+func (m *GoogleGKEUserImpersonation) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the GoogleGKEUserImpersonation.
+func (m *GoogleGKEUserImpersonation) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the GoogleGKEUserImpersonation.
+func (m *GoogleGKEUserImpersonation) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the GoogleGKEUserImpersonation.
+func (m *GoogleGKEUserImpersonation) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the GoogleGKEUserImpersonation.
+func (m *GoogleGKEUserImpersonation) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the GoogleGKEUserImpersonation.
+func (m *GoogleGKEUserImpersonation) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
 func (*AKS) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AKS.
@@ -973,6 +1109,40 @@ func (m *AKS) GetSecretStoreID() string {
 
 // SetSecretStoreID sets the secret store id of the AKS.
 func (m *AKS) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+func (*AKSUserImpersonation) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the AKSUserImpersonation.
+func (m *AKSUserImpersonation) GetID() string { return m.ID }
+
+// GetName returns the name of the AKSUserImpersonation.
+func (m *AKSUserImpersonation) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the AKSUserImpersonation.
+func (m *AKSUserImpersonation) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the AKSUserImpersonation.
+func (m *AKSUserImpersonation) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the AKSUserImpersonation.
+func (m *AKSUserImpersonation) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the AKSUserImpersonation.
+func (m *AKSUserImpersonation) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the AKSUserImpersonation.
+func (m *AKSUserImpersonation) SetSecretStoreID(v string) {
 	m.SecretStoreID = v
 }
 func (*AKSBasicAuth) isOneOf_Resource() {}
@@ -1041,6 +1211,40 @@ func (m *AKSServiceAccount) GetSecretStoreID() string {
 
 // SetSecretStoreID sets the secret store id of the AKSServiceAccount.
 func (m *AKSServiceAccount) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+func (*AKSServiceAccountUserImpersonation) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the AKSServiceAccountUserImpersonation.
+func (m *AKSServiceAccountUserImpersonation) GetID() string { return m.ID }
+
+// GetName returns the name of the AKSServiceAccountUserImpersonation.
+func (m *AKSServiceAccountUserImpersonation) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the AKSServiceAccountUserImpersonation.
+func (m *AKSServiceAccountUserImpersonation) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the AKSServiceAccountUserImpersonation.
+func (m *AKSServiceAccountUserImpersonation) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the AKSServiceAccountUserImpersonation.
+func (m *AKSServiceAccountUserImpersonation) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the AKSServiceAccountUserImpersonation.
+func (m *AKSServiceAccountUserImpersonation) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the AKSServiceAccountUserImpersonation.
+func (m *AKSServiceAccountUserImpersonation) SetSecretStoreID(v string) {
 	m.SecretStoreID = v
 }
 func (*Memcached) isOneOf_Resource() {}
@@ -2380,6 +2584,31 @@ type Kubernetes struct {
 	HealthcheckNamespace string `json:"healthcheckNamespace"`
 }
 
+type KubernetesUserImpersonation struct {
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+
+	Hostname string `json:"hostname"`
+
+	Port int32 `json:"port"`
+
+	CertificateAuthority string `json:"certificateAuthority"`
+
+	ClientCertificate string `json:"clientCertificate"`
+
+	ClientKey string `json:"clientKey"`
+
+	HealthcheckNamespace string `json:"healthcheckNamespace"`
+}
+
 type KubernetesBasicAuth struct {
 	// Unique identifier of the Resource.
 	ID string `json:"id"`
@@ -2404,6 +2633,27 @@ type KubernetesBasicAuth struct {
 }
 
 type KubernetesServiceAccount struct {
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+
+	Hostname string `json:"hostname"`
+
+	Port int32 `json:"port"`
+
+	Token string `json:"token"`
+
+	HealthcheckNamespace string `json:"healthcheckNamespace"`
+}
+
+type KubernetesServiceAccountUserImpersonation struct {
 	// Unique identifier of the Resource.
 	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
@@ -2455,6 +2705,37 @@ type AmazonEKS struct {
 	HealthcheckNamespace string `json:"healthcheckNamespace"`
 }
 
+type AmazonEKSUserImpersonation struct {
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+
+	Endpoint string `json:"endpoint"`
+
+	AccessKey string `json:"accessKey"`
+
+	SecretAccessKey string `json:"secretAccessKey"`
+
+	CertificateAuthority string `json:"certificateAuthority"`
+
+	Region string `json:"region"`
+
+	ClusterName string `json:"clusterName"`
+
+	RoleArn string `json:"roleArn"`
+
+	RoleExternalID string `json:"roleExternalId"`
+
+	HealthcheckNamespace string `json:"healthcheckNamespace"`
+}
+
 type GoogleGKE struct {
 	// Unique identifier of the Resource.
 	ID string `json:"id"`
@@ -2476,7 +2757,53 @@ type GoogleGKE struct {
 	HealthcheckNamespace string `json:"healthcheckNamespace"`
 }
 
+type GoogleGKEUserImpersonation struct {
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+
+	Endpoint string `json:"endpoint"`
+
+	CertificateAuthority string `json:"certificateAuthority"`
+
+	ServiceAccountKey string `json:"serviceAccountKey"`
+
+	HealthcheckNamespace string `json:"healthcheckNamespace"`
+}
+
 type AKS struct {
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+
+	Hostname string `json:"hostname"`
+
+	Port int32 `json:"port"`
+
+	CertificateAuthority string `json:"certificateAuthority"`
+
+	ClientCertificate string `json:"clientCertificate"`
+
+	ClientKey string `json:"clientKey"`
+
+	HealthcheckNamespace string `json:"healthcheckNamespace"`
+}
+
+type AKSUserImpersonation struct {
 	// Unique identifier of the Resource.
 	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
@@ -2525,6 +2852,27 @@ type AKSBasicAuth struct {
 }
 
 type AKSServiceAccount struct {
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+
+	Hostname string `json:"hostname"`
+
+	Port int32 `json:"port"`
+
+	Token string `json:"token"`
+
+	HealthcheckNamespace string `json:"healthcheckNamespace"`
+}
+
+type AKSServiceAccountUserImpersonation struct {
 	// Unique identifier of the Resource.
 	ID string `json:"id"`
 	// Unique human-readable name of the Resource.

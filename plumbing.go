@@ -976,20 +976,32 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_HttpAuth{HttpAuth: convertHTTPAuthToPlumbing(v)}
 	case *Kubernetes:
 		plumbing.Resource = &proto.Resource_Kubernetes{Kubernetes: convertKubernetesToPlumbing(v)}
+	case *KubernetesUserImpersonation:
+		plumbing.Resource = &proto.Resource_KubernetesUserImpersonation{KubernetesUserImpersonation: convertKubernetesUserImpersonationToPlumbing(v)}
 	case *KubernetesBasicAuth:
 		plumbing.Resource = &proto.Resource_KubernetesBasicAuth{KubernetesBasicAuth: convertKubernetesBasicAuthToPlumbing(v)}
 	case *KubernetesServiceAccount:
 		plumbing.Resource = &proto.Resource_KubernetesServiceAccount{KubernetesServiceAccount: convertKubernetesServiceAccountToPlumbing(v)}
+	case *KubernetesServiceAccountUserImpersonation:
+		plumbing.Resource = &proto.Resource_KubernetesServiceAccountUserImpersonation{KubernetesServiceAccountUserImpersonation: convertKubernetesServiceAccountUserImpersonationToPlumbing(v)}
 	case *AmazonEKS:
 		plumbing.Resource = &proto.Resource_AmazonEks{AmazonEks: convertAmazonEKSToPlumbing(v)}
+	case *AmazonEKSUserImpersonation:
+		plumbing.Resource = &proto.Resource_AmazonEksUserImpersonation{AmazonEksUserImpersonation: convertAmazonEKSUserImpersonationToPlumbing(v)}
 	case *GoogleGKE:
 		plumbing.Resource = &proto.Resource_GoogleGke{GoogleGke: convertGoogleGKEToPlumbing(v)}
+	case *GoogleGKEUserImpersonation:
+		plumbing.Resource = &proto.Resource_GoogleGkeUserImpersonation{GoogleGkeUserImpersonation: convertGoogleGKEUserImpersonationToPlumbing(v)}
 	case *AKS:
 		plumbing.Resource = &proto.Resource_Aks{Aks: convertAKSToPlumbing(v)}
+	case *AKSUserImpersonation:
+		plumbing.Resource = &proto.Resource_AksUserImpersonation{AksUserImpersonation: convertAKSUserImpersonationToPlumbing(v)}
 	case *AKSBasicAuth:
 		plumbing.Resource = &proto.Resource_AksBasicAuth{AksBasicAuth: convertAKSBasicAuthToPlumbing(v)}
 	case *AKSServiceAccount:
 		plumbing.Resource = &proto.Resource_AksServiceAccount{AksServiceAccount: convertAKSServiceAccountToPlumbing(v)}
+	case *AKSServiceAccountUserImpersonation:
+		plumbing.Resource = &proto.Resource_AksServiceAccountUserImpersonation{AksServiceAccountUserImpersonation: convertAKSServiceAccountUserImpersonationToPlumbing(v)}
 	case *Memcached:
 		plumbing.Resource = &proto.Resource_Memcached{Memcached: convertMemcachedToPlumbing(v)}
 	case *MongoLegacyHost:
@@ -1095,26 +1107,44 @@ func convertResourceToPorcelain(plumbing *proto.Resource) Resource {
 	if plumbing.GetKubernetes() != nil {
 		return convertKubernetesToPorcelain(plumbing.GetKubernetes())
 	}
+	if plumbing.GetKubernetesUserImpersonation() != nil {
+		return convertKubernetesUserImpersonationToPorcelain(plumbing.GetKubernetesUserImpersonation())
+	}
 	if plumbing.GetKubernetesBasicAuth() != nil {
 		return convertKubernetesBasicAuthToPorcelain(plumbing.GetKubernetesBasicAuth())
 	}
 	if plumbing.GetKubernetesServiceAccount() != nil {
 		return convertKubernetesServiceAccountToPorcelain(plumbing.GetKubernetesServiceAccount())
 	}
+	if plumbing.GetKubernetesServiceAccountUserImpersonation() != nil {
+		return convertKubernetesServiceAccountUserImpersonationToPorcelain(plumbing.GetKubernetesServiceAccountUserImpersonation())
+	}
 	if plumbing.GetAmazonEks() != nil {
 		return convertAmazonEKSToPorcelain(plumbing.GetAmazonEks())
+	}
+	if plumbing.GetAmazonEksUserImpersonation() != nil {
+		return convertAmazonEKSUserImpersonationToPorcelain(plumbing.GetAmazonEksUserImpersonation())
 	}
 	if plumbing.GetGoogleGke() != nil {
 		return convertGoogleGKEToPorcelain(plumbing.GetGoogleGke())
 	}
+	if plumbing.GetGoogleGkeUserImpersonation() != nil {
+		return convertGoogleGKEUserImpersonationToPorcelain(plumbing.GetGoogleGkeUserImpersonation())
+	}
 	if plumbing.GetAks() != nil {
 		return convertAKSToPorcelain(plumbing.GetAks())
+	}
+	if plumbing.GetAksUserImpersonation() != nil {
+		return convertAKSUserImpersonationToPorcelain(plumbing.GetAksUserImpersonation())
 	}
 	if plumbing.GetAksBasicAuth() != nil {
 		return convertAKSBasicAuthToPorcelain(plumbing.GetAksBasicAuth())
 	}
 	if plumbing.GetAksServiceAccount() != nil {
 		return convertAKSServiceAccountToPorcelain(plumbing.GetAksServiceAccount())
+	}
+	if plumbing.GetAksServiceAccountUserImpersonation() != nil {
+		return convertAKSServiceAccountUserImpersonationToPorcelain(plumbing.GetAksServiceAccountUserImpersonation())
 	}
 	if plumbing.GetMemcached() != nil {
 		return convertMemcachedToPorcelain(plumbing.GetMemcached())
@@ -1978,6 +2008,60 @@ func convertRepeatedKubernetesToPorcelain(plumbings []*proto.Kubernetes) []*Kube
 	}
 	return items
 }
+func convertKubernetesUserImpersonationToPorcelain(plumbing *proto.KubernetesUserImpersonation) *KubernetesUserImpersonation {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &KubernetesUserImpersonation{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Healthy = (plumbing.Healthy)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.SecretStoreID = (plumbing.SecretStoreId)
+	porcelain.Hostname = (plumbing.Hostname)
+	porcelain.Port = (plumbing.Port)
+	porcelain.CertificateAuthority = (plumbing.CertificateAuthority)
+	porcelain.ClientCertificate = (plumbing.ClientCertificate)
+	porcelain.ClientKey = (plumbing.ClientKey)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
+	return porcelain
+}
+
+func convertKubernetesUserImpersonationToPlumbing(porcelain *KubernetesUserImpersonation) *proto.KubernetesUserImpersonation {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.KubernetesUserImpersonation{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Port = (porcelain.Port)
+	plumbing.CertificateAuthority = (porcelain.CertificateAuthority)
+	plumbing.ClientCertificate = (porcelain.ClientCertificate)
+	plumbing.ClientKey = (porcelain.ClientKey)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
+	return plumbing
+}
+func convertRepeatedKubernetesUserImpersonationToPlumbing(
+	porcelains []*KubernetesUserImpersonation,
+) []*proto.KubernetesUserImpersonation {
+	var items []*proto.KubernetesUserImpersonation
+	for _, porcelain := range porcelains {
+		items = append(items, convertKubernetesUserImpersonationToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedKubernetesUserImpersonationToPorcelain(plumbings []*proto.KubernetesUserImpersonation) []*KubernetesUserImpersonation {
+	var items []*KubernetesUserImpersonation
+	for _, plumbing := range plumbings {
+		items = append(items, convertKubernetesUserImpersonationToPorcelain(plumbing))
+	}
+	return items
+}
 func convertKubernetesBasicAuthToPorcelain(plumbing *proto.KubernetesBasicAuth) *KubernetesBasicAuth {
 	if plumbing == nil {
 		return nil
@@ -2080,6 +2164,56 @@ func convertRepeatedKubernetesServiceAccountToPorcelain(plumbings []*proto.Kuber
 	}
 	return items
 }
+func convertKubernetesServiceAccountUserImpersonationToPorcelain(plumbing *proto.KubernetesServiceAccountUserImpersonation) *KubernetesServiceAccountUserImpersonation {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &KubernetesServiceAccountUserImpersonation{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Healthy = (plumbing.Healthy)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.SecretStoreID = (plumbing.SecretStoreId)
+	porcelain.Hostname = (plumbing.Hostname)
+	porcelain.Port = (plumbing.Port)
+	porcelain.Token = (plumbing.Token)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
+	return porcelain
+}
+
+func convertKubernetesServiceAccountUserImpersonationToPlumbing(porcelain *KubernetesServiceAccountUserImpersonation) *proto.KubernetesServiceAccountUserImpersonation {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.KubernetesServiceAccountUserImpersonation{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Port = (porcelain.Port)
+	plumbing.Token = (porcelain.Token)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
+	return plumbing
+}
+func convertRepeatedKubernetesServiceAccountUserImpersonationToPlumbing(
+	porcelains []*KubernetesServiceAccountUserImpersonation,
+) []*proto.KubernetesServiceAccountUserImpersonation {
+	var items []*proto.KubernetesServiceAccountUserImpersonation
+	for _, porcelain := range porcelains {
+		items = append(items, convertKubernetesServiceAccountUserImpersonationToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedKubernetesServiceAccountUserImpersonationToPorcelain(plumbings []*proto.KubernetesServiceAccountUserImpersonation) []*KubernetesServiceAccountUserImpersonation {
+	var items []*KubernetesServiceAccountUserImpersonation
+	for _, plumbing := range plumbings {
+		items = append(items, convertKubernetesServiceAccountUserImpersonationToPorcelain(plumbing))
+	}
+	return items
+}
 func convertAmazonEKSToPorcelain(plumbing *proto.AmazonEKS) *AmazonEKS {
 	if plumbing == nil {
 		return nil
@@ -2140,6 +2274,66 @@ func convertRepeatedAmazonEKSToPorcelain(plumbings []*proto.AmazonEKS) []*Amazon
 	}
 	return items
 }
+func convertAmazonEKSUserImpersonationToPorcelain(plumbing *proto.AmazonEKSUserImpersonation) *AmazonEKSUserImpersonation {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AmazonEKSUserImpersonation{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Healthy = (plumbing.Healthy)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.SecretStoreID = (plumbing.SecretStoreId)
+	porcelain.Endpoint = (plumbing.Endpoint)
+	porcelain.AccessKey = (plumbing.AccessKey)
+	porcelain.SecretAccessKey = (plumbing.SecretAccessKey)
+	porcelain.CertificateAuthority = (plumbing.CertificateAuthority)
+	porcelain.Region = (plumbing.Region)
+	porcelain.ClusterName = (plumbing.ClusterName)
+	porcelain.RoleArn = (plumbing.RoleArn)
+	porcelain.RoleExternalID = (plumbing.RoleExternalId)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
+	return porcelain
+}
+
+func convertAmazonEKSUserImpersonationToPlumbing(porcelain *AmazonEKSUserImpersonation) *proto.AmazonEKSUserImpersonation {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AmazonEKSUserImpersonation{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Endpoint = (porcelain.Endpoint)
+	plumbing.AccessKey = (porcelain.AccessKey)
+	plumbing.SecretAccessKey = (porcelain.SecretAccessKey)
+	plumbing.CertificateAuthority = (porcelain.CertificateAuthority)
+	plumbing.Region = (porcelain.Region)
+	plumbing.ClusterName = (porcelain.ClusterName)
+	plumbing.RoleArn = (porcelain.RoleArn)
+	plumbing.RoleExternalId = (porcelain.RoleExternalID)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
+	return plumbing
+}
+func convertRepeatedAmazonEKSUserImpersonationToPlumbing(
+	porcelains []*AmazonEKSUserImpersonation,
+) []*proto.AmazonEKSUserImpersonation {
+	var items []*proto.AmazonEKSUserImpersonation
+	for _, porcelain := range porcelains {
+		items = append(items, convertAmazonEKSUserImpersonationToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAmazonEKSUserImpersonationToPorcelain(plumbings []*proto.AmazonEKSUserImpersonation) []*AmazonEKSUserImpersonation {
+	var items []*AmazonEKSUserImpersonation
+	for _, plumbing := range plumbings {
+		items = append(items, convertAmazonEKSUserImpersonationToPorcelain(plumbing))
+	}
+	return items
+}
 func convertGoogleGKEToPorcelain(plumbing *proto.GoogleGKE) *GoogleGKE {
 	if plumbing == nil {
 		return nil
@@ -2187,6 +2381,56 @@ func convertRepeatedGoogleGKEToPorcelain(plumbings []*proto.GoogleGKE) []*Google
 	var items []*GoogleGKE
 	for _, plumbing := range plumbings {
 		items = append(items, convertGoogleGKEToPorcelain(plumbing))
+	}
+	return items
+}
+func convertGoogleGKEUserImpersonationToPorcelain(plumbing *proto.GoogleGKEUserImpersonation) *GoogleGKEUserImpersonation {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &GoogleGKEUserImpersonation{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Healthy = (plumbing.Healthy)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.SecretStoreID = (plumbing.SecretStoreId)
+	porcelain.Endpoint = (plumbing.Endpoint)
+	porcelain.CertificateAuthority = (plumbing.CertificateAuthority)
+	porcelain.ServiceAccountKey = (plumbing.ServiceAccountKey)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
+	return porcelain
+}
+
+func convertGoogleGKEUserImpersonationToPlumbing(porcelain *GoogleGKEUserImpersonation) *proto.GoogleGKEUserImpersonation {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.GoogleGKEUserImpersonation{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Endpoint = (porcelain.Endpoint)
+	plumbing.CertificateAuthority = (porcelain.CertificateAuthority)
+	plumbing.ServiceAccountKey = (porcelain.ServiceAccountKey)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
+	return plumbing
+}
+func convertRepeatedGoogleGKEUserImpersonationToPlumbing(
+	porcelains []*GoogleGKEUserImpersonation,
+) []*proto.GoogleGKEUserImpersonation {
+	var items []*proto.GoogleGKEUserImpersonation
+	for _, porcelain := range porcelains {
+		items = append(items, convertGoogleGKEUserImpersonationToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedGoogleGKEUserImpersonationToPorcelain(plumbings []*proto.GoogleGKEUserImpersonation) []*GoogleGKEUserImpersonation {
+	var items []*GoogleGKEUserImpersonation
+	for _, plumbing := range plumbings {
+		items = append(items, convertGoogleGKEUserImpersonationToPorcelain(plumbing))
 	}
 	return items
 }
@@ -2241,6 +2485,60 @@ func convertRepeatedAKSToPorcelain(plumbings []*proto.AKS) []*AKS {
 	var items []*AKS
 	for _, plumbing := range plumbings {
 		items = append(items, convertAKSToPorcelain(plumbing))
+	}
+	return items
+}
+func convertAKSUserImpersonationToPorcelain(plumbing *proto.AKSUserImpersonation) *AKSUserImpersonation {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AKSUserImpersonation{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Healthy = (plumbing.Healthy)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.SecretStoreID = (plumbing.SecretStoreId)
+	porcelain.Hostname = (plumbing.Hostname)
+	porcelain.Port = (plumbing.Port)
+	porcelain.CertificateAuthority = (plumbing.CertificateAuthority)
+	porcelain.ClientCertificate = (plumbing.ClientCertificate)
+	porcelain.ClientKey = (plumbing.ClientKey)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
+	return porcelain
+}
+
+func convertAKSUserImpersonationToPlumbing(porcelain *AKSUserImpersonation) *proto.AKSUserImpersonation {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AKSUserImpersonation{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Port = (porcelain.Port)
+	plumbing.CertificateAuthority = (porcelain.CertificateAuthority)
+	plumbing.ClientCertificate = (porcelain.ClientCertificate)
+	plumbing.ClientKey = (porcelain.ClientKey)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
+	return plumbing
+}
+func convertRepeatedAKSUserImpersonationToPlumbing(
+	porcelains []*AKSUserImpersonation,
+) []*proto.AKSUserImpersonation {
+	var items []*proto.AKSUserImpersonation
+	for _, porcelain := range porcelains {
+		items = append(items, convertAKSUserImpersonationToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAKSUserImpersonationToPorcelain(plumbings []*proto.AKSUserImpersonation) []*AKSUserImpersonation {
+	var items []*AKSUserImpersonation
+	for _, plumbing := range plumbings {
+		items = append(items, convertAKSUserImpersonationToPorcelain(plumbing))
 	}
 	return items
 }
@@ -2343,6 +2641,56 @@ func convertRepeatedAKSServiceAccountToPorcelain(plumbings []*proto.AKSServiceAc
 	var items []*AKSServiceAccount
 	for _, plumbing := range plumbings {
 		items = append(items, convertAKSServiceAccountToPorcelain(plumbing))
+	}
+	return items
+}
+func convertAKSServiceAccountUserImpersonationToPorcelain(plumbing *proto.AKSServiceAccountUserImpersonation) *AKSServiceAccountUserImpersonation {
+	if plumbing == nil {
+		return nil
+	}
+	porcelain := &AKSServiceAccountUserImpersonation{}
+	porcelain.ID = (plumbing.Id)
+	porcelain.Name = (plumbing.Name)
+	porcelain.Healthy = (plumbing.Healthy)
+	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.SecretStoreID = (plumbing.SecretStoreId)
+	porcelain.Hostname = (plumbing.Hostname)
+	porcelain.Port = (plumbing.Port)
+	porcelain.Token = (plumbing.Token)
+	porcelain.HealthcheckNamespace = (plumbing.HealthcheckNamespace)
+	return porcelain
+}
+
+func convertAKSServiceAccountUserImpersonationToPlumbing(porcelain *AKSServiceAccountUserImpersonation) *proto.AKSServiceAccountUserImpersonation {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AKSServiceAccountUserImpersonation{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Port = (porcelain.Port)
+	plumbing.Token = (porcelain.Token)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
+	return plumbing
+}
+func convertRepeatedAKSServiceAccountUserImpersonationToPlumbing(
+	porcelains []*AKSServiceAccountUserImpersonation,
+) []*proto.AKSServiceAccountUserImpersonation {
+	var items []*proto.AKSServiceAccountUserImpersonation
+	for _, porcelain := range porcelains {
+		items = append(items, convertAKSServiceAccountUserImpersonationToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAKSServiceAccountUserImpersonationToPorcelain(plumbings []*proto.AKSServiceAccountUserImpersonation) []*AKSServiceAccountUserImpersonation {
+	var items []*AKSServiceAccountUserImpersonation
+	for _, plumbing := range plumbings {
+		items = append(items, convertAKSServiceAccountUserImpersonationToPorcelain(plumbing))
 	}
 	return items
 }
