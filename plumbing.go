@@ -4590,6 +4590,7 @@ func convertRelayToPorcelain(plumbing *proto.Relay) *Relay {
 	porcelain.Name = (plumbing.Name)
 	porcelain.State = (plumbing.State)
 	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.GatewayFilter = (plumbing.GatewayFilter)
 	return porcelain
 }
 
@@ -4602,6 +4603,7 @@ func convertRelayToPlumbing(porcelain *Relay) *proto.Relay {
 	plumbing.Name = (porcelain.Name)
 	plumbing.State = (porcelain.State)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.GatewayFilter = (porcelain.GatewayFilter)
 	return plumbing
 }
 func convertRepeatedRelayToPlumbing(
@@ -4632,6 +4634,7 @@ func convertGatewayToPorcelain(plumbing *proto.Gateway) *Gateway {
 	porcelain.ListenAddress = (plumbing.ListenAddress)
 	porcelain.BindAddress = (plumbing.BindAddress)
 	porcelain.Tags = convertTagsToPorcelain(plumbing.Tags)
+	porcelain.GatewayFilter = (plumbing.GatewayFilter)
 	return porcelain
 }
 
@@ -4646,6 +4649,7 @@ func convertGatewayToPlumbing(porcelain *Gateway) *proto.Gateway {
 	plumbing.ListenAddress = (porcelain.ListenAddress)
 	plumbing.BindAddress = (porcelain.BindAddress)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.GatewayFilter = (porcelain.GatewayFilter)
 	return plumbing
 }
 func convertRepeatedGatewayToPlumbing(

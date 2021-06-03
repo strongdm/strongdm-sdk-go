@@ -4407,6 +4407,9 @@ type Relay struct {
 	State string `json:"state"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// GatewayFilter can be used to restrict the peering between relays and
+	// gateways.
+	GatewayFilter string `json:"gatewayFilter"`
 }
 
 // Gateway represents a StrongDM CLI installation running in gateway mode.
@@ -4425,6 +4428,9 @@ type Gateway struct {
 	BindAddress string `json:"bindAddress"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// GatewayFilter can be used to restrict the peering between relays and
+	// gateways.
+	GatewayFilter string `json:"gatewayFilter"`
 }
 
 // ResourceCreateResponse reports how the Resources were created in the system.
