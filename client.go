@@ -263,7 +263,7 @@ func (c *Client) wrapContext(ctx context.Context, req proto.Message, methodName 
 		"x-sdm-authentication": c.apiToken,
 		"x-sdm-signature":      c.Sign(methodName, msg),
 		"x-sdm-api-version":    apiVersion,
-		"user-agent":           userAgent,
+		"x-sdm-user-agent":     userAgent,
 	}))
 }
 
