@@ -41,10 +41,13 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-var (
+const (
 	defaultAPIHost = "api.strongdm.com:443"
-	_              = metadata.Pairs
+	apiVersion     = "2021-08-23"
+	userAgent      = "strongdm-sdk-go/0.9.33"
 )
+
+var _ = metadata.Pairs
 
 // Client is the strongDM API client implementation.
 type Client struct {
@@ -259,6 +262,8 @@ func (c *Client) wrapContext(ctx context.Context, req proto.Message, methodName 
 	return metadata.NewOutgoingContext(ctx, metadata.New(map[string]string{
 		"x-sdm-authentication": c.apiToken,
 		"x-sdm-signature":      c.Sign(methodName, msg),
+		"x-sdm-api-version":    apiVersion,
+		"user-agent":           userAgent,
 	}))
 }
 
