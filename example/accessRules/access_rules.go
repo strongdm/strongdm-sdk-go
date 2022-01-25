@@ -26,6 +26,7 @@ import (
 )
 
 func main() {
+	rand.Seed(time.Now().Unix())
 	log.SetFlags(0)
 	accessKey := os.Getenv("SDM_API_ACCESS_KEY")
 	secretKey := os.Getenv("SDM_API_SECRET_KEY")
@@ -70,15 +71,31 @@ func main() {
 			Type: "postgres",
 		},
 	}
+	updateResp, err := client.Roles().Update(ctx, role)
+	if err != nil {
+		log.Fatalf("failed to update role: %v", err)
+	}
+	role = updateResp.Role
+
+	// if you want to write access rules in the JSON format, use this function:
+	role.AccessRules, err = sdm.ParseAccessRulesJSON(`
+	[
+		{"type":"redis"},
+		{"tags":{"env":"prod"}}
+	]`)
+	if err != nil {
+		log.Fatalf("failed to parse JSON: %v", err)
+	}
 	_, err = client.Roles().Update(ctx, role)
 	if err != nil {
 		log.Fatalf("failed to update role: %v", err)
 	}
 
-	// The RoleGrants API has been deprecated in favor of Access Rules.
-	// When using Access Rules the best practice is to grant Resources access based on Type and Tags.
-	// If it is _necessary_ to grant access to specific Resources in the same way as RoleGrants did,
-	// you can use Resource IDs directly in Access Rules as shown in the following examples.
+	// The RoleGrants API has been deprecated in favor of Access Rules. When
+	// using Access Rules the best practice is to grant Resources access based
+	// on Type and Tags. If it is _necessary_ to grant access to specific
+	// Resources in the same way as RoleGrants did, you can use Resource IDs
+	// directly in Access Rules as shown in the following examples.
 
 	err = createRoleGrantViaAccessRulesExample(ctx, client)
 	if err != nil {
