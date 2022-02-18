@@ -27,7 +27,7 @@ import (
 	"github.com/okta/okta-sdk-golang/okta"
 	"github.com/okta/okta-sdk-golang/okta/query"
 	"github.com/pkg/errors"
-	sdm "github.com/strongdm/strongdm-sdk-go"
+	sdm "github.com/strongdm/strongdm-sdk-go/v2"
 	"gopkg.in/yaml.v2"
 )
 
