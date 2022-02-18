@@ -7,7 +7,7 @@ Learn more with our [📚strongDM API docs](https://www.strongdm.com/docs/api/) 
 ## Installation
 
 ```bash
-$ go get github.com/strongdm/strongdm-sdk-go
+$ go get github.com/strongdm/strongdm-sdk-go/v2
 ```
 
 ## Authentication
