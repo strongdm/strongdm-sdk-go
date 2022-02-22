@@ -57,6 +57,7 @@ func main() {
 ## Useful Links
 
 * Documentation:  [sdm package · pkg.go.dev](https://pkg.go.dev/github.com/strongdm/strongdm-sdk-go?tab=doc)
+* [Migrating from Role Grants to Access Rules](https://github.com/strongdm/strongdm-sdk-go/wiki/Migrating-from-Role-Grants-to-Access-Rules)
 * Examples: [GitHub - strongdm/strongdm-sdk-go-examples](https://github.com/strongdm/strongdm-sdk-go-examples)
 	1. [Managing Resources](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/1_managing_resources)
 	1. [Managing Accounts](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/2_managing_accounts)
