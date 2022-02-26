@@ -32,7 +32,7 @@ import (
 	"sync"
 	"time"
 
-	plumbing "github.com/strongdm/strongdm-sdk-go/internal/v1"
+	plumbing "github.com/strongdm/strongdm-sdk-go/v2/internal/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
@@ -215,6 +215,8 @@ func (c *Client) Resources() *Resources {
 // that make up those composite roles. When a composite role is attached to another
 // role, the permissions granted to members of the composite role are augmented to
 // include the permissions granted to members of the attached role.
+//
+// Deprecated: use multi-role instead.
 func (c *Client) RoleAttachments() *RoleAttachments {
 	return c.roleAttachments
 }
@@ -223,6 +225,8 @@ func (c *Client) RoleAttachments() *RoleAttachments {
 // that make up those composite roles. When a composite role is attached to another
 // role, the permissions granted to members of the composite role are augmented to
 // include the permissions granted to members of the attached role.
+//
+// Deprecated: use access rules instead.
 func (c *Client) RoleGrants() *RoleGrants {
 	return c.roleGrants
 }
