@@ -18,7 +18,6 @@ package sdm
 
 import (
 	"encoding/json"
-	"fmt"
 	"strings"
 )
 
