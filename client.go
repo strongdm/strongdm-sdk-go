@@ -245,8 +245,8 @@ func (c *Client) SecretStores() *SecretStores {
 	return c.secretStores
 }
 
-// sign returns the signature for the given byte array
-func (c *Client) sign(methodName string, message []byte) string {
+// Sign returns the signature for the given byte array
+func (c *Client) Sign(methodName string, message []byte) string {
 	// Current UTC date
 	y, m, d := time.Now().UTC().Date()
 	currentUTCDate := fmt.Sprintf("%04d-%02d-%02d", y, m, d)
@@ -273,7 +273,7 @@ func (c *Client) wrapContext(ctx context.Context, req proto.Message, methodName 
 	msg, _ := proto.Marshal(req)
 	return metadata.NewOutgoingContext(ctx, metadata.New(map[string]string{
 		"x-sdm-authentication": c.apiToken,
-		"x-sdm-signature":      c.sign(methodName, msg),
+		"x-sdm-signature":      c.Sign(methodName, msg),
 		"x-sdm-api-version":    apiVersion,
 		"x-sdm-user-agent":     c.userAgent,
 	}))
