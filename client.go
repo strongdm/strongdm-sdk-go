@@ -44,7 +44,7 @@ import (
 const (
 	defaultAPIHost   = "api.strongdm.com:443"
 	apiVersion       = "2021-08-23"
-	defaultUserAgent = "strongdm-sdk-go/2.0.0"
+	defaultUserAgent = "strongdm-sdk-go/0.9.40"
 )
 
 var _ = metadata.Pairs
@@ -178,7 +178,7 @@ func WithUserAgentExtra(userAgentExtra string) ClientOption {
 	}
 }
 
-// AccountAttachments assign an account to a role.
+// AccountAttachments assign an account to a role or composite role.
 func (c *Client) AccountAttachments() *AccountAttachments {
 	return c.accountAttachments
 }
@@ -207,8 +207,6 @@ func (c *Client) Nodes() *Nodes {
 	return c.nodes
 }
 
-// Resources are databases, servers, clusters, websites, or clouds that strongDM
-// delegates access to.
 func (c *Client) Resources() *Resources {
 	return c.resources
 }
@@ -217,8 +215,6 @@ func (c *Client) Resources() *Resources {
 // that make up those composite roles. When a composite role is attached to another
 // role, the permissions granted to members of the composite role are augmented to
 // include the permissions granted to members of the attached role.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
 func (c *Client) RoleAttachments() *RoleAttachments {
 	return c.roleAttachments
 }
@@ -227,15 +223,15 @@ func (c *Client) RoleAttachments() *RoleAttachments {
 // that make up those composite roles. When a composite role is attached to another
 // role, the permissions granted to members of the composite role are augmented to
 // include the permissions granted to members of the attached role.
-//
-// Deprecated: use Role access rules instead.
 func (c *Client) RoleGrants() *RoleGrants {
 	return c.roleGrants
 }
 
-// A Role has a list of access rules which determine which Resources the members
-// of the Role have access to. An Account can be a member of multiple Roles via
-// AccountAttachments.
+// Roles are tools for controlling user access to resources. Each Role holds a
+// list of resources which they grant access to. Composite roles are a special
+// type of Role which have no resource associations of their own, but instead
+// grant access to the combined resources associated with a set of child roles.
+// Each user can be a member of one Role or composite role.
 func (c *Client) Roles() *Roles {
 	return c.roles
 }

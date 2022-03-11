@@ -23,7 +23,7 @@ import (
 	plumbing "github.com/strongdm/strongdm-sdk-go/v2/internal/v1"
 )
 
-// AccountAttachments assign an account to a role.
+// AccountAttachments assign an account to a role or composite role.
 type AccountAttachments struct {
 	client plumbing.AccountAttachmentsClient
 	parent *Client
@@ -55,21 +55,9 @@ func (svc *AccountAttachments) Create(
 	}
 
 	resp := &AccountAttachmentCreateResponse{}
-	if v, err := convertAccountAttachmentToPorcelain(plumbingResponse.AccountAttachment); err != nil {
-		return nil, err
-	} else {
-		resp.AccountAttachment = v
-	}
-	if v, err := convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.AccountAttachment = convertAccountAttachmentToPorcelain(plumbingResponse.AccountAttachment)
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -99,21 +87,9 @@ func (svc *AccountAttachments) Get(
 	}
 
 	resp := &AccountAttachmentGetResponse{}
-	if v, err := convertAccountAttachmentToPorcelain(plumbingResponse.AccountAttachment); err != nil {
-		return nil, err
-	} else {
-		resp.AccountAttachment = v
-	}
-	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.AccountAttachment = convertAccountAttachmentToPorcelain(plumbingResponse.AccountAttachment)
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -143,16 +119,8 @@ func (svc *AccountAttachments) Delete(
 	}
 
 	resp := &AccountAttachmentDeleteResponse{}
-	if v, err := convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -196,10 +164,7 @@ func (svc *AccountAttachments) List(
 				}
 				break
 			}
-			result, err := convertRepeatedAccountAttachmentToPorcelain(plumbingResponse.AccountAttachments)
-			if err != nil {
-				return nil, false, err
-			}
+			result := convertRepeatedAccountAttachmentToPorcelain(plumbingResponse.AccountAttachments)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -238,21 +203,9 @@ func (svc *AccountGrants) Create(
 	}
 
 	resp := &AccountGrantCreateResponse{}
-	if v, err := convertAccountGrantToPorcelain(plumbingResponse.AccountGrant); err != nil {
-		return nil, err
-	} else {
-		resp.AccountGrant = v
-	}
-	if v, err := convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.AccountGrant = convertAccountGrantToPorcelain(plumbingResponse.AccountGrant)
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -282,21 +235,9 @@ func (svc *AccountGrants) Get(
 	}
 
 	resp := &AccountGrantGetResponse{}
-	if v, err := convertAccountGrantToPorcelain(plumbingResponse.AccountGrant); err != nil {
-		return nil, err
-	} else {
-		resp.AccountGrant = v
-	}
-	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.AccountGrant = convertAccountGrantToPorcelain(plumbingResponse.AccountGrant)
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -326,16 +267,8 @@ func (svc *AccountGrants) Delete(
 	}
 
 	resp := &AccountGrantDeleteResponse{}
-	if v, err := convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -379,10 +312,7 @@ func (svc *AccountGrants) List(
 				}
 				break
 			}
-			result, err := convertRepeatedAccountGrantToPorcelain(plumbingResponse.AccountGrants)
-			if err != nil {
-				return nil, false, err
-			}
+			result := convertRepeatedAccountGrantToPorcelain(plumbingResponse.AccountGrants)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -423,21 +353,9 @@ func (svc *Accounts) Create(
 	}
 
 	resp := &AccountCreateResponse{}
-	if v, err := convertAccountToPorcelain(plumbingResponse.Account); err != nil {
-		return nil, err
-	} else {
-		resp.Account = v
-	}
-	if v, err := convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Account = convertAccountToPorcelain(plumbingResponse.Account)
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	resp.Token = (plumbingResponse.Token)
 	return resp, nil
 }
@@ -468,25 +386,13 @@ func (svc *Accounts) Get(
 	}
 
 	resp := &AccountGetResponse{}
-	if v, err := convertAccountToPorcelain(plumbingResponse.Account); err != nil {
-		return nil, err
-	} else {
-		resp.Account = v
-	}
-	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Account = convertAccountToPorcelain(plumbingResponse.Account)
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
-// Update replaces all the fields of an Account by ID.
+// Update patches a Account by ID.
 func (svc *Accounts) Update(
 	ctx context.Context,
 	account Account) (
@@ -512,25 +418,13 @@ func (svc *Accounts) Update(
 	}
 
 	resp := &AccountUpdateResponse{}
-	if v, err := convertAccountToPorcelain(plumbingResponse.Account); err != nil {
-		return nil, err
-	} else {
-		resp.Account = v
-	}
-	if v, err := convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Account = convertAccountToPorcelain(plumbingResponse.Account)
+	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
-// Delete removes an Account by ID.
+// Delete removes a Account by ID.
 func (svc *Accounts) Delete(
 	ctx context.Context,
 	id string) (
@@ -556,16 +450,8 @@ func (svc *Accounts) Delete(
 	}
 
 	resp := &AccountDeleteResponse{}
-	if v, err := convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -609,10 +495,7 @@ func (svc *Accounts) List(
 				}
 				break
 			}
-			result, err := convertRepeatedAccountToPorcelain(plumbingResponse.Accounts)
-			if err != nil {
-				return nil, false, err
-			}
+			result := convertRepeatedAccountToPorcelain(plumbingResponse.Accounts)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -649,17 +532,9 @@ func (svc *ControlPanel) GetSSHCAPublicKey(
 	}
 
 	resp := &ControlPanelGetSSHCAPublicKeyResponse{}
-	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
 	resp.PublicKey = (plumbingResponse.PublicKey)
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -689,16 +564,8 @@ func (svc *ControlPanel) VerifyJWT(
 	}
 
 	resp := &ControlPanelVerifyJWTResponse{}
-	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	resp.ValID = (plumbingResponse.Valid)
 	return resp, nil
 }
@@ -737,21 +604,9 @@ func (svc *Nodes) Create(
 	}
 
 	resp := &NodeCreateResponse{}
-	if v, err := convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertNodeToPorcelain(plumbingResponse.Node); err != nil {
-		return nil, err
-	} else {
-		resp.Node = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Node = convertNodeToPorcelain(plumbingResponse.Node)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	resp.Token = (plumbingResponse.Token)
 	return resp, nil
 }
@@ -782,25 +637,13 @@ func (svc *Nodes) Get(
 	}
 
 	resp := &NodeGetResponse{}
-	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertNodeToPorcelain(plumbingResponse.Node); err != nil {
-		return nil, err
-	} else {
-		resp.Node = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Node = convertNodeToPorcelain(plumbingResponse.Node)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
-// Update replaces all the fields of a Node by ID.
+// Update patches a Node by ID.
 func (svc *Nodes) Update(
 	ctx context.Context,
 	node Node) (
@@ -826,21 +669,9 @@ func (svc *Nodes) Update(
 	}
 
 	resp := &NodeUpdateResponse{}
-	if v, err := convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertNodeToPorcelain(plumbingResponse.Node); err != nil {
-		return nil, err
-	} else {
-		resp.Node = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.Node = convertNodeToPorcelain(plumbingResponse.Node)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -870,16 +701,8 @@ func (svc *Nodes) Delete(
 	}
 
 	resp := &NodeDeleteResponse{}
-	if v, err := convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -923,18 +746,13 @@ func (svc *Nodes) List(
 				}
 				break
 			}
-			result, err := convertRepeatedNodeToPorcelain(plumbingResponse.Nodes)
-			if err != nil {
-				return nil, false, err
-			}
+			result := convertRepeatedNodeToPorcelain(plumbingResponse.Nodes)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
 	), nil
 }
 
-// Resources are databases, servers, clusters, websites, or clouds that strongDM
-// delegates access to.
 type Resources struct {
 	client plumbing.ResourcesClient
 	parent *Client
@@ -980,10 +798,7 @@ func (svc *Resources) EnumerateTags(
 				}
 				break
 			}
-			result, err := convertRepeatedTagToPorcelain(plumbingResponse.Matches)
-			if err != nil {
-				return nil, false, err
-			}
+			result := convertRepeatedTagToPorcelain(plumbingResponse.Matches)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -1016,21 +831,9 @@ func (svc *Resources) Create(
 	}
 
 	resp := &ResourceCreateResponse{}
-	if v, err := convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertResourceToPorcelain(plumbingResponse.Resource); err != nil {
-		return nil, err
-	} else {
-		resp.Resource = v
-	}
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Resource = convertResourceToPorcelain(plumbingResponse.Resource)
 	return resp, nil
 }
 
@@ -1060,25 +863,13 @@ func (svc *Resources) Get(
 	}
 
 	resp := &ResourceGetResponse{}
-	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertResourceToPorcelain(plumbingResponse.Resource); err != nil {
-		return nil, err
-	} else {
-		resp.Resource = v
-	}
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Resource = convertResourceToPorcelain(plumbingResponse.Resource)
 	return resp, nil
 }
 
-// Update replaces all the fields of a Resource by ID.
+// Update patches a Resource by ID.
 func (svc *Resources) Update(
 	ctx context.Context,
 	resource Resource) (
@@ -1104,21 +895,9 @@ func (svc *Resources) Update(
 	}
 
 	resp := &ResourceUpdateResponse{}
-	if v, err := convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertResourceToPorcelain(plumbingResponse.Resource); err != nil {
-		return nil, err
-	} else {
-		resp.Resource = v
-	}
+	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Resource = convertResourceToPorcelain(plumbingResponse.Resource)
 	return resp, nil
 }
 
@@ -1148,16 +927,8 @@ func (svc *Resources) Delete(
 	}
 
 	resp := &ResourceDeleteResponse{}
-	if v, err := convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -1201,10 +972,7 @@ func (svc *Resources) List(
 				}
 				break
 			}
-			result, err := convertRepeatedResourceToPorcelain(plumbingResponse.Resources)
-			if err != nil {
-				return nil, false, err
-			}
+			result := convertRepeatedResourceToPorcelain(plumbingResponse.Resources)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -1215,16 +983,12 @@ func (svc *Resources) List(
 // that make up those composite roles. When a composite role is attached to another
 // role, the permissions granted to members of the composite role are augmented to
 // include the permissions granted to members of the attached role.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
 type RoleAttachments struct {
 	client plumbing.RoleAttachmentsClient
 	parent *Client
 }
 
 // Create registers a new RoleAttachment.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
 func (svc *RoleAttachments) Create(
 	ctx context.Context,
 	roleAttachment *RoleAttachment) (
@@ -1250,27 +1014,13 @@ func (svc *RoleAttachments) Create(
 	}
 
 	resp := &RoleAttachmentCreateResponse{}
-	if v, err := convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertRoleAttachmentToPorcelain(plumbingResponse.RoleAttachment); err != nil {
-		return nil, err
-	} else {
-		resp.RoleAttachment = v
-	}
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.RoleAttachment = convertRoleAttachmentToPorcelain(plumbingResponse.RoleAttachment)
 	return resp, nil
 }
 
 // Get reads one RoleAttachment by ID.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
 func (svc *RoleAttachments) Get(
 	ctx context.Context,
 	id string) (
@@ -1296,27 +1046,13 @@ func (svc *RoleAttachments) Get(
 	}
 
 	resp := &RoleAttachmentGetResponse{}
-	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertRoleAttachmentToPorcelain(plumbingResponse.RoleAttachment); err != nil {
-		return nil, err
-	} else {
-		resp.RoleAttachment = v
-	}
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.RoleAttachment = convertRoleAttachmentToPorcelain(plumbingResponse.RoleAttachment)
 	return resp, nil
 }
 
 // Delete removes a RoleAttachment by ID.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
 func (svc *RoleAttachments) Delete(
 	ctx context.Context,
 	id string) (
@@ -1342,22 +1078,12 @@ func (svc *RoleAttachments) Delete(
 	}
 
 	resp := &RoleAttachmentDeleteResponse{}
-	if v, err := convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
 // List gets a list of RoleAttachments matching a given set of criteria.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
 func (svc *RoleAttachments) List(
 	ctx context.Context,
 	filter string,
@@ -1397,10 +1123,7 @@ func (svc *RoleAttachments) List(
 				}
 				break
 			}
-			result, err := convertRepeatedRoleAttachmentToPorcelain(plumbingResponse.RoleAttachments)
-			if err != nil {
-				return nil, false, err
-			}
+			result := convertRepeatedRoleAttachmentToPorcelain(plumbingResponse.RoleAttachments)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -1411,16 +1134,12 @@ func (svc *RoleAttachments) List(
 // that make up those composite roles. When a composite role is attached to another
 // role, the permissions granted to members of the composite role are augmented to
 // include the permissions granted to members of the attached role.
-//
-// Deprecated: use Role access rules instead.
 type RoleGrants struct {
 	client plumbing.RoleGrantsClient
 	parent *Client
 }
 
 // Create registers a new RoleGrant.
-//
-// Deprecated: use Role access rules instead.
 func (svc *RoleGrants) Create(
 	ctx context.Context,
 	roleGrant *RoleGrant) (
@@ -1446,27 +1165,13 @@ func (svc *RoleGrants) Create(
 	}
 
 	resp := &RoleGrantCreateResponse{}
-	if v, err := convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertRoleGrantToPorcelain(plumbingResponse.RoleGrant); err != nil {
-		return nil, err
-	} else {
-		resp.RoleGrant = v
-	}
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.RoleGrant = convertRoleGrantToPorcelain(plumbingResponse.RoleGrant)
 	return resp, nil
 }
 
 // Get reads one RoleGrant by ID.
-//
-// Deprecated: use Role access rules instead.
 func (svc *RoleGrants) Get(
 	ctx context.Context,
 	id string) (
@@ -1492,27 +1197,13 @@ func (svc *RoleGrants) Get(
 	}
 
 	resp := &RoleGrantGetResponse{}
-	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertRoleGrantToPorcelain(plumbingResponse.RoleGrant); err != nil {
-		return nil, err
-	} else {
-		resp.RoleGrant = v
-	}
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.RoleGrant = convertRoleGrantToPorcelain(plumbingResponse.RoleGrant)
 	return resp, nil
 }
 
 // Delete removes a RoleGrant by ID.
-//
-// Deprecated: use Role access rules instead.
 func (svc *RoleGrants) Delete(
 	ctx context.Context,
 	id string) (
@@ -1538,22 +1229,12 @@ func (svc *RoleGrants) Delete(
 	}
 
 	resp := &RoleGrantDeleteResponse{}
-	if v, err := convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
 // List gets a list of RoleGrants matching a given set of criteria.
-//
-// Deprecated: use Role access rules instead.
 func (svc *RoleGrants) List(
 	ctx context.Context,
 	filter string,
@@ -1593,19 +1274,18 @@ func (svc *RoleGrants) List(
 				}
 				break
 			}
-			result, err := convertRepeatedRoleGrantToPorcelain(plumbingResponse.RoleGrants)
-			if err != nil {
-				return nil, false, err
-			}
+			result := convertRepeatedRoleGrantToPorcelain(plumbingResponse.RoleGrants)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
 	), nil
 }
 
-// A Role has a list of access rules which determine which Resources the members
-// of the Role have access to. An Account can be a member of multiple Roles via
-// AccountAttachments.
+// Roles are tools for controlling user access to resources. Each Role holds a
+// list of resources which they grant access to. Composite roles are a special
+// type of Role which have no resource associations of their own, but instead
+// grant access to the combined resources associated with a set of child roles.
+// Each user can be a member of one Role or composite role.
 type Roles struct {
 	client plumbing.RolesClient
 	parent *Client
@@ -1637,21 +1317,9 @@ func (svc *Roles) Create(
 	}
 
 	resp := &RoleCreateResponse{}
-	if v, err := convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertRoleToPorcelain(plumbingResponse.Role); err != nil {
-		return nil, err
-	} else {
-		resp.Role = v
-	}
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Role = convertRoleToPorcelain(plumbingResponse.Role)
 	return resp, nil
 }
 
@@ -1681,25 +1349,13 @@ func (svc *Roles) Get(
 	}
 
 	resp := &RoleGetResponse{}
-	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertRoleToPorcelain(plumbingResponse.Role); err != nil {
-		return nil, err
-	} else {
-		resp.Role = v
-	}
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Role = convertRoleToPorcelain(plumbingResponse.Role)
 	return resp, nil
 }
 
-// Update replaces all the fields of a Role by ID.
+// Update patches a Role by ID.
 func (svc *Roles) Update(
 	ctx context.Context,
 	role *Role) (
@@ -1725,21 +1381,9 @@ func (svc *Roles) Update(
 	}
 
 	resp := &RoleUpdateResponse{}
-	if v, err := convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertRoleToPorcelain(plumbingResponse.Role); err != nil {
-		return nil, err
-	} else {
-		resp.Role = v
-	}
+	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.Role = convertRoleToPorcelain(plumbingResponse.Role)
 	return resp, nil
 }
 
@@ -1769,16 +1413,8 @@ func (svc *Roles) Delete(
 	}
 
 	resp := &RoleDeleteResponse{}
-	if v, err := convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -1822,10 +1458,7 @@ func (svc *Roles) List(
 				}
 				break
 			}
-			result, err := convertRepeatedRoleToPorcelain(plumbingResponse.Roles)
-			if err != nil {
-				return nil, false, err
-			}
+			result := convertRepeatedRoleToPorcelain(plumbingResponse.Roles)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},
@@ -1863,21 +1496,9 @@ func (svc *SecretStores) Create(
 	}
 
 	resp := &SecretStoreCreateResponse{}
-	if v, err := convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertSecretStoreToPorcelain(plumbingResponse.SecretStore); err != nil {
-		return nil, err
-	} else {
-		resp.SecretStore = v
-	}
+	resp.Meta = convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.SecretStore = convertSecretStoreToPorcelain(plumbingResponse.SecretStore)
 	return resp, nil
 }
 
@@ -1907,25 +1528,13 @@ func (svc *SecretStores) Get(
 	}
 
 	resp := &SecretStoreGetResponse{}
-	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertSecretStoreToPorcelain(plumbingResponse.SecretStore); err != nil {
-		return nil, err
-	} else {
-		resp.SecretStore = v
-	}
+	resp.Meta = convertGetResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.SecretStore = convertSecretStoreToPorcelain(plumbingResponse.SecretStore)
 	return resp, nil
 }
 
-// Update replaces all the fields of a SecretStore by ID.
+// Update patches a SecretStore by ID.
 func (svc *SecretStores) Update(
 	ctx context.Context,
 	secretStore SecretStore) (
@@ -1951,21 +1560,9 @@ func (svc *SecretStores) Update(
 	}
 
 	resp := &SecretStoreUpdateResponse{}
-	if v, err := convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
-	if v, err := convertSecretStoreToPorcelain(plumbingResponse.SecretStore); err != nil {
-		return nil, err
-	} else {
-		resp.SecretStore = v
-	}
+	resp.Meta = convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
+	resp.SecretStore = convertSecretStoreToPorcelain(plumbingResponse.SecretStore)
 	return resp, nil
 }
 
@@ -1995,16 +1592,8 @@ func (svc *SecretStores) Delete(
 	}
 
 	resp := &SecretStoreDeleteResponse{}
-	if v, err := convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
-		return nil, err
-	} else {
-		resp.Meta = v
-	}
-	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
-		return nil, err
-	} else {
-		resp.RateLimit = v
-	}
+	resp.Meta = convertDeleteResponseMetadataToPorcelain(plumbingResponse.Meta)
+	resp.RateLimit = convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit)
 	return resp, nil
 }
 
@@ -2048,10 +1637,7 @@ func (svc *SecretStores) List(
 				}
 				break
 			}
-			result, err := convertRepeatedSecretStoreToPorcelain(plumbingResponse.SecretStores)
-			if err != nil {
-				return nil, false, err
-			}
+			result := convertRepeatedSecretStoreToPorcelain(plumbingResponse.SecretStores)
 			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
 			return result, req.Meta.Cursor != "", nil
 		},

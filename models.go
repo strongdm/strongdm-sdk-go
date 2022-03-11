@@ -255,7 +255,7 @@ func (m *User) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
 
-// AccountAttachments assign an account to a role.
+// AccountAttachments assign an account to a role or composite role.
 type AccountAttachment struct {
 	// The id of the account of this AccountAttachment.
 	AccountID string `json:"accountId"`
@@ -1054,21 +1054,10 @@ type GCP struct {
 	Tags Tags `json:"tags"`
 }
 
-type GCPStore struct {
-	// Unique identifier of the SecretStore.
-	ID string `json:"id"`
-	// Unique human-readable name of the SecretStore.
-	Name string `json:"name"`
-
-	ProjectID string `json:"projectId"`
-	// Tags is a map of key, value pairs.
-	Tags Tags `json:"tags"`
-}
-
 // Gateway represents a StrongDM CLI installation running in gateway mode.
 type Gateway struct {
 	// The hostname/port tuple which the gateway daemon will bind to.
-	// If not provided on create, set to "0.0.0.0:listen_address_port".
+	// If not provided on create, set to "0.0.0.0:<listen_address_port>".
 	BindAddress string `json:"bindAddress"`
 	// GatewayFilter can be used to restrict the peering between relays and
 	// gateways.
@@ -1361,42 +1350,6 @@ type KubernetesUserImpersonation struct {
 	SecretStoreID string `json:"secretStoreId"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
-}
-
-type MTLSPostgres struct {
-	CertificateAuthority string `json:"certificateAuthority"`
-
-	ClientCertificate string `json:"clientCertificate"`
-
-	ClientKey string `json:"clientKey"`
-
-	Database string `json:"database"`
-	// A filter applied to the routing logic to pin datasource to nodes.
-	EgressFilter string `json:"egressFilter"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool `json:"healthy"`
-
-	Hostname string `json:"hostname"`
-	// Unique identifier of the Resource.
-	ID string `json:"id"`
-	// Unique human-readable name of the Resource.
-	Name string `json:"name"`
-
-	OverrideDatabase bool `json:"overrideDatabase"`
-
-	Password string `json:"password"`
-
-	Port int32 `json:"port"`
-
-	PortOverride int32 `json:"portOverride"`
-	// ID of the secret store containing credentials for this resource, if any.
-	SecretStoreID string `json:"secretStoreId"`
-
-	ServerName string `json:"serverName"`
-	// Tags is a map of key, value pairs.
-	Tags Tags `json:"tags"`
-
-	Username string `json:"username"`
 }
 
 type Maria struct {
@@ -1708,10 +1661,6 @@ type Node interface {
 	GetTags() Tags
 	// SetTags sets the tags of the Node.
 	SetTags(Tags)
-	// GetName returns the name of the Node.
-	GetName() string
-	// SetName sets the name of the Node.
-	SetName(string)
 	isOneOf_Node()
 }
 
@@ -1729,16 +1678,6 @@ func (m *Gateway) GetTags() Tags {
 func (m *Gateway) SetTags(v Tags) {
 	m.Tags = v.clone()
 }
-
-// GetName returns the name of the Gateway.
-func (m *Gateway) GetName() string {
-	return m.Name
-}
-
-// SetName sets the name of the Gateway.
-func (m *Gateway) SetName(v string) {
-	m.Name = v
-}
 func (*Relay) isOneOf_Node() {}
 
 // GetID returns the unique identifier of the Relay.
@@ -1752,16 +1691,6 @@ func (m *Relay) GetTags() Tags {
 // SetTags sets the tags of the Relay.
 func (m *Relay) SetTags(v Tags) {
 	m.Tags = v.clone()
-}
-
-// GetName returns the name of the Relay.
-func (m *Relay) GetName() string {
-	return m.Name
-}
-
-// SetName sets the name of the Relay.
-func (m *Relay) SetName(v string) {
-	m.Name = v
 }
 
 // NodeCreateResponse reports how the Nodes were created in the system.
@@ -2047,8 +1976,7 @@ type Relay struct {
 	Tags Tags `json:"tags"`
 }
 
-// A Resource is a database, server, cluster, website, or cloud that strongDM
-// delegates access to.
+// A Resource is a database or server for which strongDM manages access.
 type Resource interface {
 	// GetID returns the unique identifier of the Resource.
 	GetID() string
@@ -4227,50 +4155,6 @@ func (m *MongoShardedCluster) GetEgressFilter() string {
 func (m *MongoShardedCluster) SetEgressFilter(v string) {
 	m.EgressFilter = v
 }
-func (*MTLSPostgres) isOneOf_Resource() {}
-
-// GetID returns the unique identifier of the MTLSPostgres.
-func (m *MTLSPostgres) GetID() string { return m.ID }
-
-// GetName returns the name of the MTLSPostgres.
-func (m *MTLSPostgres) GetName() string {
-	return m.Name
-}
-
-// SetName sets the name of the MTLSPostgres.
-func (m *MTLSPostgres) SetName(v string) {
-	m.Name = v
-}
-
-// GetTags returns the tags of the MTLSPostgres.
-func (m *MTLSPostgres) GetTags() Tags {
-	return m.Tags.clone()
-}
-
-// SetTags sets the tags of the MTLSPostgres.
-func (m *MTLSPostgres) SetTags(v Tags) {
-	m.Tags = v.clone()
-}
-
-// GetSecretStoreID returns the secret store id of the MTLSPostgres.
-func (m *MTLSPostgres) GetSecretStoreID() string {
-	return m.SecretStoreID
-}
-
-// SetSecretStoreID sets the secret store id of the MTLSPostgres.
-func (m *MTLSPostgres) SetSecretStoreID(v string) {
-	m.SecretStoreID = v
-}
-
-// GetEgressFilter returns the egress filter of the MTLSPostgres.
-func (m *MTLSPostgres) GetEgressFilter() string {
-	return m.EgressFilter
-}
-
-// SetEgressFilter sets the egress filter of the MTLSPostgres.
-func (m *MTLSPostgres) SetEgressFilter(v string) {
-	m.EgressFilter = v
-}
 func (*Mysql) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Mysql.
@@ -5191,16 +5075,11 @@ type ResourceUpdateResponse struct {
 	Resource Resource `json:"resource"`
 }
 
-// A Role has a list of access rules which determine which Resources the members
-// of the Role have access to. An Account can be a member of multiple Roles via
-// AccountAttachments.
+// A Role is a collection of access grants, and typically corresponds to a team, Active Directory OU, or other organizational unit. Users are granted access to resources by assigning them to roles.
 type Role struct {
-	// AccessRules is a list of access rules defining the resources this Role has access to.
-	AccessRules AccessRules `json:"accessRules"`
-	// Composite is true if the Role is a composite role.
-	//
-	// Deprecated: composite roles are deprecated, use multi-role via
-	// AccountAttachments instead.
+	// AccessRules JSON encoded access rules data.
+	AccessRules string `json:"accessRules"`
+	// True if the Role is a composite role.
 	Composite bool `json:"composite"`
 	// Unique identifier of the Role.
 	ID string `json:"id"`
@@ -5211,8 +5090,6 @@ type Role struct {
 }
 
 // A RoleAttachment assigns a role to a composite role.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
 type RoleAttachment struct {
 	// The id of the attached role of this RoleAttachment.
 	AttachedRoleID string `json:"attachedRoleId"`
@@ -5223,8 +5100,6 @@ type RoleAttachment struct {
 }
 
 // RoleAttachmentCreateResponse reports how the RoleAttachments were created in the system.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
 type RoleAttachmentCreateResponse struct {
 	// Reserved for future use.
 	Meta *CreateResponseMetadata `json:"meta"`
@@ -5235,8 +5110,6 @@ type RoleAttachmentCreateResponse struct {
 }
 
 // RoleAttachmentDeleteResponse returns information about a RoleAttachment that was deleted.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
 type RoleAttachmentDeleteResponse struct {
 	// Reserved for future use.
 	Meta *DeleteResponseMetadata `json:"meta"`
@@ -5245,8 +5118,6 @@ type RoleAttachmentDeleteResponse struct {
 }
 
 // RoleAttachmentGetResponse returns a requested RoleAttachment.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
 type RoleAttachmentGetResponse struct {
 	// Reserved for future use.
 	Meta *GetResponseMetadata `json:"meta"`
@@ -5286,8 +5157,6 @@ type RoleGetResponse struct {
 }
 
 // A RoleGrant connects a resource to a role, granting members of the role access to that resource.
-//
-// Deprecated: use Role access rules instead.
 type RoleGrant struct {
 	// Unique identifier of the RoleGrant.
 	ID string `json:"id"`
@@ -5298,8 +5167,6 @@ type RoleGrant struct {
 }
 
 // RoleGrantCreateResponse reports how the RoleGrants were created in the system.
-//
-// Deprecated: use Role access rules instead.
 type RoleGrantCreateResponse struct {
 	// Reserved for future use.
 	Meta *CreateResponseMetadata `json:"meta"`
@@ -5310,8 +5177,6 @@ type RoleGrantCreateResponse struct {
 }
 
 // RoleGrantDeleteResponse returns information about a RoleGrant that was deleted.
-//
-// Deprecated: use Role access rules instead.
 type RoleGrantDeleteResponse struct {
 	// Reserved for future use.
 	Meta *DeleteResponseMetadata `json:"meta"`
@@ -5320,8 +5185,6 @@ type RoleGrantDeleteResponse struct {
 }
 
 // RoleGrantGetResponse returns a requested RoleGrant.
-//
-// Deprecated: use Role access rules instead.
 type RoleGrantGetResponse struct {
 	// Reserved for future use.
 	Meta *GetResponseMetadata `json:"meta"`
@@ -5510,54 +5373,6 @@ func (m *AzureStore) GetName() string {
 
 // SetName sets the name of the AzureStore.
 func (m *AzureStore) SetName(v string) {
-	m.Name = v
-}
-func (*GCPStore) isOneOf_SecretStore() {}
-
-// GetID returns the unique identifier of the GCPStore.
-func (m *GCPStore) GetID() string { return m.ID }
-
-// GetTags returns the tags of the GCPStore.
-func (m *GCPStore) GetTags() Tags {
-	return m.Tags.clone()
-}
-
-// SetTags sets the tags of the GCPStore.
-func (m *GCPStore) SetTags(v Tags) {
-	m.Tags = v.clone()
-}
-
-// GetName returns the name of the GCPStore.
-func (m *GCPStore) GetName() string {
-	return m.Name
-}
-
-// SetName sets the name of the GCPStore.
-func (m *GCPStore) SetName(v string) {
-	m.Name = v
-}
-func (*VaultAppRoleStore) isOneOf_SecretStore() {}
-
-// GetID returns the unique identifier of the VaultAppRoleStore.
-func (m *VaultAppRoleStore) GetID() string { return m.ID }
-
-// GetTags returns the tags of the VaultAppRoleStore.
-func (m *VaultAppRoleStore) GetTags() Tags {
-	return m.Tags.clone()
-}
-
-// SetTags sets the tags of the VaultAppRoleStore.
-func (m *VaultAppRoleStore) SetTags(v Tags) {
-	m.Tags = v.clone()
-}
-
-// GetName returns the name of the VaultAppRoleStore.
-func (m *VaultAppRoleStore) GetName() string {
-	return m.Name
-}
-
-// SetName sets the name of the VaultAppRoleStore.
-func (m *VaultAppRoleStore) SetName(v string) {
 	m.Name = v
 }
 func (*VaultTLSStore) isOneOf_SecretStore() {}
@@ -5811,19 +5626,6 @@ type User struct {
 	LastName string `json:"lastName"`
 	// The User's suspended state.
 	Suspended bool `json:"suspended"`
-	// Tags is a map of key, value pairs.
-	Tags Tags `json:"tags"`
-}
-
-type VaultAppRoleStore struct {
-	// Unique identifier of the SecretStore.
-	ID string `json:"id"`
-	// Unique human-readable name of the SecretStore.
-	Name string `json:"name"`
-
-	Namespace string `json:"namespace"`
-
-	ServerAddress string `json:"serverAddress"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
 }
