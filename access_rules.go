@@ -21,12 +21,35 @@ import (
 	"strings"
 )
 
+// An AccessRule grants access to a set of Resources. There are two kinds of
+// AccessRules:
+//
+// - Dynamic: a rule which identifies Resources based on their type or tags
+// - Static: a rule which contains an explicit list of Resource IDs
 type AccessRule struct {
-	IDs  []string `json:"ids,omitempty"`
-	Type string   `json:"type,omitempty"`
-	Tags Tags     `json:"tags,omitempty"`
+
+	// IDs is a list of Resource IDs granted by this AccessRule. If this field
+	// is set, the rule is a static access rule. No other fields can be set on a
+	// static access rule.
+	IDs []string `json:"ids,omitempty"`
+
+	// Type specifies a Resource type. You can set this field by itself to grant
+	// access to all Resources of a certain type. You can also use it in
+	// conjunction with the Tags field to further narrow down the scope of
+	// Resources granted.
+	//
+	// See the following link for a list of possible values for this field:
+	// https://www.strongdm.com/docs/automation/getting-started/filters#h-potentialresourcetypevalues
+	Type string `json:"type,omitempty"`
+
+	// Tags specifies a list of key/value pairs. You can set this field by
+	// itself to grant access to all Resources which have all the given tags.
+	// You can also use it in conjunction with the Type field to further narrow
+	// down the scope of Resources granted.
+	Tags Tags `json:"tags,omitempty"`
 }
 
+// AccessRules define which Resources can be accessed by members of a Role.
 type AccessRules []AccessRule
 
 func convertAccessRulesToPorcelain(rules string) (AccessRules, error) {
