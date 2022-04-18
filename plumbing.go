@@ -3938,6 +3938,81 @@ func convertRepeatedKubernetesUserImpersonationToPorcelain(plumbings []*proto.Ku
 	}
 	return items, nil
 }
+func convertMTLSMySQLToPorcelain(plumbing *proto.MTLSMySQL) (*MTLSMySQL, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &MTLSMySQL{}
+	porcelain.CertificateAuthority = plumbing.CertificateAuthority
+	porcelain.ClientCertificate = plumbing.ClientCertificate
+	porcelain.ClientKey = plumbing.ClientKey
+	porcelain.Database = plumbing.Database
+	porcelain.EgressFilter = plumbing.EgressFilter
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Password = plumbing.Password
+	porcelain.Port = plumbing.Port
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.ServerName = plumbing.ServerName
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	porcelain.Username = plumbing.Username
+	return porcelain, nil
+}
+
+func convertMTLSMySQLToPlumbing(porcelain *MTLSMySQL) *proto.MTLSMySQL {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.MTLSMySQL{}
+	plumbing.CertificateAuthority = (porcelain.CertificateAuthority)
+	plumbing.ClientCertificate = (porcelain.ClientCertificate)
+	plumbing.ClientKey = (porcelain.ClientKey)
+	plumbing.Database = (porcelain.Database)
+	plumbing.EgressFilter = (porcelain.EgressFilter)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Password = (porcelain.Password)
+	plumbing.Port = (porcelain.Port)
+	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.ServerName = (porcelain.ServerName)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Username = (porcelain.Username)
+	return plumbing
+}
+func convertRepeatedMTLSMySQLToPlumbing(
+	porcelains []*MTLSMySQL,
+) []*proto.MTLSMySQL {
+	var items []*proto.MTLSMySQL
+	for _, porcelain := range porcelains {
+		items = append(items, convertMTLSMySQLToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedMTLSMySQLToPorcelain(plumbings []*proto.MTLSMySQL) (
+	[]*MTLSMySQL,
+	error,
+) {
+	var items []*MTLSMySQL
+	for _, plumbing := range plumbings {
+		if v, err := convertMTLSMySQLToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertMTLSPostgresToPorcelain(plumbing *proto.MTLSPostgres) (*MTLSPostgres, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -5777,6 +5852,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_MongoReplicaSet{MongoReplicaSet: convertMongoReplicaSetToPlumbing(v)}
 	case *MongoShardedCluster:
 		plumbing.Resource = &proto.Resource_MongoShardedCluster{MongoShardedCluster: convertMongoShardedClusterToPlumbing(v)}
+	case *MTLSMySQL:
+		plumbing.Resource = &proto.Resource_MtlsMySql{MtlsMySql: convertMTLSMySQLToPlumbing(v)}
 	case *MTLSPostgres:
 		plumbing.Resource = &proto.Resource_MtlsPostgres{MtlsPostgres: convertMTLSPostgresToPlumbing(v)}
 	case *Mysql:
@@ -5970,6 +6047,9 @@ func convertResourceToPorcelain(plumbing *proto.Resource) (Resource, error) {
 	}
 	if plumbing.GetMongoShardedCluster() != nil {
 		return convertMongoShardedClusterToPorcelain(plumbing.GetMongoShardedCluster())
+	}
+	if plumbing.GetMtlsMySql() != nil {
+		return convertMTLSMySQLToPorcelain(plumbing.GetMtlsMySql())
 	}
 	if plumbing.GetMtlsPostgres() != nil {
 		return convertMTLSPostgresToPorcelain(plumbing.GetMtlsPostgres())
