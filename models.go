@@ -6336,6 +6336,8 @@ type SSH struct {
 
 	PortForwarding bool `json:"portForwarding"`
 
+	PortOverride int32 `json:"portOverride"`
+
 	PublicKey string `json:"publicKey"`
 	// ID of the secret store containing credentials for this resource, if any.
 	SecretStoreID string `json:"secretStoreId"`
@@ -6363,6 +6365,8 @@ type SSHCert struct {
 	Port int32 `json:"port"`
 
 	PortForwarding bool `json:"portForwarding"`
+
+	PortOverride int32 `json:"portOverride"`
 	// ID of the secret store containing credentials for this resource, if any.
 	SecretStoreID string `json:"secretStoreId"`
 	// Tags is a map of key, value pairs.
@@ -6389,6 +6393,8 @@ type SSHCustomerKey struct {
 	Port int32 `json:"port"`
 
 	PortForwarding bool `json:"portForwarding"`
+
+	PortOverride int32 `json:"portOverride"`
 
 	PrivateKey string `json:"privateKey"`
 	// ID of the secret store containing credentials for this resource, if any.

@@ -7272,6 +7272,7 @@ func convertSSHToPorcelain(plumbing *proto.SSH) (*SSH, error) {
 	porcelain.Name = plumbing.Name
 	porcelain.Port = plumbing.Port
 	porcelain.PortForwarding = plumbing.PortForwarding
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.PublicKey = plumbing.PublicKey
 	porcelain.SecretStoreID = plumbing.SecretStoreId
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
@@ -7297,6 +7298,7 @@ func convertSSHToPlumbing(porcelain *SSH) *proto.SSH {
 	plumbing.Name = (porcelain.Name)
 	plumbing.Port = (porcelain.Port)
 	plumbing.PortForwarding = (porcelain.PortForwarding)
+	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.PublicKey = (porcelain.PublicKey)
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
@@ -7341,6 +7343,7 @@ func convertSSHCertToPorcelain(plumbing *proto.SSHCert) (*SSHCert, error) {
 	porcelain.Name = plumbing.Name
 	porcelain.Port = plumbing.Port
 	porcelain.PortForwarding = plumbing.PortForwarding
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.SecretStoreID = plumbing.SecretStoreId
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
 		return nil, fmt.Errorf("error converting field Tags: %v", err)
@@ -7365,6 +7368,7 @@ func convertSSHCertToPlumbing(porcelain *SSHCert) *proto.SSHCert {
 	plumbing.Name = (porcelain.Name)
 	plumbing.Port = (porcelain.Port)
 	plumbing.PortForwarding = (porcelain.PortForwarding)
+	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	plumbing.Username = (porcelain.Username)
@@ -7408,6 +7412,7 @@ func convertSSHCustomerKeyToPorcelain(plumbing *proto.SSHCustomerKey) (*SSHCusto
 	porcelain.Name = plumbing.Name
 	porcelain.Port = plumbing.Port
 	porcelain.PortForwarding = plumbing.PortForwarding
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.PrivateKey = plumbing.PrivateKey
 	porcelain.SecretStoreID = plumbing.SecretStoreId
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
@@ -7433,6 +7438,7 @@ func convertSSHCustomerKeyToPlumbing(porcelain *SSHCustomerKey) *proto.SSHCustom
 	plumbing.Name = (porcelain.Name)
 	plumbing.Port = (porcelain.Port)
 	plumbing.PortForwarding = (porcelain.PortForwarding)
+	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.PrivateKey = (porcelain.PrivateKey)
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
