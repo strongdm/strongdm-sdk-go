@@ -35,6 +35,8 @@ type RemoteIdentitiesClient interface {
 	Create(ctx context.Context, in *RemoteIdentityCreateRequest, opts ...grpc.CallOption) (*RemoteIdentityCreateResponse, error)
 	// Get reads one RemoteIdentity by ID.
 	Get(ctx context.Context, in *RemoteIdentityGetRequest, opts ...grpc.CallOption) (*RemoteIdentityGetResponse, error)
+	// Update replaces all the fields of a RemoteIdentity by ID.
+	Update(ctx context.Context, in *RemoteIdentityUpdateRequest, opts ...grpc.CallOption) (*RemoteIdentityUpdateResponse, error)
 	// Delete removes a RemoteIdentity by ID.
 	Delete(ctx context.Context, in *RemoteIdentityDeleteRequest, opts ...grpc.CallOption) (*RemoteIdentityDeleteResponse, error)
 	// List gets a list of RemoteIdentities matching a given set of criteria.
@@ -67,6 +69,15 @@ func (c *remoteIdentitiesClient) Get(ctx context.Context, in *RemoteIdentityGetR
 	return out, nil
 }
 
+func (c *remoteIdentitiesClient) Update(ctx context.Context, in *RemoteIdentityUpdateRequest, opts ...grpc.CallOption) (*RemoteIdentityUpdateResponse, error) {
+	out := new(RemoteIdentityUpdateResponse)
+	err := c.cc.Invoke(ctx, "/v1.RemoteIdentities/Update", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *remoteIdentitiesClient) Delete(ctx context.Context, in *RemoteIdentityDeleteRequest, opts ...grpc.CallOption) (*RemoteIdentityDeleteResponse, error) {
 	out := new(RemoteIdentityDeleteResponse)
 	err := c.cc.Invoke(ctx, "/v1.RemoteIdentities/Delete", in, out, opts...)
@@ -93,6 +104,8 @@ type RemoteIdentitiesServer interface {
 	Create(context.Context, *RemoteIdentityCreateRequest) (*RemoteIdentityCreateResponse, error)
 	// Get reads one RemoteIdentity by ID.
 	Get(context.Context, *RemoteIdentityGetRequest) (*RemoteIdentityGetResponse, error)
+	// Update replaces all the fields of a RemoteIdentity by ID.
+	Update(context.Context, *RemoteIdentityUpdateRequest) (*RemoteIdentityUpdateResponse, error)
 	// Delete removes a RemoteIdentity by ID.
 	Delete(context.Context, *RemoteIdentityDeleteRequest) (*RemoteIdentityDeleteResponse, error)
 	// List gets a list of RemoteIdentities matching a given set of criteria.
@@ -109,6 +122,9 @@ func (UnimplementedRemoteIdentitiesServer) Create(context.Context, *RemoteIdenti
 }
 func (UnimplementedRemoteIdentitiesServer) Get(context.Context, *RemoteIdentityGetRequest) (*RemoteIdentityGetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
+}
+func (UnimplementedRemoteIdentitiesServer) Update(context.Context, *RemoteIdentityUpdateRequest) (*RemoteIdentityUpdateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
 func (UnimplementedRemoteIdentitiesServer) Delete(context.Context, *RemoteIdentityDeleteRequest) (*RemoteIdentityDeleteResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
@@ -165,6 +181,24 @@ func _RemoteIdentities_Get_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RemoteIdentities_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoteIdentityUpdateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RemoteIdentitiesServer).Update(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/v1.RemoteIdentities/Update",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RemoteIdentitiesServer).Update(ctx, req.(*RemoteIdentityUpdateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _RemoteIdentities_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RemoteIdentityDeleteRequest)
 	if err := dec(in); err != nil {
@@ -212,6 +246,10 @@ var _RemoteIdentities_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Get",
 			Handler:    _RemoteIdentities_Get_Handler,
+		},
+		{
+			MethodName: "Update",
+			Handler:    _RemoteIdentities_Update_Handler,
 		},
 		{
 			MethodName: "Delete",

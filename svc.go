@@ -1027,6 +1027,50 @@ func (svc *RemoteIdentities) Get(
 	return resp, nil
 }
 
+// Update replaces all the fields of a RemoteIdentity by ID.
+func (svc *RemoteIdentities) Update(
+	ctx context.Context,
+	remoteIdentity *RemoteIdentity) (
+	*RemoteIdentityUpdateResponse,
+	error) {
+	req := &plumbing.RemoteIdentityUpdateRequest{}
+
+	req.RemoteIdentity = convertRemoteIdentityToPlumbing(remoteIdentity)
+	var plumbingResponse *plumbing.RemoteIdentityUpdateResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Update(svc.parent.wrapContext(ctx, req, "RemoteIdentities.Update"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, convertErrorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &RemoteIdentityUpdateResponse{}
+	if v, err := convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	if v, err := convertRemoteIdentityToPorcelain(plumbingResponse.RemoteIdentity); err != nil {
+		return nil, err
+	} else {
+		resp.RemoteIdentity = v
+	}
+	return resp, nil
+}
+
 // Delete removes a RemoteIdentity by ID.
 func (svc *RemoteIdentities) Delete(
 	ctx context.Context,
