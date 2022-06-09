@@ -7713,6 +7713,8 @@ func convertSSHCertToPorcelain(plumbing *proto.SSHCert) (*SSHCert, error) {
 	porcelain.Port = plumbing.Port
 	porcelain.PortForwarding = plumbing.PortForwarding
 	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.RemoteIdentityGroupID = plumbing.RemoteIdentityGroupId
+	porcelain.RemoteIdentityHealthcheckUsername = plumbing.RemoteIdentityHealthcheckUsername
 	porcelain.SecretStoreID = plumbing.SecretStoreId
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
 		return nil, fmt.Errorf("error converting field Tags: %v", err)
@@ -7738,6 +7740,8 @@ func convertSSHCertToPlumbing(porcelain *SSHCert) *proto.SSHCert {
 	plumbing.Port = (porcelain.Port)
 	plumbing.PortForwarding = (porcelain.PortForwarding)
 	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.RemoteIdentityGroupId = (porcelain.RemoteIdentityGroupID)
+	plumbing.RemoteIdentityHealthcheckUsername = (porcelain.RemoteIdentityHealthcheckUsername)
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	plumbing.Username = (porcelain.Username)

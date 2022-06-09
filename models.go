@@ -6437,6 +6437,10 @@ type SSHCert struct {
 	PortForwarding bool `json:"portForwarding"`
 
 	PortOverride int32 `json:"portOverride"`
+
+	RemoteIdentityGroupID string `json:"remoteIdentityGroupId"`
+
+	RemoteIdentityHealthcheckUsername string `json:"remoteIdentityHealthcheckUsername"`
 	// ID of the secret store containing credentials for this resource, if any.
 	SecretStoreID string `json:"secretStoreId"`
 	// Tags is a map of key, value pairs.
