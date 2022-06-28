@@ -20,7 +20,7 @@ package sdm
 import (
 	"context"
 
-	plumbing "github.com/strongdm/strongdm-sdk-go/v2/internal/v1"
+	plumbing "github.com/strongdm/strongdm-sdk-go/v3/internal/v1"
 )
 
 // AccountAttachments assign an account to a role.

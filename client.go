@@ -33,7 +33,7 @@ import (
 	"sync"
 	"time"
 
-	plumbing "github.com/strongdm/strongdm-sdk-go/v2/internal/v1"
+	plumbing "github.com/strongdm/strongdm-sdk-go/v3/internal/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
@@ -45,7 +45,7 @@ import (
 const (
 	defaultAPIHost   = "api.strongdm.com:443"
 	apiVersion       = "2021-08-23"
-	defaultUserAgent = "strongdm-sdk-go/2.6.4"
+	defaultUserAgent = "strongdm-sdk-go/2.6.1"
 )
 
 var _ = metadata.Pairs
