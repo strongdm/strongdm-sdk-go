@@ -61,6 +61,7 @@ type Client struct {
 	apiInsecureTransport  bool
 	exposeRateLimitErrors bool
 	userAgent             string
+	disableSigning        bool
 
 	grpcConn *grpc.ClientConn
 
@@ -289,6 +290,9 @@ func (c *Client) SecretStores() *SecretStores {
 
 // Sign returns the signature for the given byte array
 func (c *Client) Sign(methodName string, message []byte) string {
+	if c.disableSigning {
+		return ""
+	}
 	// Current UTC date
 	y, m, d := time.Now().UTC().Date()
 	currentUTCDate := fmt.Sprintf("%04d-%02d-%02d", y, m, d)
