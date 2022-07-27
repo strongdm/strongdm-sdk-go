@@ -26,7 +26,6 @@ func syscall_rawSyscall6(fn, a1, a2, a3, a4, a5, a6 uintptr) (r1, r2 uintptr, er
 
 // Find the entry point for f. See comments in runtime/proc.go for the
 // function of the same name.
-//
 //go:nosplit
 func funcPC(f func()) uintptr {
 	return **(**uintptr)(unsafe.Pointer(&f))

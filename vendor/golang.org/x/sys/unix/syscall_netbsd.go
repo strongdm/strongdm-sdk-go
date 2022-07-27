@@ -111,7 +111,7 @@ func SysctlClockinfo(name string) (*Clockinfo, error) {
 	return &ci, nil
 }
 
-// sysnb pipe() (fd1 int, fd2 int, err error)
+//sysnb pipe() (fd1 int, fd2 int, err error)
 func Pipe(p []int) (err error) {
 	if len(p) != 2 {
 		return EINVAL
@@ -120,7 +120,7 @@ func Pipe(p []int) (err error) {
 	return
 }
 
-// sys getdents(fd int, buf []byte) (n int, err error)
+//sys getdents(fd int, buf []byte) (n int, err error)
 func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
 	return getdents(fd, buf)
 }
