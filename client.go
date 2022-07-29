@@ -59,6 +59,7 @@ type Client struct {
 	apiToken              string
 	apiSecret             []byte
 	apiInsecureTransport  bool
+	apiTLSConfig          *tls.Config
 	exposeRateLimitErrors bool
 	userAgent             string
 	disableSigning        bool
@@ -109,6 +110,8 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 	var dialOpt grpc.DialOption
 	if client.apiInsecureTransport {
 		dialOpt = grpc.WithInsecure()
+	} else if client.apiTLSConfig != nil {
+		dialOpt = grpc.WithTransportCredentials(credentials.NewTLS(client.apiTLSConfig))
 	} else {
 		dialOpt = grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{
 			RootCAs:            nil,
@@ -189,6 +192,14 @@ func WithHost(host string) ClientOption {
 func WithInsecure() ClientOption {
 	return func(c *Client) {
 		c.apiInsecureTransport = true
+	}
+}
+
+// WithTLSConfig allows customization of the TLS configuration used to
+// communicate with the API server.
+func WithTLSConfig(cfg *tls.Config) ClientOption {
+	return func(c *Client) {
+		c.apiTLSConfig = cfg
 	}
 }
 
