@@ -20,7 +20,7 @@ import "unsafe"
  * Wrapped
  */
 
-//sys	utimes(path string, times *[2]Timeval) (err error)
+// sys	utimes(path string, times *[2]Timeval) (err error)
 func Utimes(path string, tv []Timeval) error {
 	if len(tv) != 2 {
 		return EINVAL
@@ -28,7 +28,7 @@ func Utimes(path string, tv []Timeval) error {
 	return utimes(path, (*[2]Timeval)(unsafe.Pointer(&tv[0])))
 }
 
-//sys	utimensat(dirfd int, path string, times *[2]Timespec, flag int) (err error)
+// sys	utimensat(dirfd int, path string, times *[2]Timespec, flag int) (err error)
 func UtimesNano(path string, ts []Timespec) error {
 	if len(ts) != 2 {
 		return EINVAL
@@ -281,12 +281,12 @@ func sendfile(outfd int, infd int, offset *int64, count int) (written int, err e
 	return -1, ENOSYS
 }
 
-//sys	getdirent(fd int, buf []byte) (n int, err error)
+// sys	getdirent(fd int, buf []byte) (n int, err error)
 func ReadDirent(fd int, buf []byte) (n int, err error) {
 	return getdirent(fd, buf)
 }
 
-//sys	wait4(pid Pid_t, status *_C_int, options int, rusage *Rusage) (wpid Pid_t, err error)
+// sys	wait4(pid Pid_t, status *_C_int, options int, rusage *Rusage) (wpid Pid_t, err error)
 func Wait4(pid int, wstatus *WaitStatus, options int, rusage *Rusage) (wpid int, err error) {
 	var status _C_int
 	var r Pid_t

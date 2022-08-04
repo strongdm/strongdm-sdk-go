@@ -1,11 +1,11 @@
 # strongDM SDK for Go
 
 This is the official [strongDM](https://www.strongdm.com/) SDK for the Go
-programming language. 
+programming language.
 
 Learn more with our [📚strongDM API docs](https://www.strongdm.com/docs/api/) or
 [📓browse the SDK
-reference](https://pkg.go.dev/github.com/strongdm/strongdm-sdk-go?tab=doc).
+reference](https://pkg.go.dev/github.com/strongdm/strongdm-sdk-go/v2?tab=doc).
 
 ## Installation
 
@@ -25,12 +25,14 @@ Credentials](https://www.strongdm.com/docs/admin-guide/api-credentials/)
 
 Add the keys as environment variables; the SDK will need to access these keys
 for every request.
+
 ```bash
 $ export SDM_API_ACCESS_KEY=<YOUR ACCESS KEY>
 $ export SDM_API_SECRET_KEY=<YOUR SECRET KEY>
 ```
 
 ## List Users
+
 The following code lists all registered users:
 
 ```go
@@ -66,19 +68,19 @@ func main() {
 
 ## Useful Links
 
-* Documentation:  [sdm package · pkg.go.dev](https://pkg.go.dev/github.com/strongdm/strongdm-sdk-go?tab=doc)
-* [Migrating from Role Grants to Access Rules](https://github.com/strongdm/strongdm-sdk-go/wiki/Migrating-from-Role-Grants-to-Access-Rules)
-* Examples: [GitHub - strongdm/strongdm-sdk-go-examples](https://github.com/strongdm/strongdm-sdk-go-examples)
-	1. [Managing Resources](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/1_managing_resources)
-	1. [Managing Accounts](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/2_managing_accounts)
-	1. [Managing Roles](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/3_managing_roles)
-	1. [Managing Gateways](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/4_managing_gateways)
-   
+- Documentation: [sdm package · pkg.go.dev](https://pkg.go.dev/github.com/strongdm/strongdm-sdk-go/v2?tab=doc)
+- [Migrating from Role Grants to Access Rules](https://github.com/strongdm/strongdm-sdk-go/wiki/Migrating-from-Role-Grants-to-Access-Rules)
+- Examples: [GitHub - strongdm/strongdm-sdk-go-examples](https://github.com/strongdm/strongdm-sdk-go-examples)
+  1.  [Managing Resources](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/1_managing_resources)
+  1.  [Managing Accounts](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/2_managing_accounts)
+  1.  [Managing Roles](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/3_managing_roles)
+  1.  [Managing Gateways](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/4_managing_gateways)
+
 ## License
 
 [Apache 2](https://github.com/strongdm/strongdm-sdk-go/blob/master/LICENSE)
 
-## Contributing 
+## Contributing
 
 Currently, we are not accepting pull requests directly to this repository, but
 our users are some of the most resourceful and ambitious folks out there. So, if
