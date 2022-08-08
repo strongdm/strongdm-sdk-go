@@ -358,17 +358,15 @@ type AccountGetResponse struct {
 
 // AccountGrants connect a resource directly to an account, giving the account the permission to connect to that resource.
 type AccountGrant struct {
-	// The account id of this AccountGrant.
+	// The account ID of this AccountGrant.
 	AccountID string `json:"accountId"`
 	// Unique identifier of the AccountGrant.
 	ID string `json:"id"`
-	// The resource id of this AccountGrant.
+	// The resource ID of this AccountGrant.
 	ResourceID string `json:"resourceId"`
-	// The timestamp when the resource will be granted. Optional. Both start_at
-	// and end_at must be defined together, or not defined at all.
+	// The timestamp when the resource will be granted. When creating an AccountGrant, if this field is not specified, it will default to the current time.
 	StartFrom time.Time `json:"startFrom"`
-	// The timestamp when the resource grant will expire. Optional. Both
-	// start_at and end_at must be defined together, or not defined at all.
+	// The timestamp when the resource grant will expire.
 	ValidUntil time.Time `json:"validUntil"`
 }
 
@@ -6253,63 +6251,12 @@ type ResourceUpdateResponse struct {
 type Role struct {
 	// AccessRules is a list of access rules defining the resources this Role has access to.
 	AccessRules AccessRules `json:"accessRules"`
-	// Composite is true if the Role is a composite role.
-	//
-	// Deprecated: composite roles are deprecated, use multi-role via
-	// AccountAttachments instead.
-	Composite bool `json:"composite"`
 	// Unique identifier of the Role.
 	ID string `json:"id"`
 	// Unique human-readable name of the Role.
 	Name string `json:"name"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
-}
-
-// A RoleAttachment assigns a role to a composite role.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
-type RoleAttachment struct {
-	// The id of the attached role of this RoleAttachment.
-	AttachedRoleID string `json:"attachedRoleId"`
-	// The id of the composite role of this RoleAttachment.
-	CompositeRoleID string `json:"compositeRoleId"`
-	// Unique identifier of the RoleAttachment.
-	ID string `json:"id"`
-}
-
-// RoleAttachmentCreateResponse reports how the RoleAttachments were created in the system.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
-type RoleAttachmentCreateResponse struct {
-	// Reserved for future use.
-	Meta *CreateResponseMetadata `json:"meta"`
-	// Rate limit information.
-	RateLimit *RateLimitMetadata `json:"rateLimit"`
-	// The created RoleAttachment.
-	RoleAttachment *RoleAttachment `json:"roleAttachment"`
-}
-
-// RoleAttachmentDeleteResponse returns information about a RoleAttachment that was deleted.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
-type RoleAttachmentDeleteResponse struct {
-	// Reserved for future use.
-	Meta *DeleteResponseMetadata `json:"meta"`
-	// Rate limit information.
-	RateLimit *RateLimitMetadata `json:"rateLimit"`
-}
-
-// RoleAttachmentGetResponse returns a requested RoleAttachment.
-//
-// Deprecated: use multi-role via AccountAttachments instead.
-type RoleAttachmentGetResponse struct {
-	// Reserved for future use.
-	Meta *GetResponseMetadata `json:"meta"`
-	// Rate limit information.
-	RateLimit *RateLimitMetadata `json:"rateLimit"`
-	// The requested RoleAttachment.
-	RoleAttachment *RoleAttachment `json:"roleAttachment"`
 }
 
 // RoleCreateResponse reports how the Roles were created in the system. It can
@@ -6339,52 +6286,6 @@ type RoleGetResponse struct {
 	RateLimit *RateLimitMetadata `json:"rateLimit"`
 	// The requested Role.
 	Role *Role `json:"role"`
-}
-
-// A RoleGrant connects a resource to a role, granting members of the role access to that resource.
-//
-// Deprecated: use Role access rules instead.
-type RoleGrant struct {
-	// Unique identifier of the RoleGrant.
-	ID string `json:"id"`
-	// The id of the resource of this RoleGrant.
-	ResourceID string `json:"resourceId"`
-	// The id of the attached role of this RoleGrant.
-	RoleID string `json:"roleId"`
-}
-
-// RoleGrantCreateResponse reports how the RoleGrants were created in the system.
-//
-// Deprecated: use Role access rules instead.
-type RoleGrantCreateResponse struct {
-	// Reserved for future use.
-	Meta *CreateResponseMetadata `json:"meta"`
-	// Rate limit information.
-	RateLimit *RateLimitMetadata `json:"rateLimit"`
-	// The created RoleGrant.
-	RoleGrant *RoleGrant `json:"roleGrant"`
-}
-
-// RoleGrantDeleteResponse returns information about a RoleGrant that was deleted.
-//
-// Deprecated: use Role access rules instead.
-type RoleGrantDeleteResponse struct {
-	// Reserved for future use.
-	Meta *DeleteResponseMetadata `json:"meta"`
-	// Rate limit information.
-	RateLimit *RateLimitMetadata `json:"rateLimit"`
-}
-
-// RoleGrantGetResponse returns a requested RoleGrant.
-//
-// Deprecated: use Role access rules instead.
-type RoleGrantGetResponse struct {
-	// Reserved for future use.
-	Meta *GetResponseMetadata `json:"meta"`
-	// Rate limit information.
-	RateLimit *RateLimitMetadata `json:"rateLimit"`
-	// The requested RoleGrant.
-	RoleGrant *RoleGrant `json:"roleGrant"`
 }
 
 // RoleUpdateResponse returns the fields of a Role after it has been updated by
@@ -6952,10 +6853,11 @@ type VaultTokenStore struct {
 
 // AccountAttachmentIterator provides read access to a list of AccountAttachment.
 // Use it like so:
-//     for iterator.Next() {
-//         accountAttachment := iterator.Value()
-//         // ...
-//     }
+//
+//	for iterator.Next() {
+//	    accountAttachment := iterator.Value()
+//	    // ...
+//	}
 type AccountAttachmentIterator interface {
 	// Next advances the iterator to the next item in the list. It returns
 	// true if an item is available to retrieve via the `Value()` function.
@@ -6968,10 +6870,11 @@ type AccountAttachmentIterator interface {
 
 // AccountGrantIterator provides read access to a list of AccountGrant.
 // Use it like so:
-//     for iterator.Next() {
-//         accountGrant := iterator.Value()
-//         // ...
-//     }
+//
+//	for iterator.Next() {
+//	    accountGrant := iterator.Value()
+//	    // ...
+//	}
 type AccountGrantIterator interface {
 	// Next advances the iterator to the next item in the list. It returns
 	// true if an item is available to retrieve via the `Value()` function.
@@ -6984,10 +6887,11 @@ type AccountGrantIterator interface {
 
 // AccountIterator provides read access to a list of Account.
 // Use it like so:
-//     for iterator.Next() {
-//         account := iterator.Value()
-//         // ...
-//     }
+//
+//	for iterator.Next() {
+//	    account := iterator.Value()
+//	    // ...
+//	}
 type AccountIterator interface {
 	// Next advances the iterator to the next item in the list. It returns
 	// true if an item is available to retrieve via the `Value()` function.
@@ -7000,10 +6904,11 @@ type AccountIterator interface {
 
 // NodeIterator provides read access to a list of Node.
 // Use it like so:
-//     for iterator.Next() {
-//         node := iterator.Value()
-//         // ...
-//     }
+//
+//	for iterator.Next() {
+//	    node := iterator.Value()
+//	    // ...
+//	}
 type NodeIterator interface {
 	// Next advances the iterator to the next item in the list. It returns
 	// true if an item is available to retrieve via the `Value()` function.
@@ -7016,10 +6921,11 @@ type NodeIterator interface {
 
 // RemoteIdentityIterator provides read access to a list of RemoteIdentity.
 // Use it like so:
-//     for iterator.Next() {
-//         remoteIdentity := iterator.Value()
-//         // ...
-//     }
+//
+//	for iterator.Next() {
+//	    remoteIdentity := iterator.Value()
+//	    // ...
+//	}
 type RemoteIdentityIterator interface {
 	// Next advances the iterator to the next item in the list. It returns
 	// true if an item is available to retrieve via the `Value()` function.
@@ -7032,10 +6938,11 @@ type RemoteIdentityIterator interface {
 
 // RemoteIdentityGroupIterator provides read access to a list of RemoteIdentityGroup.
 // Use it like so:
-//     for iterator.Next() {
-//         remoteIdentityGroup := iterator.Value()
-//         // ...
-//     }
+//
+//	for iterator.Next() {
+//	    remoteIdentityGroup := iterator.Value()
+//	    // ...
+//	}
 type RemoteIdentityGroupIterator interface {
 	// Next advances the iterator to the next item in the list. It returns
 	// true if an item is available to retrieve via the `Value()` function.
@@ -7048,10 +6955,11 @@ type RemoteIdentityGroupIterator interface {
 
 // TagIterator provides read access to a list of Tag.
 // Use it like so:
-//     for iterator.Next() {
-//         tag := iterator.Value()
-//         // ...
-//     }
+//
+//	for iterator.Next() {
+//	    tag := iterator.Value()
+//	    // ...
+//	}
 type TagIterator interface {
 	// Next advances the iterator to the next item in the list. It returns
 	// true if an item is available to retrieve via the `Value()` function.
@@ -7064,10 +6972,11 @@ type TagIterator interface {
 
 // ResourceIterator provides read access to a list of Resource.
 // Use it like so:
-//     for iterator.Next() {
-//         resource := iterator.Value()
-//         // ...
-//     }
+//
+//	for iterator.Next() {
+//	    resource := iterator.Value()
+//	    // ...
+//	}
 type ResourceIterator interface {
 	// Next advances the iterator to the next item in the list. It returns
 	// true if an item is available to retrieve via the `Value()` function.
@@ -7078,44 +6987,13 @@ type ResourceIterator interface {
 	Err() error
 }
 
-// RoleAttachmentIterator provides read access to a list of RoleAttachment.
-// Use it like so:
-//     for iterator.Next() {
-//         roleAttachment := iterator.Value()
-//         // ...
-//     }
-type RoleAttachmentIterator interface {
-	// Next advances the iterator to the next item in the list. It returns
-	// true if an item is available to retrieve via the `Value()` function.
-	Next() bool
-	// Value returns the current item, if one is available.
-	Value() *RoleAttachment
-	// Err returns the first error encountered during iteration, if any.
-	Err() error
-}
-
-// RoleGrantIterator provides read access to a list of RoleGrant.
-// Use it like so:
-//     for iterator.Next() {
-//         roleGrant := iterator.Value()
-//         // ...
-//     }
-type RoleGrantIterator interface {
-	// Next advances the iterator to the next item in the list. It returns
-	// true if an item is available to retrieve via the `Value()` function.
-	Next() bool
-	// Value returns the current item, if one is available.
-	Value() *RoleGrant
-	// Err returns the first error encountered during iteration, if any.
-	Err() error
-}
-
 // RoleIterator provides read access to a list of Role.
 // Use it like so:
-//     for iterator.Next() {
-//         role := iterator.Value()
-//         // ...
-//     }
+//
+//	for iterator.Next() {
+//	    role := iterator.Value()
+//	    // ...
+//	}
 type RoleIterator interface {
 	// Next advances the iterator to the next item in the list. It returns
 	// true if an item is available to retrieve via the `Value()` function.
@@ -7128,10 +7006,11 @@ type RoleIterator interface {
 
 // SecretStoreIterator provides read access to a list of SecretStore.
 // Use it like so:
-//     for iterator.Next() {
-//         secretStore := iterator.Value()
-//         // ...
-//     }
+//
+//	for iterator.Next() {
+//	    secretStore := iterator.Value()
+//	    // ...
+//	}
 type SecretStoreIterator interface {
 	// Next advances the iterator to the next item in the list. It returns
 	// true if an item is available to retrieve via the `Value()` function.
