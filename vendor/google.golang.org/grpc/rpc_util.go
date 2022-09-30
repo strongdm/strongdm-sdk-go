@@ -25,6 +25,7 @@ import (
 	"encoding/binary"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"math"
 	"net/url"
 	"strings"
@@ -77,7 +78,7 @@ func NewGZIPCompressorWithLevel(level int) (Compressor, error) {
 	return &gzipCompressor{
 		pool: sync.Pool{
 			New: func() interface{} {
-				w, err := gzip.NewWriterLevel(io.Discard, level)
+				w, err := gzip.NewWriterLevel(ioutil.Discard, level)
 				if err != nil {
 					panic(err)
 				}
@@ -143,7 +144,7 @@ func (d *gzipDecompressor) Do(r io.Reader) ([]byte, error) {
 		z.Close()
 		d.pool.Put(z)
 	}()
-	return io.ReadAll(z)
+	return ioutil.ReadAll(z)
 }
 
 func (d *gzipDecompressor) Type() string {
@@ -746,7 +747,7 @@ func decompress(compressor encoding.Compressor, d []byte, maxReceiveMessageSize 
 	}
 	// Read from LimitReader with limit max+1. So if the underlying
 	// reader is over limit, the result will be bigger than max.
-	d, err = io.ReadAll(io.LimitReader(dcReader, int64(maxReceiveMessageSize)+1))
+	d, err = ioutil.ReadAll(io.LimitReader(dcReader, int64(maxReceiveMessageSize)+1))
 	return d, len(d), err
 }
 

@@ -5,11 +5,10 @@ package grpc_binarylog_v1
 
 import (
 	fmt "fmt"
-	math "math"
-
 	proto "github.com/golang/protobuf/proto"
 	duration "github.com/golang/protobuf/ptypes/duration"
 	timestamp "github.com/golang/protobuf/ptypes/timestamp"
+	math "math"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
