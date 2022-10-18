@@ -27,7 +27,6 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
-	"net"
 	"strings"
 	"time"
 
@@ -43,12 +42,10 @@ import (
 const (
 	defaultAPIHost   = "api.strongdm.com:443"
 	apiVersion       = "2021-08-23"
-	defaultUserAgent = "strongdm-sdk-go/3.5.3"
+	defaultUserAgent = "strongdm-sdk-go/3.3.1"
 )
 
 var _ = metadata.Pairs
-
-type dialer func(ctx context.Context, addr string) (net.Conn, error)
 
 // Client is the strongDM API client implementation.
 type Client struct {
@@ -61,7 +58,6 @@ type Client struct {
 	userAgent             string
 	disableSigning        bool
 	pageLimit             int
-	dialer                dialer
 
 	grpcConn *grpc.ClientConn
 
@@ -103,21 +99,18 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 		opt(client)
 	}
 
-	var dialOpts []grpc.DialOption
+	var dialOpt grpc.DialOption
 	if client.apiInsecureTransport {
-		dialOpts = append(dialOpts, grpc.WithInsecure())
+		dialOpt = grpc.WithInsecure()
 	} else if client.apiTLSConfig != nil {
-		dialOpts = append(dialOpts, grpc.WithTransportCredentials(credentials.NewTLS(client.apiTLSConfig)))
+		dialOpt = grpc.WithTransportCredentials(credentials.NewTLS(client.apiTLSConfig))
 	} else {
-		dialOpts = append(dialOpts, grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{
+		dialOpt = grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{
 			RootCAs:            nil,
 			InsecureSkipVerify: false,
-		})))
+		}))
 	}
-	if client.dialer != nil {
-		dialOpts = append(dialOpts, grpc.WithContextDialer(client.dialer))
-	}
-	cc, err := grpc.Dial(client.apiHost, dialOpts...)
+	cc, err := grpc.Dial(client.apiHost, dialOpt)
 	if err != nil {
 		return nil, convertErrorToPorcelain(fmt.Errorf("cannot dial API server: %w", err))
 	}
@@ -163,19 +156,6 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 		parent: client,
 	}
 	return client, nil
-}
-
-// Close will close the internal GRPC connection to strongDM. If the client is
-// not initialized will return an error. Attempting to use the client after
-// Close() may cause panics.
-func (c *Client) Close() error {
-	if c == nil {
-		return &UnknownError{Wrapped: fmt.Errorf("cannot close nil client")}
-	}
-	if c.grpcConn == nil {
-		return &UnknownError{Wrapped: fmt.Errorf("cannot close nil grpc client")}
-	}
-	return c.grpcConn.Close()
 }
 
 // A ClientOption is an optional argument to New that can override the created
