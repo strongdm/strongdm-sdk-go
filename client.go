@@ -28,7 +28,6 @@ import (
 	"fmt"
 	"math/rand"
 	"strings"
-	"sync"
 	"time"
 
 	plumbing "github.com/strongdm/strongdm-sdk-go/v3/internal/v1"
@@ -50,9 +49,6 @@ var _ = metadata.Pairs
 
 // Client is the strongDM API client implementation.
 type Client struct {
-	testOptionsMu sync.RWMutex
-	testOptions   map[string]interface{}
-
 	apiHost               string
 	apiToken              string
 	apiSecret             []byte
@@ -61,6 +57,7 @@ type Client struct {
 	exposeRateLimitErrors bool
 	userAgent             string
 	disableSigning        bool
+	pageLimit             int
 
 	grpcConn *grpc.ClientConn
 
@@ -93,7 +90,6 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 		maxRetries:     defaultMaxRetries,
 		baseRetryDelay: defaultBaseRetryDelay,
 		maxRetryDelay:  defaultMaxRetryDelay,
-		testOptions:    map[string]interface{}{},
 		apiToken:       token,
 		apiSecret:      decodedSecret,
 		userAgent:      defaultUserAgent,
@@ -302,12 +298,6 @@ func (c *Client) wrapContext(ctx context.Context, req proto.Message, methodName 
 		"x-sdm-api-version":    apiVersion,
 		"x-sdm-user-agent":     c.userAgent,
 	}))
-}
-
-func (c *Client) testOption(key string) interface{} {
-	c.testOptionsMu.RLock()
-	defer c.testOptionsMu.RUnlock()
-	return c.testOptions[key]
 }
 
 // These defaults are taken from AWS. Customization of these values
