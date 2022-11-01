@@ -158,6 +158,19 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 	return client, nil
 }
 
+// Close will close the internal GRPC connection to strongDM. If the client is
+// not initialized will return an error. Attempting to use the client after
+// Close() may cause panics.
+func (c *Client) Close() error {
+	if c == nil {
+		return &UnknownError{Wrapped: fmt.Errorf("cannot close nil client")}
+	}
+	if c.grpcConn == nil {
+		return &UnknownError{Wrapped: fmt.Errorf("cannot close nil grpc client")}
+	}
+	return c.grpcConn.Close()
+}
+
 // A ClientOption is an optional argument to New that can override the created
 // client's default behavior.
 type ClientOption func(c *Client)
