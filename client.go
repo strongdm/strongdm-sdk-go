@@ -27,6 +27,7 @@ import (
 	"errors"
 	"fmt"
 	"math/rand"
+	"net"
 	"strings"
 	"time"
 
@@ -47,6 +48,8 @@ const (
 
 var _ = metadata.Pairs
 
+type dialer func(ctx context.Context, addr string) (net.Conn, error)
+
 // Client is the strongDM API client implementation.
 type Client struct {
 	apiHost               string
@@ -58,6 +61,7 @@ type Client struct {
 	userAgent             string
 	disableSigning        bool
 	pageLimit             int
+	dialer                dialer
 
 	grpcConn *grpc.ClientConn
 
@@ -99,18 +103,21 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 		opt(client)
 	}
 
-	var dialOpt grpc.DialOption
+	var dialOpts []grpc.DialOption
 	if client.apiInsecureTransport {
-		dialOpt = grpc.WithInsecure()
+		dialOpts = append(dialOpts, grpc.WithInsecure())
 	} else if client.apiTLSConfig != nil {
-		dialOpt = grpc.WithTransportCredentials(credentials.NewTLS(client.apiTLSConfig))
+		dialOpts = append(dialOpts, grpc.WithTransportCredentials(credentials.NewTLS(client.apiTLSConfig)))
 	} else {
-		dialOpt = grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{
+		dialOpts = append(dialOpts, grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{
 			RootCAs:            nil,
 			InsecureSkipVerify: false,
-		}))
+		})))
 	}
-	cc, err := grpc.Dial(client.apiHost, dialOpt)
+	if client.dialer != nil {
+		dialOpts = append(dialOpts, grpc.WithContextDialer(client.dialer))
+	}
+	cc, err := grpc.Dial(client.apiHost, dialOpts...)
 	if err != nil {
 		return nil, convertErrorToPorcelain(fmt.Errorf("cannot dial API server: %w", err))
 	}
