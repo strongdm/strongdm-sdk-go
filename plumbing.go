@@ -3472,6 +3472,7 @@ func convertElasticacheRedisToPorcelain(plumbing *proto.ElasticacheRedis) (*Elas
 		porcelain.Tags = v
 	}
 	porcelain.TlsRequired = plumbing.TlsRequired
+	porcelain.Username = plumbing.Username
 	return porcelain, nil
 }
 
@@ -3492,6 +3493,7 @@ func convertElasticacheRedisToPlumbing(porcelain *ElasticacheRedis) *proto.Elast
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	plumbing.TlsRequired = (porcelain.TlsRequired)
+	plumbing.Username = (porcelain.Username)
 	return plumbing
 }
 func convertRepeatedElasticacheRedisToPlumbing(
@@ -3636,9 +3638,11 @@ func convertGatewayToPorcelain(plumbing *proto.Gateway) (*Gateway, error) {
 	}
 	porcelain := &Gateway{}
 	porcelain.BindAddress = plumbing.BindAddress
+	porcelain.Device = plumbing.Device
 	porcelain.GatewayFilter = plumbing.GatewayFilter
 	porcelain.ID = plumbing.Id
 	porcelain.ListenAddress = plumbing.ListenAddress
+	porcelain.Location = plumbing.Location
 	porcelain.Name = plumbing.Name
 	porcelain.State = plumbing.State
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
@@ -3646,6 +3650,7 @@ func convertGatewayToPorcelain(plumbing *proto.Gateway) (*Gateway, error) {
 	} else {
 		porcelain.Tags = v
 	}
+	porcelain.Version = plumbing.Version
 	return porcelain, nil
 }
 
@@ -3655,12 +3660,15 @@ func convertGatewayToPlumbing(porcelain *Gateway) *proto.Gateway {
 	}
 	plumbing := &proto.Gateway{}
 	plumbing.BindAddress = (porcelain.BindAddress)
+	plumbing.Device = (porcelain.Device)
 	plumbing.GatewayFilter = (porcelain.GatewayFilter)
 	plumbing.Id = (porcelain.ID)
 	plumbing.ListenAddress = (porcelain.ListenAddress)
+	plumbing.Location = (porcelain.Location)
 	plumbing.Name = (porcelain.Name)
 	plumbing.State = (porcelain.State)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Version = (porcelain.Version)
 	return plumbing
 }
 func convertRepeatedGatewayToPlumbing(
@@ -6179,6 +6187,8 @@ func convertRedisToPorcelain(plumbing *proto.Redis) (*Redis, error) {
 	} else {
 		porcelain.Tags = v
 	}
+	porcelain.TlsRequired = plumbing.TlsRequired
+	porcelain.Username = plumbing.Username
 	return porcelain, nil
 }
 
@@ -6198,6 +6208,8 @@ func convertRedisToPlumbing(porcelain *Redis) *proto.Redis {
 	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.TlsRequired = (porcelain.TlsRequired)
+	plumbing.Username = (porcelain.Username)
 	return plumbing
 }
 func convertRepeatedRedisToPlumbing(
@@ -6300,8 +6312,10 @@ func convertRelayToPorcelain(plumbing *proto.Relay) (*Relay, error) {
 		return nil, nil
 	}
 	porcelain := &Relay{}
+	porcelain.Device = plumbing.Device
 	porcelain.GatewayFilter = plumbing.GatewayFilter
 	porcelain.ID = plumbing.Id
+	porcelain.Location = plumbing.Location
 	porcelain.Name = plumbing.Name
 	porcelain.State = plumbing.State
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
@@ -6309,6 +6323,7 @@ func convertRelayToPorcelain(plumbing *proto.Relay) (*Relay, error) {
 	} else {
 		porcelain.Tags = v
 	}
+	porcelain.Version = plumbing.Version
 	return porcelain, nil
 }
 
@@ -6317,11 +6332,14 @@ func convertRelayToPlumbing(porcelain *Relay) *proto.Relay {
 		return nil
 	}
 	plumbing := &proto.Relay{}
+	plumbing.Device = (porcelain.Device)
 	plumbing.GatewayFilter = (porcelain.GatewayFilter)
 	plumbing.Id = (porcelain.ID)
+	plumbing.Location = (porcelain.Location)
 	plumbing.Name = (porcelain.Name)
 	plumbing.State = (porcelain.State)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Version = (porcelain.Version)
 	return plumbing
 }
 func convertRepeatedRelayToPlumbing(
@@ -7363,6 +7381,7 @@ func convertRoleToPorcelain(plumbing *proto.Role) (*Role, error) {
 		porcelain.AccessRules = v
 	}
 	porcelain.ID = plumbing.Id
+	porcelain.ManagedBy = plumbing.ManagedBy
 	porcelain.Name = plumbing.Name
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
 		return nil, fmt.Errorf("error converting field Tags: %v", err)
@@ -7379,6 +7398,7 @@ func convertRoleToPlumbing(porcelain *Role) *proto.Role {
 	plumbing := &proto.Role{}
 	plumbing.AccessRules = convertAccessRulesToPlumbing(porcelain.AccessRules)
 	plumbing.Id = (porcelain.ID)
+	plumbing.ManagedBy = (porcelain.ManagedBy)
 	plumbing.Name = (porcelain.Name)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	return plumbing
@@ -8774,9 +8794,12 @@ func convertUserToPorcelain(plumbing *proto.User) (*User, error) {
 	}
 	porcelain := &User{}
 	porcelain.Email = plumbing.Email
+	porcelain.ExternalID = plumbing.ExternalId
 	porcelain.FirstName = plumbing.FirstName
 	porcelain.ID = plumbing.Id
 	porcelain.LastName = plumbing.LastName
+	porcelain.ManagedBy = plumbing.ManagedBy
+	porcelain.PermissionLevel = plumbing.PermissionLevel
 	porcelain.Suspended = plumbing.Suspended
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
 		return nil, fmt.Errorf("error converting field Tags: %v", err)
@@ -8792,9 +8815,12 @@ func convertUserToPlumbing(porcelain *User) *proto.User {
 	}
 	plumbing := &proto.User{}
 	plumbing.Email = (porcelain.Email)
+	plumbing.ExternalId = (porcelain.ExternalID)
 	plumbing.FirstName = (porcelain.FirstName)
 	plumbing.Id = (porcelain.ID)
 	plumbing.LastName = (porcelain.LastName)
+	plumbing.ManagedBy = (porcelain.ManagedBy)
+	plumbing.PermissionLevel = (porcelain.PermissionLevel)
 	plumbing.Suspended = (porcelain.Suspended)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	return plumbing
