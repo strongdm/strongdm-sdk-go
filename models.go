@@ -2559,6 +2559,8 @@ type Resource interface {
 	GetBindInterface() string
 	// SetBindInterface sets the bind interface of the Resource.
 	SetBindInterface(string)
+	// GetHealth returns the health status of the Resource.
+	GetHealth() string
 	isOneOf_Resource()
 }
 
@@ -2616,6 +2618,11 @@ func (m *AKS) GetBindInterface() string {
 func (m *AKS) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of AKS.
+func (m *AKS) GetHealth() bool {
+	return m.Healthy
+}
 func (*AKSBasicAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AKSBasicAuth.
@@ -2669,6 +2676,11 @@ func (m *AKSBasicAuth) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the AKSBasicAuth.
 func (m *AKSBasicAuth) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of AKSBasicAuth.
+func (m *AKSBasicAuth) GetHealth() bool {
+	return m.Healthy
 }
 func (*AKSServiceAccount) isOneOf_Resource() {}
 
@@ -2724,6 +2736,11 @@ func (m *AKSServiceAccount) GetBindInterface() string {
 func (m *AKSServiceAccount) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of AKSServiceAccount.
+func (m *AKSServiceAccount) GetHealth() bool {
+	return m.Healthy
+}
 func (*AKSServiceAccountUserImpersonation) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AKSServiceAccountUserImpersonation.
@@ -2777,6 +2794,11 @@ func (m *AKSServiceAccountUserImpersonation) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the AKSServiceAccountUserImpersonation.
 func (m *AKSServiceAccountUserImpersonation) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of AKSServiceAccountUserImpersonation.
+func (m *AKSServiceAccountUserImpersonation) GetHealth() bool {
+	return m.Healthy
 }
 func (*AKSUserImpersonation) isOneOf_Resource() {}
 
@@ -2832,6 +2854,11 @@ func (m *AKSUserImpersonation) GetBindInterface() string {
 func (m *AKSUserImpersonation) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of AKSUserImpersonation.
+func (m *AKSUserImpersonation) GetHealth() bool {
+	return m.Healthy
+}
 func (*AmazonEKS) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AmazonEKS.
@@ -2885,6 +2912,11 @@ func (m *AmazonEKS) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the AmazonEKS.
 func (m *AmazonEKS) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of AmazonEKS.
+func (m *AmazonEKS) GetHealth() bool {
+	return m.Healthy
 }
 func (*AmazonEKSUserImpersonation) isOneOf_Resource() {}
 
@@ -2940,6 +2972,11 @@ func (m *AmazonEKSUserImpersonation) GetBindInterface() string {
 func (m *AmazonEKSUserImpersonation) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of AmazonEKSUserImpersonation.
+func (m *AmazonEKSUserImpersonation) GetHealth() bool {
+	return m.Healthy
+}
 func (*AmazonES) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AmazonES.
@@ -2993,6 +3030,11 @@ func (m *AmazonES) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the AmazonES.
 func (m *AmazonES) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of AmazonES.
+func (m *AmazonES) GetHealth() bool {
+	return m.Healthy
 }
 func (*AmazonMQAMQP091) isOneOf_Resource() {}
 
@@ -3048,6 +3090,11 @@ func (m *AmazonMQAMQP091) GetBindInterface() string {
 func (m *AmazonMQAMQP091) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of AmazonMQAMQP091.
+func (m *AmazonMQAMQP091) GetHealth() bool {
+	return m.Healthy
+}
 func (*Athena) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Athena.
@@ -3101,6 +3148,11 @@ func (m *Athena) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the Athena.
 func (m *Athena) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Athena.
+func (m *Athena) GetHealth() bool {
+	return m.Healthy
 }
 func (*AuroraMysql) isOneOf_Resource() {}
 
@@ -3156,6 +3208,11 @@ func (m *AuroraMysql) GetBindInterface() string {
 func (m *AuroraMysql) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of AuroraMysql.
+func (m *AuroraMysql) GetHealth() bool {
+	return m.Healthy
+}
 func (*AuroraPostgres) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AuroraPostgres.
@@ -3209,6 +3266,11 @@ func (m *AuroraPostgres) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the AuroraPostgres.
 func (m *AuroraPostgres) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of AuroraPostgres.
+func (m *AuroraPostgres) GetHealth() bool {
+	return m.Healthy
 }
 func (*AWS) isOneOf_Resource() {}
 
@@ -3264,6 +3326,11 @@ func (m *AWS) GetBindInterface() string {
 func (m *AWS) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of AWS.
+func (m *AWS) GetHealth() bool {
+	return m.Healthy
+}
 func (*AWSConsole) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AWSConsole.
@@ -3317,6 +3384,11 @@ func (m *AWSConsole) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the AWSConsole.
 func (m *AWSConsole) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of AWSConsole.
+func (m *AWSConsole) GetHealth() bool {
+	return m.Healthy
 }
 func (*AWSConsoleStaticKeyPair) isOneOf_Resource() {}
 
@@ -3372,6 +3444,11 @@ func (m *AWSConsoleStaticKeyPair) GetBindInterface() string {
 func (m *AWSConsoleStaticKeyPair) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of AWSConsoleStaticKeyPair.
+func (m *AWSConsoleStaticKeyPair) GetHealth() bool {
+	return m.Healthy
+}
 func (*Azure) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Azure.
@@ -3425,6 +3502,11 @@ func (m *Azure) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the Azure.
 func (m *Azure) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Azure.
+func (m *Azure) GetHealth() bool {
+	return m.Healthy
 }
 func (*AzureCertificate) isOneOf_Resource() {}
 
@@ -3480,6 +3562,11 @@ func (m *AzureCertificate) GetBindInterface() string {
 func (m *AzureCertificate) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of AzureCertificate.
+func (m *AzureCertificate) GetHealth() bool {
+	return m.Healthy
+}
 func (*AzureMysql) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the AzureMysql.
@@ -3533,6 +3620,11 @@ func (m *AzureMysql) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the AzureMysql.
 func (m *AzureMysql) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of AzureMysql.
+func (m *AzureMysql) GetHealth() bool {
+	return m.Healthy
 }
 func (*AzurePostgres) isOneOf_Resource() {}
 
@@ -3588,6 +3680,11 @@ func (m *AzurePostgres) GetBindInterface() string {
 func (m *AzurePostgres) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of AzurePostgres.
+func (m *AzurePostgres) GetHealth() bool {
+	return m.Healthy
+}
 func (*BigQuery) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the BigQuery.
@@ -3641,6 +3738,11 @@ func (m *BigQuery) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the BigQuery.
 func (m *BigQuery) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of BigQuery.
+func (m *BigQuery) GetHealth() bool {
+	return m.Healthy
 }
 func (*Cassandra) isOneOf_Resource() {}
 
@@ -3696,6 +3798,11 @@ func (m *Cassandra) GetBindInterface() string {
 func (m *Cassandra) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of Cassandra.
+func (m *Cassandra) GetHealth() bool {
+	return m.Healthy
+}
 func (*Citus) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Citus.
@@ -3749,6 +3856,11 @@ func (m *Citus) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the Citus.
 func (m *Citus) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Citus.
+func (m *Citus) GetHealth() bool {
+	return m.Healthy
 }
 func (*Clustrix) isOneOf_Resource() {}
 
@@ -3804,6 +3916,11 @@ func (m *Clustrix) GetBindInterface() string {
 func (m *Clustrix) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of Clustrix.
+func (m *Clustrix) GetHealth() bool {
+	return m.Healthy
+}
 func (*Cockroach) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Cockroach.
@@ -3857,6 +3974,11 @@ func (m *Cockroach) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the Cockroach.
 func (m *Cockroach) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Cockroach.
+func (m *Cockroach) GetHealth() bool {
+	return m.Healthy
 }
 func (*DB2I) isOneOf_Resource() {}
 
@@ -3912,6 +4034,11 @@ func (m *DB2I) GetBindInterface() string {
 func (m *DB2I) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of DB2I.
+func (m *DB2I) GetHealth() bool {
+	return m.Healthy
+}
 func (*DB2LUW) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the DB2LUW.
@@ -3965,6 +4092,11 @@ func (m *DB2LUW) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the DB2LUW.
 func (m *DB2LUW) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of DB2LUW.
+func (m *DB2LUW) GetHealth() bool {
+	return m.Healthy
 }
 func (*DocumentDBHost) isOneOf_Resource() {}
 
@@ -4020,6 +4152,11 @@ func (m *DocumentDBHost) GetBindInterface() string {
 func (m *DocumentDBHost) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of DocumentDBHost.
+func (m *DocumentDBHost) GetHealth() bool {
+	return m.Healthy
+}
 func (*DocumentDBReplicaSet) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the DocumentDBReplicaSet.
@@ -4073,6 +4210,11 @@ func (m *DocumentDBReplicaSet) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the DocumentDBReplicaSet.
 func (m *DocumentDBReplicaSet) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of DocumentDBReplicaSet.
+func (m *DocumentDBReplicaSet) GetHealth() bool {
+	return m.Healthy
 }
 func (*Druid) isOneOf_Resource() {}
 
@@ -4128,6 +4270,11 @@ func (m *Druid) GetBindInterface() string {
 func (m *Druid) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of Druid.
+func (m *Druid) GetHealth() bool {
+	return m.Healthy
+}
 func (*DynamoDB) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the DynamoDB.
@@ -4181,6 +4328,11 @@ func (m *DynamoDB) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the DynamoDB.
 func (m *DynamoDB) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of DynamoDB.
+func (m *DynamoDB) GetHealth() bool {
+	return m.Healthy
 }
 func (*Elastic) isOneOf_Resource() {}
 
@@ -4236,6 +4388,11 @@ func (m *Elastic) GetBindInterface() string {
 func (m *Elastic) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of Elastic.
+func (m *Elastic) GetHealth() bool {
+	return m.Healthy
+}
 func (*ElasticacheRedis) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the ElasticacheRedis.
@@ -4289,6 +4446,11 @@ func (m *ElasticacheRedis) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the ElasticacheRedis.
 func (m *ElasticacheRedis) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of ElasticacheRedis.
+func (m *ElasticacheRedis) GetHealth() bool {
+	return m.Healthy
 }
 func (*GCP) isOneOf_Resource() {}
 
@@ -4344,6 +4506,11 @@ func (m *GCP) GetBindInterface() string {
 func (m *GCP) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of GCP.
+func (m *GCP) GetHealth() bool {
+	return m.Healthy
+}
 func (*GoogleGKE) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the GoogleGKE.
@@ -4397,6 +4564,11 @@ func (m *GoogleGKE) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the GoogleGKE.
 func (m *GoogleGKE) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of GoogleGKE.
+func (m *GoogleGKE) GetHealth() bool {
+	return m.Healthy
 }
 func (*GoogleGKEUserImpersonation) isOneOf_Resource() {}
 
@@ -4452,6 +4624,11 @@ func (m *GoogleGKEUserImpersonation) GetBindInterface() string {
 func (m *GoogleGKEUserImpersonation) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of GoogleGKEUserImpersonation.
+func (m *GoogleGKEUserImpersonation) GetHealth() bool {
+	return m.Healthy
+}
 func (*Greenplum) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Greenplum.
@@ -4505,6 +4682,11 @@ func (m *Greenplum) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the Greenplum.
 func (m *Greenplum) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Greenplum.
+func (m *Greenplum) GetHealth() bool {
+	return m.Healthy
 }
 func (*HTTPAuth) isOneOf_Resource() {}
 
@@ -4560,6 +4742,11 @@ func (m *HTTPAuth) GetBindInterface() string {
 func (m *HTTPAuth) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of HTTPAuth.
+func (m *HTTPAuth) GetHealth() bool {
+	return m.Healthy
+}
 func (*HTTPBasicAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the HTTPBasicAuth.
@@ -4613,6 +4800,11 @@ func (m *HTTPBasicAuth) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the HTTPBasicAuth.
 func (m *HTTPBasicAuth) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of HTTPBasicAuth.
+func (m *HTTPBasicAuth) GetHealth() bool {
+	return m.Healthy
 }
 func (*HTTPNoAuth) isOneOf_Resource() {}
 
@@ -4668,6 +4860,11 @@ func (m *HTTPNoAuth) GetBindInterface() string {
 func (m *HTTPNoAuth) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of HTTPNoAuth.
+func (m *HTTPNoAuth) GetHealth() bool {
+	return m.Healthy
+}
 func (*Kubernetes) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Kubernetes.
@@ -4721,6 +4918,11 @@ func (m *Kubernetes) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the Kubernetes.
 func (m *Kubernetes) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Kubernetes.
+func (m *Kubernetes) GetHealth() bool {
+	return m.Healthy
 }
 func (*KubernetesBasicAuth) isOneOf_Resource() {}
 
@@ -4776,6 +4978,11 @@ func (m *KubernetesBasicAuth) GetBindInterface() string {
 func (m *KubernetesBasicAuth) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of KubernetesBasicAuth.
+func (m *KubernetesBasicAuth) GetHealth() bool {
+	return m.Healthy
+}
 func (*KubernetesServiceAccount) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the KubernetesServiceAccount.
@@ -4829,6 +5036,11 @@ func (m *KubernetesServiceAccount) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the KubernetesServiceAccount.
 func (m *KubernetesServiceAccount) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of KubernetesServiceAccount.
+func (m *KubernetesServiceAccount) GetHealth() bool {
+	return m.Healthy
 }
 func (*KubernetesServiceAccountUserImpersonation) isOneOf_Resource() {}
 
@@ -4884,6 +5096,11 @@ func (m *KubernetesServiceAccountUserImpersonation) GetBindInterface() string {
 func (m *KubernetesServiceAccountUserImpersonation) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of KubernetesServiceAccountUserImpersonation.
+func (m *KubernetesServiceAccountUserImpersonation) GetHealth() bool {
+	return m.Healthy
+}
 func (*KubernetesUserImpersonation) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the KubernetesUserImpersonation.
@@ -4937,6 +5154,11 @@ func (m *KubernetesUserImpersonation) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the KubernetesUserImpersonation.
 func (m *KubernetesUserImpersonation) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of KubernetesUserImpersonation.
+func (m *KubernetesUserImpersonation) GetHealth() bool {
+	return m.Healthy
 }
 func (*Maria) isOneOf_Resource() {}
 
@@ -4992,6 +5214,11 @@ func (m *Maria) GetBindInterface() string {
 func (m *Maria) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of Maria.
+func (m *Maria) GetHealth() bool {
+	return m.Healthy
+}
 func (*Memcached) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Memcached.
@@ -5045,6 +5272,11 @@ func (m *Memcached) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the Memcached.
 func (m *Memcached) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Memcached.
+func (m *Memcached) GetHealth() bool {
+	return m.Healthy
 }
 func (*Memsql) isOneOf_Resource() {}
 
@@ -5100,6 +5332,11 @@ func (m *Memsql) GetBindInterface() string {
 func (m *Memsql) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of Memsql.
+func (m *Memsql) GetHealth() bool {
+	return m.Healthy
+}
 func (*MongoHost) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MongoHost.
@@ -5153,6 +5390,11 @@ func (m *MongoHost) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the MongoHost.
 func (m *MongoHost) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Memsql.
+func (m *MongoHost) GetHealth() bool {
+	return m.Healthy
 }
 func (*MongoLegacyHost) isOneOf_Resource() {}
 
@@ -5208,6 +5450,11 @@ func (m *MongoLegacyHost) GetBindInterface() string {
 func (m *MongoLegacyHost) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of MongoLegacyHost.
+func (m *MongoLegacyHost) GetHealth() bool {
+	return m.Healthy
+}
 func (*MongoLegacyReplicaset) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MongoLegacyReplicaset.
@@ -5261,6 +5508,11 @@ func (m *MongoLegacyReplicaset) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the MongoLegacyReplicaset.
 func (m *MongoLegacyReplicaset) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of MongoLegacyReplicaset.
+func (m *MongoLegacyReplicaset) GetHealth() bool {
+	return m.Healthy
 }
 func (*MongoReplicaSet) isOneOf_Resource() {}
 
@@ -5316,6 +5568,11 @@ func (m *MongoReplicaSet) GetBindInterface() string {
 func (m *MongoReplicaSet) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of MongoReplicaSet.
+func (m *MongoReplicaSet) GetHealth() bool {
+	return m.Healthy
+}
 func (*MongoShardedCluster) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MongoShardedCluster.
@@ -5369,6 +5626,11 @@ func (m *MongoShardedCluster) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the MongoShardedCluster.
 func (m *MongoShardedCluster) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of MongoShardedCluster.
+func (m *MongoShardedCluster) GetHealth() bool {
+	return m.Healthy
 }
 func (*MTLSMysql) isOneOf_Resource() {}
 
@@ -5424,6 +5686,11 @@ func (m *MTLSMysql) GetBindInterface() string {
 func (m *MTLSMysql) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of MongoShardedCluster.
+func (m *MTLSMysql) GetHealth() bool {
+	return m.Healthy
+}
 func (*MTLSPostgres) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MTLSPostgres.
@@ -5477,6 +5744,11 @@ func (m *MTLSPostgres) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the MTLSPostgres.
 func (m *MTLSPostgres) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of MTLSPostgres.
+func (m *MTLSPostgres) GetHealth() bool {
+	return m.Healthy
 }
 func (*Mysql) isOneOf_Resource() {}
 
@@ -5532,6 +5804,11 @@ func (m *Mysql) GetBindInterface() string {
 func (m *Mysql) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of MTLSPostgres.
+func (m *Mysql) GetHealth() bool {
+	return m.Healthy
+}
 func (*Neptune) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Neptune.
@@ -5585,6 +5862,11 @@ func (m *Neptune) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the Neptune.
 func (m *Neptune) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Neptune.
+func (m *Neptune) GetHealth() bool {
+	return m.Healthy
 }
 func (*NeptuneIAM) isOneOf_Resource() {}
 
@@ -5640,6 +5922,11 @@ func (m *NeptuneIAM) GetBindInterface() string {
 func (m *NeptuneIAM) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of NeptuneIAM.
+func (m *NeptuneIAM) GetHealth() bool {
+	return m.Healthy
+}
 func (*Oracle) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Oracle.
@@ -5693,6 +5980,11 @@ func (m *Oracle) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the Oracle.
 func (m *Oracle) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Oracle.
+func (m *Oracle) GetHealth() bool {
+	return m.Healthy
 }
 func (*Postgres) isOneOf_Resource() {}
 
@@ -5748,6 +6040,11 @@ func (m *Postgres) GetBindInterface() string {
 func (m *Postgres) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of Postgres.
+func (m *Postgres) GetHealth() bool {
+	return m.Healthy
+}
 func (*Presto) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Presto.
@@ -5801,6 +6098,11 @@ func (m *Presto) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the Presto.
 func (m *Presto) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Presto.
+func (m *Presto) GetHealth() bool {
+	return m.Healthy
 }
 func (*RabbitMQAMQP091) isOneOf_Resource() {}
 
@@ -5856,6 +6158,11 @@ func (m *RabbitMQAMQP091) GetBindInterface() string {
 func (m *RabbitMQAMQP091) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of RabbitMQAMQP091.
+func (m *RabbitMQAMQP091) GetHealth() bool {
+	return m.Healthy
+}
 func (*RawTCP) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the RawTCP.
@@ -5909,6 +6216,11 @@ func (m *RawTCP) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the RawTCP.
 func (m *RawTCP) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of RawTCP.
+func (m *RawTCP) GetHealth() bool {
+	return m.Healthy
 }
 func (*RDP) isOneOf_Resource() {}
 
@@ -5964,6 +6276,11 @@ func (m *RDP) GetBindInterface() string {
 func (m *RDP) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of RDP.
+func (m *RDP) GetHealth() bool {
+	return m.Healthy
+}
 func (*Redis) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Redis.
@@ -6017,6 +6334,11 @@ func (m *Redis) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the Redis.
 func (m *Redis) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Redis.
+func (m *Redis) GetHealth() bool {
+	return m.Healthy
 }
 func (*Redshift) isOneOf_Resource() {}
 
@@ -6072,6 +6394,11 @@ func (m *Redshift) GetBindInterface() string {
 func (m *Redshift) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of Redshift.
+func (m *Redshift) GetHealth() bool {
+	return m.Healthy
+}
 func (*SingleStore) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the SingleStore.
@@ -6125,6 +6452,11 @@ func (m *SingleStore) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the SingleStore.
 func (m *SingleStore) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of SingleStore.
+func (m *SingleStore) GetHealth() bool {
+	return m.Healthy
 }
 func (*Snowflake) isOneOf_Resource() {}
 
@@ -6180,6 +6512,11 @@ func (m *Snowflake) GetBindInterface() string {
 func (m *Snowflake) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of Snowflake.
+func (m *Snowflake) GetHealth() bool {
+	return m.Healthy
+}
 func (*Snowsight) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Snowsight.
@@ -6233,6 +6570,11 @@ func (m *Snowsight) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the Snowsight.
 func (m *Snowsight) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of Snowsight.
+func (m *Snowsight) GetHealth() bool {
+	return m.Healthy
 }
 func (*SQLServer) isOneOf_Resource() {}
 
@@ -6288,6 +6630,11 @@ func (m *SQLServer) GetBindInterface() string {
 func (m *SQLServer) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of SQLServer.
+func (m *SQLServer) GetHealth() bool {
+	return m.Healthy
+}
 func (*SSH) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the SSH.
@@ -6341,6 +6688,11 @@ func (m *SSH) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the SSH.
 func (m *SSH) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of SSH.
+func (m *SSH) GetHealth() bool {
+	return m.Healthy
 }
 func (*SSHCert) isOneOf_Resource() {}
 
@@ -6396,6 +6748,11 @@ func (m *SSHCert) GetBindInterface() string {
 func (m *SSHCert) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of SSH.
+func (m *SSHCert) GetHealth() bool {
+	return m.Healthy
+}
 func (*SSHCustomerKey) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the SSHCustomerKey.
@@ -6449,6 +6806,11 @@ func (m *SSHCustomerKey) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the SSHCustomerKey.
 func (m *SSHCustomerKey) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of SSHCustomerKey.
+func (m *SSHCustomerKey) GetHealth() bool {
+	return m.Healthy
 }
 func (*Sybase) isOneOf_Resource() {}
 
@@ -6504,6 +6866,11 @@ func (m *Sybase) GetBindInterface() string {
 func (m *Sybase) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+
+// GetHealth gets the Health of Sybase.
+func (m *Sybase) GetHealth() bool {
+	return m.Healthy
+}
 func (*SybaseIQ) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the SybaseIQ.
@@ -6557,6 +6924,11 @@ func (m *SybaseIQ) GetBindInterface() string {
 // SetBindInterface sets the bind interface of the SybaseIQ.
 func (m *SybaseIQ) SetBindInterface(v string) {
 	m.BindInterface = v
+}
+
+// GetHealth gets the Health of SybaseIQ.
+func (m *SybaseIQ) GetHealth() bool {
+	return m.Healthy
 }
 func (*Teradata) isOneOf_Resource() {}
 
@@ -6613,6 +6985,10 @@ func (m *Teradata) SetBindInterface(v string) {
 	m.BindInterface = v
 }
 
+// GetHealth gets the Health of Teradata.
+func (m *Teradata) GetHealth() bool {
+	return m.Healthy
+}
 // ResourceCreateResponse reports how the Resources were created in the system.
 type ResourceCreateResponse struct {
 	// Reserved for future use.
