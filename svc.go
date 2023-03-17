@@ -203,6 +203,59 @@ func (svc *AccountAttachments) List(
 	), nil
 }
 
+// AccountAttachmentsHistory records all changes to the state of an AccountAttachment.
+type AccountAttachmentsHistory struct {
+	client plumbing.AccountAttachmentsHistoryClient
+	parent *Client
+}
+
+// List gets a list of AccountAttachmentHistory records matching a given set of criteria.
+func (svc *AccountAttachmentsHistory) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	AccountAttachmentHistoryIterator,
+	error) {
+	req := &plumbing.AccountAttachmentHistoryListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newAccountAttachmentHistoryIteratorImpl(
+		func() (
+			[]*AccountAttachmentHistory,
+			bool, error) {
+			var plumbingResponse *plumbing.AccountAttachmentHistoryListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountAttachmentsHistory.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedAccountAttachmentHistoryToPorcelain(plumbingResponse.History)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
 // AccountGrants assign a resource directly to an account, giving the account the permission to connect to that resource.
 type AccountGrants struct {
 	client plumbing.AccountGrantsClient
@@ -374,6 +427,167 @@ func (svc *AccountGrants) List(
 				break
 			}
 			result, err := convertRepeatedAccountGrantToPorcelain(plumbingResponse.AccountGrants)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// AccountGrantsHistory records all changes to the state of an AccountGrant.
+type AccountGrantsHistory struct {
+	client plumbing.AccountGrantsHistoryClient
+	parent *Client
+}
+
+// List gets a list of AccountGrantHistory records matching a given set of criteria.
+func (svc *AccountGrantsHistory) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	AccountGrantHistoryIterator,
+	error) {
+	req := &plumbing.AccountGrantHistoryListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newAccountGrantHistoryIteratorImpl(
+		func() (
+			[]*AccountGrantHistory,
+			bool, error) {
+			var plumbingResponse *plumbing.AccountGrantHistoryListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountGrantsHistory.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedAccountGrantHistoryToPorcelain(plumbingResponse.History)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// AccountPermissions records the granular permissions accounts have, allowing them to execute
+// relevant commands via StrongDM's APIs.
+type AccountPermissions struct {
+	client plumbing.AccountPermissionsClient
+	parent *Client
+}
+
+// List gets a list of Permission records matching a given set of criteria.
+func (svc *AccountPermissions) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	AccountPermissionIterator,
+	error) {
+	req := &plumbing.AccountPermissionListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newAccountPermissionIteratorImpl(
+		func() (
+			[]*AccountPermission,
+			bool, error) {
+			var plumbingResponse *plumbing.AccountPermissionListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountPermissions.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedAccountPermissionToPorcelain(plumbingResponse.Permissions)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// AccountResources enumerates the resources to which accounts have access.
+// The AccountResources service is read-only.
+type AccountResources struct {
+	client plumbing.AccountResourcesClient
+	parent *Client
+}
+
+// List gets a list of AccountResource records matching a given set of criteria.
+func (svc *AccountResources) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	AccountResourceIterator,
+	error) {
+	req := &plumbing.AccountResourceListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newAccountResourceIteratorImpl(
+		func() (
+			[]*AccountResource,
+			bool, error) {
+			var plumbingResponse *plumbing.AccountResourceListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountResources.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedAccountResourceToPorcelain(plumbingResponse.AccountResources)
 			if err != nil {
 				return nil, false, err
 			}
@@ -601,6 +815,158 @@ func (svc *Accounts) List(
 				break
 			}
 			result, err := convertRepeatedAccountToPorcelain(plumbingResponse.Accounts)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// AccountsHistory records all changes to the state of an Account.
+type AccountsHistory struct {
+	client plumbing.AccountsHistoryClient
+	parent *Client
+}
+
+// List gets a list of AccountHistory records matching a given set of criteria.
+func (svc *AccountsHistory) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	AccountHistoryIterator,
+	error) {
+	req := &plumbing.AccountHistoryListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newAccountHistoryIteratorImpl(
+		func() (
+			[]*AccountHistory,
+			bool, error) {
+			var plumbingResponse *plumbing.AccountHistoryListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "AccountsHistory.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedAccountHistoryToPorcelain(plumbingResponse.History)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// An Activity is a record of an action taken against a strongDM deployment, e.g.
+// a user creation, resource deletion, sso configuration change, etc. The Activities
+// service is read-only.
+type Activities struct {
+	client plumbing.ActivitiesClient
+	parent *Client
+}
+
+// Get reads one Activity by ID.
+func (svc *Activities) Get(
+	ctx context.Context,
+	id string) (
+	*ActivityGetResponse,
+	error) {
+	req := &plumbing.ActivityGetRequest{}
+
+	req.Id = (id)
+	var plumbingResponse *plumbing.ActivityGetResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Get(svc.parent.wrapContext(ctx, req, "Activities.Get"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, convertErrorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &ActivityGetResponse{}
+	if v, err := convertActivityToPorcelain(plumbingResponse.Activity); err != nil {
+		return nil, err
+	} else {
+		resp.Activity = v
+	}
+	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
+}
+
+// List gets a list of Activities matching a given set of criteria.
+func (svc *Activities) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	ActivityIterator,
+	error) {
+	req := &plumbing.ActivityListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newActivityIteratorImpl(
+		func() (
+			[]*Activity,
+			bool, error) {
+			var plumbingResponse *plumbing.ActivityListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Activities.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedActivityToPorcelain(plumbingResponse.Activities)
 			if err != nil {
 				return nil, false, err
 			}
@@ -921,6 +1287,167 @@ func (svc *Nodes) List(
 	), nil
 }
 
+// NodesHistory records all changes to the state of a Node.
+type NodesHistory struct {
+	client plumbing.NodesHistoryClient
+	parent *Client
+}
+
+// List gets a list of NodeHistory records matching a given set of criteria.
+func (svc *NodesHistory) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	NodeHistoryIterator,
+	error) {
+	req := &plumbing.NodeHistoryListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newNodeHistoryIteratorImpl(
+		func() (
+			[]*NodeHistory,
+			bool, error) {
+			var plumbingResponse *plumbing.NodeHistoryListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "NodesHistory.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedNodeHistoryToPorcelain(plumbingResponse.History)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// OrganizationHistory records all changes to the state of an Organization.
+type OrganizationHistory struct {
+	client plumbing.OrganizationHistoryClient
+	parent *Client
+}
+
+// List gets a list of OrganizationHistory records matching a given set of criteria.
+func (svc *OrganizationHistory) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	OrganizationHistoryRecordIterator,
+	error) {
+	req := &plumbing.OrganizationHistoryListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newOrganizationHistoryRecordIteratorImpl(
+		func() (
+			[]*OrganizationHistoryRecord,
+			bool, error) {
+			var plumbingResponse *plumbing.OrganizationHistoryListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "OrganizationHistory.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedOrganizationHistoryRecordToPorcelain(plumbingResponse.History)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// A Query is a record of a single client request to a resource, such as an SQL query.
+// Long-running SSH, RDP, or Kubernetes interactive sessions also count as queries.
+// The Queries service is read-only.
+type Queries struct {
+	client plumbing.QueriesClient
+	parent *Client
+}
+
+// List gets a list of Queries matching a given set of criteria.
+func (svc *Queries) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	QueryIterator,
+	error) {
+	req := &plumbing.QueryListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newQueryIteratorImpl(
+		func() (
+			[]*Query,
+			bool, error) {
+			var plumbingResponse *plumbing.QueryListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Queries.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedQueryToPorcelain(plumbingResponse.Queries)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
 // RemoteIdentities assign a resource directly to an account, giving the account the permission to connect to that resource.
 type RemoteIdentities struct {
 	client plumbing.RemoteIdentitiesClient
@@ -1145,6 +1672,59 @@ func (svc *RemoteIdentities) List(
 	), nil
 }
 
+// RemoteIdentitiesHistory records all changes to the state of a RemoteIdentity.
+type RemoteIdentitiesHistory struct {
+	client plumbing.RemoteIdentitiesHistoryClient
+	parent *Client
+}
+
+// List gets a list of RemoteIdentityHistory records matching a given set of criteria.
+func (svc *RemoteIdentitiesHistory) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	RemoteIdentityHistoryIterator,
+	error) {
+	req := &plumbing.RemoteIdentityHistoryListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newRemoteIdentityHistoryIteratorImpl(
+		func() (
+			[]*RemoteIdentityHistory,
+			bool, error) {
+			var plumbingResponse *plumbing.RemoteIdentityHistoryListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RemoteIdentitiesHistory.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedRemoteIdentityHistoryToPorcelain(plumbingResponse.History)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
 // A RemoteIdentityGroup is a named grouping of Remote Identities for Accounts.
 // An Account's relationship to a RemoteIdentityGroup is defined via RemoteIdentity objects.
 type RemoteIdentityGroups struct {
@@ -1234,6 +1814,113 @@ func (svc *RemoteIdentityGroups) List(
 				break
 			}
 			result, err := convertRepeatedRemoteIdentityGroupToPorcelain(plumbingResponse.RemoteIdentityGroups)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// RemoteIdentityGroupsHistory records all changes to the state of a RemoteIdentityGroup.
+type RemoteIdentityGroupsHistory struct {
+	client plumbing.RemoteIdentityGroupsHistoryClient
+	parent *Client
+}
+
+// List gets a list of RemoteIdentityGroupHistory records matching a given set of criteria.
+func (svc *RemoteIdentityGroupsHistory) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	RemoteIdentityGroupHistoryIterator,
+	error) {
+	req := &plumbing.RemoteIdentityGroupHistoryListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newRemoteIdentityGroupHistoryIteratorImpl(
+		func() (
+			[]*RemoteIdentityGroupHistory,
+			bool, error) {
+			var plumbingResponse *plumbing.RemoteIdentityGroupHistoryListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RemoteIdentityGroupsHistory.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedRemoteIdentityGroupHistoryToPorcelain(plumbingResponse.History)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// A Replay captures the data transferred over a long-running SSH, RDP, or Kubernetes interactive session
+// (otherwise referred to as a query). The Replays service is read-only.
+type Replays struct {
+	client plumbing.ReplaysClient
+	parent *Client
+}
+
+// List gets a list of ReplayChunks for the Query ID specified by the filter criteria.
+func (svc *Replays) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	ReplayChunkIterator,
+	error) {
+	req := &plumbing.ReplayListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newReplayChunkIteratorImpl(
+		func() (
+			[]*ReplayChunk,
+			bool, error) {
+			var plumbingResponse *plumbing.ReplayListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "Replays.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedReplayChunkToPorcelain(plumbingResponse.Chunks)
 			if err != nil {
 				return nil, false, err
 			}
@@ -1515,6 +2202,166 @@ func (svc *Resources) List(
 	), nil
 }
 
+// ResourcesHistory records all changes to the state of a Resource.
+type ResourcesHistory struct {
+	client plumbing.ResourcesHistoryClient
+	parent *Client
+}
+
+// List gets a list of ResourceHistory records matching a given set of criteria.
+func (svc *ResourcesHistory) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	ResourceHistoryIterator,
+	error) {
+	req := &plumbing.ResourceHistoryListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newResourceHistoryIteratorImpl(
+		func() (
+			[]*ResourceHistory,
+			bool, error) {
+			var plumbingResponse *plumbing.ResourceHistoryListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "ResourcesHistory.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedResourceHistoryToPorcelain(plumbingResponse.History)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// RoleResources enumerates the resources to which roles have access.
+// The RoleResources service is read-only.
+type RoleResources struct {
+	client plumbing.RoleResourcesClient
+	parent *Client
+}
+
+// List gets a list of RoleResource records matching a given set of criteria.
+func (svc *RoleResources) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	RoleResourceIterator,
+	error) {
+	req := &plumbing.RoleResourceListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newRoleResourceIteratorImpl(
+		func() (
+			[]*RoleResource,
+			bool, error) {
+			var plumbingResponse *plumbing.RoleResourceListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RoleResources.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedRoleResourceToPorcelain(plumbingResponse.RoleResources)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// RoleResourcesHistory records all changes to the state of a RoleResource.
+type RoleResourcesHistory struct {
+	client plumbing.RoleResourcesHistoryClient
+	parent *Client
+}
+
+// List gets a list of RoleResourceHistory records matching a given set of criteria.
+func (svc *RoleResourcesHistory) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	RoleResourceHistoryIterator,
+	error) {
+	req := &plumbing.RoleResourceHistoryListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newRoleResourceHistoryIteratorImpl(
+		func() (
+			[]*RoleResourceHistory,
+			bool, error) {
+			var plumbingResponse *plumbing.RoleResourceHistoryListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RoleResourcesHistory.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedRoleResourceHistoryToPorcelain(plumbingResponse.History)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
 // A Role has a list of access rules which determine which Resources the members
 // of the Role have access to. An Account can be a member of multiple Roles via
 // AccountAttachments.
@@ -1741,6 +2588,59 @@ func (svc *Roles) List(
 	), nil
 }
 
+// RolesHistory records all changes to the state of a Role.
+type RolesHistory struct {
+	client plumbing.RolesHistoryClient
+	parent *Client
+}
+
+// List gets a list of RoleHistory records matching a given set of criteria.
+func (svc *RolesHistory) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	RoleHistoryIterator,
+	error) {
+	req := &plumbing.RoleHistoryListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newRoleHistoryIteratorImpl(
+		func() (
+			[]*RoleHistory,
+			bool, error) {
+			var plumbingResponse *plumbing.RoleHistoryListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "RolesHistory.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedRoleHistoryToPorcelain(plumbingResponse.History)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
 // SecretStores are servers where resource secrets (passwords, keys) are stored.
 type SecretStores struct {
 	client plumbing.SecretStoresClient
@@ -1955,6 +2855,59 @@ func (svc *SecretStores) List(
 				break
 			}
 			result, err := convertRepeatedSecretStoreToPorcelain(plumbingResponse.SecretStores)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// SecretStoresHistory records all changes to the state of a SecretStore.
+type SecretStoresHistory struct {
+	client plumbing.SecretStoresHistoryClient
+	parent *Client
+}
+
+// List gets a list of SecretStoreHistory records matching a given set of criteria.
+func (svc *SecretStoresHistory) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	SecretStoreHistoryIterator,
+	error) {
+	req := &plumbing.SecretStoreHistoryListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	return newSecretStoreHistoryIteratorImpl(
+		func() (
+			[]*SecretStoreHistory,
+			bool, error) {
+			var plumbingResponse *plumbing.SecretStoreHistoryListResponse
+			var err error
+			i := 0
+			for {
+				plumbingResponse, err = svc.client.List(svc.parent.wrapContext(ctx, req, "SecretStoresHistory.List"), req)
+				if err != nil {
+					if !svc.parent.shouldRetry(i, err) {
+						return nil, false, convertErrorToPorcelain(err)
+					}
+					i++
+					svc.parent.jitterSleep(i)
+					continue
+				}
+				break
+			}
+			result, err := convertRepeatedSecretStoreHistoryToPorcelain(plumbingResponse.History)
 			if err != nil {
 				return nil, false, err
 			}

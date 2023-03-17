@@ -43,7 +43,7 @@ import (
 const (
 	defaultAPIHost   = "api.strongdm.com:443"
 	apiVersion       = "2021-08-23"
-	defaultUserAgent = "strongdm-sdk-go/3.6.1"
+	defaultUserAgent = "strongdm-sdk-go/3.7.0"
 )
 
 var _ = metadata.Pairs
@@ -65,19 +65,36 @@ type Client struct {
 
 	grpcConn *grpc.ClientConn
 
-	maxRetries           int
-	baseRetryDelay       time.Duration
-	maxRetryDelay        time.Duration
-	accountAttachments   *AccountAttachments
-	accountGrants        *AccountGrants
-	accounts             *Accounts
-	controlPanel         *ControlPanel
-	nodes                *Nodes
-	remoteIdentities     *RemoteIdentities
-	remoteIdentityGroups *RemoteIdentityGroups
-	resources            *Resources
-	roles                *Roles
-	secretStores         *SecretStores
+	maxRetries                  int
+	baseRetryDelay              time.Duration
+	maxRetryDelay               time.Duration
+	accountAttachments          *AccountAttachments
+	accountAttachmentsHistory   *AccountAttachmentsHistory
+	accountGrants               *AccountGrants
+	accountGrantsHistory        *AccountGrantsHistory
+	accountPermissions          *AccountPermissions
+	accountResources            *AccountResources
+	accounts                    *Accounts
+	accountsHistory             *AccountsHistory
+	activities                  *Activities
+	controlPanel                *ControlPanel
+	nodes                       *Nodes
+	nodesHistory                *NodesHistory
+	organizationHistory         *OrganizationHistory
+	queries                     *Queries
+	remoteIdentities            *RemoteIdentities
+	remoteIdentitiesHistory     *RemoteIdentitiesHistory
+	remoteIdentityGroups        *RemoteIdentityGroups
+	remoteIdentityGroupsHistory *RemoteIdentityGroupsHistory
+	replays                     *Replays
+	resources                   *Resources
+	resourcesHistory            *ResourcesHistory
+	roleResources               *RoleResources
+	roleResourcesHistory        *RoleResourcesHistory
+	roles                       *Roles
+	rolesHistory                *RolesHistory
+	secretStores                *SecretStores
+	secretStoresHistory         *SecretStoresHistory
 }
 
 // New creates a new strongDM API client.
@@ -126,12 +143,36 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 		client: plumbing.NewAccountAttachmentsClient(client.grpcConn),
 		parent: client,
 	}
+	client.accountAttachmentsHistory = &AccountAttachmentsHistory{
+		client: plumbing.NewAccountAttachmentsHistoryClient(client.grpcConn),
+		parent: client,
+	}
 	client.accountGrants = &AccountGrants{
 		client: plumbing.NewAccountGrantsClient(client.grpcConn),
 		parent: client,
 	}
+	client.accountGrantsHistory = &AccountGrantsHistory{
+		client: plumbing.NewAccountGrantsHistoryClient(client.grpcConn),
+		parent: client,
+	}
+	client.accountPermissions = &AccountPermissions{
+		client: plumbing.NewAccountPermissionsClient(client.grpcConn),
+		parent: client,
+	}
+	client.accountResources = &AccountResources{
+		client: plumbing.NewAccountResourcesClient(client.grpcConn),
+		parent: client,
+	}
 	client.accounts = &Accounts{
 		client: plumbing.NewAccountsClient(client.grpcConn),
+		parent: client,
+	}
+	client.accountsHistory = &AccountsHistory{
+		client: plumbing.NewAccountsHistoryClient(client.grpcConn),
+		parent: client,
+	}
+	client.activities = &Activities{
+		client: plumbing.NewActivitiesClient(client.grpcConn),
 		parent: client,
 	}
 	client.controlPanel = &ControlPanel{
@@ -142,24 +183,68 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 		client: plumbing.NewNodesClient(client.grpcConn),
 		parent: client,
 	}
+	client.nodesHistory = &NodesHistory{
+		client: plumbing.NewNodesHistoryClient(client.grpcConn),
+		parent: client,
+	}
+	client.organizationHistory = &OrganizationHistory{
+		client: plumbing.NewOrganizationHistoryClient(client.grpcConn),
+		parent: client,
+	}
+	client.queries = &Queries{
+		client: plumbing.NewQueriesClient(client.grpcConn),
+		parent: client,
+	}
 	client.remoteIdentities = &RemoteIdentities{
 		client: plumbing.NewRemoteIdentitiesClient(client.grpcConn),
+		parent: client,
+	}
+	client.remoteIdentitiesHistory = &RemoteIdentitiesHistory{
+		client: plumbing.NewRemoteIdentitiesHistoryClient(client.grpcConn),
 		parent: client,
 	}
 	client.remoteIdentityGroups = &RemoteIdentityGroups{
 		client: plumbing.NewRemoteIdentityGroupsClient(client.grpcConn),
 		parent: client,
 	}
+	client.remoteIdentityGroupsHistory = &RemoteIdentityGroupsHistory{
+		client: plumbing.NewRemoteIdentityGroupsHistoryClient(client.grpcConn),
+		parent: client,
+	}
+	client.replays = &Replays{
+		client: plumbing.NewReplaysClient(client.grpcConn),
+		parent: client,
+	}
 	client.resources = &Resources{
 		client: plumbing.NewResourcesClient(client.grpcConn),
+		parent: client,
+	}
+	client.resourcesHistory = &ResourcesHistory{
+		client: plumbing.NewResourcesHistoryClient(client.grpcConn),
+		parent: client,
+	}
+	client.roleResources = &RoleResources{
+		client: plumbing.NewRoleResourcesClient(client.grpcConn),
+		parent: client,
+	}
+	client.roleResourcesHistory = &RoleResourcesHistory{
+		client: plumbing.NewRoleResourcesHistoryClient(client.grpcConn),
 		parent: client,
 	}
 	client.roles = &Roles{
 		client: plumbing.NewRolesClient(client.grpcConn),
 		parent: client,
 	}
+	client.rolesHistory = &RolesHistory{
+		client: plumbing.NewRolesHistoryClient(client.grpcConn),
+		parent: client,
+	}
 	client.secretStores = &SecretStores{
 		client: plumbing.NewSecretStoresClient(client.grpcConn),
+		parent: client,
+	}
+	client.secretStoresHistory = &SecretStoresHistory{
+		client: plumbing.NewSecretStoresHistoryClient(client.grpcConn),
 		parent: client,
 	}
 	return client, nil
@@ -230,9 +315,31 @@ func (c *Client) AccountAttachments() *AccountAttachments {
 	return c.accountAttachments
 }
 
+// AccountAttachmentsHistory records all changes to the state of an AccountAttachment.
+func (c *Client) AccountAttachmentsHistory() *AccountAttachmentsHistory {
+	return c.accountAttachmentsHistory
+}
+
 // AccountGrants assign a resource directly to an account, giving the account the permission to connect to that resource.
 func (c *Client) AccountGrants() *AccountGrants {
 	return c.accountGrants
+}
+
+// AccountGrantsHistory records all changes to the state of an AccountGrant.
+func (c *Client) AccountGrantsHistory() *AccountGrantsHistory {
+	return c.accountGrantsHistory
+}
+
+// AccountPermissions records the granular permissions accounts have, allowing them to execute
+// relevant commands via StrongDM's APIs.
+func (c *Client) AccountPermissions() *AccountPermissions {
+	return c.accountPermissions
+}
+
+// AccountResources enumerates the resources to which accounts have access.
+// The AccountResources service is read-only.
+func (c *Client) AccountResources() *AccountResources {
+	return c.accountResources
 }
 
 // Accounts are users that have access to strongDM. There are two types of accounts:
@@ -240,6 +347,18 @@ func (c *Client) AccountGrants() *AccountGrants {
 // 2. **Service Accounts:** machines that are authenticated using a service token.
 func (c *Client) Accounts() *Accounts {
 	return c.accounts
+}
+
+// AccountsHistory records all changes to the state of an Account.
+func (c *Client) AccountsHistory() *AccountsHistory {
+	return c.accountsHistory
+}
+
+// An Activity is a record of an action taken against a strongDM deployment, e.g.
+// a user creation, resource deletion, sso configuration change, etc. The Activities
+// service is read-only.
+func (c *Client) Activities() *Activities {
+	return c.activities
 }
 
 // ControlPanel contains all administrative controls.
@@ -254,9 +373,31 @@ func (c *Client) Nodes() *Nodes {
 	return c.nodes
 }
 
+// NodesHistory records all changes to the state of a Node.
+func (c *Client) NodesHistory() *NodesHistory {
+	return c.nodesHistory
+}
+
+// OrganizationHistory records all changes to the state of an Organization.
+func (c *Client) OrganizationHistory() *OrganizationHistory {
+	return c.organizationHistory
+}
+
+// A Query is a record of a single client request to a resource, such as an SQL query.
+// Long-running SSH, RDP, or Kubernetes interactive sessions also count as queries.
+// The Queries service is read-only.
+func (c *Client) Queries() *Queries {
+	return c.queries
+}
+
 // RemoteIdentities assign a resource directly to an account, giving the account the permission to connect to that resource.
 func (c *Client) RemoteIdentities() *RemoteIdentities {
 	return c.remoteIdentities
+}
+
+// RemoteIdentitiesHistory records all changes to the state of a RemoteIdentity.
+func (c *Client) RemoteIdentitiesHistory() *RemoteIdentitiesHistory {
+	return c.remoteIdentitiesHistory
 }
 
 // A RemoteIdentityGroup is a named grouping of Remote Identities for Accounts.
@@ -265,10 +406,37 @@ func (c *Client) RemoteIdentityGroups() *RemoteIdentityGroups {
 	return c.remoteIdentityGroups
 }
 
+// RemoteIdentityGroupsHistory records all changes to the state of a RemoteIdentityGroup.
+func (c *Client) RemoteIdentityGroupsHistory() *RemoteIdentityGroupsHistory {
+	return c.remoteIdentityGroupsHistory
+}
+
+// A Replay captures the data transferred over a long-running SSH, RDP, or Kubernetes interactive session
+// (otherwise referred to as a query). The Replays service is read-only.
+func (c *Client) Replays() *Replays {
+	return c.replays
+}
+
 // Resources are databases, servers, clusters, websites, or clouds that strongDM
 // delegates access to.
 func (c *Client) Resources() *Resources {
 	return c.resources
+}
+
+// ResourcesHistory records all changes to the state of a Resource.
+func (c *Client) ResourcesHistory() *ResourcesHistory {
+	return c.resourcesHistory
+}
+
+// RoleResources enumerates the resources to which roles have access.
+// The RoleResources service is read-only.
+func (c *Client) RoleResources() *RoleResources {
+	return c.roleResources
+}
+
+// RoleResourcesHistory records all changes to the state of a RoleResource.
+func (c *Client) RoleResourcesHistory() *RoleResourcesHistory {
+	return c.roleResourcesHistory
 }
 
 // A Role has a list of access rules which determine which Resources the members
@@ -278,9 +446,19 @@ func (c *Client) Roles() *Roles {
 	return c.roles
 }
 
+// RolesHistory records all changes to the state of a Role.
+func (c *Client) RolesHistory() *RolesHistory {
+	return c.rolesHistory
+}
+
 // SecretStores are servers where resource secrets (passwords, keys) are stored.
 func (c *Client) SecretStores() *SecretStores {
 	return c.secretStores
+}
+
+// SecretStoresHistory records all changes to the state of a SecretStore.
+func (c *Client) SecretStoresHistory() *SecretStoresHistory {
+	return c.secretStoresHistory
 }
 
 // Sign returns the signature for the given byte array

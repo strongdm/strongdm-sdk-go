@@ -973,6 +973,65 @@ func convertRepeatedAccountAttachmentGetResponseToPorcelain(plumbings []*proto.A
 	}
 	return items, nil
 }
+func convertAccountAttachmentHistoryToPorcelain(plumbing *proto.AccountAttachmentHistory) (*AccountAttachmentHistory, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &AccountAttachmentHistory{}
+	if v, err := convertAccountAttachmentToPorcelain(plumbing.AccountAttachment); err != nil {
+		return nil, fmt.Errorf("error converting field AccountAttachment: %v", err)
+	} else {
+		porcelain.AccountAttachment = v
+	}
+	porcelain.ActivityID = plumbing.ActivityId
+	if v, err := convertTimestampToPorcelain(plumbing.DeletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field DeletedAt: %v", err)
+	} else {
+		porcelain.DeletedAt = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertAccountAttachmentHistoryToPlumbing(porcelain *AccountAttachmentHistory) *proto.AccountAttachmentHistory {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountAttachmentHistory{}
+	plumbing.AccountAttachment = convertAccountAttachmentToPlumbing(porcelain.AccountAttachment)
+	plumbing.ActivityId = (porcelain.ActivityID)
+	plumbing.DeletedAt = convertTimestampToPlumbing(porcelain.DeletedAt)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedAccountAttachmentHistoryToPlumbing(
+	porcelains []*AccountAttachmentHistory,
+) []*proto.AccountAttachmentHistory {
+	var items []*proto.AccountAttachmentHistory
+	for _, porcelain := range porcelains {
+		items = append(items, convertAccountAttachmentHistoryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAccountAttachmentHistoryToPorcelain(plumbings []*proto.AccountAttachmentHistory) (
+	[]*AccountAttachmentHistory,
+	error,
+) {
+	var items []*AccountAttachmentHistory
+	for _, plumbing := range plumbings {
+		if v, err := convertAccountAttachmentHistoryToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertAccountCreateResponseToPorcelain(plumbing *proto.AccountCreateResponse) (*AccountCreateResponse, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -1362,6 +1421,236 @@ func convertRepeatedAccountGrantGetResponseToPorcelain(plumbings []*proto.Accoun
 	}
 	return items, nil
 }
+func convertAccountGrantHistoryToPorcelain(plumbing *proto.AccountGrantHistory) (*AccountGrantHistory, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &AccountGrantHistory{}
+	if v, err := convertAccountGrantToPorcelain(plumbing.AccountGrant); err != nil {
+		return nil, fmt.Errorf("error converting field AccountGrant: %v", err)
+	} else {
+		porcelain.AccountGrant = v
+	}
+	porcelain.ActivityID = plumbing.ActivityId
+	if v, err := convertTimestampToPorcelain(plumbing.DeletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field DeletedAt: %v", err)
+	} else {
+		porcelain.DeletedAt = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertAccountGrantHistoryToPlumbing(porcelain *AccountGrantHistory) *proto.AccountGrantHistory {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountGrantHistory{}
+	plumbing.AccountGrant = convertAccountGrantToPlumbing(porcelain.AccountGrant)
+	plumbing.ActivityId = (porcelain.ActivityID)
+	plumbing.DeletedAt = convertTimestampToPlumbing(porcelain.DeletedAt)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedAccountGrantHistoryToPlumbing(
+	porcelains []*AccountGrantHistory,
+) []*proto.AccountGrantHistory {
+	var items []*proto.AccountGrantHistory
+	for _, porcelain := range porcelains {
+		items = append(items, convertAccountGrantHistoryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAccountGrantHistoryToPorcelain(plumbings []*proto.AccountGrantHistory) (
+	[]*AccountGrantHistory,
+	error,
+) {
+	var items []*AccountGrantHistory
+	for _, plumbing := range plumbings {
+		if v, err := convertAccountGrantHistoryToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertAccountHistoryToPorcelain(plumbing *proto.AccountHistory) (*AccountHistory, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &AccountHistory{}
+	if v, err := convertAccountToPorcelain(plumbing.Account); err != nil {
+		return nil, fmt.Errorf("error converting field Account: %v", err)
+	} else {
+		porcelain.Account = v
+	}
+	porcelain.ActivityID = plumbing.ActivityId
+	if v, err := convertTimestampToPorcelain(plumbing.DeletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field DeletedAt: %v", err)
+	} else {
+		porcelain.DeletedAt = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertAccountHistoryToPlumbing(porcelain *AccountHistory) *proto.AccountHistory {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountHistory{}
+	plumbing.Account = convertAccountToPlumbing(porcelain.Account)
+	plumbing.ActivityId = (porcelain.ActivityID)
+	plumbing.DeletedAt = convertTimestampToPlumbing(porcelain.DeletedAt)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedAccountHistoryToPlumbing(
+	porcelains []*AccountHistory,
+) []*proto.AccountHistory {
+	var items []*proto.AccountHistory
+	for _, porcelain := range porcelains {
+		items = append(items, convertAccountHistoryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAccountHistoryToPorcelain(plumbings []*proto.AccountHistory) (
+	[]*AccountHistory,
+	error,
+) {
+	var items []*AccountHistory
+	for _, plumbing := range plumbings {
+		if v, err := convertAccountHistoryToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertAccountPermissionToPorcelain(plumbing *proto.AccountPermission) (*AccountPermission, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &AccountPermission{}
+	porcelain.AccountID = plumbing.AccountId
+	if v, err := convertTimestampToPorcelain(plumbing.GrantedAt); err != nil {
+		return nil, fmt.Errorf("error converting field GrantedAt: %v", err)
+	} else {
+		porcelain.GrantedAt = v
+	}
+	porcelain.Permission = plumbing.Permission
+	porcelain.Scope = plumbing.Scope
+	porcelain.ScopedID = plumbing.ScopedId
+	return porcelain, nil
+}
+
+func convertAccountPermissionToPlumbing(porcelain *AccountPermission) *proto.AccountPermission {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountPermission{}
+	plumbing.AccountId = (porcelain.AccountID)
+	plumbing.GrantedAt = convertTimestampToPlumbing(porcelain.GrantedAt)
+	plumbing.Permission = (porcelain.Permission)
+	plumbing.Scope = (porcelain.Scope)
+	plumbing.ScopedId = (porcelain.ScopedID)
+	return plumbing
+}
+func convertRepeatedAccountPermissionToPlumbing(
+	porcelains []*AccountPermission,
+) []*proto.AccountPermission {
+	var items []*proto.AccountPermission
+	for _, porcelain := range porcelains {
+		items = append(items, convertAccountPermissionToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAccountPermissionToPorcelain(plumbings []*proto.AccountPermission) (
+	[]*AccountPermission,
+	error,
+) {
+	var items []*AccountPermission
+	for _, plumbing := range plumbings {
+		if v, err := convertAccountPermissionToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertAccountResourceToPorcelain(plumbing *proto.AccountResource) (*AccountResource, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &AccountResource{}
+	porcelain.AccountGrantID = plumbing.AccountGrantId
+	porcelain.AccountID = plumbing.AccountId
+	if v, err := convertTimestampToPorcelain(plumbing.ExpiresAt); err != nil {
+		return nil, fmt.Errorf("error converting field ExpiresAt: %v", err)
+	} else {
+		porcelain.ExpiresAt = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.GrantedAt); err != nil {
+		return nil, fmt.Errorf("error converting field GrantedAt: %v", err)
+	} else {
+		porcelain.GrantedAt = v
+	}
+	porcelain.ResourceID = plumbing.ResourceId
+	porcelain.RoleID = plumbing.RoleId
+	return porcelain, nil
+}
+
+func convertAccountResourceToPlumbing(porcelain *AccountResource) *proto.AccountResource {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountResource{}
+	plumbing.AccountGrantId = (porcelain.AccountGrantID)
+	plumbing.AccountId = (porcelain.AccountID)
+	plumbing.ExpiresAt = convertTimestampToPlumbing(porcelain.ExpiresAt)
+	plumbing.GrantedAt = convertTimestampToPlumbing(porcelain.GrantedAt)
+	plumbing.ResourceId = (porcelain.ResourceID)
+	plumbing.RoleId = (porcelain.RoleID)
+	return plumbing
+}
+func convertRepeatedAccountResourceToPlumbing(
+	porcelains []*AccountResource,
+) []*proto.AccountResource {
+	var items []*proto.AccountResource
+	for _, porcelain := range porcelains {
+		items = append(items, convertAccountResourceToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAccountResourceToPorcelain(plumbings []*proto.AccountResource) (
+	[]*AccountResource,
+	error,
+) {
+	var items []*AccountResource
+	for _, plumbing := range plumbings {
+		if v, err := convertAccountResourceToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertAccountUpdateResponseToPorcelain(plumbing *proto.AccountUpdateResponse) (*AccountUpdateResponse, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -1412,6 +1701,226 @@ func convertRepeatedAccountUpdateResponseToPorcelain(plumbings []*proto.AccountU
 	var items []*AccountUpdateResponse
 	for _, plumbing := range plumbings {
 		if v, err := convertAccountUpdateResponseToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertActivityToPorcelain(plumbing *proto.Activity) (*Activity, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &Activity{}
+	if v, err := convertActivityActorToPorcelain(plumbing.Actor); err != nil {
+		return nil, fmt.Errorf("error converting field Actor: %v", err)
+	} else {
+		porcelain.Actor = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.CompletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field CompletedAt: %v", err)
+	} else {
+		porcelain.CompletedAt = v
+	}
+	porcelain.Description = plumbing.Description
+	if v, err := convertRepeatedActivityEntityToPorcelain(plumbing.Entities); err != nil {
+		return nil, fmt.Errorf("error converting field Entities: %v", err)
+	} else {
+		porcelain.Entities = v
+	}
+	porcelain.ID = plumbing.Id
+	porcelain.IPAddress = plumbing.IpAddress
+	porcelain.Verb = plumbing.Verb
+	return porcelain, nil
+}
+
+func convertActivityToPlumbing(porcelain *Activity) *proto.Activity {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Activity{}
+	plumbing.Actor = convertActivityActorToPlumbing(porcelain.Actor)
+	plumbing.CompletedAt = convertTimestampToPlumbing(porcelain.CompletedAt)
+	plumbing.Description = (porcelain.Description)
+	plumbing.Entities = convertRepeatedActivityEntityToPlumbing(porcelain.Entities)
+	plumbing.Id = (porcelain.ID)
+	plumbing.IpAddress = (porcelain.IPAddress)
+	plumbing.Verb = (porcelain.Verb)
+	return plumbing
+}
+func convertRepeatedActivityToPlumbing(
+	porcelains []*Activity,
+) []*proto.Activity {
+	var items []*proto.Activity
+	for _, porcelain := range porcelains {
+		items = append(items, convertActivityToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedActivityToPorcelain(plumbings []*proto.Activity) (
+	[]*Activity,
+	error,
+) {
+	var items []*Activity
+	for _, plumbing := range plumbings {
+		if v, err := convertActivityToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertActivityActorToPorcelain(plumbing *proto.ActivityActor) (*ActivityActor, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &ActivityActor{}
+	porcelain.ActivityExternalID = plumbing.ActivityExternalId
+	porcelain.Email = plumbing.Email
+	porcelain.FirstName = plumbing.FirstName
+	porcelain.ID = plumbing.Id
+	porcelain.LastName = plumbing.LastName
+	return porcelain, nil
+}
+
+func convertActivityActorToPlumbing(porcelain *ActivityActor) *proto.ActivityActor {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ActivityActor{}
+	plumbing.ActivityExternalId = (porcelain.ActivityExternalID)
+	plumbing.Email = (porcelain.Email)
+	plumbing.FirstName = (porcelain.FirstName)
+	plumbing.Id = (porcelain.ID)
+	plumbing.LastName = (porcelain.LastName)
+	return plumbing
+}
+func convertRepeatedActivityActorToPlumbing(
+	porcelains []*ActivityActor,
+) []*proto.ActivityActor {
+	var items []*proto.ActivityActor
+	for _, porcelain := range porcelains {
+		items = append(items, convertActivityActorToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedActivityActorToPorcelain(plumbings []*proto.ActivityActor) (
+	[]*ActivityActor,
+	error,
+) {
+	var items []*ActivityActor
+	for _, plumbing := range plumbings {
+		if v, err := convertActivityActorToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertActivityEntityToPorcelain(plumbing *proto.ActivityEntity) (*ActivityEntity, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &ActivityEntity{}
+	porcelain.Email = plumbing.Email
+	porcelain.ExternalID = plumbing.ExternalId
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Type = plumbing.Type
+	return porcelain, nil
+}
+
+func convertActivityEntityToPlumbing(porcelain *ActivityEntity) *proto.ActivityEntity {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ActivityEntity{}
+	plumbing.Email = (porcelain.Email)
+	plumbing.ExternalId = (porcelain.ExternalID)
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Type = (porcelain.Type)
+	return plumbing
+}
+func convertRepeatedActivityEntityToPlumbing(
+	porcelains []*ActivityEntity,
+) []*proto.ActivityEntity {
+	var items []*proto.ActivityEntity
+	for _, porcelain := range porcelains {
+		items = append(items, convertActivityEntityToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedActivityEntityToPorcelain(plumbings []*proto.ActivityEntity) (
+	[]*ActivityEntity,
+	error,
+) {
+	var items []*ActivityEntity
+	for _, plumbing := range plumbings {
+		if v, err := convertActivityEntityToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertActivityGetResponseToPorcelain(plumbing *proto.ActivityGetResponse) (*ActivityGetResponse, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &ActivityGetResponse{}
+	if v, err := convertActivityToPorcelain(plumbing.Activity); err != nil {
+		return nil, fmt.Errorf("error converting field Activity: %v", err)
+	} else {
+		porcelain.Activity = v
+	}
+	if v, err := convertGetResponseMetadataToPorcelain(plumbing.Meta); err != nil {
+		return nil, fmt.Errorf("error converting field Meta: %v", err)
+	} else {
+		porcelain.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbing.RateLimit); err != nil {
+		return nil, fmt.Errorf("error converting field RateLimit: %v", err)
+	} else {
+		porcelain.RateLimit = v
+	}
+	return porcelain, nil
+}
+
+func convertActivityGetResponseToPlumbing(porcelain *ActivityGetResponse) *proto.ActivityGetResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ActivityGetResponse{}
+	plumbing.Activity = convertActivityToPlumbing(porcelain.Activity)
+	plumbing.Meta = convertGetResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedActivityGetResponseToPlumbing(
+	porcelains []*ActivityGetResponse,
+) []*proto.ActivityGetResponse {
+	var items []*proto.ActivityGetResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertActivityGetResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedActivityGetResponseToPorcelain(plumbings []*proto.ActivityGetResponse) (
+	[]*ActivityGetResponse,
+	error,
+) {
+	var items []*ActivityGetResponse
+	for _, plumbing := range plumbings {
+		if v, err := convertActivityGetResponseToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
@@ -5732,6 +6241,65 @@ func convertRepeatedNodeGetResponseToPorcelain(plumbings []*proto.NodeGetRespons
 	}
 	return items, nil
 }
+func convertNodeHistoryToPorcelain(plumbing *proto.NodeHistory) (*NodeHistory, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &NodeHistory{}
+	porcelain.ActivityID = plumbing.ActivityId
+	if v, err := convertTimestampToPorcelain(plumbing.DeletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field DeletedAt: %v", err)
+	} else {
+		porcelain.DeletedAt = v
+	}
+	if v, err := convertNodeToPorcelain(plumbing.Node); err != nil {
+		return nil, fmt.Errorf("error converting field Node: %v", err)
+	} else {
+		porcelain.Node = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertNodeHistoryToPlumbing(porcelain *NodeHistory) *proto.NodeHistory {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.NodeHistory{}
+	plumbing.ActivityId = (porcelain.ActivityID)
+	plumbing.DeletedAt = convertTimestampToPlumbing(porcelain.DeletedAt)
+	plumbing.Node = convertNodeToPlumbing(porcelain.Node)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedNodeHistoryToPlumbing(
+	porcelains []*NodeHistory,
+) []*proto.NodeHistory {
+	var items []*proto.NodeHistory
+	for _, porcelain := range porcelains {
+		items = append(items, convertNodeHistoryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedNodeHistoryToPorcelain(plumbings []*proto.NodeHistory) (
+	[]*NodeHistory,
+	error,
+) {
+	var items []*NodeHistory
+	for _, plumbing := range plumbings {
+		if v, err := convertNodeHistoryToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertNodeUpdateResponseToPorcelain(plumbing *proto.NodeUpdateResponse) (*NodeUpdateResponse, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -5853,6 +6421,166 @@ func convertRepeatedOracleToPorcelain(plumbings []*proto.Oracle) (
 	var items []*Oracle
 	for _, plumbing := range plumbings {
 		if v, err := convertOracleToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertOrganizationToPorcelain(plumbing *proto.Organization) (*Organization, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &Organization{}
+	porcelain.AuthProvider = plumbing.AuthProvider
+	if v, err := convertTimestampToPorcelain(plumbing.CreatedAt); err != nil {
+		return nil, fmt.Errorf("error converting field CreatedAt: %v", err)
+	} else {
+		porcelain.CreatedAt = v
+	}
+	if v, err := convertDurationToPorcelain(plumbing.IdleTimeout); err != nil {
+		return nil, fmt.Errorf("error converting field IdleTimeout: %v", err)
+	} else {
+		porcelain.IdleTimeout = v
+	}
+	porcelain.IdleTimeoutEnabled = plumbing.IdleTimeoutEnabled
+	porcelain.Kind = plumbing.Kind
+	porcelain.LogLocalEncoder = plumbing.LogLocalEncoder
+	porcelain.LogLocalFormat = plumbing.LogLocalFormat
+	porcelain.LogLocalStorage = plumbing.LogLocalStorage
+	porcelain.LogRemoteEncoder = plumbing.LogRemoteEncoder
+	porcelain.LogSocketPath = plumbing.LogSocketPath
+	porcelain.LogTCPAddress = plumbing.LogTcpAddress
+	porcelain.MFAEnabled = plumbing.MfaEnabled
+	porcelain.MFAProvider = plumbing.MfaProvider
+	porcelain.Name = plumbing.Name
+	porcelain.RequireSecretStore = plumbing.RequireSecretStore
+	porcelain.SAMLMetadataURL = plumbing.SamlMetadataUrl
+	porcelain.SCIMProvider = plumbing.ScimProvider
+	porcelain.SensitiveLabel = plumbing.SensitiveLabel
+	if v, err := convertDurationToPorcelain(plumbing.SessionTimeout); err != nil {
+		return nil, fmt.Errorf("error converting field SessionTimeout: %v", err)
+	} else {
+		porcelain.SessionTimeout = v
+	}
+	porcelain.SessionTimeoutEnabled = plumbing.SessionTimeoutEnabled
+	porcelain.SSHCertificateAuthorityPublicKey = plumbing.SshCertificateAuthorityPublicKey
+	if v, err := convertTimestampToPorcelain(plumbing.SshCertificateAuthorityUpdatedAt); err != nil {
+		return nil, fmt.Errorf("error converting field SshCertificateAuthorityUpdatedAt: %v", err)
+	} else {
+		porcelain.SSHCertificateAuthorityUpdatedAt = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.UpdatedAt); err != nil {
+		return nil, fmt.Errorf("error converting field UpdatedAt: %v", err)
+	} else {
+		porcelain.UpdatedAt = v
+	}
+	porcelain.WebsitesSubdomain = plumbing.WebsitesSubdomain
+	return porcelain, nil
+}
+
+func convertOrganizationToPlumbing(porcelain *Organization) *proto.Organization {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Organization{}
+	plumbing.AuthProvider = (porcelain.AuthProvider)
+	plumbing.CreatedAt = convertTimestampToPlumbing(porcelain.CreatedAt)
+	plumbing.IdleTimeout = convertDurationToPlumbing(porcelain.IdleTimeout)
+	plumbing.IdleTimeoutEnabled = (porcelain.IdleTimeoutEnabled)
+	plumbing.Kind = (porcelain.Kind)
+	plumbing.LogLocalEncoder = (porcelain.LogLocalEncoder)
+	plumbing.LogLocalFormat = (porcelain.LogLocalFormat)
+	plumbing.LogLocalStorage = (porcelain.LogLocalStorage)
+	plumbing.LogRemoteEncoder = (porcelain.LogRemoteEncoder)
+	plumbing.LogSocketPath = (porcelain.LogSocketPath)
+	plumbing.LogTcpAddress = (porcelain.LogTCPAddress)
+	plumbing.MfaEnabled = (porcelain.MFAEnabled)
+	plumbing.MfaProvider = (porcelain.MFAProvider)
+	plumbing.Name = (porcelain.Name)
+	plumbing.RequireSecretStore = (porcelain.RequireSecretStore)
+	plumbing.SamlMetadataUrl = (porcelain.SAMLMetadataURL)
+	plumbing.ScimProvider = (porcelain.SCIMProvider)
+	plumbing.SensitiveLabel = (porcelain.SensitiveLabel)
+	plumbing.SessionTimeout = convertDurationToPlumbing(porcelain.SessionTimeout)
+	plumbing.SessionTimeoutEnabled = (porcelain.SessionTimeoutEnabled)
+	plumbing.SshCertificateAuthorityPublicKey = (porcelain.SSHCertificateAuthorityPublicKey)
+	plumbing.SshCertificateAuthorityUpdatedAt = convertTimestampToPlumbing(porcelain.SSHCertificateAuthorityUpdatedAt)
+	plumbing.UpdatedAt = convertTimestampToPlumbing(porcelain.UpdatedAt)
+	plumbing.WebsitesSubdomain = (porcelain.WebsitesSubdomain)
+	return plumbing
+}
+func convertRepeatedOrganizationToPlumbing(
+	porcelains []*Organization,
+) []*proto.Organization {
+	var items []*proto.Organization
+	for _, porcelain := range porcelains {
+		items = append(items, convertOrganizationToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedOrganizationToPorcelain(plumbings []*proto.Organization) (
+	[]*Organization,
+	error,
+) {
+	var items []*Organization
+	for _, plumbing := range plumbings {
+		if v, err := convertOrganizationToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertOrganizationHistoryRecordToPorcelain(plumbing *proto.OrganizationHistoryRecord) (*OrganizationHistoryRecord, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &OrganizationHistoryRecord{}
+	porcelain.ActivityID = plumbing.ActivityId
+	if v, err := convertOrganizationToPorcelain(plumbing.Organization); err != nil {
+		return nil, fmt.Errorf("error converting field Organization: %v", err)
+	} else {
+		porcelain.Organization = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertOrganizationHistoryRecordToPlumbing(porcelain *OrganizationHistoryRecord) *proto.OrganizationHistoryRecord {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.OrganizationHistoryRecord{}
+	plumbing.ActivityId = (porcelain.ActivityID)
+	plumbing.Organization = convertOrganizationToPlumbing(porcelain.Organization)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedOrganizationHistoryRecordToPlumbing(
+	porcelains []*OrganizationHistoryRecord,
+) []*proto.OrganizationHistoryRecord {
+	var items []*proto.OrganizationHistoryRecord
+	for _, porcelain := range porcelains {
+		items = append(items, convertOrganizationHistoryRecordToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedOrganizationHistoryRecordToPorcelain(plumbings []*proto.OrganizationHistoryRecord) (
+	[]*OrganizationHistoryRecord,
+	error,
+) {
+	var items []*OrganizationHistoryRecord
+	for _, plumbing := range plumbings {
+		if v, err := convertOrganizationHistoryRecordToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
@@ -5995,6 +6723,103 @@ func convertRepeatedPrestoToPorcelain(plumbings []*proto.Presto) (
 	var items []*Presto
 	for _, plumbing := range plumbings {
 		if v, err := convertPrestoToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertQueryToPorcelain(plumbing *proto.Query) (*Query, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &Query{}
+	porcelain.AccountEmail = plumbing.AccountEmail
+	porcelain.AccountFirstName = plumbing.AccountFirstName
+	porcelain.AccountID = plumbing.AccountId
+	porcelain.AccountLastName = plumbing.AccountLastName
+	if v, err := convertTagsToPorcelain(plumbing.AccountTags); err != nil {
+		return nil, fmt.Errorf("error converting field AccountTags: %v", err)
+	} else {
+		porcelain.AccountTags = v
+	}
+	if v, err := convertDurationToPorcelain(plumbing.Duration); err != nil {
+		return nil, fmt.Errorf("error converting field Duration: %v", err)
+	} else {
+		porcelain.Duration = v
+	}
+	porcelain.EgressNodeID = plumbing.EgressNodeId
+	porcelain.Encrypted = plumbing.Encrypted
+	porcelain.ID = plumbing.Id
+	porcelain.QueryBody = plumbing.QueryBody
+	porcelain.QueryCategory = plumbing.QueryCategory
+	porcelain.QueryHash = plumbing.QueryHash
+	porcelain.QueryKey = plumbing.QueryKey
+	porcelain.RecordCount = plumbing.RecordCount
+	porcelain.RemoteIdentityUsername = plumbing.RemoteIdentityUsername
+	porcelain.Replayable = plumbing.Replayable
+	porcelain.ResourceID = plumbing.ResourceId
+	porcelain.ResourceName = plumbing.ResourceName
+	if v, err := convertTagsToPorcelain(plumbing.ResourceTags); err != nil {
+		return nil, fmt.Errorf("error converting field ResourceTags: %v", err)
+	} else {
+		porcelain.ResourceTags = v
+	}
+	porcelain.ResourceType = plumbing.ResourceType
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertQueryToPlumbing(porcelain *Query) *proto.Query {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Query{}
+	plumbing.AccountEmail = (porcelain.AccountEmail)
+	plumbing.AccountFirstName = (porcelain.AccountFirstName)
+	plumbing.AccountId = (porcelain.AccountID)
+	plumbing.AccountLastName = (porcelain.AccountLastName)
+	plumbing.AccountTags = convertTagsToPlumbing(porcelain.AccountTags)
+	plumbing.Duration = convertDurationToPlumbing(porcelain.Duration)
+	plumbing.EgressNodeId = (porcelain.EgressNodeID)
+	plumbing.Encrypted = (porcelain.Encrypted)
+	plumbing.Id = (porcelain.ID)
+	plumbing.QueryBody = (porcelain.QueryBody)
+	plumbing.QueryCategory = (porcelain.QueryCategory)
+	plumbing.QueryHash = (porcelain.QueryHash)
+	plumbing.QueryKey = (porcelain.QueryKey)
+	plumbing.RecordCount = (porcelain.RecordCount)
+	plumbing.RemoteIdentityUsername = (porcelain.RemoteIdentityUsername)
+	plumbing.Replayable = (porcelain.Replayable)
+	plumbing.ResourceId = (porcelain.ResourceID)
+	plumbing.ResourceName = (porcelain.ResourceName)
+	plumbing.ResourceTags = convertTagsToPlumbing(porcelain.ResourceTags)
+	plumbing.ResourceType = (porcelain.ResourceType)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedQueryToPlumbing(
+	porcelains []*Query,
+) []*proto.Query {
+	var items []*proto.Query
+	for _, porcelain := range porcelains {
+		items = append(items, convertQueryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedQueryToPorcelain(plumbings []*proto.Query) (
+	[]*Query,
+	error,
+) {
+	var items []*Query
+	for _, plumbing := range plumbings {
+		if v, err := convertQueryToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
@@ -6765,6 +7590,124 @@ func convertRepeatedRemoteIdentityGroupGetResponseToPorcelain(plumbings []*proto
 	}
 	return items, nil
 }
+func convertRemoteIdentityGroupHistoryToPorcelain(plumbing *proto.RemoteIdentityGroupHistory) (*RemoteIdentityGroupHistory, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &RemoteIdentityGroupHistory{}
+	porcelain.ActivityID = plumbing.ActivityId
+	if v, err := convertTimestampToPorcelain(plumbing.DeletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field DeletedAt: %v", err)
+	} else {
+		porcelain.DeletedAt = v
+	}
+	if v, err := convertRemoteIdentityGroupToPorcelain(plumbing.RemoteIdentityGroup); err != nil {
+		return nil, fmt.Errorf("error converting field RemoteIdentityGroup: %v", err)
+	} else {
+		porcelain.RemoteIdentityGroup = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertRemoteIdentityGroupHistoryToPlumbing(porcelain *RemoteIdentityGroupHistory) *proto.RemoteIdentityGroupHistory {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RemoteIdentityGroupHistory{}
+	plumbing.ActivityId = (porcelain.ActivityID)
+	plumbing.DeletedAt = convertTimestampToPlumbing(porcelain.DeletedAt)
+	plumbing.RemoteIdentityGroup = convertRemoteIdentityGroupToPlumbing(porcelain.RemoteIdentityGroup)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedRemoteIdentityGroupHistoryToPlumbing(
+	porcelains []*RemoteIdentityGroupHistory,
+) []*proto.RemoteIdentityGroupHistory {
+	var items []*proto.RemoteIdentityGroupHistory
+	for _, porcelain := range porcelains {
+		items = append(items, convertRemoteIdentityGroupHistoryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedRemoteIdentityGroupHistoryToPorcelain(plumbings []*proto.RemoteIdentityGroupHistory) (
+	[]*RemoteIdentityGroupHistory,
+	error,
+) {
+	var items []*RemoteIdentityGroupHistory
+	for _, plumbing := range plumbings {
+		if v, err := convertRemoteIdentityGroupHistoryToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertRemoteIdentityHistoryToPorcelain(plumbing *proto.RemoteIdentityHistory) (*RemoteIdentityHistory, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &RemoteIdentityHistory{}
+	porcelain.ActivityID = plumbing.ActivityId
+	if v, err := convertTimestampToPorcelain(plumbing.DeletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field DeletedAt: %v", err)
+	} else {
+		porcelain.DeletedAt = v
+	}
+	if v, err := convertRemoteIdentityToPorcelain(plumbing.RemoteIdentity); err != nil {
+		return nil, fmt.Errorf("error converting field RemoteIdentity: %v", err)
+	} else {
+		porcelain.RemoteIdentity = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertRemoteIdentityHistoryToPlumbing(porcelain *RemoteIdentityHistory) *proto.RemoteIdentityHistory {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RemoteIdentityHistory{}
+	plumbing.ActivityId = (porcelain.ActivityID)
+	plumbing.DeletedAt = convertTimestampToPlumbing(porcelain.DeletedAt)
+	plumbing.RemoteIdentity = convertRemoteIdentityToPlumbing(porcelain.RemoteIdentity)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedRemoteIdentityHistoryToPlumbing(
+	porcelains []*RemoteIdentityHistory,
+) []*proto.RemoteIdentityHistory {
+	var items []*proto.RemoteIdentityHistory
+	for _, porcelain := range porcelains {
+		items = append(items, convertRemoteIdentityHistoryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedRemoteIdentityHistoryToPorcelain(plumbings []*proto.RemoteIdentityHistory) (
+	[]*RemoteIdentityHistory,
+	error,
+) {
+	var items []*RemoteIdentityHistory
+	for _, plumbing := range plumbings {
+		if v, err := convertRemoteIdentityHistoryToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertRemoteIdentityUpdateResponseToPorcelain(plumbing *proto.RemoteIdentityUpdateResponse) (*RemoteIdentityUpdateResponse, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -6815,6 +7758,100 @@ func convertRepeatedRemoteIdentityUpdateResponseToPorcelain(plumbings []*proto.R
 	var items []*RemoteIdentityUpdateResponse
 	for _, plumbing := range plumbings {
 		if v, err := convertRemoteIdentityUpdateResponseToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertReplayChunkToPorcelain(plumbing *proto.ReplayChunk) (*ReplayChunk, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &ReplayChunk{}
+	porcelain.Data = plumbing.Data
+	if v, err := convertRepeatedReplayChunkEventToPorcelain(plumbing.Events); err != nil {
+		return nil, fmt.Errorf("error converting field Events: %v", err)
+	} else {
+		porcelain.Events = v
+	}
+	return porcelain, nil
+}
+
+func convertReplayChunkToPlumbing(porcelain *ReplayChunk) *proto.ReplayChunk {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ReplayChunk{}
+	plumbing.Data = (porcelain.Data)
+	plumbing.Events = convertRepeatedReplayChunkEventToPlumbing(porcelain.Events)
+	return plumbing
+}
+func convertRepeatedReplayChunkToPlumbing(
+	porcelains []*ReplayChunk,
+) []*proto.ReplayChunk {
+	var items []*proto.ReplayChunk
+	for _, porcelain := range porcelains {
+		items = append(items, convertReplayChunkToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedReplayChunkToPorcelain(plumbings []*proto.ReplayChunk) (
+	[]*ReplayChunk,
+	error,
+) {
+	var items []*ReplayChunk
+	for _, plumbing := range plumbings {
+		if v, err := convertReplayChunkToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertReplayChunkEventToPorcelain(plumbing *proto.ReplayChunkEvent) (*ReplayChunkEvent, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &ReplayChunkEvent{}
+	porcelain.Data = plumbing.Data
+	if v, err := convertDurationToPorcelain(plumbing.Duration); err != nil {
+		return nil, fmt.Errorf("error converting field Duration: %v", err)
+	} else {
+		porcelain.Duration = v
+	}
+	return porcelain, nil
+}
+
+func convertReplayChunkEventToPlumbing(porcelain *ReplayChunkEvent) *proto.ReplayChunkEvent {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ReplayChunkEvent{}
+	plumbing.Data = (porcelain.Data)
+	plumbing.Duration = convertDurationToPlumbing(porcelain.Duration)
+	return plumbing
+}
+func convertRepeatedReplayChunkEventToPlumbing(
+	porcelains []*ReplayChunkEvent,
+) []*proto.ReplayChunkEvent {
+	var items []*proto.ReplayChunkEvent
+	for _, porcelain := range porcelains {
+		items = append(items, convertReplayChunkEventToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedReplayChunkEventToPorcelain(plumbings []*proto.ReplayChunkEvent) (
+	[]*ReplayChunkEvent,
+	error,
+) {
+	var items []*ReplayChunkEvent
+	for _, plumbing := range plumbings {
+		if v, err := convertReplayChunkEventToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
@@ -7405,6 +8442,65 @@ func convertRepeatedResourceGetResponseToPorcelain(plumbings []*proto.ResourceGe
 	}
 	return items, nil
 }
+func convertResourceHistoryToPorcelain(plumbing *proto.ResourceHistory) (*ResourceHistory, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &ResourceHistory{}
+	porcelain.ActivityID = plumbing.ActivityId
+	if v, err := convertTimestampToPorcelain(plumbing.DeletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field DeletedAt: %v", err)
+	} else {
+		porcelain.DeletedAt = v
+	}
+	if v, err := convertResourceToPorcelain(plumbing.Resource); err != nil {
+		return nil, fmt.Errorf("error converting field Resource: %v", err)
+	} else {
+		porcelain.Resource = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertResourceHistoryToPlumbing(porcelain *ResourceHistory) *proto.ResourceHistory {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ResourceHistory{}
+	plumbing.ActivityId = (porcelain.ActivityID)
+	plumbing.DeletedAt = convertTimestampToPlumbing(porcelain.DeletedAt)
+	plumbing.Resource = convertResourceToPlumbing(porcelain.Resource)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedResourceHistoryToPlumbing(
+	porcelains []*ResourceHistory,
+) []*proto.ResourceHistory {
+	var items []*proto.ResourceHistory
+	for _, porcelain := range porcelains {
+		items = append(items, convertResourceHistoryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedResourceHistoryToPorcelain(plumbings []*proto.ResourceHistory) (
+	[]*ResourceHistory,
+	error,
+) {
+	var items []*ResourceHistory
+	for _, plumbing := range plumbings {
+		if v, err := convertResourceHistoryToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertResourceUpdateResponseToPorcelain(plumbing *proto.ResourceUpdateResponse) (*ResourceUpdateResponse, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -7677,6 +8773,173 @@ func convertRepeatedRoleGetResponseToPorcelain(plumbings []*proto.RoleGetRespons
 	var items []*RoleGetResponse
 	for _, plumbing := range plumbings {
 		if v, err := convertRoleGetResponseToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertRoleHistoryToPorcelain(plumbing *proto.RoleHistory) (*RoleHistory, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &RoleHistory{}
+	porcelain.ActivityID = plumbing.ActivityId
+	if v, err := convertTimestampToPorcelain(plumbing.DeletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field DeletedAt: %v", err)
+	} else {
+		porcelain.DeletedAt = v
+	}
+	if v, err := convertRoleToPorcelain(plumbing.Role); err != nil {
+		return nil, fmt.Errorf("error converting field Role: %v", err)
+	} else {
+		porcelain.Role = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertRoleHistoryToPlumbing(porcelain *RoleHistory) *proto.RoleHistory {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RoleHistory{}
+	plumbing.ActivityId = (porcelain.ActivityID)
+	plumbing.DeletedAt = convertTimestampToPlumbing(porcelain.DeletedAt)
+	plumbing.Role = convertRoleToPlumbing(porcelain.Role)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedRoleHistoryToPlumbing(
+	porcelains []*RoleHistory,
+) []*proto.RoleHistory {
+	var items []*proto.RoleHistory
+	for _, porcelain := range porcelains {
+		items = append(items, convertRoleHistoryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedRoleHistoryToPorcelain(plumbings []*proto.RoleHistory) (
+	[]*RoleHistory,
+	error,
+) {
+	var items []*RoleHistory
+	for _, plumbing := range plumbings {
+		if v, err := convertRoleHistoryToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertRoleResourceToPorcelain(plumbing *proto.RoleResource) (*RoleResource, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &RoleResource{}
+	if v, err := convertTimestampToPorcelain(plumbing.GrantedAt); err != nil {
+		return nil, fmt.Errorf("error converting field GrantedAt: %v", err)
+	} else {
+		porcelain.GrantedAt = v
+	}
+	porcelain.ResourceID = plumbing.ResourceId
+	porcelain.RoleID = plumbing.RoleId
+	return porcelain, nil
+}
+
+func convertRoleResourceToPlumbing(porcelain *RoleResource) *proto.RoleResource {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RoleResource{}
+	plumbing.GrantedAt = convertTimestampToPlumbing(porcelain.GrantedAt)
+	plumbing.ResourceId = (porcelain.ResourceID)
+	plumbing.RoleId = (porcelain.RoleID)
+	return plumbing
+}
+func convertRepeatedRoleResourceToPlumbing(
+	porcelains []*RoleResource,
+) []*proto.RoleResource {
+	var items []*proto.RoleResource
+	for _, porcelain := range porcelains {
+		items = append(items, convertRoleResourceToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedRoleResourceToPorcelain(plumbings []*proto.RoleResource) (
+	[]*RoleResource,
+	error,
+) {
+	var items []*RoleResource
+	for _, plumbing := range plumbings {
+		if v, err := convertRoleResourceToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertRoleResourceHistoryToPorcelain(plumbing *proto.RoleResourceHistory) (*RoleResourceHistory, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &RoleResourceHistory{}
+	porcelain.ActivityID = plumbing.ActivityId
+	if v, err := convertTimestampToPorcelain(plumbing.DeletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field DeletedAt: %v", err)
+	} else {
+		porcelain.DeletedAt = v
+	}
+	if v, err := convertRoleResourceToPorcelain(plumbing.RoleResource); err != nil {
+		return nil, fmt.Errorf("error converting field RoleResource: %v", err)
+	} else {
+		porcelain.RoleResource = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertRoleResourceHistoryToPlumbing(porcelain *RoleResourceHistory) *proto.RoleResourceHistory {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RoleResourceHistory{}
+	plumbing.ActivityId = (porcelain.ActivityID)
+	plumbing.DeletedAt = convertTimestampToPlumbing(porcelain.DeletedAt)
+	plumbing.RoleResource = convertRoleResourceToPlumbing(porcelain.RoleResource)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedRoleResourceHistoryToPlumbing(
+	porcelains []*RoleResourceHistory,
+) []*proto.RoleResourceHistory {
+	var items []*proto.RoleResourceHistory
+	for _, porcelain := range porcelains {
+		items = append(items, convertRoleResourceHistoryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedRoleResourceHistoryToPorcelain(plumbings []*proto.RoleResourceHistory) (
+	[]*RoleResourceHistory,
+	error,
+) {
+	var items []*RoleResourceHistory
+	for _, plumbing := range plumbings {
+		if v, err := convertRoleResourceHistoryToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
@@ -8279,6 +9542,65 @@ func convertRepeatedSecretStoreGetResponseToPorcelain(plumbings []*proto.SecretS
 	var items []*SecretStoreGetResponse
 	for _, plumbing := range plumbings {
 		if v, err := convertSecretStoreGetResponseToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertSecretStoreHistoryToPorcelain(plumbing *proto.SecretStoreHistory) (*SecretStoreHistory, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &SecretStoreHistory{}
+	porcelain.ActivityID = plumbing.ActivityId
+	if v, err := convertTimestampToPorcelain(plumbing.DeletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field DeletedAt: %v", err)
+	} else {
+		porcelain.DeletedAt = v
+	}
+	if v, err := convertSecretStoreToPorcelain(plumbing.SecretStore); err != nil {
+		return nil, fmt.Errorf("error converting field SecretStore: %v", err)
+	} else {
+		porcelain.SecretStore = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertSecretStoreHistoryToPlumbing(porcelain *SecretStoreHistory) *proto.SecretStoreHistory {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SecretStoreHistory{}
+	plumbing.ActivityId = (porcelain.ActivityID)
+	plumbing.DeletedAt = convertTimestampToPlumbing(porcelain.DeletedAt)
+	plumbing.SecretStore = convertSecretStoreToPlumbing(porcelain.SecretStore)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedSecretStoreHistoryToPlumbing(
+	porcelains []*SecretStoreHistory,
+) []*proto.SecretStoreHistory {
+	var items []*proto.SecretStoreHistory
+	for _, porcelain := range porcelains {
+		items = append(items, convertSecretStoreHistoryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedSecretStoreHistoryToPorcelain(plumbings []*proto.SecretStoreHistory) (
+	[]*SecretStoreHistory,
+	error,
+) {
+	var items []*SecretStoreHistory
+	for _, plumbing := range plumbings {
+		if v, err := convertSecretStoreHistoryToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
@@ -9201,6 +10523,51 @@ func (a *accountAttachmentIteratorImpl) Err() error {
 	return a.err
 }
 
+type accountAttachmentHistoryIteratorImplFetchFunc func() (
+	[]*AccountAttachmentHistory,
+	bool, error)
+type accountAttachmentHistoryIteratorImpl struct {
+	buffer      []*AccountAttachmentHistory
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       accountAttachmentHistoryIteratorImplFetchFunc
+}
+
+func newAccountAttachmentHistoryIteratorImpl(f accountAttachmentHistoryIteratorImplFetchFunc) *accountAttachmentHistoryIteratorImpl {
+	return &accountAttachmentHistoryIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (a *accountAttachmentHistoryIteratorImpl) Next() bool {
+	if a.index < len(a.buffer)-1 {
+		a.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !a.hasNextPage {
+		return false
+	}
+
+	a.index = 0
+	a.buffer, a.hasNextPage, a.err = a.fetch()
+	return len(a.buffer) > 0
+}
+
+func (a *accountAttachmentHistoryIteratorImpl) Value() *AccountAttachmentHistory {
+	if a.index >= len(a.buffer) {
+		return nil
+	}
+	return a.buffer[a.index]
+}
+
+func (a *accountAttachmentHistoryIteratorImpl) Err() error {
+	return a.err
+}
+
 type accountGrantIteratorImplFetchFunc func() (
 	[]*AccountGrant,
 	bool, error)
@@ -9243,6 +10610,141 @@ func (a *accountGrantIteratorImpl) Value() *AccountGrant {
 }
 
 func (a *accountGrantIteratorImpl) Err() error {
+	return a.err
+}
+
+type accountGrantHistoryIteratorImplFetchFunc func() (
+	[]*AccountGrantHistory,
+	bool, error)
+type accountGrantHistoryIteratorImpl struct {
+	buffer      []*AccountGrantHistory
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       accountGrantHistoryIteratorImplFetchFunc
+}
+
+func newAccountGrantHistoryIteratorImpl(f accountGrantHistoryIteratorImplFetchFunc) *accountGrantHistoryIteratorImpl {
+	return &accountGrantHistoryIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (a *accountGrantHistoryIteratorImpl) Next() bool {
+	if a.index < len(a.buffer)-1 {
+		a.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !a.hasNextPage {
+		return false
+	}
+
+	a.index = 0
+	a.buffer, a.hasNextPage, a.err = a.fetch()
+	return len(a.buffer) > 0
+}
+
+func (a *accountGrantHistoryIteratorImpl) Value() *AccountGrantHistory {
+	if a.index >= len(a.buffer) {
+		return nil
+	}
+	return a.buffer[a.index]
+}
+
+func (a *accountGrantHistoryIteratorImpl) Err() error {
+	return a.err
+}
+
+type accountPermissionIteratorImplFetchFunc func() (
+	[]*AccountPermission,
+	bool, error)
+type accountPermissionIteratorImpl struct {
+	buffer      []*AccountPermission
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       accountPermissionIteratorImplFetchFunc
+}
+
+func newAccountPermissionIteratorImpl(f accountPermissionIteratorImplFetchFunc) *accountPermissionIteratorImpl {
+	return &accountPermissionIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (a *accountPermissionIteratorImpl) Next() bool {
+	if a.index < len(a.buffer)-1 {
+		a.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !a.hasNextPage {
+		return false
+	}
+
+	a.index = 0
+	a.buffer, a.hasNextPage, a.err = a.fetch()
+	return len(a.buffer) > 0
+}
+
+func (a *accountPermissionIteratorImpl) Value() *AccountPermission {
+	if a.index >= len(a.buffer) {
+		return nil
+	}
+	return a.buffer[a.index]
+}
+
+func (a *accountPermissionIteratorImpl) Err() error {
+	return a.err
+}
+
+type accountResourceIteratorImplFetchFunc func() (
+	[]*AccountResource,
+	bool, error)
+type accountResourceIteratorImpl struct {
+	buffer      []*AccountResource
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       accountResourceIteratorImplFetchFunc
+}
+
+func newAccountResourceIteratorImpl(f accountResourceIteratorImplFetchFunc) *accountResourceIteratorImpl {
+	return &accountResourceIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (a *accountResourceIteratorImpl) Next() bool {
+	if a.index < len(a.buffer)-1 {
+		a.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !a.hasNextPage {
+		return false
+	}
+
+	a.index = 0
+	a.buffer, a.hasNextPage, a.err = a.fetch()
+	return len(a.buffer) > 0
+}
+
+func (a *accountResourceIteratorImpl) Value() *AccountResource {
+	if a.index >= len(a.buffer) {
+		return nil
+	}
+	return a.buffer[a.index]
+}
+
+func (a *accountResourceIteratorImpl) Err() error {
 	return a.err
 }
 
@@ -9291,6 +10793,96 @@ func (a *accountIteratorImpl) Err() error {
 	return a.err
 }
 
+type accountHistoryIteratorImplFetchFunc func() (
+	[]*AccountHistory,
+	bool, error)
+type accountHistoryIteratorImpl struct {
+	buffer      []*AccountHistory
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       accountHistoryIteratorImplFetchFunc
+}
+
+func newAccountHistoryIteratorImpl(f accountHistoryIteratorImplFetchFunc) *accountHistoryIteratorImpl {
+	return &accountHistoryIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (a *accountHistoryIteratorImpl) Next() bool {
+	if a.index < len(a.buffer)-1 {
+		a.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !a.hasNextPage {
+		return false
+	}
+
+	a.index = 0
+	a.buffer, a.hasNextPage, a.err = a.fetch()
+	return len(a.buffer) > 0
+}
+
+func (a *accountHistoryIteratorImpl) Value() *AccountHistory {
+	if a.index >= len(a.buffer) {
+		return nil
+	}
+	return a.buffer[a.index]
+}
+
+func (a *accountHistoryIteratorImpl) Err() error {
+	return a.err
+}
+
+type activityIteratorImplFetchFunc func() (
+	[]*Activity,
+	bool, error)
+type activityIteratorImpl struct {
+	buffer      []*Activity
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       activityIteratorImplFetchFunc
+}
+
+func newActivityIteratorImpl(f activityIteratorImplFetchFunc) *activityIteratorImpl {
+	return &activityIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (a *activityIteratorImpl) Next() bool {
+	if a.index < len(a.buffer)-1 {
+		a.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !a.hasNextPage {
+		return false
+	}
+
+	a.index = 0
+	a.buffer, a.hasNextPage, a.err = a.fetch()
+	return len(a.buffer) > 0
+}
+
+func (a *activityIteratorImpl) Value() *Activity {
+	if a.index >= len(a.buffer) {
+		return nil
+	}
+	return a.buffer[a.index]
+}
+
+func (a *activityIteratorImpl) Err() error {
+	return a.err
+}
+
 type nodeIteratorImplFetchFunc func() (
 	[]Node,
 	bool, error)
@@ -9334,6 +10926,141 @@ func (n *nodeIteratorImpl) Value() Node {
 
 func (n *nodeIteratorImpl) Err() error {
 	return n.err
+}
+
+type nodeHistoryIteratorImplFetchFunc func() (
+	[]*NodeHistory,
+	bool, error)
+type nodeHistoryIteratorImpl struct {
+	buffer      []*NodeHistory
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       nodeHistoryIteratorImplFetchFunc
+}
+
+func newNodeHistoryIteratorImpl(f nodeHistoryIteratorImplFetchFunc) *nodeHistoryIteratorImpl {
+	return &nodeHistoryIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (n *nodeHistoryIteratorImpl) Next() bool {
+	if n.index < len(n.buffer)-1 {
+		n.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !n.hasNextPage {
+		return false
+	}
+
+	n.index = 0
+	n.buffer, n.hasNextPage, n.err = n.fetch()
+	return len(n.buffer) > 0
+}
+
+func (n *nodeHistoryIteratorImpl) Value() *NodeHistory {
+	if n.index >= len(n.buffer) {
+		return nil
+	}
+	return n.buffer[n.index]
+}
+
+func (n *nodeHistoryIteratorImpl) Err() error {
+	return n.err
+}
+
+type organizationHistoryRecordIteratorImplFetchFunc func() (
+	[]*OrganizationHistoryRecord,
+	bool, error)
+type organizationHistoryRecordIteratorImpl struct {
+	buffer      []*OrganizationHistoryRecord
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       organizationHistoryRecordIteratorImplFetchFunc
+}
+
+func newOrganizationHistoryRecordIteratorImpl(f organizationHistoryRecordIteratorImplFetchFunc) *organizationHistoryRecordIteratorImpl {
+	return &organizationHistoryRecordIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (o *organizationHistoryRecordIteratorImpl) Next() bool {
+	if o.index < len(o.buffer)-1 {
+		o.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !o.hasNextPage {
+		return false
+	}
+
+	o.index = 0
+	o.buffer, o.hasNextPage, o.err = o.fetch()
+	return len(o.buffer) > 0
+}
+
+func (o *organizationHistoryRecordIteratorImpl) Value() *OrganizationHistoryRecord {
+	if o.index >= len(o.buffer) {
+		return nil
+	}
+	return o.buffer[o.index]
+}
+
+func (o *organizationHistoryRecordIteratorImpl) Err() error {
+	return o.err
+}
+
+type queryIteratorImplFetchFunc func() (
+	[]*Query,
+	bool, error)
+type queryIteratorImpl struct {
+	buffer      []*Query
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       queryIteratorImplFetchFunc
+}
+
+func newQueryIteratorImpl(f queryIteratorImplFetchFunc) *queryIteratorImpl {
+	return &queryIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (q *queryIteratorImpl) Next() bool {
+	if q.index < len(q.buffer)-1 {
+		q.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !q.hasNextPage {
+		return false
+	}
+
+	q.index = 0
+	q.buffer, q.hasNextPage, q.err = q.fetch()
+	return len(q.buffer) > 0
+}
+
+func (q *queryIteratorImpl) Value() *Query {
+	if q.index >= len(q.buffer) {
+		return nil
+	}
+	return q.buffer[q.index]
+}
+
+func (q *queryIteratorImpl) Err() error {
+	return q.err
 }
 
 type remoteIdentityIteratorImplFetchFunc func() (
@@ -9381,6 +11108,51 @@ func (r *remoteIdentityIteratorImpl) Err() error {
 	return r.err
 }
 
+type remoteIdentityHistoryIteratorImplFetchFunc func() (
+	[]*RemoteIdentityHistory,
+	bool, error)
+type remoteIdentityHistoryIteratorImpl struct {
+	buffer      []*RemoteIdentityHistory
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       remoteIdentityHistoryIteratorImplFetchFunc
+}
+
+func newRemoteIdentityHistoryIteratorImpl(f remoteIdentityHistoryIteratorImplFetchFunc) *remoteIdentityHistoryIteratorImpl {
+	return &remoteIdentityHistoryIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *remoteIdentityHistoryIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *remoteIdentityHistoryIteratorImpl) Value() *RemoteIdentityHistory {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *remoteIdentityHistoryIteratorImpl) Err() error {
+	return r.err
+}
+
 type remoteIdentityGroupIteratorImplFetchFunc func() (
 	[]*RemoteIdentityGroup,
 	bool, error)
@@ -9423,6 +11195,96 @@ func (r *remoteIdentityGroupIteratorImpl) Value() *RemoteIdentityGroup {
 }
 
 func (r *remoteIdentityGroupIteratorImpl) Err() error {
+	return r.err
+}
+
+type remoteIdentityGroupHistoryIteratorImplFetchFunc func() (
+	[]*RemoteIdentityGroupHistory,
+	bool, error)
+type remoteIdentityGroupHistoryIteratorImpl struct {
+	buffer      []*RemoteIdentityGroupHistory
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       remoteIdentityGroupHistoryIteratorImplFetchFunc
+}
+
+func newRemoteIdentityGroupHistoryIteratorImpl(f remoteIdentityGroupHistoryIteratorImplFetchFunc) *remoteIdentityGroupHistoryIteratorImpl {
+	return &remoteIdentityGroupHistoryIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *remoteIdentityGroupHistoryIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *remoteIdentityGroupHistoryIteratorImpl) Value() *RemoteIdentityGroupHistory {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *remoteIdentityGroupHistoryIteratorImpl) Err() error {
+	return r.err
+}
+
+type replayChunkIteratorImplFetchFunc func() (
+	[]*ReplayChunk,
+	bool, error)
+type replayChunkIteratorImpl struct {
+	buffer      []*ReplayChunk
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       replayChunkIteratorImplFetchFunc
+}
+
+func newReplayChunkIteratorImpl(f replayChunkIteratorImplFetchFunc) *replayChunkIteratorImpl {
+	return &replayChunkIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *replayChunkIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *replayChunkIteratorImpl) Value() *ReplayChunk {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *replayChunkIteratorImpl) Err() error {
 	return r.err
 }
 
@@ -9516,6 +11378,141 @@ func (r *resourceIteratorImpl) Err() error {
 	return r.err
 }
 
+type resourceHistoryIteratorImplFetchFunc func() (
+	[]*ResourceHistory,
+	bool, error)
+type resourceHistoryIteratorImpl struct {
+	buffer      []*ResourceHistory
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       resourceHistoryIteratorImplFetchFunc
+}
+
+func newResourceHistoryIteratorImpl(f resourceHistoryIteratorImplFetchFunc) *resourceHistoryIteratorImpl {
+	return &resourceHistoryIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *resourceHistoryIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *resourceHistoryIteratorImpl) Value() *ResourceHistory {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *resourceHistoryIteratorImpl) Err() error {
+	return r.err
+}
+
+type roleResourceIteratorImplFetchFunc func() (
+	[]*RoleResource,
+	bool, error)
+type roleResourceIteratorImpl struct {
+	buffer      []*RoleResource
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       roleResourceIteratorImplFetchFunc
+}
+
+func newRoleResourceIteratorImpl(f roleResourceIteratorImplFetchFunc) *roleResourceIteratorImpl {
+	return &roleResourceIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *roleResourceIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *roleResourceIteratorImpl) Value() *RoleResource {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *roleResourceIteratorImpl) Err() error {
+	return r.err
+}
+
+type roleResourceHistoryIteratorImplFetchFunc func() (
+	[]*RoleResourceHistory,
+	bool, error)
+type roleResourceHistoryIteratorImpl struct {
+	buffer      []*RoleResourceHistory
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       roleResourceHistoryIteratorImplFetchFunc
+}
+
+func newRoleResourceHistoryIteratorImpl(f roleResourceHistoryIteratorImplFetchFunc) *roleResourceHistoryIteratorImpl {
+	return &roleResourceHistoryIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *roleResourceHistoryIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *roleResourceHistoryIteratorImpl) Value() *RoleResourceHistory {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *roleResourceHistoryIteratorImpl) Err() error {
+	return r.err
+}
+
 type roleIteratorImplFetchFunc func() (
 	[]*Role,
 	bool, error)
@@ -9561,6 +11558,51 @@ func (r *roleIteratorImpl) Err() error {
 	return r.err
 }
 
+type roleHistoryIteratorImplFetchFunc func() (
+	[]*RoleHistory,
+	bool, error)
+type roleHistoryIteratorImpl struct {
+	buffer      []*RoleHistory
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       roleHistoryIteratorImplFetchFunc
+}
+
+func newRoleHistoryIteratorImpl(f roleHistoryIteratorImplFetchFunc) *roleHistoryIteratorImpl {
+	return &roleHistoryIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *roleHistoryIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *roleHistoryIteratorImpl) Value() *RoleHistory {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *roleHistoryIteratorImpl) Err() error {
+	return r.err
+}
+
 type secretStoreIteratorImplFetchFunc func() (
 	[]SecretStore,
 	bool, error)
@@ -9603,5 +11645,50 @@ func (s *secretStoreIteratorImpl) Value() SecretStore {
 }
 
 func (s *secretStoreIteratorImpl) Err() error {
+	return s.err
+}
+
+type secretStoreHistoryIteratorImplFetchFunc func() (
+	[]*SecretStoreHistory,
+	bool, error)
+type secretStoreHistoryIteratorImpl struct {
+	buffer      []*SecretStoreHistory
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       secretStoreHistoryIteratorImplFetchFunc
+}
+
+func newSecretStoreHistoryIteratorImpl(f secretStoreHistoryIteratorImplFetchFunc) *secretStoreHistoryIteratorImpl {
+	return &secretStoreHistoryIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (s *secretStoreHistoryIteratorImpl) Next() bool {
+	if s.index < len(s.buffer)-1 {
+		s.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !s.hasNextPage {
+		return false
+	}
+
+	s.index = 0
+	s.buffer, s.hasNextPage, s.err = s.fetch()
+	return len(s.buffer) > 0
+}
+
+func (s *secretStoreHistoryIteratorImpl) Value() *SecretStoreHistory {
+	if s.index >= len(s.buffer) {
+		return nil
+	}
+	return s.buffer[s.index]
+}
+
+func (s *secretStoreHistoryIteratorImpl) Err() error {
 	return s.err
 }
