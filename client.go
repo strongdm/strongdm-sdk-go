@@ -61,6 +61,7 @@ type Client struct {
 	userAgent             string
 	disableSigning        bool
 	pageLimit             int
+	snapshotAt            time.Time
 	dialer                dialer
 
 	grpcConn *grpc.ClientConn
@@ -459,6 +460,138 @@ func (c *Client) SecretStores() *SecretStores {
 // SecretStoresHistory records all changes to the state of a SecretStore.
 func (c *Client) SecretStoresHistory() *SecretStoresHistory {
 	return c.secretStoresHistory
+}
+
+type SnapshotClient struct {
+	client *Client
+}
+
+// SnapshotAt constructs a read-only client that will provide historical data
+// from the provided timestamp.
+func (c *Client) SnapshotAt(t time.Time) *SnapshotClient {
+	clientCopy := *c
+	snapshotClient := &SnapshotClient{&clientCopy}
+	snapshotClient.client.snapshotAt = t
+	snapshotClient.client.accountAttachments = &AccountAttachments{
+		client: plumbing.NewAccountAttachmentsClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.accountGrants = &AccountGrants{
+		client: plumbing.NewAccountGrantsClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.accountPermissions = &AccountPermissions{
+		client: plumbing.NewAccountPermissionsClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.accountResources = &AccountResources{
+		client: plumbing.NewAccountResourcesClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.accounts = &Accounts{
+		client: plumbing.NewAccountsClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.nodes = &Nodes{
+		client: plumbing.NewNodesClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.remoteIdentities = &RemoteIdentities{
+		client: plumbing.NewRemoteIdentitiesClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.remoteIdentityGroups = &RemoteIdentityGroups{
+		client: plumbing.NewRemoteIdentityGroupsClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.resources = &Resources{
+		client: plumbing.NewResourcesClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.roleResources = &RoleResources{
+		client: plumbing.NewRoleResourcesClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.roles = &Roles{
+		client: plumbing.NewRolesClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.secretStores = &SecretStores{
+		client: plumbing.NewSecretStoresClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	return snapshotClient
+}
+
+// AccountAttachments assign an account to a role.
+func (c *SnapshotClient) AccountAttachments() SnapshotAccountAttachments {
+	return c.client.accountAttachments
+}
+
+// AccountGrants assign a resource directly to an account, giving the account the permission to connect to that resource.
+func (c *SnapshotClient) AccountGrants() SnapshotAccountGrants {
+	return c.client.accountGrants
+}
+
+// AccountPermissions records the granular permissions accounts have, allowing them to execute
+// relevant commands via StrongDM's APIs.
+func (c *SnapshotClient) AccountPermissions() SnapshotAccountPermissions {
+	return c.client.accountPermissions
+}
+
+// AccountResources enumerates the resources to which accounts have access.
+// The AccountResources service is read-only.
+func (c *SnapshotClient) AccountResources() SnapshotAccountResources {
+	return c.client.accountResources
+}
+
+// Accounts are users that have access to strongDM. There are two types of accounts:
+// 1. **Users:** humans who are authenticated through username and password or SSO.
+// 2. **Service Accounts:** machines that are authenticated using a service token.
+func (c *SnapshotClient) Accounts() SnapshotAccounts {
+	return c.client.accounts
+}
+
+// Nodes make up the strongDM network, and allow your users to connect securely to your resources. There are two types of nodes:
+// - **Gateways** are the entry points into network. They listen for connection from the strongDM client, and provide access to databases and servers.
+// - **Relays** are used to extend the strongDM network into segmented subnets. They provide access to databases and servers but do not listen for incoming connections.
+func (c *SnapshotClient) Nodes() SnapshotNodes {
+	return c.client.nodes
+}
+
+// RemoteIdentities assign a resource directly to an account, giving the account the permission to connect to that resource.
+func (c *SnapshotClient) RemoteIdentities() SnapshotRemoteIdentities {
+	return c.client.remoteIdentities
+}
+
+// A RemoteIdentityGroup is a named grouping of Remote Identities for Accounts.
+// An Account's relationship to a RemoteIdentityGroup is defined via RemoteIdentity objects.
+func (c *SnapshotClient) RemoteIdentityGroups() SnapshotRemoteIdentityGroups {
+	return c.client.remoteIdentityGroups
+}
+
+// Resources are databases, servers, clusters, websites, or clouds that strongDM
+// delegates access to.
+func (c *SnapshotClient) Resources() SnapshotResources {
+	return c.client.resources
+}
+
+// RoleResources enumerates the resources to which roles have access.
+// The RoleResources service is read-only.
+func (c *SnapshotClient) RoleResources() SnapshotRoleResources {
+	return c.client.roleResources
+}
+
+// A Role has a list of access rules which determine which Resources the members
+// of the Role have access to. An Account can be a member of multiple Roles via
+// AccountAttachments.
+func (c *SnapshotClient) Roles() SnapshotRoles {
+	return c.client.roles
+}
+
+// SecretStores are servers where resource secrets (passwords, keys) are stored.
+func (c *SnapshotClient) SecretStores() SnapshotSecretStores {
+	return c.client.secretStores
 }
 
 // Sign returns the signature for the given byte array

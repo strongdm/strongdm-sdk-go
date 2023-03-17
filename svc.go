@@ -29,6 +29,22 @@ type AccountAttachments struct {
 	parent *Client
 }
 
+// A SnapshotAccountAttachments exposes the read only methods of the AccountAttachments
+// service for historical queries.
+type SnapshotAccountAttachments interface {
+	Get(
+		ctx context.Context,
+		id string) (
+		*AccountAttachmentGetResponse,
+		error)
+	List(
+		ctx context.Context,
+		filter string,
+		args ...interface{}) (
+		AccountAttachmentIterator,
+		error)
+}
+
 // Create registers a new AccountAttachment.
 func (svc *AccountAttachments) Create(
 	ctx context.Context,
@@ -82,6 +98,8 @@ func (svc *AccountAttachments) Get(
 	req := &plumbing.AccountAttachmentGetRequest{}
 
 	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	var plumbingResponse *plumbing.AccountAttachmentGetResponse
 	var err error
 	i := 0
@@ -174,6 +192,7 @@ func (svc *AccountAttachments) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newAccountAttachmentIteratorImpl(
 		func() (
 			[]*AccountAttachment,
@@ -227,6 +246,7 @@ func (svc *AccountAttachmentsHistory) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newAccountAttachmentHistoryIteratorImpl(
 		func() (
 			[]*AccountAttachmentHistory,
@@ -260,6 +280,22 @@ func (svc *AccountAttachmentsHistory) List(
 type AccountGrants struct {
 	client plumbing.AccountGrantsClient
 	parent *Client
+}
+
+// A SnapshotAccountGrants exposes the read only methods of the AccountGrants
+// service for historical queries.
+type SnapshotAccountGrants interface {
+	Get(
+		ctx context.Context,
+		id string) (
+		*AccountGrantGetResponse,
+		error)
+	List(
+		ctx context.Context,
+		filter string,
+		args ...interface{}) (
+		AccountGrantIterator,
+		error)
 }
 
 // Create registers a new AccountGrant.
@@ -315,6 +351,8 @@ func (svc *AccountGrants) Get(
 	req := &plumbing.AccountGrantGetRequest{}
 
 	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	var plumbingResponse *plumbing.AccountGrantGetResponse
 	var err error
 	i := 0
@@ -407,6 +445,7 @@ func (svc *AccountGrants) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newAccountGrantIteratorImpl(
 		func() (
 			[]*AccountGrant,
@@ -460,6 +499,7 @@ func (svc *AccountGrantsHistory) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newAccountGrantHistoryIteratorImpl(
 		func() (
 			[]*AccountGrantHistory,
@@ -496,6 +536,17 @@ type AccountPermissions struct {
 	parent *Client
 }
 
+// A SnapshotAccountPermissions exposes the read only methods of the AccountPermissions
+// service for historical queries.
+type SnapshotAccountPermissions interface {
+	List(
+		ctx context.Context,
+		filter string,
+		args ...interface{}) (
+		AccountPermissionIterator,
+		error)
+}
+
 // List gets a list of Permission records matching a given set of criteria.
 func (svc *AccountPermissions) List(
 	ctx context.Context,
@@ -514,6 +565,7 @@ func (svc *AccountPermissions) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newAccountPermissionIteratorImpl(
 		func() (
 			[]*AccountPermission,
@@ -550,6 +602,17 @@ type AccountResources struct {
 	parent *Client
 }
 
+// A SnapshotAccountResources exposes the read only methods of the AccountResources
+// service for historical queries.
+type SnapshotAccountResources interface {
+	List(
+		ctx context.Context,
+		filter string,
+		args ...interface{}) (
+		AccountResourceIterator,
+		error)
+}
+
 // List gets a list of AccountResource records matching a given set of criteria.
 func (svc *AccountResources) List(
 	ctx context.Context,
@@ -568,6 +631,7 @@ func (svc *AccountResources) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newAccountResourceIteratorImpl(
 		func() (
 			[]*AccountResource,
@@ -603,6 +667,22 @@ func (svc *AccountResources) List(
 type Accounts struct {
 	client plumbing.AccountsClient
 	parent *Client
+}
+
+// A SnapshotAccounts exposes the read only methods of the Accounts
+// service for historical queries.
+type SnapshotAccounts interface {
+	Get(
+		ctx context.Context,
+		id string) (
+		*AccountGetResponse,
+		error)
+	List(
+		ctx context.Context,
+		filter string,
+		args ...interface{}) (
+		AccountIterator,
+		error)
 }
 
 // Create registers a new Account.
@@ -659,6 +739,8 @@ func (svc *Accounts) Get(
 	req := &plumbing.AccountGetRequest{}
 
 	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	var plumbingResponse *plumbing.AccountGetResponse
 	var err error
 	i := 0
@@ -795,6 +877,7 @@ func (svc *Accounts) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newAccountIteratorImpl(
 		func() (
 			[]Account,
@@ -848,6 +931,7 @@ func (svc *AccountsHistory) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newAccountHistoryIteratorImpl(
 		func() (
 			[]*AccountHistory,
@@ -894,6 +978,8 @@ func (svc *Activities) Get(
 	req := &plumbing.ActivityGetRequest{}
 
 	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	var plumbingResponse *plumbing.ActivityGetResponse
 	var err error
 	i := 0
@@ -947,6 +1033,7 @@ func (svc *Activities) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newActivityIteratorImpl(
 		func() (
 			[]*Activity,
@@ -1068,6 +1155,22 @@ type Nodes struct {
 	parent *Client
 }
 
+// A SnapshotNodes exposes the read only methods of the Nodes
+// service for historical queries.
+type SnapshotNodes interface {
+	Get(
+		ctx context.Context,
+		id string) (
+		*NodeGetResponse,
+		error)
+	List(
+		ctx context.Context,
+		filter string,
+		args ...interface{}) (
+		NodeIterator,
+		error)
+}
+
 // Create registers a new Node.
 func (svc *Nodes) Create(
 	ctx context.Context,
@@ -1122,6 +1225,8 @@ func (svc *Nodes) Get(
 	req := &plumbing.NodeGetRequest{}
 
 	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	var plumbingResponse *plumbing.NodeGetResponse
 	var err error
 	i := 0
@@ -1258,6 +1363,7 @@ func (svc *Nodes) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newNodeIteratorImpl(
 		func() (
 			[]Node,
@@ -1311,6 +1417,7 @@ func (svc *NodesHistory) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newNodeHistoryIteratorImpl(
 		func() (
 			[]*NodeHistory,
@@ -1364,6 +1471,7 @@ func (svc *OrganizationHistory) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newOrganizationHistoryRecordIteratorImpl(
 		func() (
 			[]*OrganizationHistoryRecord,
@@ -1419,6 +1527,7 @@ func (svc *Queries) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newQueryIteratorImpl(
 		func() (
 			[]*Query,
@@ -1452,6 +1561,22 @@ func (svc *Queries) List(
 type RemoteIdentities struct {
 	client plumbing.RemoteIdentitiesClient
 	parent *Client
+}
+
+// A SnapshotRemoteIdentities exposes the read only methods of the RemoteIdentities
+// service for historical queries.
+type SnapshotRemoteIdentities interface {
+	Get(
+		ctx context.Context,
+		id string) (
+		*RemoteIdentityGetResponse,
+		error)
+	List(
+		ctx context.Context,
+		filter string,
+		args ...interface{}) (
+		RemoteIdentityIterator,
+		error)
 }
 
 // Create registers a new RemoteIdentity.
@@ -1507,6 +1632,8 @@ func (svc *RemoteIdentities) Get(
 	req := &plumbing.RemoteIdentityGetRequest{}
 
 	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	var plumbingResponse *plumbing.RemoteIdentityGetResponse
 	var err error
 	i := 0
@@ -1643,6 +1770,7 @@ func (svc *RemoteIdentities) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newRemoteIdentityIteratorImpl(
 		func() (
 			[]*RemoteIdentity,
@@ -1696,6 +1824,7 @@ func (svc *RemoteIdentitiesHistory) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newRemoteIdentityHistoryIteratorImpl(
 		func() (
 			[]*RemoteIdentityHistory,
@@ -1732,6 +1861,22 @@ type RemoteIdentityGroups struct {
 	parent *Client
 }
 
+// A SnapshotRemoteIdentityGroups exposes the read only methods of the RemoteIdentityGroups
+// service for historical queries.
+type SnapshotRemoteIdentityGroups interface {
+	Get(
+		ctx context.Context,
+		id string) (
+		*RemoteIdentityGroupGetResponse,
+		error)
+	List(
+		ctx context.Context,
+		filter string,
+		args ...interface{}) (
+		RemoteIdentityGroupIterator,
+		error)
+}
+
 // Get reads one RemoteIdentityGroup by ID.
 func (svc *RemoteIdentityGroups) Get(
 	ctx context.Context,
@@ -1741,6 +1886,8 @@ func (svc *RemoteIdentityGroups) Get(
 	req := &plumbing.RemoteIdentityGroupGetRequest{}
 
 	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	var plumbingResponse *plumbing.RemoteIdentityGroupGetResponse
 	var err error
 	i := 0
@@ -1794,6 +1941,7 @@ func (svc *RemoteIdentityGroups) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newRemoteIdentityGroupIteratorImpl(
 		func() (
 			[]*RemoteIdentityGroup,
@@ -1847,6 +1995,7 @@ func (svc *RemoteIdentityGroupsHistory) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newRemoteIdentityGroupHistoryIteratorImpl(
 		func() (
 			[]*RemoteIdentityGroupHistory,
@@ -1901,6 +2050,7 @@ func (svc *Replays) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newReplayChunkIteratorImpl(
 		func() (
 			[]*ReplayChunk,
@@ -1937,6 +2087,22 @@ type Resources struct {
 	parent *Client
 }
 
+// A SnapshotResources exposes the read only methods of the Resources
+// service for historical queries.
+type SnapshotResources interface {
+	Get(
+		ctx context.Context,
+		id string) (
+		*ResourceGetResponse,
+		error)
+	List(
+		ctx context.Context,
+		filter string,
+		args ...interface{}) (
+		ResourceIterator,
+		error)
+}
+
 // EnumerateTags gets a list of the filter matching tags.
 func (svc *Resources) EnumerateTags(
 	ctx context.Context,
@@ -1955,6 +2121,7 @@ func (svc *Resources) EnumerateTags(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newTagIteratorImpl(
 		func() (
 			[]*Tag,
@@ -2037,6 +2204,8 @@ func (svc *Resources) Get(
 	req := &plumbing.ResourceGetRequest{}
 
 	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	var plumbingResponse *plumbing.ResourceGetResponse
 	var err error
 	i := 0
@@ -2173,6 +2342,7 @@ func (svc *Resources) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newResourceIteratorImpl(
 		func() (
 			[]Resource,
@@ -2226,6 +2396,7 @@ func (svc *ResourcesHistory) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newResourceHistoryIteratorImpl(
 		func() (
 			[]*ResourceHistory,
@@ -2262,6 +2433,17 @@ type RoleResources struct {
 	parent *Client
 }
 
+// A SnapshotRoleResources exposes the read only methods of the RoleResources
+// service for historical queries.
+type SnapshotRoleResources interface {
+	List(
+		ctx context.Context,
+		filter string,
+		args ...interface{}) (
+		RoleResourceIterator,
+		error)
+}
+
 // List gets a list of RoleResource records matching a given set of criteria.
 func (svc *RoleResources) List(
 	ctx context.Context,
@@ -2280,6 +2462,7 @@ func (svc *RoleResources) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newRoleResourceIteratorImpl(
 		func() (
 			[]*RoleResource,
@@ -2333,6 +2516,7 @@ func (svc *RoleResourcesHistory) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newRoleResourceHistoryIteratorImpl(
 		func() (
 			[]*RoleResourceHistory,
@@ -2368,6 +2552,22 @@ func (svc *RoleResourcesHistory) List(
 type Roles struct {
 	client plumbing.RolesClient
 	parent *Client
+}
+
+// A SnapshotRoles exposes the read only methods of the Roles
+// service for historical queries.
+type SnapshotRoles interface {
+	Get(
+		ctx context.Context,
+		id string) (
+		*RoleGetResponse,
+		error)
+	List(
+		ctx context.Context,
+		filter string,
+		args ...interface{}) (
+		RoleIterator,
+		error)
 }
 
 // Create registers a new Role.
@@ -2423,6 +2623,8 @@ func (svc *Roles) Get(
 	req := &plumbing.RoleGetRequest{}
 
 	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	var plumbingResponse *plumbing.RoleGetResponse
 	var err error
 	i := 0
@@ -2559,6 +2761,7 @@ func (svc *Roles) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newRoleIteratorImpl(
 		func() (
 			[]*Role,
@@ -2612,6 +2815,7 @@ func (svc *RolesHistory) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newRoleHistoryIteratorImpl(
 		func() (
 			[]*RoleHistory,
@@ -2645,6 +2849,22 @@ func (svc *RolesHistory) List(
 type SecretStores struct {
 	client plumbing.SecretStoresClient
 	parent *Client
+}
+
+// A SnapshotSecretStores exposes the read only methods of the SecretStores
+// service for historical queries.
+type SnapshotSecretStores interface {
+	Get(
+		ctx context.Context,
+		id string) (
+		*SecretStoreGetResponse,
+		error)
+	List(
+		ctx context.Context,
+		filter string,
+		args ...interface{}) (
+		SecretStoreIterator,
+		error)
 }
 
 func (svc *SecretStores) Create(
@@ -2699,6 +2919,8 @@ func (svc *SecretStores) Get(
 	req := &plumbing.SecretStoreGetRequest{}
 
 	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	var plumbingResponse *plumbing.SecretStoreGetResponse
 	var err error
 	i := 0
@@ -2835,6 +3057,7 @@ func (svc *SecretStores) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newSecretStoreIteratorImpl(
 		func() (
 			[]SecretStore,
@@ -2888,6 +3111,7 @@ func (svc *SecretStoresHistory) List(
 	if svc.parent.pageLimit > 0 {
 		req.Meta.Limit = int32(svc.parent.pageLimit)
 	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
 	return newSecretStoreHistoryIteratorImpl(
 		func() (
 			[]*SecretStoreHistory,
