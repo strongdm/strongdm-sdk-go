@@ -246,6 +246,7 @@ const (
 	ActivityVerbWorkflowNotificationOptionRemoved                = "workflow notification type removed"
 	ActivityVerbWorkflowNotificationOptionsUpdated               = "workflow notification settings updated"
 	ActivityVerbOrgVNMSubnetUpdated                              = "organization VNM subnet updated"
+	ActivityVerbOrgVNMResourcesAllocated                         = "organization resources allocated within VNM subnet"
 	ActivityVerbDeprecatedOrgActivateDeviceApproval              = "activate device approval"
 	ActivityVerbDeprecatedOrgDeactivateDeviceApproval            = "deactivate device approval"
 	ActivityVerbEmulationMigrationCompleted                      = "emulation migration completed"

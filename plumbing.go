@@ -1661,6 +1661,65 @@ func convertRepeatedAccountResourceToPorcelain(plumbings []*proto.AccountResourc
 	}
 	return items, nil
 }
+func convertAccountResourceHistoryToPorcelain(plumbing *proto.AccountResourceHistory) (*AccountResourceHistory, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &AccountResourceHistory{}
+	if v, err := convertAccountResourceToPorcelain(plumbing.AccountResource); err != nil {
+		return nil, fmt.Errorf("error converting field AccountResource: %v", err)
+	} else {
+		porcelain.AccountResource = v
+	}
+	porcelain.ActivityID = plumbing.ActivityId
+	if v, err := convertTimestampToPorcelain(plumbing.DeletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field DeletedAt: %v", err)
+	} else {
+		porcelain.DeletedAt = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertAccountResourceHistoryToPlumbing(porcelain *AccountResourceHistory) *proto.AccountResourceHistory {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccountResourceHistory{}
+	plumbing.AccountResource = convertAccountResourceToPlumbing(porcelain.AccountResource)
+	plumbing.ActivityId = (porcelain.ActivityID)
+	plumbing.DeletedAt = convertTimestampToPlumbing(porcelain.DeletedAt)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedAccountResourceHistoryToPlumbing(
+	porcelains []*AccountResourceHistory,
+) []*proto.AccountResourceHistory {
+	var items []*proto.AccountResourceHistory
+	for _, porcelain := range porcelains {
+		items = append(items, convertAccountResourceHistoryToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAccountResourceHistoryToPorcelain(plumbings []*proto.AccountResourceHistory) (
+	[]*AccountResourceHistory,
+	error,
+) {
+	var items []*AccountResourceHistory
+	for _, plumbing := range plumbings {
+		if v, err := convertAccountResourceHistoryToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertAccountUpdateResponseToPorcelain(plumbing *proto.AccountUpdateResponse) (*AccountUpdateResponse, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -10877,6 +10936,51 @@ func (a *accountResourceIteratorImpl) Value() *AccountResource {
 }
 
 func (a *accountResourceIteratorImpl) Err() error {
+	return a.err
+}
+
+type accountResourceHistoryIteratorImplFetchFunc func() (
+	[]*AccountResourceHistory,
+	bool, error)
+type accountResourceHistoryIteratorImpl struct {
+	buffer      []*AccountResourceHistory
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       accountResourceHistoryIteratorImplFetchFunc
+}
+
+func newAccountResourceHistoryIteratorImpl(f accountResourceHistoryIteratorImplFetchFunc) *accountResourceHistoryIteratorImpl {
+	return &accountResourceHistoryIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (a *accountResourceHistoryIteratorImpl) Next() bool {
+	if a.index < len(a.buffer)-1 {
+		a.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !a.hasNextPage {
+		return false
+	}
+
+	a.index = 0
+	a.buffer, a.hasNextPage, a.err = a.fetch()
+	return len(a.buffer) > 0
+}
+
+func (a *accountResourceHistoryIteratorImpl) Value() *AccountResourceHistory {
+	if a.index >= len(a.buffer) {
+		return nil
+	}
+	return a.buffer[a.index]
+}
+
+func (a *accountResourceHistoryIteratorImpl) Err() error {
 	return a.err
 }
 

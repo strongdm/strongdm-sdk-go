@@ -568,6 +568,21 @@ type AccountResource struct {
 	RoleID string `json:"roleId"`
 }
 
+// AccountResourceHistory records the state of a AccountResource at a given point in time,
+// where every change (create or delete) to a AccountResource produces an
+// AccountResourceHistory record.
+type AccountResourceHistory struct {
+	// The complete AccountResource state at this time.
+	AccountResource *AccountResource `json:"accountResource"`
+	// The unique identifier of the Activity that produced this change to the AccountResource.
+	// May be empty for some system-initiated updates.
+	ActivityID string `json:"activityId"`
+	// If this AccountResource was deleted, the time it was deleted.
+	DeletedAt time.Time `json:"deletedAt"`
+	// The time at which the AccountResource state was recorded.
+	Timestamp time.Time `json:"timestamp"`
+}
+
 // AccountUpdateResponse returns the fields of a Account after it has been updated by
 // a AccountUpdateRequest.
 type AccountUpdateResponse struct {
@@ -8102,6 +8117,23 @@ type AccountResourceIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() *AccountResource
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// AccountResourceHistoryIterator provides read access to a list of AccountResourceHistory.
+// Use it like so:
+//
+//	for iterator.Next() {
+//	    accountResourceHistory := iterator.Value()
+//	    // ...
+//	}
+type AccountResourceHistoryIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *AccountResourceHistory
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }
