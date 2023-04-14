@@ -2155,6 +2155,83 @@ func convertRepeatedAmazonEKSInstanceProfileToPorcelain(plumbings []*proto.Amazo
 	}
 	return items, nil
 }
+func convertAmazonEKSInstanceProfileUserImpersonationToPorcelain(plumbing *proto.AmazonEKSInstanceProfileUserImpersonation) (*AmazonEKSInstanceProfileUserImpersonation, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &AmazonEKSInstanceProfileUserImpersonation{}
+	porcelain.BindInterface = plumbing.BindInterface
+	porcelain.CertificateAuthority = plumbing.CertificateAuthority
+	porcelain.ClusterName = plumbing.ClusterName
+	porcelain.EgressFilter = plumbing.EgressFilter
+	porcelain.Endpoint = plumbing.Endpoint
+	porcelain.HealthcheckNamespace = plumbing.HealthcheckNamespace
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Region = plumbing.Region
+	porcelain.RemoteIdentityGroupID = plumbing.RemoteIdentityGroupId
+	porcelain.RemoteIdentityHealthcheckUsername = plumbing.RemoteIdentityHealthcheckUsername
+	porcelain.RoleArn = plumbing.RoleArn
+	porcelain.RoleExternalID = plumbing.RoleExternalId
+	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Subdomain = plumbing.Subdomain
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	return porcelain, nil
+}
+
+func convertAmazonEKSInstanceProfileUserImpersonationToPlumbing(porcelain *AmazonEKSInstanceProfileUserImpersonation) *proto.AmazonEKSInstanceProfileUserImpersonation {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AmazonEKSInstanceProfileUserImpersonation{}
+	plumbing.BindInterface = (porcelain.BindInterface)
+	plumbing.CertificateAuthority = (porcelain.CertificateAuthority)
+	plumbing.ClusterName = (porcelain.ClusterName)
+	plumbing.EgressFilter = (porcelain.EgressFilter)
+	plumbing.Endpoint = (porcelain.Endpoint)
+	plumbing.HealthcheckNamespace = (porcelain.HealthcheckNamespace)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Region = (porcelain.Region)
+	plumbing.RemoteIdentityGroupId = (porcelain.RemoteIdentityGroupID)
+	plumbing.RemoteIdentityHealthcheckUsername = (porcelain.RemoteIdentityHealthcheckUsername)
+	plumbing.RoleArn = (porcelain.RoleArn)
+	plumbing.RoleExternalId = (porcelain.RoleExternalID)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Subdomain = (porcelain.Subdomain)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedAmazonEKSInstanceProfileUserImpersonationToPlumbing(
+	porcelains []*AmazonEKSInstanceProfileUserImpersonation,
+) []*proto.AmazonEKSInstanceProfileUserImpersonation {
+	var items []*proto.AmazonEKSInstanceProfileUserImpersonation
+	for _, porcelain := range porcelains {
+		items = append(items, convertAmazonEKSInstanceProfileUserImpersonationToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAmazonEKSInstanceProfileUserImpersonationToPorcelain(plumbings []*proto.AmazonEKSInstanceProfileUserImpersonation) (
+	[]*AmazonEKSInstanceProfileUserImpersonation,
+	error,
+) {
+	var items []*AmazonEKSInstanceProfileUserImpersonation
+	for _, plumbing := range plumbings {
+		if v, err := convertAmazonEKSInstanceProfileUserImpersonationToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertAmazonEKSUserImpersonationToPorcelain(plumbing *proto.AmazonEKSUserImpersonation) (*AmazonEKSUserImpersonation, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -6907,6 +6984,11 @@ func convertQueryToPorcelain(plumbing *proto.Query) (*Query, error) {
 	} else {
 		porcelain.AccountTags = v
 	}
+	if v, err := convertTimestampToPorcelain(plumbing.CompletedAt); err != nil {
+		return nil, fmt.Errorf("error converting field CompletedAt: %v", err)
+	} else {
+		porcelain.CompletedAt = v
+	}
 	if v, err := convertDurationToPorcelain(plumbing.Duration); err != nil {
 		return nil, fmt.Errorf("error converting field Duration: %v", err)
 	} else {
@@ -6948,6 +7030,7 @@ func convertQueryToPlumbing(porcelain *Query) *proto.Query {
 	plumbing.AccountId = (porcelain.AccountID)
 	plumbing.AccountLastName = (porcelain.AccountLastName)
 	plumbing.AccountTags = convertTagsToPlumbing(porcelain.AccountTags)
+	plumbing.CompletedAt = convertTimestampToPlumbing(porcelain.CompletedAt)
 	plumbing.Duration = convertDurationToPlumbing(porcelain.Duration)
 	plumbing.EgressNodeId = (porcelain.EgressNodeID)
 	plumbing.Encrypted = (porcelain.Encrypted)
@@ -8053,6 +8136,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_AmazonEks{AmazonEks: convertAmazonEKSToPlumbing(v)}
 	case *AmazonEKSInstanceProfile:
 		plumbing.Resource = &proto.Resource_AmazonEksInstanceProfile{AmazonEksInstanceProfile: convertAmazonEKSInstanceProfileToPlumbing(v)}
+	case *AmazonEKSInstanceProfileUserImpersonation:
+		plumbing.Resource = &proto.Resource_AmazonEksInstanceProfileUserImpersonation{AmazonEksInstanceProfileUserImpersonation: convertAmazonEKSInstanceProfileUserImpersonationToPlumbing(v)}
 	case *AmazonEKSUserImpersonation:
 		plumbing.Resource = &proto.Resource_AmazonEksUserImpersonation{AmazonEksUserImpersonation: convertAmazonEKSUserImpersonationToPlumbing(v)}
 	case *AmazonES:
@@ -8191,6 +8276,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_SybaseIq{SybaseIq: convertSybaseIQToPlumbing(v)}
 	case *Teradata:
 		plumbing.Resource = &proto.Resource_Teradata{Teradata: convertTeradataToPlumbing(v)}
+	case *Trino:
+		plumbing.Resource = &proto.Resource_Trino{Trino: convertTrinoToPlumbing(v)}
 	}
 	return plumbing
 }
@@ -8216,6 +8303,9 @@ func convertResourceToPorcelain(plumbing *proto.Resource) (Resource, error) {
 	}
 	if plumbing.GetAmazonEksInstanceProfile() != nil {
 		return convertAmazonEKSInstanceProfileToPorcelain(plumbing.GetAmazonEksInstanceProfile())
+	}
+	if plumbing.GetAmazonEksInstanceProfileUserImpersonation() != nil {
+		return convertAmazonEKSInstanceProfileUserImpersonationToPorcelain(plumbing.GetAmazonEksInstanceProfileUserImpersonation())
 	}
 	if plumbing.GetAmazonEksUserImpersonation() != nil {
 		return convertAmazonEKSUserImpersonationToPorcelain(plumbing.GetAmazonEksUserImpersonation())
@@ -8423,6 +8513,9 @@ func convertResourceToPorcelain(plumbing *proto.Resource) (Resource, error) {
 	}
 	if plumbing.GetTeradata() != nil {
 		return convertTeradataToPorcelain(plumbing.GetTeradata())
+	}
+	if plumbing.GetTrino() != nil {
+		return convertTrinoToPorcelain(plumbing.GetTrino())
 	}
 	return nil, &UnknownError{Wrapped: fmt.Errorf("unknown polymorphic type, please upgrade your SDK")}
 }
@@ -10347,6 +10440,77 @@ func convertRepeatedTeradataToPorcelain(plumbings []*proto.Teradata) (
 	var items []*Teradata
 	for _, plumbing := range plumbings {
 		if v, err := convertTeradataToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertTrinoToPorcelain(plumbing *proto.Trino) (*Trino, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &Trino{}
+	porcelain.BindInterface = plumbing.BindInterface
+	porcelain.Database = plumbing.Database
+	porcelain.EgressFilter = plumbing.EgressFilter
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Password = plumbing.Password
+	porcelain.Port = plumbing.Port
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Subdomain = plumbing.Subdomain
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	porcelain.Username = plumbing.Username
+	return porcelain, nil
+}
+
+func convertTrinoToPlumbing(porcelain *Trino) *proto.Trino {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Trino{}
+	plumbing.BindInterface = (porcelain.BindInterface)
+	plumbing.Database = (porcelain.Database)
+	plumbing.EgressFilter = (porcelain.EgressFilter)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Password = (porcelain.Password)
+	plumbing.Port = (porcelain.Port)
+	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Subdomain = (porcelain.Subdomain)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Username = (porcelain.Username)
+	return plumbing
+}
+func convertRepeatedTrinoToPlumbing(
+	porcelains []*Trino,
+) []*proto.Trino {
+	var items []*proto.Trino
+	for _, porcelain := range porcelains {
+		items = append(items, convertTrinoToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedTrinoToPorcelain(plumbings []*proto.Trino) (
+	[]*Trino,
+	error,
+) {
+	var items []*Trino
+	for _, plumbing := range plumbings {
+		if v, err := convertTrinoToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
