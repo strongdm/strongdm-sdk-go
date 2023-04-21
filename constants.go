@@ -394,3 +394,24 @@ const (
 	SSHKeyTypeECDSA_521 = "ecdsa-521"
 	SSHKeyTypeED25519   = "ed25519"
 )
+
+// CaptureType designates what type of SSH/RDP/K8s capture we have.
+const (
+	CaptureTypeShell          = "shell"
+	CaptureTypeScpUpload      = "scp-upload"
+	CaptureTypeScpDownload    = "scp-download"
+	CaptureTypeCommand        = "command"
+	CaptureTypeRDPBasic       = "rdp-basic"
+	CaptureTypeRDPEnhanced    = "rdp-enhanced"
+	CaptureTypeK8sExec        = "k8s-exec"
+	CaptureTypeK8sExecTTY     = "k8s-execTTY"
+	CaptureTypeK8sPortForward = "k8s-portForward"
+	CaptureTypeK8sCPUpload    = "k8s-cp-upload"
+	CaptureTypeK8sCPDownload  = "k8s-cp-download"
+	CaptureTypeK8sDescribe    = "k8s-describe"
+	CaptureTypeK8sGet         = "k8s-get"
+	CaptureTypeK8sDelete      = "k8s-delete"
+	CaptureTypeK8sGeneric     = "k8s-generic"
+	CaptureTypeK8sApply       = "k8s-apply"
+	CaptureTypeSSHPortForward = "ssh-portForward"
+)

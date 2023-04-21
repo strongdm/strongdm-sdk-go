@@ -6984,6 +6984,11 @@ func convertQueryToPorcelain(plumbing *proto.Query) (*Query, error) {
 	} else {
 		porcelain.AccountTags = v
 	}
+	if v, err := convertQueryCaptureToPorcelain(plumbing.Capture); err != nil {
+		return nil, fmt.Errorf("error converting field Capture: %v", err)
+	} else {
+		porcelain.Capture = v
+	}
 	if v, err := convertTimestampToPorcelain(plumbing.CompletedAt); err != nil {
 		return nil, fmt.Errorf("error converting field CompletedAt: %v", err)
 	} else {
@@ -7030,6 +7035,7 @@ func convertQueryToPlumbing(porcelain *Query) *proto.Query {
 	plumbing.AccountId = (porcelain.AccountID)
 	plumbing.AccountLastName = (porcelain.AccountLastName)
 	plumbing.AccountTags = convertTagsToPlumbing(porcelain.AccountTags)
+	plumbing.Capture = convertQueryCaptureToPlumbing(porcelain.Capture)
 	plumbing.CompletedAt = convertTimestampToPlumbing(porcelain.CompletedAt)
 	plumbing.Duration = convertDurationToPlumbing(porcelain.Duration)
 	plumbing.EgressNodeId = (porcelain.EgressNodeID)
@@ -7066,6 +7072,71 @@ func convertRepeatedQueryToPorcelain(plumbings []*proto.Query) (
 	var items []*Query
 	for _, plumbing := range plumbings {
 		if v, err := convertQueryToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertQueryCaptureToPorcelain(plumbing *proto.QueryCapture) (*QueryCapture, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &QueryCapture{}
+	porcelain.ClientCommand = plumbing.ClientCommand
+	porcelain.Command = plumbing.Command
+	porcelain.Container = plumbing.Container
+	porcelain.Env = plumbing.Env
+	porcelain.FileName = plumbing.FileName
+	porcelain.FileSize = plumbing.FileSize
+	porcelain.Height = plumbing.Height
+	porcelain.Pod = plumbing.Pod
+	porcelain.RequestBody = plumbing.RequestBody
+	porcelain.RequestMethod = plumbing.RequestMethod
+	porcelain.RequestURI = plumbing.RequestUri
+	porcelain.Type = plumbing.Type
+	porcelain.Width = plumbing.Width
+	return porcelain, nil
+}
+
+func convertQueryCaptureToPlumbing(porcelain *QueryCapture) *proto.QueryCapture {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.QueryCapture{}
+	plumbing.ClientCommand = (porcelain.ClientCommand)
+	plumbing.Command = (porcelain.Command)
+	plumbing.Container = (porcelain.Container)
+	plumbing.Env = (porcelain.Env)
+	plumbing.FileName = (porcelain.FileName)
+	plumbing.FileSize = (porcelain.FileSize)
+	plumbing.Height = (porcelain.Height)
+	plumbing.Pod = (porcelain.Pod)
+	plumbing.RequestBody = (porcelain.RequestBody)
+	plumbing.RequestMethod = (porcelain.RequestMethod)
+	plumbing.RequestUri = (porcelain.RequestURI)
+	plumbing.Type = (porcelain.Type)
+	plumbing.Width = (porcelain.Width)
+	return plumbing
+}
+func convertRepeatedQueryCaptureToPlumbing(
+	porcelains []*QueryCapture,
+) []*proto.QueryCapture {
+	var items []*proto.QueryCapture
+	for _, porcelain := range porcelains {
+		items = append(items, convertQueryCaptureToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedQueryCaptureToPorcelain(plumbings []*proto.QueryCapture) (
+	[]*QueryCapture,
+	error,
+) {
+	var items []*QueryCapture
+	for _, plumbing := range plumbings {
+		if v, err := convertQueryCaptureToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
