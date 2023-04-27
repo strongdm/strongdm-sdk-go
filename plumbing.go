@@ -467,10 +467,12 @@ func convertAWSToPorcelain(plumbing *proto.AWS) (*AWS, error) {
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.RoleArn = plumbing.RoleArn
 	porcelain.RoleExternalID = plumbing.RoleExternalId
 	porcelain.SecretAccessKey = plumbing.SecretAccessKey
 	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Subdomain = plumbing.Subdomain
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
 		return nil, fmt.Errorf("error converting field Tags: %v", err)
 	} else {
@@ -491,10 +493,12 @@ func convertAWSToPlumbing(porcelain *AWS) *proto.AWS {
 	plumbing.Healthy = (porcelain.Healthy)
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
+	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.RoleArn = (porcelain.RoleArn)
 	plumbing.RoleExternalId = (porcelain.RoleExternalID)
 	plumbing.SecretAccessKey = (porcelain.SecretAccessKey)
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Subdomain = (porcelain.Subdomain)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	return plumbing
 }
@@ -2682,7 +2686,9 @@ func convertAzureToPorcelain(plumbing *proto.Azure) (*Azure, error) {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Password = plumbing.Password
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Subdomain = plumbing.Subdomain
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
 		return nil, fmt.Errorf("error converting field Tags: %v", err)
 	} else {
@@ -2704,7 +2710,9 @@ func convertAzureToPlumbing(porcelain *Azure) *proto.Azure {
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
 	plumbing.Password = (porcelain.Password)
+	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Subdomain = (porcelain.Subdomain)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	plumbing.TenantId = (porcelain.TenantID)
 	return plumbing
@@ -2745,7 +2753,9 @@ func convertAzureCertificateToPorcelain(plumbing *proto.AzureCertificate) (*Azur
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Subdomain = plumbing.Subdomain
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
 		return nil, fmt.Errorf("error converting field Tags: %v", err)
 	} else {
@@ -2767,7 +2777,9 @@ func convertAzureCertificateToPlumbing(porcelain *AzureCertificate) *proto.Azure
 	plumbing.Healthy = (porcelain.Healthy)
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
+	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Subdomain = (porcelain.Subdomain)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	plumbing.TenantId = (porcelain.TenantID)
 	return plumbing
@@ -4319,8 +4331,10 @@ func convertGCPToPorcelain(plumbing *proto.GCP) (*GCP, error) {
 	porcelain.ID = plumbing.Id
 	porcelain.Keyfile = plumbing.Keyfile
 	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Scopes = plumbing.Scopes
 	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Subdomain = plumbing.Subdomain
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
 		return nil, fmt.Errorf("error converting field Tags: %v", err)
 	} else {
@@ -4340,8 +4354,10 @@ func convertGCPToPlumbing(porcelain *GCP) *proto.GCP {
 	plumbing.Id = (porcelain.ID)
 	plumbing.Keyfile = (porcelain.Keyfile)
 	plumbing.Name = (porcelain.Name)
+	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.Scopes = (porcelain.Scopes)
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Subdomain = (porcelain.Subdomain)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	return plumbing
 }

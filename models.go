@@ -209,6 +209,8 @@ type AWS struct {
 	// Unique human-readable name of the Resource.
 	Name string `json:"name"`
 
+	PortOverride int32 `json:"portOverride"`
+
 	RoleArn string `json:"roleArn"`
 
 	RoleExternalID string `json:"roleExternalId"`
@@ -216,6 +218,8 @@ type AWS struct {
 	SecretAccessKey string `json:"secretAccessKey"`
 	// ID of the secret store containing credentials for this resource, if any.
 	SecretStoreID string `json:"secretStoreId"`
+	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
+	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
 }
@@ -976,8 +980,12 @@ type Azure struct {
 	Name string `json:"name"`
 
 	Password string `json:"password"`
+
+	PortOverride int32 `json:"portOverride"`
 	// ID of the secret store containing credentials for this resource, if any.
 	SecretStoreID string `json:"secretStoreId"`
+	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
+	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
 
@@ -998,8 +1006,12 @@ type AzureCertificate struct {
 	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
 	Name string `json:"name"`
+
+	PortOverride int32 `json:"portOverride"`
 	// ID of the secret store containing credentials for this resource, if any.
 	SecretStoreID string `json:"secretStoreId"`
+	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
+	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
 
@@ -1574,9 +1586,13 @@ type GCP struct {
 	// Unique human-readable name of the Resource.
 	Name string `json:"name"`
 
+	PortOverride int32 `json:"portOverride"`
+
 	Scopes string `json:"scopes"`
 	// ID of the secret store containing credentials for this resource, if any.
 	SecretStoreID string `json:"secretStoreId"`
+	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
+	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
 }
