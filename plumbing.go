@@ -1613,6 +1613,11 @@ func convertAccountResourceToPorcelain(plumbing *proto.AccountResource) (*Accoun
 	porcelain := &AccountResource{}
 	porcelain.AccountGrantID = plumbing.AccountGrantId
 	porcelain.AccountID = plumbing.AccountId
+	if v, err := convertTimestampToPorcelain(plumbing.CreatedAt); err != nil {
+		return nil, fmt.Errorf("error converting field CreatedAt: %v", err)
+	} else {
+		porcelain.CreatedAt = v
+	}
 	if v, err := convertTimestampToPorcelain(plumbing.ExpiresAt); err != nil {
 		return nil, fmt.Errorf("error converting field ExpiresAt: %v", err)
 	} else {
@@ -1635,6 +1640,7 @@ func convertAccountResourceToPlumbing(porcelain *AccountResource) *proto.Account
 	plumbing := &proto.AccountResource{}
 	plumbing.AccountGrantId = (porcelain.AccountGrantID)
 	plumbing.AccountId = (porcelain.AccountID)
+	plumbing.CreatedAt = convertTimestampToPlumbing(porcelain.CreatedAt)
 	plumbing.ExpiresAt = convertTimestampToPlumbing(porcelain.ExpiresAt)
 	plumbing.GrantedAt = convertTimestampToPlumbing(porcelain.GrantedAt)
 	plumbing.ResourceId = (porcelain.ResourceID)
