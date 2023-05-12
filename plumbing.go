@@ -2022,6 +2022,7 @@ func convertAmazonEKSToPorcelain(plumbing *proto.AmazonEKS) (*AmazonEKS, error) 
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Region = plumbing.Region
 	porcelain.RemoteIdentityGroupID = plumbing.RemoteIdentityGroupId
 	porcelain.RemoteIdentityHealthcheckUsername = plumbing.RemoteIdentityHealthcheckUsername
@@ -2053,6 +2054,7 @@ func convertAmazonEKSToPlumbing(porcelain *AmazonEKS) *proto.AmazonEKS {
 	plumbing.Healthy = (porcelain.Healthy)
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
+	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.Region = (porcelain.Region)
 	plumbing.RemoteIdentityGroupId = (porcelain.RemoteIdentityGroupID)
 	plumbing.RemoteIdentityHealthcheckUsername = (porcelain.RemoteIdentityHealthcheckUsername)
@@ -2102,6 +2104,7 @@ func convertAmazonEKSInstanceProfileToPorcelain(plumbing *proto.AmazonEKSInstanc
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Region = plumbing.Region
 	porcelain.RemoteIdentityGroupID = plumbing.RemoteIdentityGroupId
 	porcelain.RemoteIdentityHealthcheckUsername = plumbing.RemoteIdentityHealthcheckUsername
@@ -2131,6 +2134,7 @@ func convertAmazonEKSInstanceProfileToPlumbing(porcelain *AmazonEKSInstanceProfi
 	plumbing.Healthy = (porcelain.Healthy)
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
+	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.Region = (porcelain.Region)
 	plumbing.RemoteIdentityGroupId = (porcelain.RemoteIdentityGroupID)
 	plumbing.RemoteIdentityHealthcheckUsername = (porcelain.RemoteIdentityHealthcheckUsername)
@@ -2179,6 +2183,7 @@ func convertAmazonEKSInstanceProfileUserImpersonationToPorcelain(plumbing *proto
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Region = plumbing.Region
 	porcelain.RemoteIdentityGroupID = plumbing.RemoteIdentityGroupId
 	porcelain.RemoteIdentityHealthcheckUsername = plumbing.RemoteIdentityHealthcheckUsername
@@ -2208,6 +2213,7 @@ func convertAmazonEKSInstanceProfileUserImpersonationToPlumbing(porcelain *Amazo
 	plumbing.Healthy = (porcelain.Healthy)
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
+	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.Region = (porcelain.Region)
 	plumbing.RemoteIdentityGroupId = (porcelain.RemoteIdentityGroupID)
 	plumbing.RemoteIdentityHealthcheckUsername = (porcelain.RemoteIdentityHealthcheckUsername)
@@ -2257,6 +2263,7 @@ func convertAmazonEKSUserImpersonationToPorcelain(plumbing *proto.AmazonEKSUserI
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Region = plumbing.Region
 	porcelain.RoleArn = plumbing.RoleArn
 	porcelain.RoleExternalID = plumbing.RoleExternalId
@@ -2286,6 +2293,7 @@ func convertAmazonEKSUserImpersonationToPlumbing(porcelain *AmazonEKSUserImperso
 	plumbing.Healthy = (porcelain.Healthy)
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
+	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.Region = (porcelain.Region)
 	plumbing.RoleArn = (porcelain.RoleArn)
 	plumbing.RoleExternalId = (porcelain.RoleExternalID)

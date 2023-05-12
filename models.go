@@ -681,6 +681,8 @@ type AmazonEKS struct {
 	// Unique human-readable name of the Resource.
 	Name string `json:"name"`
 
+	PortOverride int32 `json:"portOverride"`
+
 	Region string `json:"region"`
 
 	RemoteIdentityGroupID string `json:"remoteIdentityGroupId"`
@@ -720,6 +722,8 @@ type AmazonEKSInstanceProfile struct {
 	// Unique human-readable name of the Resource.
 	Name string `json:"name"`
 
+	PortOverride int32 `json:"portOverride"`
+
 	Region string `json:"region"`
 
 	RemoteIdentityGroupID string `json:"remoteIdentityGroupId"`
@@ -756,6 +760,8 @@ type AmazonEKSInstanceProfileUserImpersonation struct {
 	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
 	Name string `json:"name"`
+
+	PortOverride int32 `json:"portOverride"`
 
 	Region string `json:"region"`
 
@@ -794,6 +800,8 @@ type AmazonEKSUserImpersonation struct {
 	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
 	Name string `json:"name"`
+
+	PortOverride int32 `json:"portOverride"`
 
 	Region string `json:"region"`
 
