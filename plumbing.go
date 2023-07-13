@@ -7203,6 +7203,7 @@ func convertQueryToPorcelain(plumbing *proto.Query) (*Query, error) {
 		porcelain.ResourceTags = v
 	}
 	porcelain.ResourceType = plumbing.ResourceType
+	porcelain.SourceIP = plumbing.SourceIp
 	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
 		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
 	} else {
@@ -7238,6 +7239,7 @@ func convertQueryToPlumbing(porcelain *Query) *proto.Query {
 	plumbing.ResourceName = (porcelain.ResourceName)
 	plumbing.ResourceTags = convertTagsToPlumbing(porcelain.ResourceTags)
 	plumbing.ResourceType = (porcelain.ResourceType)
+	plumbing.SourceIp = (porcelain.SourceIP)
 	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
 	return plumbing
 }

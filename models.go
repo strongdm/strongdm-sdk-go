@@ -2901,6 +2901,8 @@ type Query struct {
 	ResourceTags Tags `json:"resourceTags"`
 	// The specific type of Resource against which the Query was performed, e.g. "ssh" or "postgres".
 	ResourceType string `json:"resourceType"`
+	// The IP address the Query was performed from, as detected at the ingress gateway.
+	SourceIP string `json:"sourceIp"`
 	// The time at which the Query was started.
 	Timestamp time.Time `json:"timestamp"`
 }
