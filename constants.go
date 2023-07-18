@@ -107,6 +107,7 @@ const (
 	ActivityEntityTypeAccessRequest       = "access_request"
 	ActivityEntityTypeWorkflow            = "workflow"
 	ActivityEntityTypeNode                = "node"
+	ActivityEntityTypePeeringGroup        = "peering_group"
 )
 
 // Activity Verbs, describe which kind of activity has taken place.
@@ -268,6 +269,8 @@ const (
 	PermissionDeprecatedDatasourceGrant              = "datasource:grant"
 	PermissionDatasourceDelete                       = "datasource:delete"
 	PermissionDatasourceUpdate                       = "datasource:update"
+	PermissionResourceLockDelete                     = "resourcelock:delete"
+	PermissionResourceLockList                       = "resourcelock:list"
 	PermissionSecretStoreCreate                      = "secretstore:create"
 	PermissionSecretStoreList                        = "secretstore:list"
 	PermissionSecretStoreDelete                      = "secretstore:delete"

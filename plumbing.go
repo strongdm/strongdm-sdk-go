@@ -4545,7 +4545,6 @@ func convertGatewayToPorcelain(plumbing *proto.Gateway) (*Gateway, error) {
 	}
 	porcelain := &Gateway{}
 	porcelain.BindAddress = plumbing.BindAddress
-	porcelain.ConnectsTo = plumbing.ConnectsTo
 	porcelain.Device = plumbing.Device
 	porcelain.GatewayFilter = plumbing.GatewayFilter
 	porcelain.ID = plumbing.Id
@@ -4573,7 +4572,6 @@ func convertGatewayToPlumbing(porcelain *Gateway) *proto.Gateway {
 	}
 	plumbing := &proto.Gateway{}
 	plumbing.BindAddress = (porcelain.BindAddress)
-	plumbing.ConnectsTo = (porcelain.ConnectsTo)
 	plumbing.Device = (porcelain.Device)
 	plumbing.GatewayFilter = (porcelain.GatewayFilter)
 	plumbing.Id = (porcelain.ID)
@@ -7739,7 +7737,6 @@ func convertRelayToPorcelain(plumbing *proto.Relay) (*Relay, error) {
 		return nil, nil
 	}
 	porcelain := &Relay{}
-	porcelain.ConnectsTo = plumbing.ConnectsTo
 	porcelain.Device = plumbing.Device
 	porcelain.GatewayFilter = plumbing.GatewayFilter
 	porcelain.ID = plumbing.Id
@@ -7765,7 +7762,6 @@ func convertRelayToPlumbing(porcelain *Relay) *proto.Relay {
 		return nil
 	}
 	plumbing := &proto.Relay{}
-	plumbing.ConnectsTo = (porcelain.ConnectsTo)
 	plumbing.Device = (porcelain.Device)
 	plumbing.GatewayFilter = (porcelain.GatewayFilter)
 	plumbing.Id = (porcelain.ID)

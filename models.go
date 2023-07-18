@@ -1690,9 +1690,6 @@ type Gateway struct {
 	// The hostname/port tuple which the gateway daemon will bind to.
 	// If not provided on create, set to "0.0.0.0:listen_address_port".
 	BindAddress string `json:"bindAddress"`
-	// ConnectsTo can be used to restrict the peering between relays and
-	// gateways.
-	ConnectsTo string `json:"connectsTo"`
 	// Device is a read only device name uploaded by the gateway process when
 	// it comes online.
 	Device string `json:"device"`
@@ -3105,9 +3102,6 @@ type Redshift struct {
 
 // Relay represents a StrongDM CLI installation running in relay mode.
 type Relay struct {
-	// ConnectsTo can be used to restrict the peering between relays and
-	// gateways.
-	ConnectsTo string `json:"connectsTo"`
 	// Device is a read only device name uploaded by the gateway process when
 	// it comes online.
 	Device string `json:"device"`
