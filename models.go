@@ -382,6 +382,19 @@ type AccessRequestHistory struct {
 	Timestamp time.Time `json:"timestamp"`
 }
 
+// AccessRequestListRequest specifies criteria for retrieving a list of
+// AccessRequest records
+type AccessRequestListRequest struct {
+	// A human-readable filter query string.
+	Filter string `json:"filter"`
+}
+
+// AccessRequestListResponse reports how the Workflow was created in the system.
+type AccessRequestListResponse struct {
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rateLimit"`
+}
+
 // Accounts are users that have access to strongDM. There are two types of accounts:
 // 1. **Users:** humans who are authenticated through username and password or SSO.
 // 2. **Service Accounts:** machines that are authenticated using a service token.
@@ -8951,6 +8964,20 @@ type WorkflowHistory struct {
 	Timestamp time.Time `json:"timestamp"`
 	// The complete Workflow state at this time.
 	Workflow *Workflow `json:"workflow"`
+}
+
+// WorkflowListRequest specifies criteria for retrieving a list of
+// Workflow records
+type WorkflowListRequest struct {
+	// A human-readable filter query string.
+	Filter string `json:"filter"`
+}
+
+// WorkflowListResponse returns a list of Workflow records that meet
+// the criteria of a WorkflowListRequest.
+type WorkflowListResponse struct {
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rateLimit"`
 }
 
 // WorkflowRole links a Role to a Workflow.

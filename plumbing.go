@@ -967,6 +967,92 @@ func convertRepeatedAccessRequestHistoryToPorcelain(plumbings []*proto.AccessReq
 	}
 	return items, nil
 }
+func convertAccessRequestListRequestToPorcelain(plumbing *proto.AccessRequestListRequest) (*AccessRequestListRequest, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &AccessRequestListRequest{}
+	porcelain.Filter = plumbing.Filter
+	return porcelain, nil
+}
+
+func convertAccessRequestListRequestToPlumbing(porcelain *AccessRequestListRequest) *proto.AccessRequestListRequest {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccessRequestListRequest{}
+	plumbing.Filter = (porcelain.Filter)
+	return plumbing
+}
+func convertRepeatedAccessRequestListRequestToPlumbing(
+	porcelains []*AccessRequestListRequest,
+) []*proto.AccessRequestListRequest {
+	var items []*proto.AccessRequestListRequest
+	for _, porcelain := range porcelains {
+		items = append(items, convertAccessRequestListRequestToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAccessRequestListRequestToPorcelain(plumbings []*proto.AccessRequestListRequest) (
+	[]*AccessRequestListRequest,
+	error,
+) {
+	var items []*AccessRequestListRequest
+	for _, plumbing := range plumbings {
+		if v, err := convertAccessRequestListRequestToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertAccessRequestListResponseToPorcelain(plumbing *proto.AccessRequestListResponse) (*AccessRequestListResponse, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &AccessRequestListResponse{}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbing.RateLimit); err != nil {
+		return nil, fmt.Errorf("error converting field RateLimit: %v", err)
+	} else {
+		porcelain.RateLimit = v
+	}
+	return porcelain, nil
+}
+
+func convertAccessRequestListResponseToPlumbing(porcelain *AccessRequestListResponse) *proto.AccessRequestListResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AccessRequestListResponse{}
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedAccessRequestListResponseToPlumbing(
+	porcelains []*AccessRequestListResponse,
+) []*proto.AccessRequestListResponse {
+	var items []*proto.AccessRequestListResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertAccessRequestListResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAccessRequestListResponseToPorcelain(plumbings []*proto.AccessRequestListResponse) (
+	[]*AccessRequestListResponse,
+	error,
+) {
+	var items []*AccessRequestListResponse
+	for _, plumbing := range plumbings {
+		if v, err := convertAccessRequestListResponseToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertAccountToPlumbing(porcelain Account) *proto.Account {
 	if porcelain == nil {
 		return nil
@@ -12616,6 +12702,92 @@ func convertRepeatedWorkflowHistoryToPorcelain(plumbings []*proto.WorkflowHistor
 	var items []*WorkflowHistory
 	for _, plumbing := range plumbings {
 		if v, err := convertWorkflowHistoryToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertWorkflowListRequestToPorcelain(plumbing *proto.WorkflowListRequest) (*WorkflowListRequest, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &WorkflowListRequest{}
+	porcelain.Filter = plumbing.Filter
+	return porcelain, nil
+}
+
+func convertWorkflowListRequestToPlumbing(porcelain *WorkflowListRequest) *proto.WorkflowListRequest {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.WorkflowListRequest{}
+	plumbing.Filter = (porcelain.Filter)
+	return plumbing
+}
+func convertRepeatedWorkflowListRequestToPlumbing(
+	porcelains []*WorkflowListRequest,
+) []*proto.WorkflowListRequest {
+	var items []*proto.WorkflowListRequest
+	for _, porcelain := range porcelains {
+		items = append(items, convertWorkflowListRequestToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedWorkflowListRequestToPorcelain(plumbings []*proto.WorkflowListRequest) (
+	[]*WorkflowListRequest,
+	error,
+) {
+	var items []*WorkflowListRequest
+	for _, plumbing := range plumbings {
+		if v, err := convertWorkflowListRequestToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertWorkflowListResponseToPorcelain(plumbing *proto.WorkflowListResponse) (*WorkflowListResponse, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &WorkflowListResponse{}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbing.RateLimit); err != nil {
+		return nil, fmt.Errorf("error converting field RateLimit: %v", err)
+	} else {
+		porcelain.RateLimit = v
+	}
+	return porcelain, nil
+}
+
+func convertWorkflowListResponseToPlumbing(porcelain *WorkflowListResponse) *proto.WorkflowListResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.WorkflowListResponse{}
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedWorkflowListResponseToPlumbing(
+	porcelains []*WorkflowListResponse,
+) []*proto.WorkflowListResponse {
+	var items []*proto.WorkflowListResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertWorkflowListResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedWorkflowListResponseToPorcelain(plumbings []*proto.WorkflowListResponse) (
+	[]*WorkflowListResponse,
+	error,
+) {
+	var items []*WorkflowListResponse
+	for _, plumbing := range plumbings {
+		if v, err := convertWorkflowListResponseToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
