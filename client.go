@@ -43,7 +43,8 @@ import (
 const (
 	defaultAPIHost   = "api.strongdm.com:443"
 	apiVersion       = "2021-08-23"
-	defaultUserAgent = "strongdm-sdk-go/4.5.1"
+	defaultUserAgent = "strongdm-sdk-go/4.7.0"
+	defaultPageLimit = 50
 )
 
 var _ = metadata.Pairs
@@ -128,6 +129,7 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 		apiToken:       token,
 		apiSecret:      decodedSecret,
 		userAgent:      defaultUserAgent,
+		pageLimit:      defaultPageLimit,
 	}
 
 	for _, opt := range opts {
@@ -338,6 +340,17 @@ type ClientOption func(c *Client)
 func WithHost(host string) ClientOption {
 	return func(c *Client) {
 		c.apiHost = host
+	}
+}
+
+// WithPageLimit will set the page limit used for list commands i.e. the number of results
+// that list calls will return per request to the StrongDM control plane. The interface for
+// listing does not directly expose this limit, but it may be useful to manipulate it to reduce
+// network callouts, or optimize clients if expecting few results. If not provided, the default
+// is 50.
+func WithPageLimit(limit int) ClientOption {
+	return func(c *Client) {
+		c.pageLimit = limit
 	}
 }
 
