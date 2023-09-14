@@ -43,7 +43,7 @@ import (
 const (
 	defaultAPIHost   = "api.strongdm.com:443"
 	apiVersion       = "2021-08-23"
-	defaultUserAgent = "strongdm-sdk-go/4.7.0"
+	defaultUserAgent = "strongdm-sdk-go/4.8.0"
 	defaultPageLimit = 50
 )
 
@@ -105,10 +105,13 @@ type Client struct {
 	rolesHistory                *RolesHistory
 	secretStores                *SecretStores
 	secretStoresHistory         *SecretStoresHistory
-	workflows                   *Workflows
+	workflowApprovers           *WorkflowApprovers
 	workflowApproversHistory    *WorkflowApproversHistory
+	workflowAssignments         *WorkflowAssignments
 	workflowAssignmentsHistory  *WorkflowAssignmentsHistory
+	workflowRoles               *WorkflowRoles
 	workflowRolesHistory        *WorkflowRolesHistory
+	workflows                   *Workflows
 	workflowsHistory            *WorkflowsHistory
 }
 
@@ -295,20 +298,32 @@ func New(token, secret string, opts ...ClientOption) (*Client, error) {
 		client: plumbing.NewSecretStoresHistoryClient(client.grpcConn),
 		parent: client,
 	}
-	client.workflows = &Workflows{
-		client: plumbing.NewWorkflowsClient(client.grpcConn),
+	client.workflowApprovers = &WorkflowApprovers{
+		client: plumbing.NewWorkflowApproversClient(client.grpcConn),
 		parent: client,
 	}
 	client.workflowApproversHistory = &WorkflowApproversHistory{
 		client: plumbing.NewWorkflowApproversHistoryClient(client.grpcConn),
 		parent: client,
 	}
+	client.workflowAssignments = &WorkflowAssignments{
+		client: plumbing.NewWorkflowAssignmentsClient(client.grpcConn),
+		parent: client,
+	}
 	client.workflowAssignmentsHistory = &WorkflowAssignmentsHistory{
 		client: plumbing.NewWorkflowAssignmentsHistoryClient(client.grpcConn),
 		parent: client,
 	}
+	client.workflowRoles = &WorkflowRoles{
+		client: plumbing.NewWorkflowRolesClient(client.grpcConn),
+		parent: client,
+	}
 	client.workflowRolesHistory = &WorkflowRolesHistory{
 		client: plumbing.NewWorkflowRolesHistoryClient(client.grpcConn),
+		parent: client,
+	}
+	client.workflows = &Workflows{
+		client: plumbing.NewWorkflowsClient(client.grpcConn),
 		parent: client,
 	}
 	client.workflowsHistory = &WorkflowsHistory{
@@ -580,11 +595,9 @@ func (c *Client) SecretStoresHistory() *SecretStoresHistory {
 	return c.secretStoresHistory
 }
 
-// Workflows are the collection of rules that define the resources to which access can be requested,
-// the users that can request that access, and the mechanism for approving those requests which can either
-// but automatic approval or a set of users authorized to approve the requests.
-func (c *Client) Workflows() *Workflows {
-	return c.workflows
+// WorkflowApprovers is an account with the ability to approve requests bound to a workflow.
+func (c *Client) WorkflowApprovers() *WorkflowApprovers {
+	return c.workflowApprovers
 }
 
 // WorkflowApproversHistory provides records of all changes to the state of a WorkflowApprover.
@@ -592,14 +605,33 @@ func (c *Client) WorkflowApproversHistory() *WorkflowApproversHistory {
 	return c.workflowApproversHistory
 }
 
+// WorkflowAssignments links a Resource to a Workflow. The assigned resources are those that a user can request
+// access to via the workflow.
+func (c *Client) WorkflowAssignments() *WorkflowAssignments {
+	return c.workflowAssignments
+}
+
 // WorkflowAssignmentsHistory provides records of all changes to the state of a WorkflowAssignment.
 func (c *Client) WorkflowAssignmentsHistory() *WorkflowAssignmentsHistory {
 	return c.workflowAssignmentsHistory
 }
 
+// WorkflowRole links a role to a workflow. The linked roles indicate which roles a user must be a part of
+// to request access to a resource via the workflow.
+func (c *Client) WorkflowRoles() *WorkflowRoles {
+	return c.workflowRoles
+}
+
 // WorkflowRolesHistory provides records of all changes to the state of a WorkflowRole
 func (c *Client) WorkflowRolesHistory() *WorkflowRolesHistory {
 	return c.workflowRolesHistory
+}
+
+// Workflows are the collection of rules that define the resources to which access can be requested,
+// the users that can request that access, and the mechanism for approving those requests which can either
+// be automatic approval or a set of users authorized to approve the requests.
+func (c *Client) Workflows() *Workflows {
+	return c.workflows
 }
 
 // WorkflowsHistory provides records of all changes to the state of a Workflow.
@@ -683,6 +715,18 @@ func (c *Client) SnapshotAt(t time.Time) *SnapshotClient {
 	}
 	snapshotClient.client.secretStores = &SecretStores{
 		client: plumbing.NewSecretStoresClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.workflowApprovers = &WorkflowApprovers{
+		client: plumbing.NewWorkflowApproversClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.workflowAssignments = &WorkflowAssignments{
+		client: plumbing.NewWorkflowAssignmentsClient(snapshotClient.client.grpcConn),
+		parent: snapshotClient.client,
+	}
+	snapshotClient.client.workflowRoles = &WorkflowRoles{
+		client: plumbing.NewWorkflowRolesClient(snapshotClient.client.grpcConn),
 		parent: snapshotClient.client,
 	}
 	snapshotClient.client.workflows = &Workflows{
@@ -788,9 +832,26 @@ func (c *SnapshotClient) SecretStores() SnapshotSecretStores {
 	return c.client.secretStores
 }
 
+// WorkflowApprovers is an account with the ability to approve requests bound to a workflow.
+func (c *SnapshotClient) WorkflowApprovers() SnapshotWorkflowApprovers {
+	return c.client.workflowApprovers
+}
+
+// WorkflowAssignments links a Resource to a Workflow. The assigned resources are those that a user can request
+// access to via the workflow.
+func (c *SnapshotClient) WorkflowAssignments() SnapshotWorkflowAssignments {
+	return c.client.workflowAssignments
+}
+
+// WorkflowRole links a role to a workflow. The linked roles indicate which roles a user must be a part of
+// to request access to a resource via the workflow.
+func (c *SnapshotClient) WorkflowRoles() SnapshotWorkflowRoles {
+	return c.client.workflowRoles
+}
+
 // Workflows are the collection of rules that define the resources to which access can be requested,
 // the users that can request that access, and the mechanism for approving those requests which can either
-// but automatic approval or a set of users authorized to approve the requests.
+// be automatic approval or a set of users authorized to approve the requests.
 func (c *SnapshotClient) Workflows() SnapshotWorkflows {
 	return c.client.workflows
 }
