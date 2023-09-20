@@ -1069,6 +1069,41 @@ type AuroraPostgres struct {
 	Username string `json:"username"`
 }
 
+// AuroraPostgresIAM is currently unstable, and its API may change, or it may be removed,
+// without a major version bump.
+type AuroraPostgresIAM struct {
+	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided.
+	BindInterface string `json:"bindInterface"`
+	// The initial database to connect to. This setting does not by itself prevent switching to another database after connecting.
+	Database string `json:"database"`
+	// A filter applied to the routing logic to pin datasource to nodes.
+	EgressFilter string `json:"egressFilter"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// The host to dial to initiate a connection from the egress node to this resource.
+	Hostname string `json:"hostname"`
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// If set, the database configured cannot be changed by users. This setting is not recommended for most use cases, as some clients will insist their database has changed when it has not, leading to user confusion.
+	OverrideDatabase bool `json:"overrideDatabase"`
+	// The port to dial to initiate a connection from the egress node to this resource.
+	Port int32 `json:"port"`
+	// The local port used by clients to connect to this resource.
+	PortOverride int32 `json:"portOverride"`
+	// The AWS region to connect to.
+	Region string `json:"region"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
+	Subdomain string `json:"subdomain"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+	// The username to authenticate with.
+	Username string `json:"username"`
+}
+
 type Azure struct {
 	// The application ID to authenticate with.
 	AppID string `json:"appId"`
@@ -3199,6 +3234,41 @@ type RDP struct {
 	Username string `json:"username"`
 }
 
+// RDSPostgresIAM is currently unstable, and its API may change, or it may be removed,
+// without a major version bump.
+type RDSPostgresIAM struct {
+	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided.
+	BindInterface string `json:"bindInterface"`
+	// The initial database to connect to. This setting does not by itself prevent switching to another database after connecting.
+	Database string `json:"database"`
+	// A filter applied to the routing logic to pin datasource to nodes.
+	EgressFilter string `json:"egressFilter"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// The host to dial to initiate a connection from the egress node to this resource.
+	Hostname string `json:"hostname"`
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// If set, the database configured cannot be changed by users. This setting is not recommended for most use cases, as some clients will insist their database has changed when it has not, leading to user confusion.
+	OverrideDatabase bool `json:"overrideDatabase"`
+	// The port to dial to initiate a connection from the egress node to this resource.
+	Port int32 `json:"port"`
+	// The local port used by clients to connect to this resource.
+	PortOverride int32 `json:"portOverride"`
+	// The AWS region to connect to.
+	Region string `json:"region"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
+	Subdomain string `json:"subdomain"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+	// The username to authenticate with.
+	Username string `json:"username"`
+}
+
 type RabbitMQAMQP091 struct {
 	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided.
 	BindInterface string `json:"bindInterface"`
@@ -4273,6 +4343,60 @@ func (m *AuroraPostgres) GetBindInterface() string {
 
 // SetBindInterface sets the bind interface of the AuroraPostgres.
 func (m *AuroraPostgres) SetBindInterface(v string) {
+	m.BindInterface = v
+}
+func (*AuroraPostgresIAM) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the AuroraPostgresIAM.
+func (m *AuroraPostgresIAM) GetID() string { return m.ID }
+
+// GetName returns the name of the AuroraPostgresIAM.
+func (m *AuroraPostgresIAM) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the AuroraPostgresIAM.
+func (m *AuroraPostgresIAM) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the AuroraPostgresIAM.
+func (m *AuroraPostgresIAM) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the AuroraPostgresIAM.
+func (m *AuroraPostgresIAM) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the AuroraPostgresIAM.
+func (m *AuroraPostgresIAM) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the AuroraPostgresIAM.
+func (m *AuroraPostgresIAM) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+
+// GetEgressFilter returns the egress filter of the AuroraPostgresIAM.
+func (m *AuroraPostgresIAM) GetEgressFilter() string {
+	return m.EgressFilter
+}
+
+// SetEgressFilter sets the egress filter of the AuroraPostgresIAM.
+func (m *AuroraPostgresIAM) SetEgressFilter(v string) {
+	m.EgressFilter = v
+}
+
+// GetBindInterface returns the bind interface of the AuroraPostgresIAM.
+func (m *AuroraPostgresIAM) GetBindInterface() string {
+	return m.BindInterface
+}
+
+// SetBindInterface sets the bind interface of the AuroraPostgresIAM.
+func (m *AuroraPostgresIAM) SetBindInterface(v string) {
 	m.BindInterface = v
 }
 func (*AWS) isOneOf_Resource() {}
@@ -7081,6 +7205,60 @@ func (m *RDP) GetBindInterface() string {
 
 // SetBindInterface sets the bind interface of the RDP.
 func (m *RDP) SetBindInterface(v string) {
+	m.BindInterface = v
+}
+func (*RDSPostgresIAM) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the RDSPostgresIAM.
+func (m *RDSPostgresIAM) GetID() string { return m.ID }
+
+// GetName returns the name of the RDSPostgresIAM.
+func (m *RDSPostgresIAM) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the RDSPostgresIAM.
+func (m *RDSPostgresIAM) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the RDSPostgresIAM.
+func (m *RDSPostgresIAM) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the RDSPostgresIAM.
+func (m *RDSPostgresIAM) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the RDSPostgresIAM.
+func (m *RDSPostgresIAM) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the RDSPostgresIAM.
+func (m *RDSPostgresIAM) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+
+// GetEgressFilter returns the egress filter of the RDSPostgresIAM.
+func (m *RDSPostgresIAM) GetEgressFilter() string {
+	return m.EgressFilter
+}
+
+// SetEgressFilter sets the egress filter of the RDSPostgresIAM.
+func (m *RDSPostgresIAM) SetEgressFilter(v string) {
+	m.EgressFilter = v
+}
+
+// GetBindInterface returns the bind interface of the RDSPostgresIAM.
+func (m *RDSPostgresIAM) GetBindInterface() string {
+	return m.BindInterface
+}
+
+// SetBindInterface sets the bind interface of the RDSPostgresIAM.
+func (m *RDSPostgresIAM) SetBindInterface(v string) {
 	m.BindInterface = v
 }
 func (*Redis) isOneOf_Resource() {}

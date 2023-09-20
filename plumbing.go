@@ -3018,6 +3018,79 @@ func convertRepeatedAuroraPostgresToPorcelain(plumbings []*proto.AuroraPostgres)
 	}
 	return items, nil
 }
+func convertAuroraPostgresIAMToPorcelain(plumbing *proto.AuroraPostgresIAM) (*AuroraPostgresIAM, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &AuroraPostgresIAM{}
+	porcelain.BindInterface = plumbing.BindInterface
+	porcelain.Database = plumbing.Database
+	porcelain.EgressFilter = plumbing.EgressFilter
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.OverrideDatabase = plumbing.OverrideDatabase
+	porcelain.Port = plumbing.Port
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Region = plumbing.Region
+	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Subdomain = plumbing.Subdomain
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	porcelain.Username = plumbing.Username
+	return porcelain, nil
+}
+
+func convertAuroraPostgresIAMToPlumbing(porcelain *AuroraPostgresIAM) *proto.AuroraPostgresIAM {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AuroraPostgresIAM{}
+	plumbing.BindInterface = (porcelain.BindInterface)
+	plumbing.Database = (porcelain.Database)
+	plumbing.EgressFilter = (porcelain.EgressFilter)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.OverrideDatabase = (porcelain.OverrideDatabase)
+	plumbing.Port = (porcelain.Port)
+	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.Region = (porcelain.Region)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Subdomain = (porcelain.Subdomain)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Username = (porcelain.Username)
+	return plumbing
+}
+func convertRepeatedAuroraPostgresIAMToPlumbing(
+	porcelains []*AuroraPostgresIAM,
+) []*proto.AuroraPostgresIAM {
+	var items []*proto.AuroraPostgresIAM
+	for _, porcelain := range porcelains {
+		items = append(items, convertAuroraPostgresIAMToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAuroraPostgresIAMToPorcelain(plumbings []*proto.AuroraPostgresIAM) (
+	[]*AuroraPostgresIAM,
+	error,
+) {
+	var items []*AuroraPostgresIAM
+	for _, plumbing := range plumbings {
+		if v, err := convertAuroraPostgresIAMToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertAzureToPorcelain(plumbing *proto.Azure) (*Azure, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -8569,6 +8642,79 @@ func convertRepeatedRDPToPorcelain(plumbings []*proto.RDP) (
 	}
 	return items, nil
 }
+func convertRDSPostgresIAMToPorcelain(plumbing *proto.RDSPostgresIAM) (*RDSPostgresIAM, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &RDSPostgresIAM{}
+	porcelain.BindInterface = plumbing.BindInterface
+	porcelain.Database = plumbing.Database
+	porcelain.EgressFilter = plumbing.EgressFilter
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.OverrideDatabase = plumbing.OverrideDatabase
+	porcelain.Port = plumbing.Port
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.Region = plumbing.Region
+	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Subdomain = plumbing.Subdomain
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	porcelain.Username = plumbing.Username
+	return porcelain, nil
+}
+
+func convertRDSPostgresIAMToPlumbing(porcelain *RDSPostgresIAM) *proto.RDSPostgresIAM {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RDSPostgresIAM{}
+	plumbing.BindInterface = (porcelain.BindInterface)
+	plumbing.Database = (porcelain.Database)
+	plumbing.EgressFilter = (porcelain.EgressFilter)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.OverrideDatabase = (porcelain.OverrideDatabase)
+	plumbing.Port = (porcelain.Port)
+	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.Region = (porcelain.Region)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Subdomain = (porcelain.Subdomain)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Username = (porcelain.Username)
+	return plumbing
+}
+func convertRepeatedRDSPostgresIAMToPlumbing(
+	porcelains []*RDSPostgresIAM,
+) []*proto.RDSPostgresIAM {
+	var items []*proto.RDSPostgresIAM
+	for _, porcelain := range porcelains {
+		items = append(items, convertRDSPostgresIAMToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedRDSPostgresIAMToPorcelain(plumbings []*proto.RDSPostgresIAM) (
+	[]*RDSPostgresIAM,
+	error,
+) {
+	var items []*RDSPostgresIAM
+	for _, plumbing := range plumbings {
+		if v, err := convertRDSPostgresIAMToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertRabbitMQAMQP091ToPorcelain(plumbing *proto.RabbitMQAMQP091) (*RabbitMQAMQP091, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -9581,6 +9727,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_AuroraMysql{AuroraMysql: convertAuroraMysqlToPlumbing(v)}
 	case *AuroraPostgres:
 		plumbing.Resource = &proto.Resource_AuroraPostgres{AuroraPostgres: convertAuroraPostgresToPlumbing(v)}
+	case *AuroraPostgresIAM:
+		plumbing.Resource = &proto.Resource_AuroraPostgresIam{AuroraPostgresIam: convertAuroraPostgresIAMToPlumbing(v)}
 	case *AWS:
 		plumbing.Resource = &proto.Resource_Aws{Aws: convertAWSToPlumbing(v)}
 	case *AWSConsole:
@@ -9685,6 +9833,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_RawTcp{RawTcp: convertRawTCPToPlumbing(v)}
 	case *RDP:
 		plumbing.Resource = &proto.Resource_Rdp{Rdp: convertRDPToPlumbing(v)}
+	case *RDSPostgresIAM:
+		plumbing.Resource = &proto.Resource_RdsPostgresIam{RdsPostgresIam: convertRDSPostgresIAMToPlumbing(v)}
 	case *Redis:
 		plumbing.Resource = &proto.Resource_Redis{Redis: convertRedisToPlumbing(v)}
 	case *Redshift:
@@ -9761,6 +9911,9 @@ func convertResourceToPorcelain(plumbing *proto.Resource) (Resource, error) {
 	}
 	if plumbing.GetAuroraPostgres() != nil {
 		return convertAuroraPostgresToPorcelain(plumbing.GetAuroraPostgres())
+	}
+	if plumbing.GetAuroraPostgresIam() != nil {
+		return convertAuroraPostgresIAMToPorcelain(plumbing.GetAuroraPostgresIam())
 	}
 	if plumbing.GetAws() != nil {
 		return convertAWSToPorcelain(plumbing.GetAws())
@@ -9917,6 +10070,9 @@ func convertResourceToPorcelain(plumbing *proto.Resource) (Resource, error) {
 	}
 	if plumbing.GetRdp() != nil {
 		return convertRDPToPorcelain(plumbing.GetRdp())
+	}
+	if plumbing.GetRdsPostgresIam() != nil {
+		return convertRDSPostgresIAMToPorcelain(plumbing.GetRdsPostgresIam())
 	}
 	if plumbing.GetRedis() != nil {
 		return convertRedisToPorcelain(plumbing.GetRedis())
