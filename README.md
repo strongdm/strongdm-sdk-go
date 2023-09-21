@@ -75,6 +75,8 @@ func main() {
   1.  [Managing Accounts](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/2_managing_accounts)
   1.  [Managing Roles](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/3_managing_roles)
   1.  [Managing Gateways](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/4_managing_gateways)
+  1.  [Auditing](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/5_auditing)
+  1.  [Managing Access Workflows](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/6_managing_workflows)
 
 ## License
 
