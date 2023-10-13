@@ -3085,6 +3085,7 @@ func convertAuroraPostgresIAMToPorcelain(plumbing *proto.AuroraPostgresIAM) (*Au
 	porcelain.Port = plumbing.Port
 	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Region = plumbing.Region
+	porcelain.RoleAssumptionArn = plumbing.RoleAssumptionArn
 	porcelain.SecretStoreID = plumbing.SecretStoreId
 	porcelain.Subdomain = plumbing.Subdomain
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
@@ -3112,6 +3113,7 @@ func convertAuroraPostgresIAMToPlumbing(porcelain *AuroraPostgresIAM) *proto.Aur
 	plumbing.Port = (porcelain.Port)
 	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.Region = (porcelain.Region)
+	plumbing.RoleAssumptionArn = (porcelain.RoleAssumptionArn)
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Subdomain = (porcelain.Subdomain)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
@@ -8709,6 +8711,7 @@ func convertRDSPostgresIAMToPorcelain(plumbing *proto.RDSPostgresIAM) (*RDSPostg
 	porcelain.Port = plumbing.Port
 	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.Region = plumbing.Region
+	porcelain.RoleAssumptionArn = plumbing.RoleAssumptionArn
 	porcelain.SecretStoreID = plumbing.SecretStoreId
 	porcelain.Subdomain = plumbing.Subdomain
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
@@ -8736,6 +8739,7 @@ func convertRDSPostgresIAMToPlumbing(porcelain *RDSPostgresIAM) *proto.RDSPostgr
 	plumbing.Port = (porcelain.Port)
 	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.Region = (porcelain.Region)
+	plumbing.RoleAssumptionArn = (porcelain.RoleAssumptionArn)
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Subdomain = (porcelain.Subdomain)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)

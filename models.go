@@ -1107,6 +1107,8 @@ type AuroraPostgresIAM struct {
 	PortOverride int32 `json:"portOverride"`
 	// The AWS region to connect to.
 	Region string `json:"region"`
+	// If provided, the gateway/relay will try to assume this role instead of the underlying compute's role.
+	RoleAssumptionArn string `json:"roleAssumptionArn"`
 	// ID of the secret store containing credentials for this resource, if any.
 	SecretStoreID string `json:"secretStoreId"`
 	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
@@ -3272,6 +3274,8 @@ type RDSPostgresIAM struct {
 	PortOverride int32 `json:"portOverride"`
 	// The AWS region to connect to.
 	Region string `json:"region"`
+	// If provided, the gateway/relay will try to assume this role instead of the underlying compute's role.
+	RoleAssumptionArn string `json:"roleAssumptionArn"`
 	// ID of the secret store containing credentials for this resource, if any.
 	SecretStoreID string `json:"secretStoreId"`
 	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
