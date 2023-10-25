@@ -8,7 +8,6 @@
 package unix
 
 //sysnb	Getrlimit(resource int, rlim *Rlimit) (err error) = getrlimit64
-//sysnb	Setrlimit(resource int, rlim *Rlimit) (err error) = setrlimit64
 //sys	Seek(fd int, offset int64, whence int) (off int64, err error) = lseek64
 
 //sys	mmap(addr uintptr, length uintptr, prot int, flags int, fd int, offset int64) (xaddr uintptr, err error)
@@ -29,6 +28,26 @@ func (msghdr *Msghdr) SetControllen(length int) {
 	msghdr.Controllen = uint32(length)
 }
 
+func (msghdr *Msghdr) SetIovlen(length int) {
+	msghdr.Iovlen = int32(length)
+}
+
 func (cmsg *Cmsghdr) SetLen(length int) {
 	cmsg.Len = uint32(length)
+}
+
+func Fstat(fd int, stat *Stat_t) error {
+	return fstat(fd, stat)
+}
+
+func Fstatat(dirfd int, path string, stat *Stat_t, flags int) error {
+	return fstatat(dirfd, path, stat, flags)
+}
+
+func Lstat(path string, stat *Stat_t) error {
+	return lstat(path, stat)
+}
+
+func Stat(path string, statptr *Stat_t) error {
+	return stat(path, statptr)
 }
