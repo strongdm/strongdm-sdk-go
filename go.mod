@@ -1,4 +1,4 @@
-module github.com/strongdm/strongdm-sdk-go/v5
+module github.com/strongdm/strongdm-sdk-go/v6
 
 go 1.15
 

@@ -20,7 +20,7 @@ package sdm
 import (
 	"context"
 
-	plumbing "github.com/strongdm/strongdm-sdk-go/v5/internal/v1"
+	plumbing "github.com/strongdm/strongdm-sdk-go/v6/internal/v1"
 )
 
 // AccessRequests are requests for access to a resource that may match a Workflow.
@@ -4167,7 +4167,7 @@ func (svc *SecretStoresHistory) List(
 	), nil
 }
 
-// WorkflowApprovers is an account with the ability to approve requests bound to a workflow.
+// WorkflowApprovers is an account or a role with the ability to approve requests bound to a workflow.
 type WorkflowApprovers struct {
 	client plumbing.WorkflowApproversClient
 	parent *Client

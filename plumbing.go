@@ -20,7 +20,7 @@ package sdm
 import (
 	"encoding/json"
 	"fmt"
-	proto "github.com/strongdm/strongdm-sdk-go/v5/internal/v1"
+	proto "github.com/strongdm/strongdm-sdk-go/v6/internal/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/durationpb"
@@ -12727,8 +12727,9 @@ func convertWorkflowApproverToPorcelain(plumbing *proto.WorkflowApprover) (*Work
 		return nil, nil
 	}
 	porcelain := &WorkflowApprover{}
-	porcelain.ApproverID = plumbing.ApproverId
+	porcelain.AccountID = plumbing.AccountId
 	porcelain.ID = plumbing.Id
+	porcelain.RoleID = plumbing.RoleId
 	porcelain.WorkflowID = plumbing.WorkflowId
 	return porcelain, nil
 }
@@ -12738,8 +12739,9 @@ func convertWorkflowApproverToPlumbing(porcelain *WorkflowApprover) *proto.Workf
 		return nil
 	}
 	plumbing := &proto.WorkflowApprover{}
-	plumbing.ApproverId = (porcelain.ApproverID)
+	plumbing.AccountId = (porcelain.AccountID)
 	plumbing.Id = (porcelain.ID)
+	plumbing.RoleId = (porcelain.RoleID)
 	plumbing.WorkflowId = (porcelain.WorkflowID)
 	return plumbing
 }
