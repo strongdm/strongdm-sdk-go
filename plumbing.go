@@ -10422,6 +10422,98 @@ func convertRepeatedResourceGetResponseToPorcelain(plumbings []*proto.ResourceGe
 	}
 	return items, nil
 }
+func convertResourceHealthcheckRequestToPorcelain(plumbing *proto.ResourceHealthcheckRequest) (*ResourceHealthcheckRequest, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &ResourceHealthcheckRequest{}
+	porcelain.ID = plumbing.Id
+	return porcelain, nil
+}
+
+func convertResourceHealthcheckRequestToPlumbing(porcelain *ResourceHealthcheckRequest) *proto.ResourceHealthcheckRequest {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ResourceHealthcheckRequest{}
+	plumbing.Id = (porcelain.ID)
+	return plumbing
+}
+func convertRepeatedResourceHealthcheckRequestToPlumbing(
+	porcelains []*ResourceHealthcheckRequest,
+) []*proto.ResourceHealthcheckRequest {
+	var items []*proto.ResourceHealthcheckRequest
+	for _, porcelain := range porcelains {
+		items = append(items, convertResourceHealthcheckRequestToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedResourceHealthcheckRequestToPorcelain(plumbings []*proto.ResourceHealthcheckRequest) (
+	[]*ResourceHealthcheckRequest,
+	error,
+) {
+	var items []*ResourceHealthcheckRequest
+	for _, plumbing := range plumbings {
+		if v, err := convertResourceHealthcheckRequestToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertResourceHealthcheckResponseToPorcelain(plumbing *proto.ResourceHealthcheckResponse) (*ResourceHealthcheckResponse, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &ResourceHealthcheckResponse{}
+	if v, err := convertUpdateResponseMetadataToPorcelain(plumbing.Meta); err != nil {
+		return nil, fmt.Errorf("error converting field Meta: %v", err)
+	} else {
+		porcelain.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbing.RateLimit); err != nil {
+		return nil, fmt.Errorf("error converting field RateLimit: %v", err)
+	} else {
+		porcelain.RateLimit = v
+	}
+	return porcelain, nil
+}
+
+func convertResourceHealthcheckResponseToPlumbing(porcelain *ResourceHealthcheckResponse) *proto.ResourceHealthcheckResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ResourceHealthcheckResponse{}
+	plumbing.Meta = convertUpdateResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedResourceHealthcheckResponseToPlumbing(
+	porcelains []*ResourceHealthcheckResponse,
+) []*proto.ResourceHealthcheckResponse {
+	var items []*proto.ResourceHealthcheckResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertResourceHealthcheckResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedResourceHealthcheckResponseToPorcelain(plumbings []*proto.ResourceHealthcheckResponse) (
+	[]*ResourceHealthcheckResponse,
+	error,
+) {
+	var items []*ResourceHealthcheckResponse
+	for _, plumbing := range plumbings {
+		if v, err := convertResourceHealthcheckResponseToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertResourceHistoryToPorcelain(plumbing *proto.ResourceHistory) (*ResourceHistory, error) {
 	if plumbing == nil {
 		return nil, nil

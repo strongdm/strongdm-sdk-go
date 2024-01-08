@@ -3398,6 +3398,47 @@ func (svc *Resources) List(
 	), nil
 }
 
+// Healthcheck triggers a remote healthcheck. It may take minutes to propagate across a
+// large network of Nodes. The call will return immediately, and the updated health of the
+// Resource can be retrieved via Get or List.
+func (svc *Resources) Healthcheck(
+	ctx context.Context,
+	id string) (
+	*ResourceHealthcheckResponse,
+	error) {
+	req := &plumbing.ResourceHealthcheckRequest{}
+
+	req.Id = (id)
+	var plumbingResponse *plumbing.ResourceHealthcheckResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.Healthcheck(svc.parent.wrapContext(ctx, req, "Resources.Healthcheck"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, convertErrorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &ResourceHealthcheckResponse{}
+	if v, err := convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
+}
+
 // ResourcesHistory records all changes to the state of a Resource.
 type ResourcesHistory struct {
 	client plumbing.ResourcesHistoryClient

@@ -8131,6 +8131,21 @@ type ResourceGetResponse struct {
 	Resource Resource `json:"resource"`
 }
 
+// ResourceHealthcheckRequest specifies requesting a healthcheck for a given resource by ID.
+type ResourceHealthcheckRequest struct {
+	// The unique identifier of the Resource to healthcheck.
+	ID string `json:"id"`
+}
+
+// ResourceHealthcheckResponse reports any metadata concerning a healthcheck response.
+// Healthchecks are non blocking, and this contains no non-metadata.
+type ResourceHealthcheckResponse struct {
+	// Reserved for future use.
+	Meta *UpdateResponseMetadata `json:"meta"`
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rateLimit"`
+}
+
 // ResourceHistory records the state of a Resource at a given point in time,
 // where every change (create, update and delete) to a Resource produces an
 // ResourceHistory record.
