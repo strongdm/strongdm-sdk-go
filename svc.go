@@ -1337,6 +1337,44 @@ func (svc *ControlPanel) GetSSHCAPublicKey(
 	return resp, nil
 }
 
+// GetRDPCAPublicKey retrieves the RDP CA public key.
+func (svc *ControlPanel) GetRDPCAPublicKey(
+	ctx context.Context) (
+	*ControlPanelGetRDPCAPublicKeyResponse,
+	error) {
+	req := &plumbing.ControlPanelGetRDPCAPublicKeyRequest{}
+
+	var plumbingResponse *plumbing.ControlPanelGetRDPCAPublicKeyResponse
+	var err error
+	i := 0
+	for {
+		plumbingResponse, err = svc.client.GetRDPCAPublicKey(svc.parent.wrapContext(ctx, req, "ControlPanel.GetRDPCAPublicKey"), req)
+		if err != nil {
+			if !svc.parent.shouldRetry(i, err) {
+				return nil, convertErrorToPorcelain(err)
+			}
+			i++
+			svc.parent.jitterSleep(i)
+			continue
+		}
+		break
+	}
+
+	resp := &ControlPanelGetRDPCAPublicKeyResponse{}
+	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	resp.PublicKey = (plumbingResponse.PublicKey)
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
+}
+
 // VerifyJWT reports whether the given JWT token (x-sdm-token) is valid.
 func (svc *ControlPanel) VerifyJWT(
 	ctx context.Context,

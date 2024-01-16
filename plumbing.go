@@ -3913,6 +3913,59 @@ func convertRepeatedCockroachToPorcelain(plumbings []*proto.Cockroach) (
 	}
 	return items, nil
 }
+func convertControlPanelGetRDPCAPublicKeyResponseToPorcelain(plumbing *proto.ControlPanelGetRDPCAPublicKeyResponse) (*ControlPanelGetRDPCAPublicKeyResponse, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &ControlPanelGetRDPCAPublicKeyResponse{}
+	if v, err := convertGetResponseMetadataToPorcelain(plumbing.Meta); err != nil {
+		return nil, fmt.Errorf("error converting field Meta: %v", err)
+	} else {
+		porcelain.Meta = v
+	}
+	porcelain.PublicKey = plumbing.PublicKey
+	if v, err := convertRateLimitMetadataToPorcelain(plumbing.RateLimit); err != nil {
+		return nil, fmt.Errorf("error converting field RateLimit: %v", err)
+	} else {
+		porcelain.RateLimit = v
+	}
+	return porcelain, nil
+}
+
+func convertControlPanelGetRDPCAPublicKeyResponseToPlumbing(porcelain *ControlPanelGetRDPCAPublicKeyResponse) *proto.ControlPanelGetRDPCAPublicKeyResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ControlPanelGetRDPCAPublicKeyResponse{}
+	plumbing.Meta = convertGetResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.PublicKey = (porcelain.PublicKey)
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedControlPanelGetRDPCAPublicKeyResponseToPlumbing(
+	porcelains []*ControlPanelGetRDPCAPublicKeyResponse,
+) []*proto.ControlPanelGetRDPCAPublicKeyResponse {
+	var items []*proto.ControlPanelGetRDPCAPublicKeyResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertControlPanelGetRDPCAPublicKeyResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedControlPanelGetRDPCAPublicKeyResponseToPorcelain(plumbings []*proto.ControlPanelGetRDPCAPublicKeyResponse) (
+	[]*ControlPanelGetRDPCAPublicKeyResponse,
+	error,
+) {
+	var items []*ControlPanelGetRDPCAPublicKeyResponse
+	for _, plumbing := range plumbings {
+		if v, err := convertControlPanelGetRDPCAPublicKeyResponseToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertControlPanelGetSSHCAPublicKeyResponseToPorcelain(plumbing *proto.ControlPanelGetSSHCAPublicKeyResponse) (*ControlPanelGetSSHCAPublicKeyResponse, error) {
 	if plumbing == nil {
 		return nil, nil

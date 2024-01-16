@@ -1446,6 +1446,18 @@ type Cockroach struct {
 	Username string `json:"username"`
 }
 
+// ControlPanelGetRDPCAPublicKeyResponse represents a request for an
+// organization's RDP Certificate Authority public key.
+type ControlPanelGetRDPCAPublicKeyResponse struct {
+	// Reserved for future use.
+	Meta *GetResponseMetadata `json:"meta"`
+	// The public key of the SSH Certificate Authority, in OpenSSH RSA public
+	// key format.
+	PublicKey string `json:"publicKey"`
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rateLimit"`
+}
+
 // ControlPanelGetSSHCAPublicKeyResponse represents a request for an
 // organization's SSH Certificate Authority public key.
 type ControlPanelGetSSHCAPublicKeyResponse struct {
