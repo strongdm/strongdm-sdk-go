@@ -1775,22 +1775,6 @@ type PeeringGroupNodes struct {
 	parent *Client
 }
 
-// A SnapshotPeeringGroupNodes exposes the read only methods of the PeeringGroupNodes
-// service for historical queries.
-type SnapshotPeeringGroupNodes interface {
-	Get(
-		ctx context.Context,
-		id string) (
-		*PeeringGroupNodeGetResponse,
-		error)
-	List(
-		ctx context.Context,
-		filter string,
-		args ...interface{}) (
-		PeeringGroupNodeIterator,
-		error)
-}
-
 // Create attaches a Node to a PeeringGroup
 func (svc *PeeringGroupNodes) Create(
 	ctx context.Context,
@@ -1972,22 +1956,6 @@ func (svc *PeeringGroupNodes) List(
 type PeeringGroupPeers struct {
 	client plumbing.PeeringGroupPeersClient
 	parent *Client
-}
-
-// A SnapshotPeeringGroupPeers exposes the read only methods of the PeeringGroupPeers
-// service for historical queries.
-type SnapshotPeeringGroupPeers interface {
-	Get(
-		ctx context.Context,
-		id string) (
-		*PeeringGroupPeerGetResponse,
-		error)
-	List(
-		ctx context.Context,
-		filter string,
-		args ...interface{}) (
-		PeeringGroupPeerIterator,
-		error)
 }
 
 // Create links two peering groups.
@@ -2173,22 +2141,6 @@ type PeeringGroupResources struct {
 	parent *Client
 }
 
-// A SnapshotPeeringGroupResources exposes the read only methods of the PeeringGroupResources
-// service for historical queries.
-type SnapshotPeeringGroupResources interface {
-	Get(
-		ctx context.Context,
-		id string) (
-		*PeeringGroupResourceGetResponse,
-		error)
-	List(
-		ctx context.Context,
-		filter string,
-		args ...interface{}) (
-		PeeringGroupResourceIterator,
-		error)
-}
-
 // Create attaches a Resource to a PeeringGroup
 func (svc *PeeringGroupResources) Create(
 	ctx context.Context,
@@ -2370,22 +2322,6 @@ func (svc *PeeringGroupResources) List(
 type PeeringGroups struct {
 	client plumbing.PeeringGroupsClient
 	parent *Client
-}
-
-// A SnapshotPeeringGroups exposes the read only methods of the PeeringGroups
-// service for historical queries.
-type SnapshotPeeringGroups interface {
-	Get(
-		ctx context.Context,
-		id string) (
-		*PeeringGroupGetResponse,
-		error)
-	List(
-		ctx context.Context,
-		filter string,
-		args ...interface{}) (
-		PeeringGroupIterator,
-		error)
 }
 
 // Create registers a new PeeringGroup.
