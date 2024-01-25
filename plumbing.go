@@ -11616,10 +11616,22 @@ func convertSecretStoreToPlumbing(porcelain SecretStore) *proto.SecretStore {
 		plumbing.SecretStore = &proto.SecretStore_Gcp{Gcp: convertGCPStoreToPlumbing(v)}
 	case *VaultAppRoleStore:
 		plumbing.SecretStore = &proto.SecretStore_VaultAppRole{VaultAppRole: convertVaultAppRoleStoreToPlumbing(v)}
+	case *VaultAppRoleCertSSHStore:
+		plumbing.SecretStore = &proto.SecretStore_VaultAppRoleCertSsh{VaultAppRoleCertSsh: convertVaultAppRoleCertSSHStoreToPlumbing(v)}
+	case *VaultAppRoleCertX509Store:
+		plumbing.SecretStore = &proto.SecretStore_VaultAppRoleCertX_509{VaultAppRoleCertX_509: convertVaultAppRoleCertX509StoreToPlumbing(v)}
 	case *VaultTLSStore:
 		plumbing.SecretStore = &proto.SecretStore_VaultTls{VaultTls: convertVaultTLSStoreToPlumbing(v)}
+	case *VaultTLSCertSSHStore:
+		plumbing.SecretStore = &proto.SecretStore_VaultTlsCertSsh{VaultTlsCertSsh: convertVaultTLSCertSSHStoreToPlumbing(v)}
+	case *VaultTLSCertX509Store:
+		plumbing.SecretStore = &proto.SecretStore_VaultTlsCertX_509{VaultTlsCertX_509: convertVaultTLSCertX509StoreToPlumbing(v)}
 	case *VaultTokenStore:
 		plumbing.SecretStore = &proto.SecretStore_VaultToken{VaultToken: convertVaultTokenStoreToPlumbing(v)}
+	case *VaultTokenCertSSHStore:
+		plumbing.SecretStore = &proto.SecretStore_VaultTokenCertSsh{VaultTokenCertSsh: convertVaultTokenCertSSHStoreToPlumbing(v)}
+	case *VaultTokenCertX509Store:
+		plumbing.SecretStore = &proto.SecretStore_VaultTokenCertX_509{VaultTokenCertX_509: convertVaultTokenCertX509StoreToPlumbing(v)}
 	}
 	return plumbing
 }
@@ -11649,11 +11661,29 @@ func convertSecretStoreToPorcelain(plumbing *proto.SecretStore) (SecretStore, er
 	if plumbing.GetVaultAppRole() != nil {
 		return convertVaultAppRoleStoreToPorcelain(plumbing.GetVaultAppRole())
 	}
+	if plumbing.GetVaultAppRoleCertSsh() != nil {
+		return convertVaultAppRoleCertSSHStoreToPorcelain(plumbing.GetVaultAppRoleCertSsh())
+	}
+	if plumbing.GetVaultAppRoleCertX_509() != nil {
+		return convertVaultAppRoleCertX509StoreToPorcelain(plumbing.GetVaultAppRoleCertX_509())
+	}
 	if plumbing.GetVaultTls() != nil {
 		return convertVaultTLSStoreToPorcelain(plumbing.GetVaultTls())
 	}
+	if plumbing.GetVaultTlsCertSsh() != nil {
+		return convertVaultTLSCertSSHStoreToPorcelain(plumbing.GetVaultTlsCertSsh())
+	}
+	if plumbing.GetVaultTlsCertX_509() != nil {
+		return convertVaultTLSCertX509StoreToPorcelain(plumbing.GetVaultTlsCertX_509())
+	}
 	if plumbing.GetVaultToken() != nil {
 		return convertVaultTokenStoreToPorcelain(plumbing.GetVaultToken())
+	}
+	if plumbing.GetVaultTokenCertSsh() != nil {
+		return convertVaultTokenCertSSHStoreToPorcelain(plumbing.GetVaultTokenCertSsh())
+	}
+	if plumbing.GetVaultTokenCertX_509() != nil {
+		return convertVaultTokenCertX509StoreToPorcelain(plumbing.GetVaultTokenCertX_509())
 	}
 	return nil, &UnknownError{Wrapped: fmt.Errorf("unknown polymorphic type, please upgrade your SDK")}
 }
@@ -12798,6 +12828,120 @@ func convertRepeatedUserToPorcelain(plumbings []*proto.User) (
 	}
 	return items, nil
 }
+func convertVaultAppRoleCertSSHStoreToPorcelain(plumbing *proto.VaultAppRoleCertSSHStore) (*VaultAppRoleCertSSHStore, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &VaultAppRoleCertSSHStore{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Namespace = plumbing.Namespace
+	porcelain.ServerAddress = plumbing.ServerAddress
+	porcelain.SigningRole = plumbing.SigningRole
+	porcelain.SshMountPoint = plumbing.SshMountPoint
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	return porcelain, nil
+}
+
+func convertVaultAppRoleCertSSHStoreToPlumbing(porcelain *VaultAppRoleCertSSHStore) *proto.VaultAppRoleCertSSHStore {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.VaultAppRoleCertSSHStore{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Namespace = (porcelain.Namespace)
+	plumbing.ServerAddress = (porcelain.ServerAddress)
+	plumbing.SigningRole = (porcelain.SigningRole)
+	plumbing.SshMountPoint = (porcelain.SshMountPoint)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedVaultAppRoleCertSSHStoreToPlumbing(
+	porcelains []*VaultAppRoleCertSSHStore,
+) []*proto.VaultAppRoleCertSSHStore {
+	var items []*proto.VaultAppRoleCertSSHStore
+	for _, porcelain := range porcelains {
+		items = append(items, convertVaultAppRoleCertSSHStoreToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedVaultAppRoleCertSSHStoreToPorcelain(plumbings []*proto.VaultAppRoleCertSSHStore) (
+	[]*VaultAppRoleCertSSHStore,
+	error,
+) {
+	var items []*VaultAppRoleCertSSHStore
+	for _, plumbing := range plumbings {
+		if v, err := convertVaultAppRoleCertSSHStoreToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertVaultAppRoleCertX509StoreToPorcelain(plumbing *proto.VaultAppRoleCertX509Store) (*VaultAppRoleCertX509Store, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &VaultAppRoleCertX509Store{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Namespace = plumbing.Namespace
+	porcelain.PkiMountPoint = plumbing.PkiMountPoint
+	porcelain.ServerAddress = plumbing.ServerAddress
+	porcelain.SigningRole = plumbing.SigningRole
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	return porcelain, nil
+}
+
+func convertVaultAppRoleCertX509StoreToPlumbing(porcelain *VaultAppRoleCertX509Store) *proto.VaultAppRoleCertX509Store {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.VaultAppRoleCertX509Store{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Namespace = (porcelain.Namespace)
+	plumbing.PkiMountPoint = (porcelain.PkiMountPoint)
+	plumbing.ServerAddress = (porcelain.ServerAddress)
+	plumbing.SigningRole = (porcelain.SigningRole)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedVaultAppRoleCertX509StoreToPlumbing(
+	porcelains []*VaultAppRoleCertX509Store,
+) []*proto.VaultAppRoleCertX509Store {
+	var items []*proto.VaultAppRoleCertX509Store
+	for _, porcelain := range porcelains {
+		items = append(items, convertVaultAppRoleCertX509StoreToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedVaultAppRoleCertX509StoreToPorcelain(plumbings []*proto.VaultAppRoleCertX509Store) (
+	[]*VaultAppRoleCertX509Store,
+	error,
+) {
+	var items []*VaultAppRoleCertX509Store
+	for _, plumbing := range plumbings {
+		if v, err := convertVaultAppRoleCertX509StoreToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertVaultAppRoleStoreToPorcelain(plumbing *proto.VaultAppRoleStore) (*VaultAppRoleStore, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -12844,6 +12988,132 @@ func convertRepeatedVaultAppRoleStoreToPorcelain(plumbings []*proto.VaultAppRole
 	var items []*VaultAppRoleStore
 	for _, plumbing := range plumbings {
 		if v, err := convertVaultAppRoleStoreToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertVaultTLSCertSSHStoreToPorcelain(plumbing *proto.VaultTLSCertSSHStore) (*VaultTLSCertSSHStore, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &VaultTLSCertSSHStore{}
+	porcelain.CACertPath = plumbing.CACertPath
+	porcelain.ClientCertPath = plumbing.ClientCertPath
+	porcelain.ClientKeyPath = plumbing.ClientKeyPath
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Namespace = plumbing.Namespace
+	porcelain.ServerAddress = plumbing.ServerAddress
+	porcelain.SigningRole = plumbing.SigningRole
+	porcelain.SshMountPoint = plumbing.SshMountPoint
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	return porcelain, nil
+}
+
+func convertVaultTLSCertSSHStoreToPlumbing(porcelain *VaultTLSCertSSHStore) *proto.VaultTLSCertSSHStore {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.VaultTLSCertSSHStore{}
+	plumbing.CACertPath = (porcelain.CACertPath)
+	plumbing.ClientCertPath = (porcelain.ClientCertPath)
+	plumbing.ClientKeyPath = (porcelain.ClientKeyPath)
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Namespace = (porcelain.Namespace)
+	plumbing.ServerAddress = (porcelain.ServerAddress)
+	plumbing.SigningRole = (porcelain.SigningRole)
+	plumbing.SshMountPoint = (porcelain.SshMountPoint)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedVaultTLSCertSSHStoreToPlumbing(
+	porcelains []*VaultTLSCertSSHStore,
+) []*proto.VaultTLSCertSSHStore {
+	var items []*proto.VaultTLSCertSSHStore
+	for _, porcelain := range porcelains {
+		items = append(items, convertVaultTLSCertSSHStoreToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedVaultTLSCertSSHStoreToPorcelain(plumbings []*proto.VaultTLSCertSSHStore) (
+	[]*VaultTLSCertSSHStore,
+	error,
+) {
+	var items []*VaultTLSCertSSHStore
+	for _, plumbing := range plumbings {
+		if v, err := convertVaultTLSCertSSHStoreToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertVaultTLSCertX509StoreToPorcelain(plumbing *proto.VaultTLSCertX509Store) (*VaultTLSCertX509Store, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &VaultTLSCertX509Store{}
+	porcelain.CACertPath = plumbing.CACertPath
+	porcelain.ClientCertPath = plumbing.ClientCertPath
+	porcelain.ClientKeyPath = plumbing.ClientKeyPath
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Namespace = plumbing.Namespace
+	porcelain.PkiMountPoint = plumbing.PkiMountPoint
+	porcelain.ServerAddress = plumbing.ServerAddress
+	porcelain.SigningRole = plumbing.SigningRole
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	return porcelain, nil
+}
+
+func convertVaultTLSCertX509StoreToPlumbing(porcelain *VaultTLSCertX509Store) *proto.VaultTLSCertX509Store {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.VaultTLSCertX509Store{}
+	plumbing.CACertPath = (porcelain.CACertPath)
+	plumbing.ClientCertPath = (porcelain.ClientCertPath)
+	plumbing.ClientKeyPath = (porcelain.ClientKeyPath)
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Namespace = (porcelain.Namespace)
+	plumbing.PkiMountPoint = (porcelain.PkiMountPoint)
+	plumbing.ServerAddress = (porcelain.ServerAddress)
+	plumbing.SigningRole = (porcelain.SigningRole)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedVaultTLSCertX509StoreToPlumbing(
+	porcelains []*VaultTLSCertX509Store,
+) []*proto.VaultTLSCertX509Store {
+	var items []*proto.VaultTLSCertX509Store
+	for _, porcelain := range porcelains {
+		items = append(items, convertVaultTLSCertX509StoreToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedVaultTLSCertX509StoreToPorcelain(plumbings []*proto.VaultTLSCertX509Store) (
+	[]*VaultTLSCertX509Store,
+	error,
+) {
+	var items []*VaultTLSCertX509Store
+	for _, plumbing := range plumbings {
+		if v, err := convertVaultTLSCertX509StoreToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
@@ -12903,6 +13173,120 @@ func convertRepeatedVaultTLSStoreToPorcelain(plumbings []*proto.VaultTLSStore) (
 	var items []*VaultTLSStore
 	for _, plumbing := range plumbings {
 		if v, err := convertVaultTLSStoreToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertVaultTokenCertSSHStoreToPorcelain(plumbing *proto.VaultTokenCertSSHStore) (*VaultTokenCertSSHStore, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &VaultTokenCertSSHStore{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Namespace = plumbing.Namespace
+	porcelain.ServerAddress = plumbing.ServerAddress
+	porcelain.SigningRole = plumbing.SigningRole
+	porcelain.SshMountPoint = plumbing.SshMountPoint
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	return porcelain, nil
+}
+
+func convertVaultTokenCertSSHStoreToPlumbing(porcelain *VaultTokenCertSSHStore) *proto.VaultTokenCertSSHStore {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.VaultTokenCertSSHStore{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Namespace = (porcelain.Namespace)
+	plumbing.ServerAddress = (porcelain.ServerAddress)
+	plumbing.SigningRole = (porcelain.SigningRole)
+	plumbing.SshMountPoint = (porcelain.SshMountPoint)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedVaultTokenCertSSHStoreToPlumbing(
+	porcelains []*VaultTokenCertSSHStore,
+) []*proto.VaultTokenCertSSHStore {
+	var items []*proto.VaultTokenCertSSHStore
+	for _, porcelain := range porcelains {
+		items = append(items, convertVaultTokenCertSSHStoreToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedVaultTokenCertSSHStoreToPorcelain(plumbings []*proto.VaultTokenCertSSHStore) (
+	[]*VaultTokenCertSSHStore,
+	error,
+) {
+	var items []*VaultTokenCertSSHStore
+	for _, plumbing := range plumbings {
+		if v, err := convertVaultTokenCertSSHStoreToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertVaultTokenCertX509StoreToPorcelain(plumbing *proto.VaultTokenCertX509Store) (*VaultTokenCertX509Store, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &VaultTokenCertX509Store{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Namespace = plumbing.Namespace
+	porcelain.PkiMountPoint = plumbing.PkiMountPoint
+	porcelain.ServerAddress = plumbing.ServerAddress
+	porcelain.SigningRole = plumbing.SigningRole
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	return porcelain, nil
+}
+
+func convertVaultTokenCertX509StoreToPlumbing(porcelain *VaultTokenCertX509Store) *proto.VaultTokenCertX509Store {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.VaultTokenCertX509Store{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Namespace = (porcelain.Namespace)
+	plumbing.PkiMountPoint = (porcelain.PkiMountPoint)
+	plumbing.ServerAddress = (porcelain.ServerAddress)
+	plumbing.SigningRole = (porcelain.SigningRole)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedVaultTokenCertX509StoreToPlumbing(
+	porcelains []*VaultTokenCertX509Store,
+) []*proto.VaultTokenCertX509Store {
+	var items []*proto.VaultTokenCertX509Store
+	for _, porcelain := range porcelains {
+		items = append(items, convertVaultTokenCertX509StoreToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedVaultTokenCertX509StoreToPorcelain(plumbings []*proto.VaultTokenCertX509Store) (
+	[]*VaultTokenCertX509Store,
+	error,
+) {
+	var items []*VaultTokenCertX509Store
+	for _, plumbing := range plumbings {
+		if v, err := convertVaultTokenCertX509StoreToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
