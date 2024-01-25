@@ -11846,6 +11846,159 @@ func convertRepeatedSecretStoreGetResponseToPorcelain(plumbings []*proto.SecretS
 	}
 	return items, nil
 }
+func convertSecretStoreHealthToPorcelain(plumbing *proto.SecretStoreHealth) (*SecretStoreHealth, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &SecretStoreHealth{}
+	if v, err := convertTimestampToPorcelain(plumbing.ChangedAt); err != nil {
+		return nil, fmt.Errorf("error converting field ChangedAt: %v", err)
+	} else {
+		porcelain.ChangedAt = v
+	}
+	if v, err := convertTimestampToPorcelain(plumbing.CheckedAt); err != nil {
+		return nil, fmt.Errorf("error converting field CheckedAt: %v", err)
+	} else {
+		porcelain.CheckedAt = v
+	}
+	porcelain.Error = plumbing.Error
+	porcelain.Flags = plumbing.Flags
+	porcelain.NodeID = plumbing.NodeId
+	porcelain.Reachability = plumbing.Reachability
+	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Status = plumbing.Status
+	return porcelain, nil
+}
+
+func convertSecretStoreHealthToPlumbing(porcelain *SecretStoreHealth) *proto.SecretStoreHealth {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SecretStoreHealth{}
+	plumbing.ChangedAt = convertTimestampToPlumbing(porcelain.ChangedAt)
+	plumbing.CheckedAt = convertTimestampToPlumbing(porcelain.CheckedAt)
+	plumbing.Error = (porcelain.Error)
+	plumbing.Flags = (porcelain.Flags)
+	plumbing.NodeId = (porcelain.NodeID)
+	plumbing.Reachability = (porcelain.Reachability)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Status = (porcelain.Status)
+	return plumbing
+}
+func convertRepeatedSecretStoreHealthToPlumbing(
+	porcelains []*SecretStoreHealth,
+) []*proto.SecretStoreHealth {
+	var items []*proto.SecretStoreHealth
+	for _, porcelain := range porcelains {
+		items = append(items, convertSecretStoreHealthToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedSecretStoreHealthToPorcelain(plumbings []*proto.SecretStoreHealth) (
+	[]*SecretStoreHealth,
+	error,
+) {
+	var items []*SecretStoreHealth
+	for _, plumbing := range plumbings {
+		if v, err := convertSecretStoreHealthToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertSecretStoreHealthListResponseToPorcelain(plumbing *proto.SecretStoreHealthListResponse) (*SecretStoreHealthListResponse, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &SecretStoreHealthListResponse{}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbing.RateLimit); err != nil {
+		return nil, fmt.Errorf("error converting field RateLimit: %v", err)
+	} else {
+		porcelain.RateLimit = v
+	}
+	return porcelain, nil
+}
+
+func convertSecretStoreHealthListResponseToPlumbing(porcelain *SecretStoreHealthListResponse) *proto.SecretStoreHealthListResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SecretStoreHealthListResponse{}
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedSecretStoreHealthListResponseToPlumbing(
+	porcelains []*SecretStoreHealthListResponse,
+) []*proto.SecretStoreHealthListResponse {
+	var items []*proto.SecretStoreHealthListResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertSecretStoreHealthListResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedSecretStoreHealthListResponseToPorcelain(plumbings []*proto.SecretStoreHealthListResponse) (
+	[]*SecretStoreHealthListResponse,
+	error,
+) {
+	var items []*SecretStoreHealthListResponse
+	for _, plumbing := range plumbings {
+		if v, err := convertSecretStoreHealthListResponseToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertSecretStoreHealthcheckResponseToPorcelain(plumbing *proto.SecretStoreHealthcheckResponse) (*SecretStoreHealthcheckResponse, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &SecretStoreHealthcheckResponse{}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbing.RateLimit); err != nil {
+		return nil, fmt.Errorf("error converting field RateLimit: %v", err)
+	} else {
+		porcelain.RateLimit = v
+	}
+	return porcelain, nil
+}
+
+func convertSecretStoreHealthcheckResponseToPlumbing(porcelain *SecretStoreHealthcheckResponse) *proto.SecretStoreHealthcheckResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.SecretStoreHealthcheckResponse{}
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedSecretStoreHealthcheckResponseToPlumbing(
+	porcelains []*SecretStoreHealthcheckResponse,
+) []*proto.SecretStoreHealthcheckResponse {
+	var items []*proto.SecretStoreHealthcheckResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertSecretStoreHealthcheckResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedSecretStoreHealthcheckResponseToPorcelain(plumbings []*proto.SecretStoreHealthcheckResponse) (
+	[]*SecretStoreHealthcheckResponse,
+	error,
+) {
+	var items []*SecretStoreHealthcheckResponse
+	for _, plumbing := range plumbings {
+		if v, err := convertSecretStoreHealthcheckResponseToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertSecretStoreHistoryToPorcelain(plumbing *proto.SecretStoreHistory) (*SecretStoreHistory, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -15758,6 +15911,51 @@ func (r *roleHistoryIteratorImpl) Value() *RoleHistory {
 
 func (r *roleHistoryIteratorImpl) Err() error {
 	return r.err
+}
+
+type secretStoreHealthIteratorImplFetchFunc func() (
+	[]*SecretStoreHealth,
+	bool, error)
+type secretStoreHealthIteratorImpl struct {
+	buffer      []*SecretStoreHealth
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       secretStoreHealthIteratorImplFetchFunc
+}
+
+func newSecretStoreHealthIteratorImpl(f secretStoreHealthIteratorImplFetchFunc) *secretStoreHealthIteratorImpl {
+	return &secretStoreHealthIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (s *secretStoreHealthIteratorImpl) Next() bool {
+	if s.index < len(s.buffer)-1 {
+		s.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !s.hasNextPage {
+		return false
+	}
+
+	s.index = 0
+	s.buffer, s.hasNextPage, s.err = s.fetch()
+	return len(s.buffer) > 0
+}
+
+func (s *secretStoreHealthIteratorImpl) Value() *SecretStoreHealth {
+	if s.index >= len(s.buffer) {
+		return nil
+	}
+	return s.buffer[s.index]
+}
+
+func (s *secretStoreHealthIteratorImpl) Err() error {
+	return s.err
 }
 
 type secretStoreIteratorImplFetchFunc func() (

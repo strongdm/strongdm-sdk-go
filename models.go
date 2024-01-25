@@ -8793,6 +8793,38 @@ type SecretStoreGetResponse struct {
 	SecretStore SecretStore `json:"secretStore"`
 }
 
+// SecretStoreHealth denotes a secret store's health status. Note a secret store is not
+// healthy in terms of a simple boolean, but rather healthy with respect to a particular node
+// or set of nodes.
+type SecretStoreHealth struct {
+	// The time when the status last changed
+	ChangedAt time.Time `json:"changedAt"`
+	// The time when the status was last checked by the node
+	CheckedAt time.Time `json:"checkedAt"`
+	// The error associated with this health check, if it occurred after reachability checks succeeded.
+	Error string `json:"error"`
+	// Any specific status or error flags associated with this health check.
+	Flags []string `json:"flags"`
+	// Associated node id for this health
+	NodeID string `json:"nodeId"`
+	// The error associated with this health check, if it occurred during reachability checks.
+	Reachability string `json:"reachability"`
+	// Associated secret store for this health
+	SecretStoreID string `json:"secretStoreId"`
+	// The status of the link between the node and secret store
+	Status string `json:"status"`
+}
+
+type SecretStoreHealthListResponse struct {
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rateLimit"`
+}
+
+type SecretStoreHealthcheckResponse struct {
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rateLimit"`
+}
+
 // SecretStoreHistory records the state of a SecretStore at a given point in time,
 // where every change (create, update and delete) to a SecretStore produces an
 // SecretStoreHistory record.
@@ -9945,6 +9977,23 @@ type RoleHistoryIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() *RoleHistory
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// SecretStoreHealthIterator provides read access to a list of SecretStoreHealth.
+// Use it like so:
+//
+//	for iterator.Next() {
+//	    secretStoreHealth := iterator.Value()
+//	    // ...
+//	}
+type SecretStoreHealthIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *SecretStoreHealth
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }
