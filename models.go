@@ -9558,6 +9558,8 @@ type VaultTokenStore struct {
 type Workflow struct {
 	// AccessRules is a list of access rules defining the resources this Workflow provides access to.
 	AccessRules AccessRules `json:"accessRules"`
+	// Optional approval flow ID identifies an approval flow that linked to the workflow
+	ApprovalFlowID string `json:"approvalFlowId"`
 	// Optional auto grant setting to automatically approve requests or not, defaults to false.
 	AutoGrant bool `json:"autoGrant"`
 	// Optional description of the Workflow.

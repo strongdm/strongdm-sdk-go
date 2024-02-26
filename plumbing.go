@@ -13495,6 +13495,7 @@ func convertWorkflowToPorcelain(plumbing *proto.Workflow) (*Workflow, error) {
 	} else {
 		porcelain.AccessRules = v
 	}
+	porcelain.ApprovalFlowID = plumbing.ApprovalFlowId
 	porcelain.AutoGrant = plumbing.AutoGrant
 	porcelain.Description = plumbing.Description
 	porcelain.Enabled = plumbing.Enabled
@@ -13510,6 +13511,7 @@ func convertWorkflowToPlumbing(porcelain *Workflow) *proto.Workflow {
 	}
 	plumbing := &proto.Workflow{}
 	plumbing.AccessRules = convertAccessRulesToPlumbing(porcelain.AccessRules)
+	plumbing.ApprovalFlowId = (porcelain.ApprovalFlowID)
 	plumbing.AutoGrant = (porcelain.AutoGrant)
 	plumbing.Description = (porcelain.Description)
 	plumbing.Enabled = (porcelain.Enabled)
