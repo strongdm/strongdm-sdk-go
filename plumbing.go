@@ -8634,6 +8634,7 @@ func convertQueryToPorcelain(plumbing *proto.Query) (*Query, error) {
 	} else {
 		porcelain.Capture = v
 	}
+	porcelain.ClientIP = plumbing.ClientIp
 	if v, err := convertTimestampToPorcelain(plumbing.CompletedAt); err != nil {
 		return nil, fmt.Errorf("error converting field CompletedAt: %v", err)
 	} else {
@@ -8682,6 +8683,7 @@ func convertQueryToPlumbing(porcelain *Query) *proto.Query {
 	plumbing.AccountLastName = (porcelain.AccountLastName)
 	plumbing.AccountTags = convertTagsToPlumbing(porcelain.AccountTags)
 	plumbing.Capture = convertQueryCaptureToPlumbing(porcelain.Capture)
+	plumbing.ClientIp = (porcelain.ClientIP)
 	plumbing.CompletedAt = convertTimestampToPlumbing(porcelain.CompletedAt)
 	plumbing.Duration = convertDurationToPlumbing(porcelain.Duration)
 	plumbing.EgressNodeId = (porcelain.EgressNodeID)

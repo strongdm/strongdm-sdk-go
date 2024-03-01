@@ -3191,6 +3191,8 @@ type Query struct {
 	// For queries against SSH, Kubernetes, and RDP resources, this contains additional information
 	// about the captured query.
 	Capture *QueryCapture `json:"capture"`
+	// The IP address the Query was performed from, as detected at the StrongDM control plane.
+	ClientIP string `json:"clientIp"`
 	// The time at which the Query was completed.
 	// Empty if this record indicates the start of a long-running query.
 	CompletedAt time.Time `json:"completedAt"`
