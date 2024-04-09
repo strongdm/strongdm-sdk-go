@@ -31,7 +31,7 @@ import (
 	"strings"
 	"time"
 
-	plumbing "github.com/strongdm/strongdm-sdk-go/v7/internal/v1"
+	plumbing "github.com/strongdm/strongdm-sdk-go/v8/internal/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
@@ -42,8 +42,8 @@ import (
 
 const (
 	defaultAPIHost   = "api.strongdm.com:443"
-	apiVersion       = "2024-03-14"
-	defaultUserAgent = "strongdm-sdk-go/7.1.0"
+	apiVersion       = "2024-03-28"
+	defaultUserAgent = "strongdm-sdk-go/8.0.0"
 	defaultPageLimit = 50
 )
 
@@ -494,6 +494,7 @@ func (c *Client) AccountResourcesHistory() *AccountResourcesHistory {
 // Accounts are users that have access to strongDM. There are two types of accounts:
 // 1. **Users:** humans who are authenticated through username and password or SSO.
 // 2. **Service Accounts:** machines that are authenticated using a service token.
+// 3. **Tokens** are access keys with permissions that can be used for authentication.
 func (c *Client) Accounts() *Accounts {
 	return c.accounts
 }
@@ -833,6 +834,7 @@ func (c *SnapshotClient) AccountResources() SnapshotAccountResources {
 // Accounts are users that have access to strongDM. There are two types of accounts:
 // 1. **Users:** humans who are authenticated through username and password or SSO.
 // 2. **Service Accounts:** machines that are authenticated using a service token.
+// 3. **Tokens** are access keys with permissions that can be used for authentication.
 func (c *SnapshotClient) Accounts() SnapshotAccounts {
 	return c.client.accounts
 }
