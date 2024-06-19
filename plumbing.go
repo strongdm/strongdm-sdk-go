@@ -9321,6 +9321,8 @@ func convertOrganizationToPorcelain(plumbing *proto.Organization) (*Organization
 	} else {
 		porcelain.CreatedAt = v
 	}
+	porcelain.DeviceTrustEnabled = plumbing.DeviceTrustEnabled
+	porcelain.DeviceTrustProvider = plumbing.DeviceTrustProvider
 	if v, err := convertDurationToPorcelain(plumbing.IdleTimeout); err != nil {
 		return nil, fmt.Errorf("error converting field IdleTimeout: %v", err)
 	} else {
@@ -9369,6 +9371,8 @@ func convertOrganizationToPlumbing(porcelain *Organization) *proto.Organization 
 	plumbing := &proto.Organization{}
 	plumbing.AuthProvider = (porcelain.AuthProvider)
 	plumbing.CreatedAt = convertTimestampToPlumbing(porcelain.CreatedAt)
+	plumbing.DeviceTrustEnabled = (porcelain.DeviceTrustEnabled)
+	plumbing.DeviceTrustProvider = (porcelain.DeviceTrustProvider)
 	plumbing.IdleTimeout = convertDurationToPlumbing(porcelain.IdleTimeout)
 	plumbing.IdleTimeoutEnabled = (porcelain.IdleTimeoutEnabled)
 	plumbing.Kind = (porcelain.Kind)
