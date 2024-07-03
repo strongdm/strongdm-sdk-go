@@ -3040,8 +3040,6 @@ type MongoReplicaSet struct {
 	Username string `json:"username"`
 }
 
-// MongoShardedCluster is currently unstable, and its API may change, or it may be removed,
-// without a major version bump.
 type MongoShardedCluster struct {
 	// The authentication database to use.
 	AuthDatabase string `json:"authDatabase"`
@@ -8482,6 +8480,60 @@ func (m *SSHCustomerKey) GetBindInterface() string {
 func (m *SSHCustomerKey) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+func (*SSHPassword) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the SSHPassword.
+func (m *SSHPassword) GetID() string { return m.ID }
+
+// GetName returns the name of the SSHPassword.
+func (m *SSHPassword) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the SSHPassword.
+func (m *SSHPassword) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the SSHPassword.
+func (m *SSHPassword) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the SSHPassword.
+func (m *SSHPassword) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the SSHPassword.
+func (m *SSHPassword) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the SSHPassword.
+func (m *SSHPassword) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+
+// GetEgressFilter returns the egress filter of the SSHPassword.
+func (m *SSHPassword) GetEgressFilter() string {
+	return m.EgressFilter
+}
+
+// SetEgressFilter sets the egress filter of the SSHPassword.
+func (m *SSHPassword) SetEgressFilter(v string) {
+	m.EgressFilter = v
+}
+
+// GetBindInterface returns the bind interface of the SSHPassword.
+func (m *SSHPassword) GetBindInterface() string {
+	return m.BindInterface
+}
+
+// SetBindInterface sets the bind interface of the SSHPassword.
+func (m *SSHPassword) SetBindInterface(v string) {
+	m.BindInterface = v
+}
 func (*Sybase) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the Sybase.
@@ -9082,6 +9134,41 @@ type SSHCustomerKey struct {
 	PortOverride int32 `json:"portOverride"`
 	// The private key used to authenticate with the server.
 	PrivateKey string `json:"privateKey"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
+	Subdomain string `json:"subdomain"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+	// The username to authenticate with.
+	Username string `json:"username"`
+}
+
+// SSHPassword is currently unstable, and its API may change, or it may be removed,
+// without a major version bump.
+type SSHPassword struct {
+	// Whether deprecated, insecure key exchanges are allowed for use to connect to the target ssh server.
+	AllowDeprecatedKeyExchanges bool `json:"allowDeprecatedKeyExchanges"`
+	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided.
+	BindInterface string `json:"bindInterface"`
+	// A filter applied to the routing logic to pin datasource to nodes.
+	EgressFilter string `json:"egressFilter"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// The host to dial to initiate a connection from the egress node to this resource.
+	Hostname string `json:"hostname"`
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// The password to authenticate with.
+	Password string `json:"password"`
+	// The port to dial to initiate a connection from the egress node to this resource.
+	Port int32 `json:"port"`
+	// Whether port forwarding is allowed through this server.
+	PortForwarding bool `json:"portForwarding"`
+	// The local port used by clients to connect to this resource.
+	PortOverride int32 `json:"portOverride"`
 	// ID of the secret store containing credentials for this resource, if any.
 	SecretStoreID string `json:"secretStoreId"`
 	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
