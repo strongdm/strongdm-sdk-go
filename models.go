@@ -3366,6 +3366,8 @@ type Organization struct {
 	LogSocketPath string `json:"logSocketPath"`
 	// The Organization's TCP address for TCP or Syslog local log storage.
 	LogTCPAddress string `json:"logTcpAddress"`
+	// The Organization's loopback range.
+	LoopbackRange string `json:"loopbackRange"`
 	// Indicates if the Organization has multi-factor authentication enabled.
 	MFAEnabled bool `json:"mfaEnabled"`
 	// The Organization's multi-factor authentication provider, one of the MFAProvider constants.

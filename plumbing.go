@@ -9336,6 +9336,7 @@ func convertOrganizationToPorcelain(plumbing *proto.Organization) (*Organization
 	porcelain.LogRemoteEncoder = plumbing.LogRemoteEncoder
 	porcelain.LogSocketPath = plumbing.LogSocketPath
 	porcelain.LogTCPAddress = plumbing.LogTcpAddress
+	porcelain.LoopbackRange = plumbing.LoopbackRange
 	porcelain.MFAEnabled = plumbing.MfaEnabled
 	porcelain.MFAProvider = plumbing.MfaProvider
 	porcelain.Name = plumbing.Name
@@ -9382,6 +9383,7 @@ func convertOrganizationToPlumbing(porcelain *Organization) *proto.Organization 
 	plumbing.LogRemoteEncoder = (porcelain.LogRemoteEncoder)
 	plumbing.LogSocketPath = (porcelain.LogSocketPath)
 	plumbing.LogTcpAddress = (porcelain.LogTCPAddress)
+	plumbing.LoopbackRange = (porcelain.LoopbackRange)
 	plumbing.MfaEnabled = (porcelain.MFAEnabled)
 	plumbing.MfaProvider = (porcelain.MFAProvider)
 	plumbing.Name = (porcelain.Name)
