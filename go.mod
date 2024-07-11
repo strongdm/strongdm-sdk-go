@@ -1,4 +1,4 @@
-module github.com/strongdm/strongdm-sdk-go/v9
+module github.com/strongdm/strongdm-sdk-go/v11
 
 go 1.15
 

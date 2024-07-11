@@ -2950,8 +2950,6 @@ type MongoLegacyHost struct {
 	Port int32 `json:"port"`
 	// The local port used by clients to connect to this resource.
 	PortOverride int32 `json:"portOverride"`
-	// The name of the mongo replicaset.
-	ReplicaSet string `json:"replicaSet"`
 	// ID of the secret store containing credentials for this resource, if any.
 	SecretStoreID string `json:"secretStoreId"`
 	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
