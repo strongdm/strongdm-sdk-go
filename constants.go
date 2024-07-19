@@ -453,4 +453,5 @@ const (
 	DeviceTrustProviderSentinelOne       = "sentinelone"
 	DeviceTrustProviderCrowdStrike       = "crowdstrike"
 	DeviceTrustProviderMicrosoftDefender = "microsoftdefender"
+	DeviceTrustProviderDuo               = "duo"
 )
