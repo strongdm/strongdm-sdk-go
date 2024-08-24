@@ -349,6 +349,8 @@ type AWSStore struct {
 type AccessRequest struct {
 	// The account that initiated the request.
 	AccountID string `json:"accountId"`
+	// Duration of the access request.
+	Duration int64 `json:"duration"`
 	// The account grant created, if it exists.
 	GrantID string `json:"grantId"`
 	// The access request id.

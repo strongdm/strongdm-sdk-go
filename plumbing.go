@@ -806,6 +806,7 @@ func convertAccessRequestToPorcelain(plumbing *proto.AccessRequest) (*AccessRequ
 	}
 	porcelain := &AccessRequest{}
 	porcelain.AccountID = plumbing.AccountId
+	porcelain.Duration = plumbing.Duration
 	porcelain.GrantID = plumbing.GrantId
 	porcelain.ID = plumbing.Id
 	porcelain.Reason = plumbing.Reason
@@ -836,6 +837,7 @@ func convertAccessRequestToPlumbing(porcelain *AccessRequest) *proto.AccessReque
 	}
 	plumbing := &proto.AccessRequest{}
 	plumbing.AccountId = (porcelain.AccountID)
+	plumbing.Duration = (porcelain.Duration)
 	plumbing.GrantId = (porcelain.GrantID)
 	plumbing.Id = (porcelain.ID)
 	plumbing.Reason = (porcelain.Reason)

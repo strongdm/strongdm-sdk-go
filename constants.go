@@ -86,6 +86,7 @@ const (
 	AuthProviderOneLoginSAML    = "onelogin-saml"
 	AuthProviderGenericSAML     = "generic-saml"
 	AuthProviderPingIDSAML      = "ping-identity-saml"
+	AuthProviderPingIDOIDC      = "ping-identity-oidc"
 )
 
 // Providers responsible for multi-factor authentication
