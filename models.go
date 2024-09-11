@@ -10379,6 +10379,9 @@ type User struct {
 	LastName string `json:"lastName"`
 	// Managed By is a read only field for what service manages this user, e.g. StrongDM, Okta, Azure.
 	ManagedBy string `json:"managedBy"`
+	// Password is a write-only field that can be used to set the user's password.
+	// Currently only supported for update.
+	Password string `json:"password"`
 	// PermissionLevel is the user's permission level e.g. admin, DBA, user.
 	PermissionLevel string `json:"permissionLevel"`
 	// Suspended is a read only field for the User's suspended state.
