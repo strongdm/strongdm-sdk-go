@@ -3438,6 +3438,8 @@ type Organization struct {
 	DeviceTrustEnabled bool `json:"deviceTrustEnabled"`
 	// The Organization's device trust provider, one of the DeviceTrustProvider constants.
 	DeviceTrustProvider string `json:"deviceTrustProvider"`
+	// Indicates if the Organization enforces a single session per user for the CLI and AdminUI.
+	EnforceSingleSession bool `json:"enforceSingleSession"`
 	// The Organization's idle timeout, if enabled.
 	IdleTimeout time.Duration `json:"idleTimeout"`
 	// Indicates if the Organization has idle timeouts enabled.

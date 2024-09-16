@@ -315,6 +315,7 @@ const (
 	ActivityVerbResourceLocked                                   = "user locked a resource"
 	ActivityVerbResourceUnlocked                                 = "user unlocked a resource"
 	ActivityVerbResourceForceUnlocked                            = "admin force-unlocked a resource"
+	ActivityVerbConcurrentAuthenticationRevokedPerOrgSetting     = "concurrent authentications revoked per organization settings"
 	ActivityVerbOrgIntegrationInstalled                          = "org integration installed"
 	ActivityVerbUserIntegrationAuthorized                        = "user authorized integration"
 	ActivityVerbOrgIntegrationUninstalled                        = "org integration uninstalled"
