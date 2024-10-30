@@ -7020,6 +7020,110 @@ func convertRepeatedHTTPNoAuthToPorcelain(plumbings []*proto.HTTPNoAuth) (
 	}
 	return items, nil
 }
+func convertHealthcheckToPorcelain(plumbing *proto.Healthcheck) (*Healthcheck, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &Healthcheck{}
+	porcelain.ErrorMsg = plumbing.ErrorMsg
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.ID = plumbing.Id
+	porcelain.NodeID = plumbing.NodeId
+	porcelain.NodeName = plumbing.NodeName
+	porcelain.ResourceID = plumbing.ResourceId
+	porcelain.ResourceName = plumbing.ResourceName
+	if v, err := convertTimestampToPorcelain(plumbing.Timestamp); err != nil {
+		return nil, fmt.Errorf("error converting field Timestamp: %v", err)
+	} else {
+		porcelain.Timestamp = v
+	}
+	return porcelain, nil
+}
+
+func convertHealthcheckToPlumbing(porcelain *Healthcheck) *proto.Healthcheck {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.Healthcheck{}
+	plumbing.ErrorMsg = (porcelain.ErrorMsg)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Id = (porcelain.ID)
+	plumbing.NodeId = (porcelain.NodeID)
+	plumbing.NodeName = (porcelain.NodeName)
+	plumbing.ResourceId = (porcelain.ResourceID)
+	plumbing.ResourceName = (porcelain.ResourceName)
+	plumbing.Timestamp = convertTimestampToPlumbing(porcelain.Timestamp)
+	return plumbing
+}
+func convertRepeatedHealthcheckToPlumbing(
+	porcelains []*Healthcheck,
+) []*proto.Healthcheck {
+	var items []*proto.Healthcheck
+	for _, porcelain := range porcelains {
+		items = append(items, convertHealthcheckToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedHealthcheckToPorcelain(plumbings []*proto.Healthcheck) (
+	[]*Healthcheck,
+	error,
+) {
+	var items []*Healthcheck
+	for _, plumbing := range plumbings {
+		if v, err := convertHealthcheckToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertHealthcheckListResponseToPorcelain(plumbing *proto.HealthcheckListResponse) (*HealthcheckListResponse, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &HealthcheckListResponse{}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbing.RateLimit); err != nil {
+		return nil, fmt.Errorf("error converting field RateLimit: %v", err)
+	} else {
+		porcelain.RateLimit = v
+	}
+	return porcelain, nil
+}
+
+func convertHealthcheckListResponseToPlumbing(porcelain *HealthcheckListResponse) *proto.HealthcheckListResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.HealthcheckListResponse{}
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	return plumbing
+}
+func convertRepeatedHealthcheckListResponseToPlumbing(
+	porcelains []*HealthcheckListResponse,
+) []*proto.HealthcheckListResponse {
+	var items []*proto.HealthcheckListResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertHealthcheckListResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedHealthcheckListResponseToPorcelain(plumbings []*proto.HealthcheckListResponse) (
+	[]*HealthcheckListResponse,
+	error,
+) {
+	var items []*HealthcheckListResponse
+	for _, plumbing := range plumbings {
+		if v, err := convertHealthcheckListResponseToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertIdentityAliasToPorcelain(plumbing *proto.IdentityAlias) (*IdentityAlias, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -19040,6 +19144,51 @@ func (a *approvalWorkflowHistoryIteratorImpl) Value() *ApprovalWorkflowHistory {
 
 func (a *approvalWorkflowHistoryIteratorImpl) Err() error {
 	return a.err
+}
+
+type healthcheckIteratorImplFetchFunc func() (
+	[]*Healthcheck,
+	bool, error)
+type healthcheckIteratorImpl struct {
+	buffer      []*Healthcheck
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       healthcheckIteratorImplFetchFunc
+}
+
+func newHealthcheckIteratorImpl(f healthcheckIteratorImplFetchFunc) *healthcheckIteratorImpl {
+	return &healthcheckIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (h *healthcheckIteratorImpl) Next() bool {
+	if h.index < len(h.buffer)-1 {
+		h.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !h.hasNextPage {
+		return false
+	}
+
+	h.index = 0
+	h.buffer, h.hasNextPage, h.err = h.fetch()
+	return len(h.buffer) > 0
+}
+
+func (h *healthcheckIteratorImpl) Value() *Healthcheck {
+	if h.index >= len(h.buffer) {
+		return nil
+	}
+	return h.buffer[h.index]
+}
+
+func (h *healthcheckIteratorImpl) Err() error {
+	return h.err
 }
 
 type identityAliasIteratorImplFetchFunc func() (

@@ -2518,6 +2518,33 @@ type HTTPNoAuth struct {
 	Url string `json:"url"`
 }
 
+// Healthcheck defines the status of the link between a node and a resource
+type Healthcheck struct {
+	// The error if unhealthy
+	ErrorMsg string `json:"errorMsg"`
+	// Whether the healthcheck succeeded.
+	Healthy bool `json:"healthy"`
+	// Unique identifier of the healthcheck.
+	ID string `json:"id"`
+	// Unique identifier of the healthcheck node.
+	NodeID string `json:"nodeId"`
+	// The name of the node.
+	NodeName string `json:"nodeName"`
+	// Unique identifier of the healthcheck resource.
+	ResourceID string `json:"resourceId"`
+	// The name of the resource.
+	ResourceName string `json:"resourceName"`
+	// The time at which the healthcheck state was recorded.
+	Timestamp time.Time `json:"timestamp"`
+}
+
+// HealthcheckListResponse returns a list of Healthchecks that meet the criteria of a
+// HealthcheckListRequest.
+type HealthcheckListResponse struct {
+	// Rate limit information.
+	RateLimit *RateLimitMetadata `json:"rateLimit"`
+}
+
 // IdentityAliases define the username to be used for a specific account
 // when connecting to a remote resource using that identity set.
 type IdentityAlias struct {
@@ -11453,6 +11480,23 @@ type ApprovalWorkflowHistoryIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() *ApprovalWorkflowHistory
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// HealthcheckIterator provides read access to a list of Healthcheck.
+// Use it like so:
+//
+//	for iterator.Next() {
+//	    healthcheck := iterator.Value()
+//	    // ...
+//	}
+type HealthcheckIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *Healthcheck
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }
