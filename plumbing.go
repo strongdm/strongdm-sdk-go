@@ -765,6 +765,77 @@ func convertRepeatedAWSConsoleStaticKeyPairToPorcelain(plumbings []*proto.AWSCon
 	}
 	return items, nil
 }
+func convertAWSInstanceProfileToPorcelain(plumbing *proto.AWSInstanceProfile) (*AWSInstanceProfile, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &AWSInstanceProfile{}
+	porcelain.BindInterface = plumbing.BindInterface
+	porcelain.EgressFilter = plumbing.EgressFilter
+	porcelain.EnableEnvVariables = plumbing.EnableEnvVariables
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.ProxyClusterID = plumbing.ProxyClusterId
+	porcelain.Region = plumbing.Region
+	porcelain.RoleArn = plumbing.RoleArn
+	porcelain.RoleExternalID = plumbing.RoleExternalId
+	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Subdomain = plumbing.Subdomain
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	return porcelain, nil
+}
+
+func convertAWSInstanceProfileToPlumbing(porcelain *AWSInstanceProfile) *proto.AWSInstanceProfile {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.AWSInstanceProfile{}
+	plumbing.BindInterface = (porcelain.BindInterface)
+	plumbing.EgressFilter = (porcelain.EgressFilter)
+	plumbing.EnableEnvVariables = (porcelain.EnableEnvVariables)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.ProxyClusterId = (porcelain.ProxyClusterID)
+	plumbing.Region = (porcelain.Region)
+	plumbing.RoleArn = (porcelain.RoleArn)
+	plumbing.RoleExternalId = (porcelain.RoleExternalID)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Subdomain = (porcelain.Subdomain)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedAWSInstanceProfileToPlumbing(
+	porcelains []*AWSInstanceProfile,
+) []*proto.AWSInstanceProfile {
+	var items []*proto.AWSInstanceProfile
+	for _, porcelain := range porcelains {
+		items = append(items, convertAWSInstanceProfileToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedAWSInstanceProfileToPorcelain(plumbings []*proto.AWSInstanceProfile) (
+	[]*AWSInstanceProfile,
+	error,
+) {
+	var items []*AWSInstanceProfile
+	for _, plumbing := range plumbings {
+		if v, err := convertAWSInstanceProfileToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertAWSStoreToPorcelain(plumbing *proto.AWSStore) (*AWSStore, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -13028,6 +13099,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_AwsConsole{AwsConsole: convertAWSConsoleToPlumbing(v)}
 	case *AWSConsoleStaticKeyPair:
 		plumbing.Resource = &proto.Resource_AwsConsoleStaticKeyPair{AwsConsoleStaticKeyPair: convertAWSConsoleStaticKeyPairToPlumbing(v)}
+	case *AWSInstanceProfile:
+		plumbing.Resource = &proto.Resource_AwsInstanceProfile{AwsInstanceProfile: convertAWSInstanceProfileToPlumbing(v)}
 	case *Azure:
 		plumbing.Resource = &proto.Resource_Azure{Azure: convertAzureToPlumbing(v)}
 	case *AzureCertificate:
@@ -13224,6 +13297,9 @@ func convertResourceToPorcelain(plumbing *proto.Resource) (Resource, error) {
 	}
 	if plumbing.GetAwsConsoleStaticKeyPair() != nil {
 		return convertAWSConsoleStaticKeyPairToPorcelain(plumbing.GetAwsConsoleStaticKeyPair())
+	}
+	if plumbing.GetAwsInstanceProfile() != nil {
+		return convertAWSInstanceProfileToPorcelain(plumbing.GetAwsInstanceProfile())
 	}
 	if plumbing.GetAzure() != nil {
 		return convertAzureToPorcelain(plumbing.GetAzure())
