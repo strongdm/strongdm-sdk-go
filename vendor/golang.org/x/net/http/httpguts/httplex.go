@@ -137,11 +137,13 @@ func trimOWS(x string) string {
 // contains token amongst its comma-separated tokens, ASCII
 // case-insensitively.
 func headerValueContainsToken(v string, token string) bool {
-	v = trimOWS(v)
-	if comma := strings.IndexByte(v, ','); comma != -1 {
-		return tokenEqual(trimOWS(v[:comma]), token) || headerValueContainsToken(v[comma+1:], token)
+	for comma := strings.IndexByte(v, ','); comma != -1; comma = strings.IndexByte(v, ',') {
+		if tokenEqual(trimOWS(v[:comma]), token) {
+			return true
+		}
+		v = v[comma+1:]
 	}
-	return tokenEqual(v, token)
+	return tokenEqual(trimOWS(v), token)
 }
 
 // lowerASCII returns the ASCII lowercase version of b.
@@ -189,12 +191,13 @@ func isCTL(b byte) bool {
 // HTTP/2 imposes the additional restriction that uppercase ASCII
 // letters are not allowed.
 //
-//	RFC 7230 says:
-//	 header-field   = field-name ":" OWS field-value OWS
-//	 field-name     = token
-//	 token          = 1*tchar
-//	 tchar = "!" / "#" / "$" / "%" / "&" / "'" / "*" / "+" / "-" / "." /
-//	         "^" / "_" / "`" / "|" / "~" / DIGIT / ALPHA
+// RFC 7230 says:
+//
+//	header-field   = field-name ":" OWS field-value OWS
+//	field-name     = token
+//	token          = 1*tchar
+//	tchar = "!" / "#" / "$" / "%" / "&" / "'" / "*" / "+" / "-" / "." /
+//	        "^" / "_" / "`" / "|" / "~" / DIGIT / ALPHA
 func ValidHeaderFieldName(v string) bool {
 	if len(v) == 0 {
 		return false
