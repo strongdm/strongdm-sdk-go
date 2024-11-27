@@ -276,6 +276,7 @@ const (
 	ActivityVerbAccessRequestToResourceGranted                   = "access request to resource granted"
 	ActivityVerbAccessRequestToResourceGrantedAutomatically      = "access request to resource granted automatically"
 	ActivityVerbAccessRequestToResourceApprovedViaServiceNow     = "access request to resource approved via ServiceNow"
+	ActivityVerbAccessRequestToResourceApprovedViaJira           = "access request to resource approved via Jira"
 	ActivityVerbWorkflowDeleted                                  = "workflow deleted"
 	ActivityVerbWorkflowAdded                                    = "workflow added"
 	ActivityVerbDeprecatedWorkflowResourceAssigned               = "resource assigned to workflow"
