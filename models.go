@@ -4311,6 +4311,8 @@ type RDPCert struct {
 	IdentityAliasHealthcheckUsername string `json:"identityAliasHealthcheckUsername"`
 	// The ID of the identity set to use for identity connections.
 	IdentitySetID string `json:"identitySetId"`
+	// When set, require a resource lock to access the resource to ensure it can only be used by one user at a time.
+	LockRequired bool `json:"lockRequired"`
 	// Unique human-readable name of the Resource.
 	Name string `json:"name"`
 	// The port to dial to initiate a connection from the egress node to this resource.

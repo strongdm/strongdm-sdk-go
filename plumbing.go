@@ -12038,6 +12038,7 @@ func convertRDPCertToPorcelain(plumbing *proto.RDPCert) (*RDPCert, error) {
 	porcelain.ID = plumbing.Id
 	porcelain.IdentityAliasHealthcheckUsername = plumbing.IdentityAliasHealthcheckUsername
 	porcelain.IdentitySetID = plumbing.IdentitySetId
+	porcelain.LockRequired = plumbing.LockRequired
 	porcelain.Name = plumbing.Name
 	porcelain.Port = plumbing.Port
 	porcelain.PortOverride = plumbing.PortOverride
@@ -12065,6 +12066,7 @@ func convertRDPCertToPlumbing(porcelain *RDPCert) *proto.RDPCert {
 	plumbing.Id = (porcelain.ID)
 	plumbing.IdentityAliasHealthcheckUsername = (porcelain.IdentityAliasHealthcheckUsername)
 	plumbing.IdentitySetId = (porcelain.IdentitySetID)
+	plumbing.LockRequired = (porcelain.LockRequired)
 	plumbing.Name = (porcelain.Name)
 	plumbing.Port = (porcelain.Port)
 	plumbing.PortOverride = (porcelain.PortOverride)
