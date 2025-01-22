@@ -6260,6 +6260,75 @@ func convertRepeatedDocumentDBHostToPorcelain(plumbings []*proto.DocumentDBHost)
 	}
 	return items, nil
 }
+func convertDocumentDBHostIAMToPorcelain(plumbing *proto.DocumentDBHostIAM) (*DocumentDBHostIAM, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &DocumentDBHostIAM{}
+	porcelain.BindInterface = plumbing.BindInterface
+	porcelain.EgressFilter = plumbing.EgressFilter
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Port = plumbing.Port
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.ProxyClusterID = plumbing.ProxyClusterId
+	porcelain.Region = plumbing.Region
+	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Subdomain = plumbing.Subdomain
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	return porcelain, nil
+}
+
+func convertDocumentDBHostIAMToPlumbing(porcelain *DocumentDBHostIAM) *proto.DocumentDBHostIAM {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.DocumentDBHostIAM{}
+	plumbing.BindInterface = (porcelain.BindInterface)
+	plumbing.EgressFilter = (porcelain.EgressFilter)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Port = (porcelain.Port)
+	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.ProxyClusterId = (porcelain.ProxyClusterID)
+	plumbing.Region = (porcelain.Region)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Subdomain = (porcelain.Subdomain)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedDocumentDBHostIAMToPlumbing(
+	porcelains []*DocumentDBHostIAM,
+) []*proto.DocumentDBHostIAM {
+	var items []*proto.DocumentDBHostIAM
+	for _, porcelain := range porcelains {
+		items = append(items, convertDocumentDBHostIAMToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedDocumentDBHostIAMToPorcelain(plumbings []*proto.DocumentDBHostIAM) (
+	[]*DocumentDBHostIAM,
+	error,
+) {
+	var items []*DocumentDBHostIAM
+	for _, plumbing := range plumbings {
+		if v, err := convertDocumentDBHostIAMToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertDocumentDBReplicaSetToPorcelain(plumbing *proto.DocumentDBReplicaSet) (*DocumentDBReplicaSet, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -13670,6 +13739,8 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_Db_2Luw{Db_2Luw: convertDB2LUWToPlumbing(v)}
 	case *DocumentDBHost:
 		plumbing.Resource = &proto.Resource_DocumentDbHost{DocumentDbHost: convertDocumentDBHostToPlumbing(v)}
+	case *DocumentDBHostIAM:
+		plumbing.Resource = &proto.Resource_DocumentDbHostIam{DocumentDbHostIam: convertDocumentDBHostIAMToPlumbing(v)}
 	case *DocumentDBReplicaSet:
 		plumbing.Resource = &proto.Resource_DocumentDbReplicaSet{DocumentDbReplicaSet: convertDocumentDBReplicaSetToPlumbing(v)}
 	case *Druid:
@@ -13902,6 +13973,9 @@ func convertResourceToPorcelain(plumbing *proto.Resource) (Resource, error) {
 	}
 	if plumbing.GetDocumentDbHost() != nil {
 		return convertDocumentDBHostToPorcelain(plumbing.GetDocumentDbHost())
+	}
+	if plumbing.GetDocumentDbHostIam() != nil {
+		return convertDocumentDBHostIAMToPorcelain(plumbing.GetDocumentDbHostIam())
 	}
 	if plumbing.GetDocumentDbReplicaSet() != nil {
 		return convertDocumentDBReplicaSetToPorcelain(plumbing.GetDocumentDbReplicaSet())

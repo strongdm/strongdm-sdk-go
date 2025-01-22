@@ -2206,6 +2206,35 @@ type DocumentDBHost struct {
 	Username string `json:"username"`
 }
 
+type DocumentDBHostIAM struct {
+	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided.
+	BindInterface string `json:"bindInterface"`
+	// A filter applied to the routing logic to pin datasource to nodes.
+	EgressFilter string `json:"egressFilter"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// The host to dial to initiate a connection from the egress node to this resource.
+	Hostname string `json:"hostname"`
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// The port to dial to initiate a connection from the egress node to this resource.
+	Port int32 `json:"port"`
+	// The local port used by clients to connect to this resource.
+	PortOverride int32 `json:"portOverride"`
+	// ID of the proxy cluster for this resource, if any.
+	ProxyClusterID string `json:"proxyClusterId"`
+	// The AWS region to connect to.
+	Region string `json:"region"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
+	Subdomain string `json:"subdomain"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+}
+
 type DocumentDBReplicaSet struct {
 	// The authentication database to use.
 	AuthDatabase string `json:"authDatabase"`
@@ -6929,6 +6958,60 @@ func (m *DocumentDBHost) GetBindInterface() string {
 
 // SetBindInterface sets the bind interface of the DocumentDBHost.
 func (m *DocumentDBHost) SetBindInterface(v string) {
+	m.BindInterface = v
+}
+func (*DocumentDBHostIAM) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the DocumentDBHostIAM.
+func (m *DocumentDBHostIAM) GetID() string { return m.ID }
+
+// GetName returns the name of the DocumentDBHostIAM.
+func (m *DocumentDBHostIAM) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the DocumentDBHostIAM.
+func (m *DocumentDBHostIAM) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the DocumentDBHostIAM.
+func (m *DocumentDBHostIAM) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the DocumentDBHostIAM.
+func (m *DocumentDBHostIAM) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the DocumentDBHostIAM.
+func (m *DocumentDBHostIAM) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the DocumentDBHostIAM.
+func (m *DocumentDBHostIAM) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+
+// GetEgressFilter returns the egress filter of the DocumentDBHostIAM.
+func (m *DocumentDBHostIAM) GetEgressFilter() string {
+	return m.EgressFilter
+}
+
+// SetEgressFilter sets the egress filter of the DocumentDBHostIAM.
+func (m *DocumentDBHostIAM) SetEgressFilter(v string) {
+	m.EgressFilter = v
+}
+
+// GetBindInterface returns the bind interface of the DocumentDBHostIAM.
+func (m *DocumentDBHostIAM) GetBindInterface() string {
+	return m.BindInterface
+}
+
+// SetBindInterface sets the bind interface of the DocumentDBHostIAM.
+func (m *DocumentDBHostIAM) SetBindInterface(v string) {
 	m.BindInterface = v
 }
 func (*DocumentDBReplicaSet) isOneOf_Resource() {}
