@@ -1,6 +1,6 @@
-module github.com/strongdm/strongdm-sdk-go/v12
+module github.com/strongdm/web/pkg/api/v1/generated/go
 
-go 1.15
+go 1.18
 
 require (
 	google.golang.org/grpc v1.33.1
