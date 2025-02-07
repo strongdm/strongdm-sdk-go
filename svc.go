@@ -20,7 +20,7 @@ package sdm
 import (
 	"context"
 
-	plumbing "github.com/strongdm/web/pkg/api/v1/generated/go/internal/v1"
+	plumbing "github.com/strongdm/strongdm-sdk-go/v12/internal/v1"
 )
 
 // AccessRequests are requests for access to a resource that may match a Workflow.
