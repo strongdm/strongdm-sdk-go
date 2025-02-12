@@ -47,6 +47,27 @@ type AccessRule struct {
 	// You can also use it in conjunction with the Type field to further narrow
 	// down the scope of Resources granted.
 	Tags Tags `json:"tags,omitempty"`
+
+	// Privileges specify different privilege levels one can utilize with a set
+	// of resources.
+	Privileges Privileges `json:"privileges,omitempty"`
+}
+
+// Privileges specify different privilege levels one can utilize with a
+// set of resources.
+type Privileges struct {
+	// K8s specifies a collection of privileges
+	// for any resource defined in an access rule that is of the
+	// kubernetes type.
+	K8s K8sPrivileges `json:"k8s,omitempty"`
+}
+
+// K8sPrivileges specifies different privilege level constructs
+// for kubernetes resources.
+type K8sPrivileges struct {
+	// Groups are the list of RBAC groups one will impersonate into
+	// when attempting a connection to a k8s cluster.
+	Groups []string `json:"groups,omitempty"`
 }
 
 // AccessRules define which Resources can be accessed by members of a Role.
@@ -58,6 +79,9 @@ func convertAccessRulesToPorcelain(rules string) (AccessRules, error) {
 	}
 	result := AccessRules{}
 	decoder := json.NewDecoder(strings.NewReader(rules))
+	// We want to disallow unknown fields because if we just drop them
+	// it could change the nature of an access rule if the client just
+	// sends it back to the server.
 	decoder.DisallowUnknownFields()
 	if err := decoder.Decode(&result); err != nil {
 		return nil, err
@@ -77,9 +101,47 @@ func convertAccessRulesToPlumbing(rules AccessRules) string {
 func ParseAccessRulesJSON(data string) (AccessRules, error) {
 	result := AccessRules{}
 	decoder := json.NewDecoder(strings.NewReader(data))
+	// We want to disallow unknown fields because if we just drop them
+	// it could change the nature of an access rule if the client just
+	// sends it back to the server.
 	decoder.DisallowUnknownFields()
 	if err := decoder.Decode(&result); err != nil {
 		return nil, err
+	}
+	return result, nil
+}
+
+func convertAccessRuleToPorcelain(rule string) (AccessRule, error) {
+	if rule == "" {
+		return AccessRule{}, nil
+	}
+	result := AccessRule{}
+	decoder := json.NewDecoder(strings.NewReader(rule))
+	// We want to disallow unknown fields because if we just drop them
+	// it could change the nature of an access rule if the client just
+	// sends it back to the server.
+	decoder.DisallowUnknownFields()
+	if err := decoder.Decode(&result); err != nil {
+		return AccessRule{}, err
+	}
+	return result, nil
+}
+
+func convertAccessRuleToPlumbing(rule AccessRule) string {
+	result, _ := json.Marshal(rule)
+	return string(result)
+}
+
+// ParseAccessRuleJSON parses the given access rule JSON string.
+func ParseAccessRuleJSON(data string) (AccessRule, error) {
+	result := AccessRule{}
+	decoder := json.NewDecoder(strings.NewReader(data))
+	// We want to disallow unknown fields because if we just drop them
+	// it could change the nature of an access rule if the client just
+	// sends it back to the server.
+	decoder.DisallowUnknownFields()
+	if err := decoder.Decode(&result); err != nil {
+		return AccessRule{}, err
 	}
 	return result, nil
 }
