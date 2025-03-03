@@ -20,7 +20,7 @@ package sdm
 import (
 	"encoding/json"
 	"fmt"
-	proto "github.com/strongdm/strongdm-sdk-go/v12/internal/v1"
+	proto "github.com/strongdm/strongdm-sdk-go/v13/internal/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/durationpb"

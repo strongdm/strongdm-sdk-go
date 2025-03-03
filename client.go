@@ -31,7 +31,7 @@ import (
 	"strings"
 	"time"
 
-	plumbing "github.com/strongdm/strongdm-sdk-go/v12/internal/v1"
+	plumbing "github.com/strongdm/strongdm-sdk-go/v13/internal/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
@@ -43,7 +43,7 @@ import (
 const (
 	defaultAPIHost   = "api.strongdm.com:443"
 	apiVersion       = "2024-03-28"
-	defaultUserAgent = "strongdm-sdk-go/12.10.0"
+	defaultUserAgent = "strongdm-sdk-go/13.0.0"
 	defaultPageLimit = 50
 )
 
