@@ -2584,6 +2584,410 @@ func (svc *IdentitySetsHistory) List(
 	), nil
 }
 
+// ManagedSecret is a private vertical for creating, reading, updating,
+// deleting, listing and rotating the managed secrets in the secrets engines as
+// an authenticated user.
+type ManagedSecrets struct {
+	client plumbing.ManagedSecretsClient
+	parent *Client
+}
+
+// List returns Managed Secrets from a Secret Engine.
+func (svc *ManagedSecrets) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	ManagedSecretIterator,
+	error) {
+	req := plumbing.ManagedSecretListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
+	return newManagedSecretIteratorImpl(
+		func() (
+			[]*ManagedSecret,
+			bool, error) {
+			plumbingResponse, err := retryWrapper(
+				svc.parent.retryOptions,
+				&req.Meta.Fulfillments,
+				func() (*plumbing.ManagedSecretListResponse, error) {
+					return svc.client.List(svc.parent.wrapContext(ctx, &req, "ManagedSecrets.List"), &req)
+				},
+			)
+			if err != nil {
+				return nil, false, convertErrorToPorcelain(err)
+			}
+			result, err := convertRepeatedManagedSecretToPorcelain(plumbingResponse.ManagedSecrets)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// List returns Managed Secrets for an Actor from a Secret Engine.
+func (svc *ManagedSecrets) ListByActor(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	ManagedSecretIterator,
+	error) {
+	req := plumbing.ManagedSecretListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
+	return newManagedSecretIteratorImpl(
+		func() (
+			[]*ManagedSecret,
+			bool, error) {
+			plumbingResponse, err := retryWrapper(
+				svc.parent.retryOptions,
+				&req.Meta.Fulfillments,
+				func() (*plumbing.ManagedSecretListResponse, error) {
+					return svc.client.ListByActor(svc.parent.wrapContext(ctx, &req, "ManagedSecrets.ListByActor"), &req)
+				},
+			)
+			if err != nil {
+				return nil, false, convertErrorToPorcelain(err)
+			}
+			result, err := convertRepeatedManagedSecretToPorcelain(plumbingResponse.ManagedSecrets)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// Create creates a Managed Secret
+func (svc *ManagedSecrets) Create(
+	ctx context.Context,
+	managedSecret *ManagedSecret) (
+	*ManagedSecretCreateResponse,
+	error) {
+	req := plumbing.ManagedSecretCreateRequest{}
+
+	req.ManagedSecret = convertManagedSecretToPlumbing(managedSecret)
+	req.Meta = &plumbing.CreateRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.ManagedSecretCreateResponse, error) {
+			return svc.client.Create(svc.parent.wrapContext(ctx, &req, "ManagedSecrets.Create"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &ManagedSecretCreateResponse{}
+	if v, err := convertManagedSecretToPorcelain(plumbingResponse.ManagedSecret); err != nil {
+		return nil, err
+	} else {
+		resp.ManagedSecret = v
+	}
+	if v, err := convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
+}
+
+// Update updates a Managed Secret
+func (svc *ManagedSecrets) Update(
+	ctx context.Context,
+	managedSecret *ManagedSecret) (
+	*ManagedSecretUpdateResponse,
+	error) {
+	req := plumbing.ManagedSecretUpdateRequest{}
+
+	req.ManagedSecret = convertManagedSecretToPlumbing(managedSecret)
+	req.Meta = &plumbing.UpdateRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.ManagedSecretUpdateResponse, error) {
+			return svc.client.Update(svc.parent.wrapContext(ctx, &req, "ManagedSecrets.Update"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &ManagedSecretUpdateResponse{}
+	if v, err := convertManagedSecretToPorcelain(plumbingResponse.ManagedSecret); err != nil {
+		return nil, err
+	} else {
+		resp.ManagedSecret = v
+	}
+	if v, err := convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
+}
+
+// Rotate forces rotation of Managed Secret
+func (svc *ManagedSecrets) Rotate(
+	ctx context.Context,
+	id string) (
+	*ManagedSecretRotateResponse,
+	error) {
+	req := plumbing.ManagedSecretRotateRequest{}
+
+	req.Id = (id)
+	req.Meta = &plumbing.GenericRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.ManagedSecretRotateResponse, error) {
+			return svc.client.Rotate(svc.parent.wrapContext(ctx, &req, "ManagedSecrets.Rotate"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &ManagedSecretRotateResponse{}
+	if v, err := convertGenericResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
+}
+
+// Delete deletes a Managed Secret
+func (svc *ManagedSecrets) Delete(
+	ctx context.Context,
+	id string) (
+	*ManagedSecretDeleteResponse,
+	error) {
+	req := plumbing.ManagedSecretDeleteRequest{}
+
+	req.Id = (id)
+	req.Meta = &plumbing.UpdateRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.ManagedSecretDeleteResponse, error) {
+			return svc.client.Delete(svc.parent.wrapContext(ctx, &req, "ManagedSecrets.Delete"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &ManagedSecretDeleteResponse{}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
+}
+
+// Get gets details of a Managed Secret without sensitive data
+func (svc *ManagedSecrets) Get(
+	ctx context.Context,
+	id string) (
+	*ManagedSecretGetResponse,
+	error) {
+	req := plumbing.ManagedSecretGetRequest{}
+
+	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.ManagedSecretGetResponse, error) {
+			return svc.client.Get(svc.parent.wrapContext(ctx, &req, "ManagedSecrets.Get"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &ManagedSecretGetResponse{}
+	if v, err := convertManagedSecretToPorcelain(plumbingResponse.ManagedSecret); err != nil {
+		return nil, err
+	} else {
+		resp.ManagedSecret = v
+	}
+	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
+}
+
+// Retrieve returns Managed Secret with sensitive data
+func (svc *ManagedSecrets) Retrieve(
+	ctx context.Context,
+	id string,
+	publicKey []byte) (
+	*ManagedSecretRetrieveResponse,
+	error) {
+	req := plumbing.ManagedSecretRetrieveRequest{}
+
+	req.Id = (id)
+	req.PublicKey = (publicKey)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.ManagedSecretRetrieveResponse, error) {
+			return svc.client.Retrieve(svc.parent.wrapContext(ctx, &req, "ManagedSecrets.Retrieve"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &ManagedSecretRetrieveResponse{}
+	if v, err := convertManagedSecretToPorcelain(plumbingResponse.ManagedSecret); err != nil {
+		return nil, err
+	} else {
+		resp.ManagedSecret = v
+	}
+	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
+}
+
+// Validate returns the result of testing the stored credential against the
+// secret engine.
+func (svc *ManagedSecrets) Validate(
+	ctx context.Context,
+	id string) (
+	*ManagedSecretValidateResponse,
+	error) {
+	req := plumbing.ManagedSecretValidateRequest{}
+
+	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.ManagedSecretValidateResponse, error) {
+			return svc.client.Validate(svc.parent.wrapContext(ctx, &req, "ManagedSecrets.Validate"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &ManagedSecretValidateResponse{}
+	resp.InvalidInfo = (plumbingResponse.InvalidInfo)
+	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	resp.ValID = (plumbingResponse.Valid)
+	return resp, nil
+}
+
+// Logs returns the audit records for the managed secret. This may be replaced
+// in the future.
+func (svc *ManagedSecrets) Logs(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	ManagedSecretLogIterator,
+	error) {
+	req := plumbing.ManagedSecretLogsRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
+	return newManagedSecretLogIteratorImpl(
+		func() (
+			[]*ManagedSecretLog,
+			bool, error) {
+			plumbingResponse, err := retryWrapper(
+				svc.parent.retryOptions,
+				&req.Meta.Fulfillments,
+				func() (*plumbing.ManagedSecretLogsResponse, error) {
+					return svc.client.Logs(svc.parent.wrapContext(ctx, &req, "ManagedSecrets.Logs"), &req)
+				},
+			)
+			if err != nil {
+				return nil, false, convertErrorToPorcelain(err)
+			}
+			result, err := convertRepeatedManagedSecretLogToPorcelain(plumbingResponse.ManagedSecretLogs)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
 // Nodes make up the strongDM network, and allow your users to connect securely to your resources. There are two types of nodes:
 // - **Gateways** are the entry points into network. They listen for connection from the strongDM client, and provide access to databases and servers.
 // - **Relays** are used to extend the strongDM network into segmented subnets. They provide access to databases and servers but do not listen for incoming connections.
@@ -5484,6 +5888,346 @@ func (svc *SecretStores) List(
 			return result, req.Meta.Cursor != "", nil
 		},
 	), nil
+}
+
+type SecretEngines struct {
+	client plumbing.SecretEnginesClient
+	parent *Client
+}
+
+// List returns a list of Secret Engines
+func (svc *SecretEngines) List(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	SecretEngineIterator,
+	error) {
+	req := plumbing.SecretEngineListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
+	return newSecretEngineIteratorImpl(
+		func() (
+			[]SecretEngine,
+			bool, error) {
+			plumbingResponse, err := retryWrapper(
+				svc.parent.retryOptions,
+				&req.Meta.Fulfillments,
+				func() (*plumbing.SecretEngineListResponse, error) {
+					return svc.client.List(svc.parent.wrapContext(ctx, &req, "SecretEngines.List"), &req)
+				},
+			)
+			if err != nil {
+				return nil, false, convertErrorToPorcelain(err)
+			}
+			result, err := convertRepeatedSecretEngineToPorcelain(plumbingResponse.SecretEngines)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// Get returns a secret engine details
+func (svc *SecretEngines) Get(
+	ctx context.Context,
+	id string) (
+	*SecretEngineGetResponse,
+	error) {
+	req := plumbing.SecretEngineGetRequest{}
+
+	req.Id = (id)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.SecretEngineGetResponse, error) {
+			return svc.client.Get(svc.parent.wrapContext(ctx, &req, "SecretEngines.Get"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &SecretEngineGetResponse{}
+	if v, err := convertGetResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	if v, err := convertSecretEngineToPorcelain(plumbingResponse.SecretEngine); err != nil {
+		return nil, err
+	} else {
+		resp.SecretEngine = v
+	}
+	return resp, nil
+}
+
+// Create creates a secret engine
+func (svc *SecretEngines) Create(
+	ctx context.Context,
+	secretEngine SecretEngine) (
+	*SecretEngineCreateResponse,
+	error) {
+	req := plumbing.SecretEngineCreateRequest{}
+
+	req.SecretEngine = convertSecretEngineToPlumbing(secretEngine)
+	req.Meta = &plumbing.CreateRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.SecretEngineCreateResponse, error) {
+			return svc.client.Create(svc.parent.wrapContext(ctx, &req, "SecretEngines.Create"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &SecretEngineCreateResponse{}
+	if v, err := convertCreateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	if v, err := convertSecretEngineToPorcelain(plumbingResponse.SecretEngine); err != nil {
+		return nil, err
+	} else {
+		resp.SecretEngine = v
+	}
+	return resp, nil
+}
+
+// Update updates a secret engine
+func (svc *SecretEngines) Update(
+	ctx context.Context,
+	secretEngine SecretEngine) (
+	*SecretEngineUpdateResponse,
+	error) {
+	req := plumbing.SecretEngineUpdateRequest{}
+
+	req.SecretEngine = convertSecretEngineToPlumbing(secretEngine)
+	req.Meta = &plumbing.UpdateRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.SecretEngineUpdateResponse, error) {
+			return svc.client.Update(svc.parent.wrapContext(ctx, &req, "SecretEngines.Update"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &SecretEngineUpdateResponse{}
+	if v, err := convertUpdateResponseMetadataToPorcelain(plumbingResponse.Meta); err != nil {
+		return nil, err
+	} else {
+		resp.Meta = v
+	}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	if v, err := convertSecretEngineToPorcelain(plumbingResponse.SecretEngine); err != nil {
+		return nil, err
+	} else {
+		resp.SecretEngine = v
+	}
+	return resp, nil
+}
+
+// Delete deletes a secret engine
+func (svc *SecretEngines) Delete(
+	ctx context.Context,
+	id string) (
+	*SecretEngineDeleteResponse,
+	error) {
+	req := plumbing.SecretEngineDeleteRequest{}
+
+	req.Id = (id)
+	req.Meta = &plumbing.UpdateRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.SecretEngineDeleteResponse, error) {
+			return svc.client.Delete(svc.parent.wrapContext(ctx, &req, "SecretEngines.Delete"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &SecretEngineDeleteResponse{}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
+}
+
+// ListSecretStores returns a list of Secret Stores that can be used as a backing store
+// for Secret Engine
+func (svc *SecretEngines) ListSecretStores(
+	ctx context.Context,
+	filter string,
+	args ...interface{}) (
+	SecretStoreIterator,
+	error) {
+	req := plumbing.SecretStoreListRequest{}
+
+	var filterErr error
+	req.Filter, filterErr = quoteFilterArgs(filter, args...)
+	if filterErr != nil {
+		return nil, filterErr
+	}
+	req.Meta = &plumbing.ListRequestMetadata{}
+	if svc.parent.pageLimit > 0 {
+		req.Meta.Limit = int32(svc.parent.pageLimit)
+	}
+	req.Meta.SnapshotAt = convertTimestampToPlumbing(svc.parent.snapshotAt)
+	return newSecretStoreIteratorImpl(
+		func() (
+			[]SecretStore,
+			bool, error) {
+			plumbingResponse, err := retryWrapper(
+				svc.parent.retryOptions,
+				&req.Meta.Fulfillments,
+				func() (*plumbing.SecretStoreListResponse, error) {
+					return svc.client.ListSecretStores(svc.parent.wrapContext(ctx, &req, "SecretEngines.ListSecretStores"), &req)
+				},
+			)
+			if err != nil {
+				return nil, false, convertErrorToPorcelain(err)
+			}
+			result, err := convertRepeatedSecretStoreToPorcelain(plumbingResponse.SecretStores)
+			if err != nil {
+				return nil, false, err
+			}
+			req.Meta.Cursor = plumbingResponse.Meta.NextCursor
+			return result, req.Meta.Cursor != "", nil
+		},
+	), nil
+}
+
+// GenerateKeys generates a private key, stores it in a secret store and stores a public key in a secret engine
+func (svc *SecretEngines) GenerateKeys(
+	ctx context.Context,
+	secretEngineId string) (
+	*GenerateKeysResponse,
+	error) {
+	req := plumbing.GenerateKeysRequest{}
+
+	req.SecretEngineId = (secretEngineId)
+	req.Meta = &plumbing.UpdateRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.GenerateKeysResponse, error) {
+			return svc.client.GenerateKeys(svc.parent.wrapContext(ctx, &req, "SecretEngines.GenerateKeys"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &GenerateKeysResponse{}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
+}
+
+// Healthcheck triggers a healthcheck for all nodes serving a secret engine
+func (svc *SecretEngines) Healthcheck(
+	ctx context.Context,
+	secretEngineId string) (
+	*HealthcheckResponse,
+	error) {
+	req := plumbing.HealthcheckRequest{}
+
+	req.SecretEngineId = (secretEngineId)
+	req.Meta = &plumbing.GetRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.HealthcheckResponse, error) {
+			return svc.client.Healthcheck(svc.parent.wrapContext(ctx, &req, "SecretEngines.Healthcheck"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &HealthcheckResponse{}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	if v, err := convertRepeatedHealthcheckStatusToPorcelain(plumbingResponse.Status); err != nil {
+		return nil, err
+	} else {
+		resp.Status = v
+	}
+	return resp, nil
+}
+
+// Rotate rotates secret engine's credentials
+func (svc *SecretEngines) Rotate(
+	ctx context.Context,
+	id string,
+	passwordPolicy *SecretEnginePasswordPolicy) (
+	*SecretEngineRotateResponse,
+	error) {
+	req := plumbing.SecretEngineRotateRequest{}
+
+	req.Id = (id)
+	req.PasswordPolicy = convertSecretEnginePasswordPolicyToPlumbing(passwordPolicy)
+	req.Meta = &plumbing.UpdateRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.SecretEngineRotateResponse, error) {
+			return svc.client.Rotate(svc.parent.wrapContext(ctx, &req, "SecretEngines.Rotate"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &SecretEngineRotateResponse{}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
 }
 
 // SecretStoreHealths exposes health states for secret stores.
