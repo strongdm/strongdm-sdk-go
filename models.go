@@ -1221,11 +1221,31 @@ type AmazonMQAMQP091 struct {
 	Username string `json:"username"`
 }
 
+// An approver for an approval workflow step. Specifies either an account_id or an role_id (not both)
+type ApprovalFlowApprover struct {
+	// The approver account id.
+	AccountID string `json:"accountId"`
+	// The approver role id
+	RoleID string `json:"roleId"`
+}
+
+// An approval step for an approval workflow. Specifies approvers and conditions for approval to be granted.
+type ApprovalFlowStep struct {
+	// The approvers for this approval step
+	Approvers []*ApprovalFlowApprover `json:"approvers"`
+	// Whether "any" or "all" approvers must approve for this approval step to pass. Optional, defaults to "any".
+	Quantifier string `json:"quantifier"`
+	// Duration after which this approval step will be skipped if no approval is given. Optional, if not provided an approver must approve before the step passes.
+	SkipAfter time.Duration `json:"skipAfter"`
+}
+
 // ApprovalWorkflows are the mechanism by which requests for access can be viewed by authorized
 // approvers and be approved or denied.
 type ApprovalWorkflow struct {
 	// Approval mode of the ApprovalWorkflow
 	ApprovalMode string `json:"approvalMode"`
+	// The approval steps of this approval workflow
+	ApprovalWorkflowSteps []*ApprovalFlowStep `json:"approvalWorkflowSteps"`
 	// Optional description of the ApprovalWorkflow.
 	Description string `json:"description"`
 	// Unique identifier of the ApprovalWorkflow.
@@ -1350,6 +1370,12 @@ type ApprovalWorkflowStep struct {
 	ApprovalFlowID string `json:"approvalFlowId"`
 	// Unique identifier of the ApprovalWorkflowStep.
 	ID string `json:"id"`
+	// Whether "any" or "all" approvers must approve for this approval step to pass. Read only field for history commands.
+	Quantifier string `json:"quantifier"`
+	// Duration after which this approval step will be skipped if no approval is given. Read only field for history commands.
+	SkipAfter time.Duration `json:"skipAfter"`
+	// The position of the approval step in a sequence of approval steps for an approval workflow. Read only field for history commands.
+	StepOrder int32 `json:"stepOrder"`
 }
 
 // ApprovalWorkflowStepCreateResponse reports how the ApprovalWorkflowStep was created in the system.

@@ -20,7 +20,7 @@ package sdm
 import (
 	"encoding/json"
 	"fmt"
-	proto "github.com/strongdm/strongdm-sdk-go/v13/internal/v1"
+	proto "github.com/strongdm/strongdm-sdk-go/v14/internal/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/durationpb"
@@ -3282,12 +3282,113 @@ func convertRepeatedAmazonMQAMQP091ToPorcelain(plumbings []*proto.AmazonMQAMQP09
 	}
 	return items, nil
 }
+func convertApprovalFlowApproverToPorcelain(plumbing *proto.ApprovalFlowApprover) (*ApprovalFlowApprover, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &ApprovalFlowApprover{}
+	porcelain.AccountID = plumbing.AccountId
+	porcelain.RoleID = plumbing.RoleId
+	return porcelain, nil
+}
+
+func convertApprovalFlowApproverToPlumbing(porcelain *ApprovalFlowApprover) *proto.ApprovalFlowApprover {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ApprovalFlowApprover{}
+	plumbing.AccountId = (porcelain.AccountID)
+	plumbing.RoleId = (porcelain.RoleID)
+	return plumbing
+}
+func convertRepeatedApprovalFlowApproverToPlumbing(
+	porcelains []*ApprovalFlowApprover,
+) []*proto.ApprovalFlowApprover {
+	var items []*proto.ApprovalFlowApprover
+	for _, porcelain := range porcelains {
+		items = append(items, convertApprovalFlowApproverToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedApprovalFlowApproverToPorcelain(plumbings []*proto.ApprovalFlowApprover) (
+	[]*ApprovalFlowApprover,
+	error,
+) {
+	var items []*ApprovalFlowApprover
+	for _, plumbing := range plumbings {
+		if v, err := convertApprovalFlowApproverToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertApprovalFlowStepToPorcelain(plumbing *proto.ApprovalFlowStep) (*ApprovalFlowStep, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &ApprovalFlowStep{}
+	if v, err := convertRepeatedApprovalFlowApproverToPorcelain(plumbing.Approvers); err != nil {
+		return nil, fmt.Errorf("error converting field Approvers: %v", err)
+	} else {
+		porcelain.Approvers = v
+	}
+	porcelain.Quantifier = plumbing.Quantifier
+	if v, err := convertDurationToPorcelain(plumbing.SkipAfter); err != nil {
+		return nil, fmt.Errorf("error converting field SkipAfter: %v", err)
+	} else {
+		porcelain.SkipAfter = v
+	}
+	return porcelain, nil
+}
+
+func convertApprovalFlowStepToPlumbing(porcelain *ApprovalFlowStep) *proto.ApprovalFlowStep {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ApprovalFlowStep{}
+	plumbing.Approvers = convertRepeatedApprovalFlowApproverToPlumbing(porcelain.Approvers)
+	plumbing.Quantifier = (porcelain.Quantifier)
+	plumbing.SkipAfter = convertDurationToPlumbing(porcelain.SkipAfter)
+	return plumbing
+}
+func convertRepeatedApprovalFlowStepToPlumbing(
+	porcelains []*ApprovalFlowStep,
+) []*proto.ApprovalFlowStep {
+	var items []*proto.ApprovalFlowStep
+	for _, porcelain := range porcelains {
+		items = append(items, convertApprovalFlowStepToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedApprovalFlowStepToPorcelain(plumbings []*proto.ApprovalFlowStep) (
+	[]*ApprovalFlowStep,
+	error,
+) {
+	var items []*ApprovalFlowStep
+	for _, plumbing := range plumbings {
+		if v, err := convertApprovalFlowStepToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertApprovalWorkflowToPorcelain(plumbing *proto.ApprovalWorkflow) (*ApprovalWorkflow, error) {
 	if plumbing == nil {
 		return nil, nil
 	}
 	porcelain := &ApprovalWorkflow{}
 	porcelain.ApprovalMode = plumbing.ApprovalMode
+	if v, err := convertRepeatedApprovalFlowStepToPorcelain(plumbing.ApprovalWorkflowSteps); err != nil {
+		return nil, fmt.Errorf("error converting field ApprovalWorkflowSteps: %v", err)
+	} else {
+		porcelain.ApprovalWorkflowSteps = v
+	}
 	porcelain.Description = plumbing.Description
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
@@ -3300,6 +3401,7 @@ func convertApprovalWorkflowToPlumbing(porcelain *ApprovalWorkflow) *proto.Appro
 	}
 	plumbing := &proto.ApprovalWorkflow{}
 	plumbing.ApprovalMode = (porcelain.ApprovalMode)
+	plumbing.ApprovalWorkflowSteps = convertRepeatedApprovalFlowStepToPlumbing(porcelain.ApprovalWorkflowSteps)
 	plumbing.Description = (porcelain.Description)
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
@@ -3903,6 +4005,13 @@ func convertApprovalWorkflowStepToPorcelain(plumbing *proto.ApprovalWorkflowStep
 	porcelain := &ApprovalWorkflowStep{}
 	porcelain.ApprovalFlowID = plumbing.ApprovalFlowId
 	porcelain.ID = plumbing.Id
+	porcelain.Quantifier = plumbing.Quantifier
+	if v, err := convertDurationToPorcelain(plumbing.SkipAfter); err != nil {
+		return nil, fmt.Errorf("error converting field SkipAfter: %v", err)
+	} else {
+		porcelain.SkipAfter = v
+	}
+	porcelain.StepOrder = plumbing.StepOrder
 	return porcelain, nil
 }
 
@@ -3913,6 +4022,9 @@ func convertApprovalWorkflowStepToPlumbing(porcelain *ApprovalWorkflowStep) *pro
 	plumbing := &proto.ApprovalWorkflowStep{}
 	plumbing.ApprovalFlowId = (porcelain.ApprovalFlowID)
 	plumbing.Id = (porcelain.ID)
+	plumbing.Quantifier = (porcelain.Quantifier)
+	plumbing.SkipAfter = convertDurationToPlumbing(porcelain.SkipAfter)
+	plumbing.StepOrder = (porcelain.StepOrder)
 	return plumbing
 }
 func convertRepeatedApprovalWorkflowStepToPlumbing(

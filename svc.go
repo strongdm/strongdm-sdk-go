@@ -20,7 +20,7 @@ package sdm
 import (
 	"context"
 
-	plumbing "github.com/strongdm/strongdm-sdk-go/v13/internal/v1"
+	plumbing "github.com/strongdm/strongdm-sdk-go/v14/internal/v1"
 )
 
 // AccessRequests are requests for access to a resource that may match a Workflow.
@@ -1205,7 +1205,7 @@ type SnapshotApprovalWorkflowApprovers interface {
 		error)
 }
 
-// Create creates a new approval workflow approver.
+// Deprecated: Create creates a new approval workflow approver.
 func (svc *ApprovalWorkflowApprovers) Create(
 	ctx context.Context,
 	approvalWorkflowApprover *ApprovalWorkflowApprover) (
@@ -1240,7 +1240,7 @@ func (svc *ApprovalWorkflowApprovers) Create(
 	return resp, nil
 }
 
-// Get reads one approval workflow approver by ID.
+// Deprecated: Get reads one approval workflow approver by ID.
 func (svc *ApprovalWorkflowApprovers) Get(
 	ctx context.Context,
 	id string) (
@@ -1281,7 +1281,7 @@ func (svc *ApprovalWorkflowApprovers) Get(
 	return resp, nil
 }
 
-// Delete deletes an existing approval workflow approver.
+// Deprecated: Delete deletes an existing approval workflow approver.
 func (svc *ApprovalWorkflowApprovers) Delete(
 	ctx context.Context,
 	id string) (
@@ -1312,7 +1312,7 @@ func (svc *ApprovalWorkflowApprovers) Delete(
 	return resp, nil
 }
 
-// Lists existing approval workflow approvers.
+// Deprecated: Lists existing approval workflow approvers.
 func (svc *ApprovalWorkflowApprovers) List(
 	ctx context.Context,
 	filter string,
@@ -1426,7 +1426,7 @@ type SnapshotApprovalWorkflowSteps interface {
 		error)
 }
 
-// Create creates a new approval workflow step.
+// Deprecated: Create creates a new approval workflow step.
 func (svc *ApprovalWorkflowSteps) Create(
 	ctx context.Context,
 	approvalWorkflowStep *ApprovalWorkflowStep) (
@@ -1461,7 +1461,7 @@ func (svc *ApprovalWorkflowSteps) Create(
 	return resp, nil
 }
 
-// Get reads one approval workflow step by ID.
+// Deprecated: Get reads one approval workflow step by ID.
 func (svc *ApprovalWorkflowSteps) Get(
 	ctx context.Context,
 	id string) (
@@ -1502,7 +1502,7 @@ func (svc *ApprovalWorkflowSteps) Get(
 	return resp, nil
 }
 
-// Delete deletes an existing approval workflow step.
+// Deprecated: Delete deletes an existing approval workflow step.
 func (svc *ApprovalWorkflowSteps) Delete(
 	ctx context.Context,
 	id string) (
@@ -1533,7 +1533,7 @@ func (svc *ApprovalWorkflowSteps) Delete(
 	return resp, nil
 }
 
-// Lists existing approval workflow steps.
+// Deprecated: Lists existing approval workflow steps.
 func (svc *ApprovalWorkflowSteps) List(
 	ctx context.Context,
 	filter string,

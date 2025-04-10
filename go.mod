@@ -1,8 +1,8 @@
-module github.com/strongdm/strongdm-sdk-go/v13
+module github.com/strongdm/strongdm-sdk-go/v14
 
 go 1.18
 
-retract v13.0.0 // Missing go.mod and go.sum files
+retract v14.0.0 // Missing go.mod and go.sum files
 
 require (
 	google.golang.org/grpc v1.33.1
