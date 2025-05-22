@@ -14292,6 +14292,7 @@ func convertQueryToPorcelain(plumbing *proto.Query) (*Query, error) {
 	porcelain.Encrypted = plumbing.Encrypted
 	porcelain.ID = plumbing.Id
 	porcelain.IdentityAliasUsername = plumbing.IdentityAliasUsername
+	porcelain.MetadataJSON = plumbing.MetadataJson
 	porcelain.QueryBody = plumbing.QueryBody
 	porcelain.QueryCategory = plumbing.QueryCategory
 	porcelain.QueryHash = plumbing.QueryHash
@@ -14336,6 +14337,7 @@ func convertQueryToPlumbing(porcelain *Query) *proto.Query {
 	plumbing.Encrypted = (porcelain.Encrypted)
 	plumbing.Id = (porcelain.ID)
 	plumbing.IdentityAliasUsername = (porcelain.IdentityAliasUsername)
+	plumbing.MetadataJson = (porcelain.MetadataJSON)
 	plumbing.QueryBody = (porcelain.QueryBody)
 	plumbing.QueryCategory = (porcelain.QueryCategory)
 	plumbing.QueryHash = (porcelain.QueryHash)

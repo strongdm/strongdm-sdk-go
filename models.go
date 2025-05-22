@@ -4928,6 +4928,8 @@ type Query struct {
 	ID string `json:"id"`
 	// The username of the IdentityAlias used to access the Resource.
 	IdentityAliasUsername string `json:"identityAliasUsername"`
+	// Driver specific metadata associated with this query.
+	MetadataJSON string `json:"metadataJson"`
 	// The captured content of the Query.
 	// For queries against SSH, Kubernetes, and RDP resources, this contains a JSON representation of the QueryCapture.
 	QueryBody string `json:"queryBody"`
