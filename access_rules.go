@@ -50,7 +50,7 @@ type AccessRule struct {
 
 	// Privileges specify different privilege levels one can utilize with a set
 	// of resources.
-	Privileges Privileges `json:"privileges,omitempty"`
+	Privileges Privileges `json:"privileges,omitempty,omitzero"`
 }
 
 // Privileges specify different privilege levels one can utilize with a
@@ -59,7 +59,16 @@ type Privileges struct {
 	// K8s specifies a collection of privileges
 	// for any resource defined in an access rule that is of the
 	// kubernetes type.
-	K8s K8sPrivileges `json:"k8s,omitempty"`
+	K8s K8sPrivileges `json:"k8s,omitempty,omitzero"`
+
+	// EntraGroups specifies a collection of Groups
+	// that a Principal should be put in, within Entra,
+	// via access to an Azure Console resource.
+	EntraGroups EntraGroupsPrivileges `json:"entraGroups,omitempty,omitzero"`
+}
+
+func (p Privileges) IsZero() bool {
+	return p.K8s.IsZero() && p.EntraGroups.IsZero()
 }
 
 // K8sPrivileges specifies different privilege level constructs
@@ -68,6 +77,20 @@ type K8sPrivileges struct {
 	// Groups are the list of RBAC groups one will impersonate into
 	// when attempting a connection to a k8s cluster.
 	Groups []string `json:"groups,omitempty"`
+}
+
+func (p K8sPrivileges) IsZero() bool {
+	return len(p.Groups) == 0
+}
+
+type EntraGroupsPrivileges struct {
+	// Groups is the list of Entra groups one will be added to
+	// when granted access to an Azure Console resource.
+	Groups []string `json:"groups,omitempty"`
+}
+
+func (p EntraGroupsPrivileges) IsZero() bool {
+	return len(p.Groups) == 0
 }
 
 // AccessRules define which Resources can be accessed by members of a Role.
