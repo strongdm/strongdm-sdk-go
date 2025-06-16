@@ -2998,6 +2998,8 @@ type HTTPAuth struct {
 	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
 	Name string `json:"name"`
+	// The local port used by clients to connect to this resource.
+	PortOverride int32 `json:"portOverride"`
 	// ID of the proxy cluster for this resource, if any.
 	ProxyClusterID string `json:"proxyClusterId"`
 	// ID of the secret store containing credentials for this resource, if any.
@@ -3031,6 +3033,8 @@ type HTTPBasicAuth struct {
 	Name string `json:"name"`
 	// The password to authenticate with.
 	Password string `json:"password"`
+	// The local port used by clients to connect to this resource.
+	PortOverride int32 `json:"portOverride"`
 	// ID of the proxy cluster for this resource, if any.
 	ProxyClusterID string `json:"proxyClusterId"`
 	// ID of the secret store containing credentials for this resource, if any.
@@ -3064,6 +3068,8 @@ type HTTPNoAuth struct {
 	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
 	Name string `json:"name"`
+	// The local port used by clients to connect to this resource.
+	PortOverride int32 `json:"portOverride"`
 	// ID of the proxy cluster for this resource, if any.
 	ProxyClusterID string `json:"proxyClusterId"`
 	// ID of the secret store containing credentials for this resource, if any.
