@@ -92,6 +92,28 @@ func convertTagsToPlumbing(tags Tags) *proto.Tags {
 	}
 	return &proto.Tags{Pairs: result}
 }
+func convertLogCategoryConfigMapToPorcelain(plumbing *proto.LogCategoryConfigMap) (LogCategoryConfigMap, error) {
+	porcelain := LogCategoryConfigMap{}
+	for _, entry := range plumbing.Entries {
+		if config, err := convertLogCategoryConfigToPorcelain(entry.Config); err != nil {
+			return nil, err
+		} else {
+			porcelain[entry.Name] = config
+		}
+	}
+	return porcelain, nil
+}
+
+func convertLogCategoryConfigMapToPlumbing(porcelain LogCategoryConfigMap) *proto.LogCategoryConfigMap {
+	var entries []*proto.LogCategoryConfigMap_Entry
+	for name, config := range porcelain {
+		entries = append(entries, &proto.LogCategoryConfigMap_Entry{
+			Name:   name,
+			Config: convertLogCategoryConfigToPlumbing(config),
+		})
+	}
+	return &proto.LogCategoryConfigMap{Entries: entries}
+}
 func convertAKSToPorcelain(plumbing *proto.AKS) (*AKS, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -9907,6 +9929,106 @@ func convertRepeatedKubernetesUserImpersonationToPorcelain(plumbings []*proto.Ku
 	}
 	return items, nil
 }
+func convertLogCategoryConfigToPorcelain(plumbing *proto.LogCategoryConfig) (*LogCategoryConfig, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &LogCategoryConfig{}
+	porcelain.RemoteDiscardReplays = plumbing.RemoteDiscardReplays
+	porcelain.RemoteEncoder = plumbing.RemoteEncoder
+	return porcelain, nil
+}
+
+func convertLogCategoryConfigToPlumbing(porcelain *LogCategoryConfig) *proto.LogCategoryConfig {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.LogCategoryConfig{}
+	plumbing.RemoteDiscardReplays = (porcelain.RemoteDiscardReplays)
+	plumbing.RemoteEncoder = (porcelain.RemoteEncoder)
+	return plumbing
+}
+func convertRepeatedLogCategoryConfigToPlumbing(
+	porcelains []*LogCategoryConfig,
+) []*proto.LogCategoryConfig {
+	var items []*proto.LogCategoryConfig
+	for _, porcelain := range porcelains {
+		items = append(items, convertLogCategoryConfigToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedLogCategoryConfigToPorcelain(plumbings []*proto.LogCategoryConfig) (
+	[]*LogCategoryConfig,
+	error,
+) {
+	var items []*LogCategoryConfig
+	for _, plumbing := range plumbings {
+		if v, err := convertLogCategoryConfigToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertLogConfigToPorcelain(plumbing *proto.LogConfig) (*LogConfig, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &LogConfig{}
+	if v, err := convertLogCategoryConfigMapToPorcelain(plumbing.Categories); err != nil {
+		return nil, fmt.Errorf("error converting field Categories: %v", err)
+	} else {
+		porcelain.Categories = v
+	}
+	porcelain.LocalEncoder = plumbing.LocalEncoder
+	porcelain.LocalFormat = plumbing.LocalFormat
+	porcelain.LocalSocketPath = plumbing.LocalSocketPath
+	porcelain.LocalStorage = plumbing.LocalStorage
+	porcelain.LocalTCPAddress = plumbing.LocalTcpAddress
+	porcelain.PublicKey = plumbing.PublicKey
+	return porcelain, nil
+}
+
+func convertLogConfigToPlumbing(porcelain *LogConfig) *proto.LogConfig {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.LogConfig{}
+	plumbing.Categories = convertLogCategoryConfigMapToPlumbing(porcelain.Categories)
+	plumbing.LocalEncoder = (porcelain.LocalEncoder)
+	plumbing.LocalFormat = (porcelain.LocalFormat)
+	plumbing.LocalSocketPath = (porcelain.LocalSocketPath)
+	plumbing.LocalStorage = (porcelain.LocalStorage)
+	plumbing.LocalTcpAddress = (porcelain.LocalTCPAddress)
+	plumbing.PublicKey = (porcelain.PublicKey)
+	return plumbing
+}
+func convertRepeatedLogConfigToPlumbing(
+	porcelains []*LogConfig,
+) []*proto.LogConfig {
+	var items []*proto.LogConfig
+	for _, porcelain := range porcelains {
+		items = append(items, convertLogConfigToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedLogConfigToPorcelain(plumbings []*proto.LogConfig) (
+	[]*LogConfig,
+	error,
+) {
+	var items []*LogConfig
+	for _, plumbing := range plumbings {
+		if v, err := convertLogConfigToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertMTLSMysqlToPorcelain(plumbing *proto.MTLSMysql) (*MTLSMysql, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -12568,6 +12690,11 @@ func convertOrganizationToPorcelain(plumbing *proto.Organization) (*Organization
 	}
 	porcelain.IdleTimeoutEnabled = plumbing.IdleTimeoutEnabled
 	porcelain.Kind = plumbing.Kind
+	if v, err := convertLogConfigToPorcelain(plumbing.LogConfig); err != nil {
+		return nil, fmt.Errorf("error converting field LogConfig: %v", err)
+	} else {
+		porcelain.LogConfig = v
+	}
 	porcelain.LogLocalEncoder = plumbing.LogLocalEncoder
 	porcelain.LogLocalFormat = plumbing.LogLocalFormat
 	porcelain.LogLocalStorage = plumbing.LogLocalStorage
@@ -12618,6 +12745,7 @@ func convertOrganizationToPlumbing(porcelain *Organization) *proto.Organization 
 	plumbing.IdleTimeout = convertDurationToPlumbing(porcelain.IdleTimeout)
 	plumbing.IdleTimeoutEnabled = (porcelain.IdleTimeoutEnabled)
 	plumbing.Kind = (porcelain.Kind)
+	plumbing.LogConfig = convertLogConfigToPlumbing(porcelain.LogConfig)
 	plumbing.LogLocalEncoder = (porcelain.LogLocalEncoder)
 	plumbing.LogLocalFormat = (porcelain.LogLocalFormat)
 	plumbing.LogLocalStorage = (porcelain.LogLocalStorage)

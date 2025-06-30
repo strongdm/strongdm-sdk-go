@@ -31,6 +31,8 @@ func (t Tags) clone() Tags {
 	return res
 }
 
+type LogCategoryConfigMap map[string]*LogCategoryConfig
+
 type AKS struct {
 	// If true, allows users to fallback to the existing authentication mode (Leased Credential or Identity Set)
 	// when a resource role is not provided.
@@ -3574,6 +3576,30 @@ type KubernetesUserImpersonation struct {
 	Tags Tags `json:"tags"`
 }
 
+type LogCategoryConfig struct {
+	// Indicates if the Organization should exclude replay data from remote logging for the log category.
+	RemoteDiscardReplays bool `json:"remoteDiscardReplays"`
+	// The Organization's remote log encryption encoder, one of the LogRemoteEncoder constants.
+	RemoteEncoder string `json:"remoteEncoder"`
+}
+
+type LogConfig struct {
+	// The Organization's log category configuration settings.
+	Categories LogCategoryConfigMap `json:"categories"`
+	// The Organization's local log encryption encoder, one of the LogLocalEncoder constants.
+	LocalEncoder string `json:"localEncoder"`
+	// The Organization's local log format, one of the LogLocalFormat constants.
+	LocalFormat string `json:"localFormat"`
+	// The Organization's local log socket path.
+	LocalSocketPath string `json:"localSocketPath"`
+	// The Organization's local log storage, one of the LogLocalStorage constants.
+	LocalStorage string `json:"localStorage"`
+	// The Organization's local log TCP address.
+	LocalTCPAddress string `json:"localTcpAddress"`
+	// The Organization's public key in PEM format for encrypting logs.
+	PublicKey string `json:"publicKey"`
+}
+
 // MTLSMysql is currently unstable, and its API may change, or it may be removed,
 // without a major version bump.
 type MTLSMysql struct {
@@ -4505,6 +4531,7 @@ type Organization struct {
 	// The Organization's device trust provider, one of the DeviceTrustProvider constants.
 	DeviceTrustProvider string `json:"deviceTrustProvider"`
 	// Indicates if the Organization should drop replay data for SSH, RDP, and K8s logs.
+	// Deprecated: use categories specific log_config.categories[].remote_discard_replays instead
 	DiscardReplays bool `json:"discardReplays"`
 	// Indicates if the Organization enforces a single session per user for the CLI and AdminUI.
 	EnforceSingleSession bool `json:"enforceSingleSession"`
@@ -4514,17 +4541,25 @@ type Organization struct {
 	IdleTimeoutEnabled bool `json:"idleTimeoutEnabled"`
 	// The Organization's type, one of the OrgKind constants.
 	Kind string `json:"kind"`
+	// The Organization's logging settings
+	LogConfig *LogConfig `json:"logConfig"`
 	// The Organization's local log encryption encoder, one of the LogLocalEncoder constants.
+	// Deprecated: use log_config.local_encoder instead
 	LogLocalEncoder string `json:"logLocalEncoder"`
 	// The Organization's local log format, one of the LogLocalFormat constants.
+	// Deprecated: use log_config.local_format instead
 	LogLocalFormat string `json:"logLocalFormat"`
 	// The Organization's local log storage, one of the LogLocalStorage constants.
+	// Deprecated: use log_config.local_storage instead
 	LogLocalStorage string `json:"logLocalStorage"`
 	// The Organization's remote log encryption encoder, one of the LogRemoteEncoder constants.
+	// Deprecated: use categories specific log_config.categories[].remote_encoder instead
 	LogRemoteEncoder string `json:"logRemoteEncoder"`
 	// The Organization's socket path for Socket local log storage.
+	// Deprecated: use log_config.local_socket_path instead
 	LogSocketPath string `json:"logSocketPath"`
 	// The Organization's TCP address for TCP or Syslog local log storage.
+	// Deprecated: use log_config.local_tcp_address instead
 	LogTCPAddress string `json:"logTcpAddress"`
 	// The Organization's loopback range.
 	LoopbackRange string `json:"loopbackRange"`
@@ -4535,6 +4570,7 @@ type Organization struct {
 	// The Organization's name.
 	Name string `json:"name"`
 	// The Organization's public key PEM for encrypting remote logs.
+	// Deprecated: use log_config.public_key instead
 	PublicKeyPem string `json:"publicKeyPem"`
 	// Indicates if the Organization requires secret stores.
 	RequireSecretStore bool `json:"requireSecretStore"`
