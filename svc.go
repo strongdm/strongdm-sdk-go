@@ -3113,6 +3113,37 @@ func (svc *ManagedSecrets) Delete(
 	return resp, nil
 }
 
+// ForceDelete deletes a Managed Secret regardless of errors on external system
+func (svc *ManagedSecrets) ForceDelete(
+	ctx context.Context,
+	id string) (
+	*ManagedSecretDeleteResponse,
+	error) {
+	req := plumbing.ManagedSecretDeleteRequest{}
+
+	req.Id = (id)
+	req.Meta = &plumbing.UpdateRequestMetadata{}
+	plumbingResponse, err := retryWrapper(
+		ctx,
+		svc.parent.retryOptions,
+		&req.Meta.Fulfillments,
+		func() (*plumbing.ManagedSecretDeleteResponse, error) {
+			return svc.client.ForceDelete(svc.parent.wrapContext(ctx, &req, "ManagedSecrets.ForceDelete"), &req)
+		},
+	)
+	if err != nil {
+		return nil, convertErrorToPorcelain(err)
+	}
+
+	resp := &ManagedSecretDeleteResponse{}
+	if v, err := convertRateLimitMetadataToPorcelain(plumbingResponse.RateLimit); err != nil {
+		return nil, err
+	} else {
+		resp.RateLimit = v
+	}
+	return resp, nil
+}
+
 // Get gets details of a Managed Secret without sensitive data
 func (svc *ManagedSecrets) Get(
 	ctx context.Context,
