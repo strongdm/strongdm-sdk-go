@@ -39,7 +39,7 @@ type AccessRule struct {
 	// Resources granted.
 	//
 	// See the following link for a list of possible values for this field:
-	// https://www.strongdm.com/docs/cli/filters/#potential-resource-type-values
+	// https://docs.strongdm.com/references/cli/filters/#potential-resource-type-values
 	Type string `json:"type,omitempty"`
 
 	// Tags specifies a list of key/value pairs. You can set this field by
