@@ -5,12 +5,12 @@ programming language.
 
 Learn more with our [📚strongDM API docs](https://docs.strongdm.com/references/api) or
 [📓browse the SDK
-reference](https://pkg.go.dev/github.com/strongdm/strongdm-sdk-go/v14?tab=doc).
+reference](https://pkg.go.dev/github.com/strongdm/strongdm-sdk-go/v15?tab=doc).
 
 ## Installation
 
 ```bash
-$ go get github.com/strongdm/strongdm-sdk-go/v14
+$ go get github.com/strongdm/strongdm-sdk-go/v15
 ```
 
 strongDM uses [semantic versioning](https://semver.org/). We do not guarantee
@@ -68,7 +68,7 @@ func main() {
 
 ## Useful Links
 
-- Documentation: [sdm package · pkg.go.dev](https://pkg.go.dev/github.com/strongdm/strongdm-sdk-go/v14?tab=doc)
+- Documentation: [sdm package · pkg.go.dev](https://pkg.go.dev/github.com/strongdm/strongdm-sdk-go/v15?tab=doc)
 - [Migrating from Role Grants to Access Rules](https://github.com/strongdm/strongdm-sdk-go/wiki/Migrating-from-Role-Grants-to-Access-Rules)
 - Examples: [GitHub - strongdm/strongdm-sdk-go-examples](https://github.com/strongdm/strongdm-sdk-go-examples)
   1.  [Managing Resources](https://github.com/strongdm/strongdm-sdk-go-examples/tree/master/1_managing_resources)
