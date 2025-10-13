@@ -4006,8 +4006,6 @@ type MCP struct {
 	Tags Tags `json:"tags"`
 }
 
-// MTLSMysql is currently unstable, and its API may change, or it may be removed,
-// without a major version bump.
 type MTLSMysql struct {
 	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided and may also be set to one of the ResourceIPAllocationMode constants to select between VNM, loopback, or default allocation.
 	BindInterface string `json:"bindInterface"`
