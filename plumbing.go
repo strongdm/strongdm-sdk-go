@@ -939,6 +939,8 @@ func convertAWSStoreToPorcelain(plumbing *proto.AWSStore) (*AWSStore, error) {
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
 	porcelain.Region = plumbing.Region
+	porcelain.RoleArn = plumbing.RoleArn
+	porcelain.RoleExternalID = plumbing.RoleExternalId
 	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
 		return nil, fmt.Errorf("error converting field Tags: %v", err)
 	} else {
@@ -955,6 +957,8 @@ func convertAWSStoreToPlumbing(porcelain *AWSStore) *proto.AWSStore {
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
 	plumbing.Region = (porcelain.Region)
+	plumbing.RoleArn = (porcelain.RoleArn)
+	plumbing.RoleExternalId = (porcelain.RoleExternalID)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
 	return plumbing
 }
@@ -20885,6 +20889,8 @@ func convertSecretStoreToPlumbing(porcelain SecretStore) *proto.SecretStore {
 		plumbing.SecretStore = &proto.SecretStore_KeyfactorSsh{KeyfactorSsh: convertKeyfactorSSHStoreToPlumbing(v)}
 	case *KeyfactorX509Store:
 		plumbing.SecretStore = &proto.SecretStore_KeyfactorX_509{KeyfactorX_509: convertKeyfactorX509StoreToPlumbing(v)}
+	case *StrongVaultStore:
+		plumbing.SecretStore = &proto.SecretStore_StrongVault{StrongVault: convertStrongVaultStoreToPlumbing(v)}
 	case *VaultAppRoleStore:
 		plumbing.SecretStore = &proto.SecretStore_VaultAppRole{VaultAppRole: convertVaultAppRoleStoreToPlumbing(v)}
 	case *VaultAppRoleCertSSHStore:
@@ -20955,6 +20961,9 @@ func convertSecretStoreToPorcelain(plumbing *proto.SecretStore) (SecretStore, er
 	}
 	if plumbing.GetKeyfactorX_509() != nil {
 		return convertKeyfactorX509StoreToPorcelain(plumbing.GetKeyfactorX_509())
+	}
+	if plumbing.GetStrongVault() != nil {
+		return convertStrongVaultStoreToPorcelain(plumbing.GetStrongVault())
 	}
 	if plumbing.GetVaultAppRole() != nil {
 		return convertVaultAppRoleStoreToPorcelain(plumbing.GetVaultAppRole())
@@ -21726,6 +21735,55 @@ func convertRepeatedSnowsightToPorcelain(plumbings []*proto.Snowsight) (
 	var items []*Snowsight
 	for _, plumbing := range plumbings {
 		if v, err := convertSnowsightToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertStrongVaultStoreToPorcelain(plumbing *proto.StrongVaultStore) (*StrongVaultStore, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &StrongVaultStore{}
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	return porcelain, nil
+}
+
+func convertStrongVaultStoreToPlumbing(porcelain *StrongVaultStore) *proto.StrongVaultStore {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.StrongVaultStore{}
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedStrongVaultStoreToPlumbing(
+	porcelains []*StrongVaultStore,
+) []*proto.StrongVaultStore {
+	var items []*proto.StrongVaultStore
+	for _, porcelain := range porcelains {
+		items = append(items, convertStrongVaultStoreToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedStrongVaultStoreToPorcelain(plumbings []*proto.StrongVaultStore) (
+	[]*StrongVaultStore,
+	error,
+) {
+	var items []*StrongVaultStore
+	for _, plumbing := range plumbings {
+		if v, err := convertStrongVaultStoreToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)

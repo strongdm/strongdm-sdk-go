@@ -427,6 +427,10 @@ type AWSStore struct {
 	Name string `json:"name"`
 	// The AWS region to target e.g. us-east-1
 	Region string `json:"region"`
+	// The role to assume after logging in.
+	RoleArn string `json:"roleArn"`
+	// The external ID to associate with assume role requests. Does nothing if a role ARN is not provided.
+	RoleExternalID string `json:"roleExternalId"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
 }
@@ -13073,6 +13077,30 @@ func (m *KeyfactorX509Store) GetName() string {
 func (m *KeyfactorX509Store) SetName(v string) {
 	m.Name = v
 }
+func (*StrongVaultStore) isOneOf_SecretStore() {}
+
+// GetID returns the unique identifier of the StrongVaultStore.
+func (m *StrongVaultStore) GetID() string { return m.ID }
+
+// GetTags returns the tags of the StrongVaultStore.
+func (m *StrongVaultStore) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the StrongVaultStore.
+func (m *StrongVaultStore) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetName returns the name of the StrongVaultStore.
+func (m *StrongVaultStore) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the StrongVaultStore.
+func (m *StrongVaultStore) SetName(v string) {
+	m.Name = v
+}
 func (*VaultAppRoleStore) isOneOf_SecretStore() {}
 
 // GetID returns the unique identifier of the VaultAppRoleStore.
@@ -13630,6 +13658,17 @@ type Snowsight struct {
 	SecretStoreID string `json:"secretStoreId"`
 	// Subdomain is the local DNS address.  (e.g. app-prod1 turns into app-prod1.your-org-name.sdm.network)
 	Subdomain string `json:"subdomain"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+}
+
+// StrongVaultStore is currently unstable, and its API may change, or it may be removed,
+// without a major version bump.
+type StrongVaultStore struct {
+	// Unique identifier of the SecretStore.
+	ID string `json:"id"`
+	// Unique human-readable name of the SecretStore.
+	Name string `json:"name"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
 }
