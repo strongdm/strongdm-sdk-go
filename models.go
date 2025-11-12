@@ -13977,8 +13977,6 @@ type User struct {
 	Tags Tags `json:"tags"`
 }
 
-// VaultAWSEC2CertSSHStore is currently unstable, and its API may change, or it may be removed,
-// without a major version bump.
 type VaultAWSEC2CertSSHStore struct {
 	// Unique identifier of the SecretStore.
 	ID string `json:"id"`
@@ -13998,8 +13996,6 @@ type VaultAWSEC2CertSSHStore struct {
 	Tags Tags `json:"tags"`
 }
 
-// VaultAWSEC2CertX509Store is currently unstable, and its API may change, or it may be removed,
-// without a major version bump.
 type VaultAWSEC2CertX509Store struct {
 	// Unique identifier of the SecretStore.
 	ID string `json:"id"`
@@ -14032,8 +14028,6 @@ type VaultAWSEC2Store struct {
 	Tags Tags `json:"tags"`
 }
 
-// VaultAWSIAMCertSSHStore is currently unstable, and its API may change, or it may be removed,
-// without a major version bump.
 type VaultAWSIAMCertSSHStore struct {
 	// Unique identifier of the SecretStore.
 	ID string `json:"id"`
@@ -14053,8 +14047,6 @@ type VaultAWSIAMCertSSHStore struct {
 	Tags Tags `json:"tags"`
 }
 
-// VaultAWSIAMCertX509Store is currently unstable, and its API may change, or it may be removed,
-// without a major version bump.
 type VaultAWSIAMCertX509Store struct {
 	// Unique identifier of the SecretStore.
 	ID string `json:"id"`
