@@ -4067,7 +4067,7 @@ type MCP struct {
 	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
 	Name string `json:"name"`
-	// The password to authenticate with.
+	// OAuth App Client Secret
 	Password string `json:"password"`
 	// The port to dial to initiate a connection from the egress node to this resource.
 	Port int32 `json:"port"`
@@ -4081,6 +4081,8 @@ type MCP struct {
 	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// OAuth App Client ID
+	Username string `json:"username"`
 }
 
 type MTLSMysql struct {

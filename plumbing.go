@@ -11989,6 +11989,7 @@ func convertMCPToPorcelain(plumbing *proto.MCP) (*MCP, error) {
 	} else {
 		porcelain.Tags = v
 	}
+	porcelain.Username = plumbing.Username
 	return porcelain, nil
 }
 
@@ -12010,6 +12011,7 @@ func convertMCPToPlumbing(porcelain *MCP) *proto.MCP {
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Subdomain = (porcelain.Subdomain)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Username = (porcelain.Username)
 	return plumbing
 }
 func convertRepeatedMCPToPlumbing(
