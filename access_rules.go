@@ -65,10 +65,15 @@ type Privileges struct {
 	// that a Principal should be put in, within Entra,
 	// via access to an Azure Console resource.
 	EntraGroups EntraGroupsPrivileges `json:"entraGroups,omitempty,omitzero"`
+
+	// OktaGroups specifies a collection of Groups
+	// that a Principal should be put in, within Okta,
+	// via access to an Okta Groups resource.
+	OktaGroups OktaGroupsPrivileges `json:"oktaGroups,omitempty,omitzero"`
 }
 
 func (p Privileges) IsZero() bool {
-	return p.K8s.IsZero() && p.EntraGroups.IsZero()
+	return p.K8s.IsZero() && p.EntraGroups.IsZero() && p.OktaGroups.IsZero()
 }
 
 // K8sPrivileges specifies different privilege level constructs
@@ -90,6 +95,16 @@ type EntraGroupsPrivileges struct {
 }
 
 func (p EntraGroupsPrivileges) IsZero() bool {
+	return len(p.Groups) == 0
+}
+
+type OktaGroupsPrivileges struct {
+	// Groups is the list of Okta groups one will be added to
+	// when granted access to an Okta Console resource.
+	Groups []string `json:"groups,omitempty"`
+}
+
+func (p OktaGroupsPrivileges) IsZero() bool {
 	return len(p.Groups) == 0
 }
 
