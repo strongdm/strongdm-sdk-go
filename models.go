@@ -4520,6 +4520,10 @@ type MCP struct {
 	ID string `json:"id"`
 	// Unique human-readable name of the Resource.
 	Name string `json:"name"`
+	// The OAuth 2.0 authorization endpoint URL.
+	OauthAuthEndpoint string `json:"oauthAuthEndpoint"`
+	// The OAuth 2.0 token endpoint URL.
+	OauthTokenEndpoint string `json:"oauthTokenEndpoint"`
 	// OAuth App Client Secret
 	Password string `json:"password"`
 	// The port to dial to initiate a connection from the egress node to this resource.

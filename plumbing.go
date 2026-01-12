@@ -12702,6 +12702,8 @@ func convertMCPToPorcelain(plumbing *proto.MCP) (*MCP, error) {
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.ID = plumbing.Id
 	porcelain.Name = plumbing.Name
+	porcelain.OauthAuthEndpoint = plumbing.OauthAuthEndpoint
+	porcelain.OauthTokenEndpoint = plumbing.OauthTokenEndpoint
 	porcelain.Password = plumbing.Password
 	porcelain.Port = plumbing.Port
 	porcelain.PortOverride = plumbing.PortOverride
@@ -12728,6 +12730,8 @@ func convertMCPToPlumbing(porcelain *MCP) *proto.MCP {
 	plumbing.Hostname = (porcelain.Hostname)
 	plumbing.Id = (porcelain.ID)
 	plumbing.Name = (porcelain.Name)
+	plumbing.OauthAuthEndpoint = (porcelain.OauthAuthEndpoint)
+	plumbing.OauthTokenEndpoint = (porcelain.OauthTokenEndpoint)
 	plumbing.Password = (porcelain.Password)
 	plumbing.Port = (porcelain.Port)
 	plumbing.PortOverride = (porcelain.PortOverride)
