@@ -13628,7 +13628,6 @@ func convertManagedSecretRetrieveRequestToPorcelain(plumbing *proto.ManagedSecre
 	}
 	porcelain := &ManagedSecretRetrieveRequest{}
 	porcelain.ID = plumbing.Id
-	porcelain.PublicKey = plumbing.PublicKey
 	return porcelain, nil
 }
 
@@ -13638,7 +13637,6 @@ func convertManagedSecretRetrieveRequestToPlumbing(porcelain *ManagedSecretRetri
 	}
 	plumbing := &proto.ManagedSecretRetrieveRequest{}
 	plumbing.Id = (porcelain.ID)
-	plumbing.PublicKey = (porcelain.PublicKey)
 	return plumbing
 }
 func convertRepeatedManagedSecretRetrieveRequestToPlumbing(

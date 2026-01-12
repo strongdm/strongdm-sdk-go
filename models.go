@@ -4769,8 +4769,6 @@ type ManagedSecretPolicy struct {
 type ManagedSecretRetrieveRequest struct {
 	// The unique identifier of the Managed Secret to retrieve.
 	ID string `json:"id"`
-	// Public key to encrypt a sensitive value with
-	PublicKey []byte `json:"publicKey"`
 }
 
 // ManagedSecretRetrieveResponse contains information about requested Managed
