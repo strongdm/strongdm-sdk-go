@@ -25,7 +25,7 @@ import (
 	"encoding/pem"
 	"fmt"
 
-	plumbing "github.com/strongdm/strongdm-sdk-go/v15/internal/v1"
+	plumbing "github.com/strongdm/strongdm-sdk-go/v16/internal/v1"
 	"google.golang.org/grpc"
 )
 
