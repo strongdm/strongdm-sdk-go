@@ -4560,6 +4560,8 @@ type MCP struct {
 	Name string `json:"name"`
 	// The OAuth 2.0 authorization endpoint URL.
 	OauthAuthEndpoint string `json:"oauthAuthEndpoint"`
+	// The OAuth 2.0 dynamic client registration endpoint URL.
+	OauthRegisterEndpoint string `json:"oauthRegisterEndpoint"`
 	// The OAuth 2.0 token endpoint URL.
 	OauthTokenEndpoint string `json:"oauthTokenEndpoint"`
 	// OAuth App Client Secret
