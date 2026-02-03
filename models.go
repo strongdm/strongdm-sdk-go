@@ -4582,14 +4582,10 @@ type MCP struct {
 	Name string `json:"name"`
 	// The OAuth 2.0 authorization endpoint URL.
 	OauthAuthEndpoint string `json:"oauthAuthEndpoint"`
-	// The OAuth 2.0 dynamic client registration endpoint URL.
-	OauthRegisterEndpoint string `json:"oauthRegisterEndpoint"`
 	// The OAuth 2.0 token endpoint URL.
 	OauthTokenEndpoint string `json:"oauthTokenEndpoint"`
 	// OAuth App Client Secret
 	Password string `json:"password"`
-	// The port to dial to initiate a connection from the egress node to this resource.
-	Port int32 `json:"port"`
 	// The local port used by clients to connect to this resource. It is automatically generated if not provided on create and may be re-generated on update by specifying a value of -1.
 	PortOverride int32 `json:"portOverride"`
 	// ID of the proxy cluster for this resource, if any.
@@ -4602,6 +4598,39 @@ type MCP struct {
 	Tags Tags `json:"tags"`
 	// OAuth App Client ID
 	Username string `json:"username"`
+}
+
+// MCPDCR is currently unstable, and its API may change, or it may be removed,
+// without a major version bump.
+type MCPDCR struct {
+	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided and may also be set to one of the ResourceIPAllocationMode constants to select between VNM, loopback, or default allocation.
+	BindInterface string `json:"bindInterface"`
+	// A filter applied to the routing logic to pin datasource to nodes.
+	EgressFilter string `json:"egressFilter"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// The host to dial to initiate a connection from the egress node to this resource.
+	Hostname string `json:"hostname"`
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// The OAuth 2.0 authorization endpoint URL.
+	OauthAuthEndpoint string `json:"oauthAuthEndpoint"`
+	// The OAuth 2.0 dynamic client registration endpoint URL.
+	OauthRegisterEndpoint string `json:"oauthRegisterEndpoint"`
+	// The OAuth 2.0 token endpoint URL.
+	OauthTokenEndpoint string `json:"oauthTokenEndpoint"`
+	// The local port used by clients to connect to this resource. It is automatically generated if not provided on create and may be re-generated on update by specifying a value of -1.
+	PortOverride int32 `json:"portOverride"`
+	// ID of the proxy cluster for this resource, if any.
+	ProxyClusterID string `json:"proxyClusterId"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+	// DNS subdomain through which this resource may be accessed on clients.  (e.g. "app-prod1" allows the resource to be accessed at "app-prod1.your-org-name.sdm-proxy-domain"). Only applicable to HTTP-based resources or resources using virtual networking mode.
+	Subdomain string `json:"subdomain"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
 }
 
 type MTLSMysql struct {
@@ -10600,6 +10629,60 @@ func (m *MCP) GetBindInterface() string {
 
 // SetBindInterface sets the bind interface of the MCP.
 func (m *MCP) SetBindInterface(v string) {
+	m.BindInterface = v
+}
+func (*MCPDCR) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the MCPDCR.
+func (m *MCPDCR) GetID() string { return m.ID }
+
+// GetName returns the name of the MCPDCR.
+func (m *MCPDCR) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the MCPDCR.
+func (m *MCPDCR) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the MCPDCR.
+func (m *MCPDCR) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the MCPDCR.
+func (m *MCPDCR) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the MCPDCR.
+func (m *MCPDCR) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the MCPDCR.
+func (m *MCPDCR) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+
+// GetEgressFilter returns the egress filter of the MCPDCR.
+func (m *MCPDCR) GetEgressFilter() string {
+	return m.EgressFilter
+}
+
+// SetEgressFilter sets the egress filter of the MCPDCR.
+func (m *MCPDCR) SetEgressFilter(v string) {
+	m.EgressFilter = v
+}
+
+// GetBindInterface returns the bind interface of the MCPDCR.
+func (m *MCPDCR) GetBindInterface() string {
+	return m.BindInterface
+}
+
+// SetBindInterface sets the bind interface of the MCPDCR.
+func (m *MCPDCR) SetBindInterface(v string) {
 	m.BindInterface = v
 }
 func (*Memcached) isOneOf_Resource() {}
