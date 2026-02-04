@@ -114,6 +114,38 @@ func convertLogCategoryConfigMapToPlumbing(porcelain LogCategoryConfigMap) *prot
 	}
 	return &proto.LogCategoryConfigMap{Entries: entries}
 }
+func convertResourceTypeToPorcelain(plumbing proto.ResourceType) ResourceType {
+	return ResourceType(plumbing.String())
+}
+
+func convertResourceTypeToPlumbing(porcelain ResourceType) proto.ResourceType {
+	if v, ok := proto.ResourceType_value[string(porcelain)]; ok {
+		return proto.ResourceType(v)
+	}
+	return proto.ResourceType(0)
+}
+
+func convertRepeatedResourceTypeToPorcelain(plumbings []proto.ResourceType) []ResourceType {
+	if plumbings == nil {
+		return nil
+	}
+	porcelains := make([]ResourceType, 0, len(plumbings))
+	for _, plumbing := range plumbings {
+		porcelains = append(porcelains, convertResourceTypeToPorcelain(plumbing))
+	}
+	return porcelains
+}
+
+func convertRepeatedResourceTypeToPlumbing(porcelains []ResourceType) []proto.ResourceType {
+	if porcelains == nil {
+		return nil
+	}
+	plumbings := make([]proto.ResourceType, 0, len(porcelains))
+	for _, porcelain := range porcelains {
+		plumbings = append(plumbings, convertResourceTypeToPlumbing(porcelain))
+	}
+	return plumbings
+}
 func convertAKSToPorcelain(plumbing *proto.AKS) (*AKS, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -7194,6 +7226,65 @@ func convertRepeatedConnectorUpdateResponseToPorcelain(plumbings []*proto.Connec
 	var items []*ConnectorUpdateResponse
 	for _, plumbing := range plumbings {
 		if v, err := convertConnectorUpdateResponseToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertControlPanelGetOrgURLInfoResponseToPorcelain(plumbing *proto.ControlPanelGetOrgURLInfoResponse) (*ControlPanelGetOrgURLInfoResponse, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &ControlPanelGetOrgURLInfoResponse{}
+	porcelain.BaseUrl = plumbing.BaseUrl
+	if v, err := convertGetResponseMetadataToPorcelain(plumbing.Meta); err != nil {
+		return nil, fmt.Errorf("error converting field Meta: %v", err)
+	} else {
+		porcelain.Meta = v
+	}
+	porcelain.OidcIssuerUrl = plumbing.OidcIssuerUrl
+	if v, err := convertRateLimitMetadataToPorcelain(plumbing.RateLimit); err != nil {
+		return nil, fmt.Errorf("error converting field RateLimit: %v", err)
+	} else {
+		porcelain.RateLimit = v
+	}
+	porcelain.SamlMetadataUrl = plumbing.SamlMetadataUrl
+	porcelain.WebsitesSubdomain = plumbing.WebsitesSubdomain
+	return porcelain, nil
+}
+
+func convertControlPanelGetOrgURLInfoResponseToPlumbing(porcelain *ControlPanelGetOrgURLInfoResponse) *proto.ControlPanelGetOrgURLInfoResponse {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.ControlPanelGetOrgURLInfoResponse{}
+	plumbing.BaseUrl = (porcelain.BaseUrl)
+	plumbing.Meta = convertGetResponseMetadataToPlumbing(porcelain.Meta)
+	plumbing.OidcIssuerUrl = (porcelain.OidcIssuerUrl)
+	plumbing.RateLimit = convertRateLimitMetadataToPlumbing(porcelain.RateLimit)
+	plumbing.SamlMetadataUrl = (porcelain.SamlMetadataUrl)
+	plumbing.WebsitesSubdomain = (porcelain.WebsitesSubdomain)
+	return plumbing
+}
+func convertRepeatedControlPanelGetOrgURLInfoResponseToPlumbing(
+	porcelains []*ControlPanelGetOrgURLInfoResponse,
+) []*proto.ControlPanelGetOrgURLInfoResponse {
+	var items []*proto.ControlPanelGetOrgURLInfoResponse
+	for _, porcelain := range porcelains {
+		items = append(items, convertControlPanelGetOrgURLInfoResponseToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedControlPanelGetOrgURLInfoResponseToPorcelain(plumbings []*proto.ControlPanelGetOrgURLInfoResponse) (
+	[]*ControlPanelGetOrgURLInfoResponse,
+	error,
+) {
+	var items []*ControlPanelGetOrgURLInfoResponse
+	for _, plumbing := range plumbings {
+		if v, err := convertControlPanelGetOrgURLInfoResponseToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
