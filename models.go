@@ -1282,6 +1282,8 @@ type ActiveDirectoryEngine struct {
 	MaxBackoffDuration time.Duration `json:"maxBackoffDuration"`
 	// Unique human-readable name of the Secret Engine.
 	Name string `json:"name"`
+	// node selector is used to narrow down the nodes used to communicate with with secret engine
+	NodeSelector string `json:"nodeSelector"`
 	// Policy for password creation
 	Policy *SecretEnginePolicy `json:"policy"`
 	// Public key linked with a secret engine
@@ -4497,6 +4499,8 @@ type KeyValueEngine struct {
 	KeyRotationIntervalDays int32 `json:"keyRotationIntervalDays"`
 	// Unique human-readable name of the Secret Engine.
 	Name string `json:"name"`
+	// node selector is used to narrow down the nodes used to communicate with with secret engine
+	NodeSelector string `json:"nodeSelector"`
 	// Public key linked with a secret engine
 	PublicKey []byte `json:"publicKey"`
 	// Backing secret store identifier
@@ -5527,6 +5531,8 @@ type MysqlEngine struct {
 	KeyRotationIntervalDays int32 `json:"keyRotationIntervalDays"`
 	// Unique human-readable name of the Secret Engine.
 	Name string `json:"name"`
+	// node selector is used to narrow down the nodes used to communicate with with secret engine
+	NodeSelector string `json:"nodeSelector"`
 	// Password is the password to connect to the MySQL server.
 	Password string `json:"password"`
 	// Policy for password creation
@@ -6247,6 +6253,8 @@ type PostgresEngine struct {
 	KeyRotationIntervalDays int32 `json:"keyRotationIntervalDays"`
 	// Unique human-readable name of the Secret Engine.
 	Name string `json:"name"`
+	// node selector is used to narrow down the nodes used to communicate with with secret engine
+	NodeSelector string `json:"nodeSelector"`
 	// Password is the password to connect to the Postgres server.
 	Password string `json:"password"`
 	// Policy for password creation
@@ -13694,6 +13702,14 @@ type SecretEngine interface {
 	GetPublicKey() []byte
 	// SetPublicKey sets the public key of the SecretEngine.
 	SetPublicKey([]byte)
+	// GetNodeSelector returns the node selector of the SecretEngine.
+	GetNodeSelector() string
+	// SetNodeSelector sets the node selector of the SecretEngine.
+	SetNodeSelector(string)
+	// GetKeyRotationIntervalDays returns the key rotation interval days of the SecretEngine.
+	GetKeyRotationIntervalDays() int32
+	// SetKeyRotationIntervalDays sets the key rotation interval days of the SecretEngine.
+	SetKeyRotationIntervalDays(int32)
 	isOneOf_SecretEngine()
 }
 
@@ -13751,6 +13767,26 @@ func (m *ActiveDirectoryEngine) GetPublicKey() []byte {
 func (m *ActiveDirectoryEngine) SetPublicKey(v []byte) {
 	m.PublicKey = v
 }
+
+// GetNodeSelector returns the node selector of the ActiveDirectoryEngine.
+func (m *ActiveDirectoryEngine) GetNodeSelector() string {
+	return m.NodeSelector
+}
+
+// SetNodeSelector sets the node selector of the ActiveDirectoryEngine.
+func (m *ActiveDirectoryEngine) SetNodeSelector(v string) {
+	m.NodeSelector = v
+}
+
+// GetKeyRotationIntervalDays returns the key rotation interval days of the ActiveDirectoryEngine.
+func (m *ActiveDirectoryEngine) GetKeyRotationIntervalDays() int32 {
+	return m.KeyRotationIntervalDays
+}
+
+// SetKeyRotationIntervalDays sets the key rotation interval days of the ActiveDirectoryEngine.
+func (m *ActiveDirectoryEngine) SetKeyRotationIntervalDays(v int32) {
+	m.KeyRotationIntervalDays = v
+}
 func (*KeyValueEngine) isOneOf_SecretEngine() {}
 
 // GetID returns the unique identifier of the KeyValueEngine.
@@ -13804,6 +13840,26 @@ func (m *KeyValueEngine) GetPublicKey() []byte {
 // SetPublicKey sets the public key of the KeyValueEngine.
 func (m *KeyValueEngine) SetPublicKey(v []byte) {
 	m.PublicKey = v
+}
+
+// GetNodeSelector returns the node selector of the KeyValueEngine.
+func (m *KeyValueEngine) GetNodeSelector() string {
+	return m.NodeSelector
+}
+
+// SetNodeSelector sets the node selector of the KeyValueEngine.
+func (m *KeyValueEngine) SetNodeSelector(v string) {
+	m.NodeSelector = v
+}
+
+// GetKeyRotationIntervalDays returns the key rotation interval days of the KeyValueEngine.
+func (m *KeyValueEngine) GetKeyRotationIntervalDays() int32 {
+	return m.KeyRotationIntervalDays
+}
+
+// SetKeyRotationIntervalDays sets the key rotation interval days of the KeyValueEngine.
+func (m *KeyValueEngine) SetKeyRotationIntervalDays(v int32) {
+	m.KeyRotationIntervalDays = v
 }
 func (*MysqlEngine) isOneOf_SecretEngine() {}
 
@@ -13859,6 +13915,26 @@ func (m *MysqlEngine) GetPublicKey() []byte {
 func (m *MysqlEngine) SetPublicKey(v []byte) {
 	m.PublicKey = v
 }
+
+// GetNodeSelector returns the node selector of the MysqlEngine.
+func (m *MysqlEngine) GetNodeSelector() string {
+	return m.NodeSelector
+}
+
+// SetNodeSelector sets the node selector of the MysqlEngine.
+func (m *MysqlEngine) SetNodeSelector(v string) {
+	m.NodeSelector = v
+}
+
+// GetKeyRotationIntervalDays returns the key rotation interval days of the MysqlEngine.
+func (m *MysqlEngine) GetKeyRotationIntervalDays() int32 {
+	return m.KeyRotationIntervalDays
+}
+
+// SetKeyRotationIntervalDays sets the key rotation interval days of the MysqlEngine.
+func (m *MysqlEngine) SetKeyRotationIntervalDays(v int32) {
+	m.KeyRotationIntervalDays = v
+}
 func (*PostgresEngine) isOneOf_SecretEngine() {}
 
 // GetID returns the unique identifier of the PostgresEngine.
@@ -13913,6 +13989,26 @@ func (m *PostgresEngine) GetPublicKey() []byte {
 func (m *PostgresEngine) SetPublicKey(v []byte) {
 	m.PublicKey = v
 }
+
+// GetNodeSelector returns the node selector of the PostgresEngine.
+func (m *PostgresEngine) GetNodeSelector() string {
+	return m.NodeSelector
+}
+
+// SetNodeSelector sets the node selector of the PostgresEngine.
+func (m *PostgresEngine) SetNodeSelector(v string) {
+	m.NodeSelector = v
+}
+
+// GetKeyRotationIntervalDays returns the key rotation interval days of the PostgresEngine.
+func (m *PostgresEngine) GetKeyRotationIntervalDays() int32 {
+	return m.KeyRotationIntervalDays
+}
+
+// SetKeyRotationIntervalDays sets the key rotation interval days of the PostgresEngine.
+func (m *PostgresEngine) SetKeyRotationIntervalDays(v int32) {
+	m.KeyRotationIntervalDays = v
+}
 func (*SqlserverEngine) isOneOf_SecretEngine() {}
 
 // GetID returns the unique identifier of the SqlserverEngine.
@@ -13966,6 +14062,26 @@ func (m *SqlserverEngine) GetPublicKey() []byte {
 // SetPublicKey sets the public key of the SqlserverEngine.
 func (m *SqlserverEngine) SetPublicKey(v []byte) {
 	m.PublicKey = v
+}
+
+// GetNodeSelector returns the node selector of the SqlserverEngine.
+func (m *SqlserverEngine) GetNodeSelector() string {
+	return m.NodeSelector
+}
+
+// SetNodeSelector sets the node selector of the SqlserverEngine.
+func (m *SqlserverEngine) SetNodeSelector(v string) {
+	m.NodeSelector = v
+}
+
+// GetKeyRotationIntervalDays returns the key rotation interval days of the SqlserverEngine.
+func (m *SqlserverEngine) GetKeyRotationIntervalDays() int32 {
+	return m.KeyRotationIntervalDays
+}
+
+// SetKeyRotationIntervalDays sets the key rotation interval days of the SqlserverEngine.
+func (m *SqlserverEngine) SetKeyRotationIntervalDays(v int32) {
+	m.KeyRotationIntervalDays = v
 }
 
 // SecretEngineCreateRequest specifies a Secret Engine to create.
@@ -14977,6 +15093,8 @@ type SqlserverEngine struct {
 	KeyRotationIntervalDays int32 `json:"keyRotationIntervalDays"`
 	// Unique human-readable name of the Secret Engine.
 	Name string `json:"name"`
+	// node selector is used to narrow down the nodes used to communicate with with secret engine
+	NodeSelector string `json:"nodeSelector"`
 	// Password is the password to connect to the SQL Server server.
 	Password string `json:"password"`
 	// Policy for password creation

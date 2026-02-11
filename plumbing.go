@@ -3045,6 +3045,7 @@ func convertActiveDirectoryEngineToPorcelain(plumbing *proto.ActiveDirectoryEngi
 		porcelain.MaxBackoffDuration = v
 	}
 	porcelain.Name = plumbing.Name
+	porcelain.NodeSelector = plumbing.NodeSelector
 	if v, err := convertSecretEnginePolicyToPorcelain(plumbing.Policy); err != nil {
 		return nil, fmt.Errorf("error converting field Policy: %v", err)
 	} else {
@@ -3087,6 +3088,7 @@ func convertActiveDirectoryEngineToPlumbing(porcelain *ActiveDirectoryEngine) *p
 	plumbing.KeyRotationIntervalDays = (porcelain.KeyRotationIntervalDays)
 	plumbing.MaxBackoffDuration = convertDurationToPlumbing(porcelain.MaxBackoffDuration)
 	plumbing.Name = (porcelain.Name)
+	plumbing.NodeSelector = (porcelain.NodeSelector)
 	plumbing.Policy = convertSecretEnginePolicyToPlumbing(porcelain.Policy)
 	plumbing.PublicKey = (porcelain.PublicKey)
 	plumbing.RequestTimeout = (porcelain.RequestTimeout)
@@ -12218,6 +12220,7 @@ func convertKeyValueEngineToPorcelain(plumbing *proto.KeyValueEngine) (*KeyValue
 	porcelain.ID = plumbing.Id
 	porcelain.KeyRotationIntervalDays = plumbing.KeyRotationIntervalDays
 	porcelain.Name = plumbing.Name
+	porcelain.NodeSelector = plumbing.NodeSelector
 	porcelain.PublicKey = plumbing.PublicKey
 	porcelain.SecretStoreID = plumbing.SecretStoreId
 	porcelain.SecretStoreRootPath = plumbing.SecretStoreRootPath
@@ -12237,6 +12240,7 @@ func convertKeyValueEngineToPlumbing(porcelain *KeyValueEngine) *proto.KeyValueE
 	plumbing.Id = (porcelain.ID)
 	plumbing.KeyRotationIntervalDays = (porcelain.KeyRotationIntervalDays)
 	plumbing.Name = (porcelain.Name)
+	plumbing.NodeSelector = (porcelain.NodeSelector)
 	plumbing.PublicKey = (porcelain.PublicKey)
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.SecretStoreRootPath = (porcelain.SecretStoreRootPath)
@@ -15084,6 +15088,7 @@ func convertMysqlEngineToPorcelain(plumbing *proto.MysqlEngine) (*MysqlEngine, e
 	porcelain.ID = plumbing.Id
 	porcelain.KeyRotationIntervalDays = plumbing.KeyRotationIntervalDays
 	porcelain.Name = plumbing.Name
+	porcelain.NodeSelector = plumbing.NodeSelector
 	porcelain.Password = plumbing.Password
 	if v, err := convertSecretEnginePolicyToPorcelain(plumbing.Policy); err != nil {
 		return nil, fmt.Errorf("error converting field Policy: %v", err)
@@ -15121,6 +15126,7 @@ func convertMysqlEngineToPlumbing(porcelain *MysqlEngine) *proto.MysqlEngine {
 	plumbing.Id = (porcelain.ID)
 	plumbing.KeyRotationIntervalDays = (porcelain.KeyRotationIntervalDays)
 	plumbing.Name = (porcelain.Name)
+	plumbing.NodeSelector = (porcelain.NodeSelector)
 	plumbing.Password = (porcelain.Password)
 	plumbing.Policy = convertSecretEnginePolicyToPlumbing(porcelain.Policy)
 	plumbing.Port = (porcelain.Port)
@@ -17418,6 +17424,7 @@ func convertPostgresEngineToPorcelain(plumbing *proto.PostgresEngine) (*Postgres
 	porcelain.ID = plumbing.Id
 	porcelain.KeyRotationIntervalDays = plumbing.KeyRotationIntervalDays
 	porcelain.Name = plumbing.Name
+	porcelain.NodeSelector = plumbing.NodeSelector
 	porcelain.Password = plumbing.Password
 	if v, err := convertSecretEnginePolicyToPorcelain(plumbing.Policy); err != nil {
 		return nil, fmt.Errorf("error converting field Policy: %v", err)
@@ -17454,6 +17461,7 @@ func convertPostgresEngineToPlumbing(porcelain *PostgresEngine) *proto.PostgresE
 	plumbing.Id = (porcelain.ID)
 	plumbing.KeyRotationIntervalDays = (porcelain.KeyRotationIntervalDays)
 	plumbing.Name = (porcelain.Name)
+	plumbing.NodeSelector = (porcelain.NodeSelector)
 	plumbing.Password = (porcelain.Password)
 	plumbing.Policy = convertSecretEnginePolicyToPlumbing(porcelain.Policy)
 	plumbing.Port = (porcelain.Port)
@@ -23164,6 +23172,7 @@ func convertSqlserverEngineToPorcelain(plumbing *proto.SqlserverEngine) (*Sqlser
 	porcelain.ID = plumbing.Id
 	porcelain.KeyRotationIntervalDays = plumbing.KeyRotationIntervalDays
 	porcelain.Name = plumbing.Name
+	porcelain.NodeSelector = plumbing.NodeSelector
 	porcelain.Password = plumbing.Password
 	if v, err := convertSecretEnginePolicyToPorcelain(plumbing.Policy); err != nil {
 		return nil, fmt.Errorf("error converting field Policy: %v", err)
@@ -23201,6 +23210,7 @@ func convertSqlserverEngineToPlumbing(porcelain *SqlserverEngine) *proto.Sqlserv
 	plumbing.Id = (porcelain.ID)
 	plumbing.KeyRotationIntervalDays = (porcelain.KeyRotationIntervalDays)
 	plumbing.Name = (porcelain.Name)
+	plumbing.NodeSelector = (porcelain.NodeSelector)
 	plumbing.Password = (porcelain.Password)
 	plumbing.Policy = convertSecretEnginePolicyToPlumbing(porcelain.Policy)
 	plumbing.Port = (porcelain.Port)
