@@ -136,6 +136,8 @@ const (
 
 	ResourceTypeDb2Luw ResourceType = "RESOURCE_TYPE_DB_2_LUW"
 
+	ResourceTypeDatabricks ResourceType = "RESOURCE_TYPE_DATABRICKS"
+
 	ResourceTypeDocumentDbHost ResourceType = "RESOURCE_TYPE_DOCUMENT_DB_HOST"
 
 	ResourceTypeDocumentDbHostIam ResourceType = "RESOURCE_TYPE_DOCUMENT_DB_HOST_IAM"
@@ -3240,6 +3242,39 @@ type DB2LUW struct {
 	TlsRequired bool `json:"tlsRequired"`
 	// The username to authenticate with.
 	Username string `json:"username"`
+}
+
+// Databricks is currently unstable, and its API may change, or it may be removed,
+// without a major version bump.
+type Databricks struct {
+	// Databricks Personal Access Token (PAT)
+	AccessToken string `json:"accessToken"`
+	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided and may also be set to one of the ResourceIPAllocationMode constants to select between VNM, loopback, or default allocation.
+	BindInterface string `json:"bindInterface"`
+	// A filter applied to the routing logic to pin datasource to nodes.
+	EgressFilter string `json:"egressFilter"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// The Databricks workspace hostname (e.g., dbc-xxx.cloud.databricks.com)
+	Hostname string `json:"hostname"`
+	// The HTTP path to the SQL warehouse or cluster (e.g., /sql/1.0/warehouses/xxx)
+	HttpPath string `json:"httpPath"`
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// The local port used by clients to connect to this resource. It is automatically generated if not provided on create and may be re-generated on update by specifying a value of -1.
+	PortOverride int32 `json:"portOverride"`
+	// ID of the proxy cluster for this resource, if any.
+	ProxyClusterID string `json:"proxyClusterId"`
+	// The Schema to use to direct initial requests.
+	Schema string `json:"schema"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+	// DNS subdomain through which this resource may be accessed on clients.  (e.g. "app-prod1" allows the resource to be accessed at "app-prod1.your-org-name.sdm-proxy-domain"). Only applicable to HTTP-based resources or resources using virtual networking mode.
+	Subdomain string `json:"subdomain"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
 }
 
 // DeleteResponseMetadata is reserved for future use.
@@ -9227,6 +9262,60 @@ func (m *CouchbaseWebUI) GetBindInterface() string {
 
 // SetBindInterface sets the bind interface of the CouchbaseWebUI.
 func (m *CouchbaseWebUI) SetBindInterface(v string) {
+	m.BindInterface = v
+}
+func (*Databricks) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the Databricks.
+func (m *Databricks) GetID() string { return m.ID }
+
+// GetName returns the name of the Databricks.
+func (m *Databricks) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the Databricks.
+func (m *Databricks) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the Databricks.
+func (m *Databricks) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the Databricks.
+func (m *Databricks) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the Databricks.
+func (m *Databricks) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the Databricks.
+func (m *Databricks) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+
+// GetEgressFilter returns the egress filter of the Databricks.
+func (m *Databricks) GetEgressFilter() string {
+	return m.EgressFilter
+}
+
+// SetEgressFilter sets the egress filter of the Databricks.
+func (m *Databricks) SetEgressFilter(v string) {
+	m.EgressFilter = v
+}
+
+// GetBindInterface returns the bind interface of the Databricks.
+func (m *Databricks) GetBindInterface() string {
+	return m.BindInterface
+}
+
+// SetBindInterface sets the bind interface of the Databricks.
+func (m *Databricks) SetBindInterface(v string) {
 	m.BindInterface = v
 }
 func (*DB2I) isOneOf_Resource() {}
