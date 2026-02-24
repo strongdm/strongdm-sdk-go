@@ -4883,6 +4883,8 @@ type MCP struct {
 	Name string `json:"name"`
 	// The OAuth 2.0 authorization endpoint URL.
 	OauthAuthEndpoint string `json:"oauthAuthEndpoint"`
+	// Space-separated list of OAuth scopes to request.
+	OauthScopes string `json:"oauthScopes"`
 	// The OAuth 2.0 token endpoint URL.
 	OauthTokenEndpoint string `json:"oauthTokenEndpoint"`
 	// OAuth App Client Secret
@@ -4920,6 +4922,8 @@ type MCPDCR struct {
 	OauthAuthEndpoint string `json:"oauthAuthEndpoint"`
 	// The OAuth 2.0 dynamic client registration endpoint URL.
 	OauthRegisterEndpoint string `json:"oauthRegisterEndpoint"`
+	// Space-separated list of OAuth scopes to request.
+	OauthScopes string `json:"oauthScopes"`
 	// The OAuth 2.0 token endpoint URL.
 	OauthTokenEndpoint string `json:"oauthTokenEndpoint"`
 	// The local port used by clients to connect to this resource. It is automatically generated if not provided on create and may be re-generated on update by specifying a value of -1.
