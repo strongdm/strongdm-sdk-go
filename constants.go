@@ -388,6 +388,7 @@ const (
 	PermissionDeprecatedDatasourceGrant    = "datasource:grant"
 	PermissionDiscoveryConnectorRead       = "discoveryconnector:read"
 	PermissionDiscoveryConnectorWrite      = "discoveryconnector:write"
+	PermissionEntitlementsRead             = "entitlements:read"
 	PermissionGrantRead                    = "grant:read"
 	PermissionGrantWrite                   = "grant:write"
 	PermissionGroupRead                    = "group:read"
@@ -1027,6 +1028,7 @@ var AllPermission = []string{
 	PermissionDeprecatedDatasourceGrant,
 	PermissionDiscoveryConnectorRead,
 	PermissionDiscoveryConnectorWrite,
+	PermissionEntitlementsRead,
 	PermissionGrantRead,
 	PermissionGrantWrite,
 	PermissionGroupRead,

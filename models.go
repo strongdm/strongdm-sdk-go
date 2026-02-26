@@ -3988,6 +3988,54 @@ type GoogleSpanner struct {
 	Tags Tags `json:"tags"`
 }
 
+// GrantedAccountEntitlement represents an individual entitlement of an Account to a Resource that has been granted.
+type GrantedAccountEntitlement struct {
+	// The unique identifier of the group associated with this entitlement, if any.
+	GroupID string `json:"groupId"`
+	// The most recent time at which the account accessed this resource. Empty if the resource has never been accessed.
+	LastAccessed time.Time `json:"lastAccessed"`
+	// The mapped identity privileges for this entitlement, such as Kubernetes group memberships.
+	MappedIdentities *MappedIdentities `json:"mappedIdentities"`
+	// The unique identifier of the origin of this entitlement (e.g., a Role or AccountGrant ID).
+	OriginID string `json:"originId"`
+	// The unique identifier of the Resource to which access is granted.
+	ResourceID string `json:"resourceId"`
+}
+
+// GrantedEntitlementKubernetesPrivileges holds Kubernetes group memberships for a granted entitlement.
+type GrantedEntitlementKubernetesPrivileges struct {
+	// The Kubernetes groups granted to this principal for this resource.
+	Groups []string `json:"groups"`
+}
+
+// GrantedResourceEntitlement represents an individual entitlement of an Account to a Resource,
+// viewed from the resource's perspective.
+type GrantedResourceEntitlement struct {
+	// The unique identifier of the Account that has access to this resource.
+	AccountID string `json:"accountId"`
+	// The unique identifier of the group associated with this entitlement, if any.
+	GroupID string `json:"groupId"`
+	// The most recent time at which the account accessed this resource. Empty if the resource has never been accessed.
+	LastAccessed time.Time `json:"lastAccessed"`
+	// The mapped identity privileges for this entitlement, such as Kubernetes group memberships.
+	MappedIdentities *MappedIdentities `json:"mappedIdentities"`
+	// The unique identifier of the origin of this entitlement (e.g., a Role or AccountGrant ID).
+	OriginID string `json:"originId"`
+}
+
+// GrantedRoleEntitlement represents an individual resource entitlement granted through a Role.
+type GrantedRoleEntitlement struct {
+	// The unique identifier of the group associated with this entitlement, if any.
+	GroupID string `json:"groupId"`
+	// The most recent time at which any account in the organization accessed this resource.
+	// Empty if the resource has never been accessed.
+	LastAccessed time.Time `json:"lastAccessed"`
+	// The mapped identity privileges for this entitlement, such as Kubernetes group memberships.
+	MappedIdentities *MappedIdentities `json:"mappedIdentities"`
+	// The unique identifier of the Resource to which the role grants access.
+	ResourceID string `json:"resourceId"`
+}
+
 type Greenplum struct {
 	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided and may also be set to one of the ResourceIPAllocationMode constants to select between VNM, loopback, or default allocation.
 	BindInterface string `json:"bindInterface"`
@@ -5232,6 +5280,12 @@ type ManagedSecretValidateResponse struct {
 	RateLimit *RateLimitMetadata `json:"rateLimit"`
 	// Whether the secret is valid
 	ValID bool `json:"valid"`
+}
+
+// MappedIdentities represents the mapped identity privileges granted alongside an entitlement.
+type MappedIdentities struct {
+	// Kubernetes group memberships.
+	Kubernetes *GrantedEntitlementKubernetesPrivileges `json:"kubernetes"`
 }
 
 type Maria struct {
@@ -16330,6 +16384,57 @@ type ConnectorIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() Connector
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// GrantedAccountEntitlementIterator provides read access to a list of GrantedAccountEntitlement.
+// Use it like so:
+//
+//	for iterator.Next() {
+//	    grantedAccountEntitlement := iterator.Value()
+//	    // ...
+//	}
+type GrantedAccountEntitlementIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *GrantedAccountEntitlement
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// GrantedResourceEntitlementIterator provides read access to a list of GrantedResourceEntitlement.
+// Use it like so:
+//
+//	for iterator.Next() {
+//	    grantedResourceEntitlement := iterator.Value()
+//	    // ...
+//	}
+type GrantedResourceEntitlementIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *GrantedResourceEntitlement
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// GrantedRoleEntitlementIterator provides read access to a list of GrantedRoleEntitlement.
+// Use it like so:
+//
+//	for iterator.Next() {
+//	    grantedRoleEntitlement := iterator.Value()
+//	    // ...
+//	}
+type GrantedRoleEntitlementIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *GrantedRoleEntitlement
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }
