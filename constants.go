@@ -334,6 +334,7 @@ const (
 	ActivityVerbTOTPEnrollmentDeleted                            = "user reset their totp enrollment"
 	ActivityVerbSuspendedUserEnrollAttemptFromTheUI              = "attempt to enroll by a suspended user from the Admin UI"
 	ActivityVerbResourceLocked                                   = "user locked a resource"
+	ActivityVerbResourceLockExtended                             = "user extended a resource lock"
 	ActivityVerbResourceUnlocked                                 = "user unlocked a resource"
 	ActivityVerbResourceForceUnlocked                            = "admin force-unlocked a resource"
 	ActivityVerbResourceLockRejected                             = "user lock rejected for a resource"
@@ -825,6 +826,7 @@ var AllActivityVerb = []string{
 	ActivityVerbTOTPEnrollmentDeleted,
 	ActivityVerbSuspendedUserEnrollAttemptFromTheUI,
 	ActivityVerbResourceLocked,
+	ActivityVerbResourceLockExtended,
 	ActivityVerbResourceUnlocked,
 	ActivityVerbResourceForceUnlocked,
 	ActivityVerbResourceLockRejected,
