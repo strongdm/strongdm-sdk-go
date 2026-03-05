@@ -1970,6 +1970,7 @@ func convertAccountGrantToPorcelain(plumbing *proto.AccountGrant) (*AccountGrant
 		return nil, nil
 	}
 	porcelain := &AccountGrant{}
+	porcelain.AccessRequestID = plumbing.AccessRequestId
 	if v, err := convertAccessRuleToPorcelain(plumbing.AccessRule); err != nil {
 		return nil, fmt.Errorf("error converting field AccessRule: %v", err)
 	} else {
@@ -1996,6 +1997,7 @@ func convertAccountGrantToPlumbing(porcelain *AccountGrant) *proto.AccountGrant 
 		return nil
 	}
 	plumbing := &proto.AccountGrant{}
+	plumbing.AccessRequestId = (porcelain.AccessRequestID)
 	plumbing.AccessRule = convertAccessRuleToPlumbing(porcelain.AccessRule)
 	plumbing.AccountId = (porcelain.AccountID)
 	plumbing.Id = (porcelain.ID)

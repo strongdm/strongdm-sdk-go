@@ -1040,6 +1040,8 @@ type AccountGetResponse struct {
 
 // AccountGrants connect a resource directly to an account, giving the account the permission to connect to that resource.
 type AccountGrant struct {
+	// The access request ID that created this AccountGrant, if any.
+	AccessRequestID string `json:"accessRequestId"`
 	// The access rule associated with this AccountGrant.
 	AccessRule AccessRule `json:"accessRule"`
 	// The account ID of this AccountGrant.
