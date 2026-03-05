@@ -200,6 +200,10 @@ const (
 
 	ResourceTypeMcpdcr ResourceType = "RESOURCE_TYPE_MCPDCR"
 
+	ResourceTypeMcpNoAuth ResourceType = "RESOURCE_TYPE_MCP_NO_AUTH"
+
+	ResourceTypeMcppat ResourceType = "RESOURCE_TYPE_MCPPAT"
+
 	ResourceTypeMtlsMySql ResourceType = "RESOURCE_TYPE_MTLS_MY_SQL"
 
 	ResourceTypeMtlsPostgres ResourceType = "RESOURCE_TYPE_MTLS_POSTGRES"
@@ -4970,6 +4974,62 @@ type MCPDCR struct {
 	OauthScopes string `json:"oauthScopes"`
 	// The OAuth 2.0 token endpoint URL.
 	OauthTokenEndpoint string `json:"oauthTokenEndpoint"`
+	// The local port used by clients to connect to this resource. It is automatically generated if not provided on create and may be re-generated on update by specifying a value of -1.
+	PortOverride int32 `json:"portOverride"`
+	// ID of the proxy cluster for this resource, if any.
+	ProxyClusterID string `json:"proxyClusterId"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+	// DNS subdomain through which this resource may be accessed on clients.  (e.g. "app-prod1" allows the resource to be accessed at "app-prod1.your-org-name.sdm-proxy-domain"). Only applicable to HTTP-based resources or resources using virtual networking mode.
+	Subdomain string `json:"subdomain"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+}
+
+// MCPGatewayNoAuth is currently unstable, and its API may change, or it may be removed,
+// without a major version bump.
+type MCPGatewayNoAuth struct {
+	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided and may also be set to one of the ResourceIPAllocationMode constants to select between VNM, loopback, or default allocation.
+	BindInterface string `json:"bindInterface"`
+	// A filter applied to the routing logic to pin datasource to nodes.
+	EgressFilter string `json:"egressFilter"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// The host to dial to initiate a connection from the egress node to this resource.
+	Hostname string `json:"hostname"`
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// The local port used by clients to connect to this resource. It is automatically generated if not provided on create and may be re-generated on update by specifying a value of -1.
+	PortOverride int32 `json:"portOverride"`
+	// ID of the proxy cluster for this resource, if any.
+	ProxyClusterID string `json:"proxyClusterId"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+	// DNS subdomain through which this resource may be accessed on clients.  (e.g. "app-prod1" allows the resource to be accessed at "app-prod1.your-org-name.sdm-proxy-domain"). Only applicable to HTTP-based resources or resources using virtual networking mode.
+	Subdomain string `json:"subdomain"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+}
+
+// MCPGatewayPAT is currently unstable, and its API may change, or it may be removed,
+// without a major version bump.
+type MCPGatewayPAT struct {
+	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided and may also be set to one of the ResourceIPAllocationMode constants to select between VNM, loopback, or default allocation.
+	BindInterface string `json:"bindInterface"`
+	// A filter applied to the routing logic to pin datasource to nodes.
+	EgressFilter string `json:"egressFilter"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// The host to dial to initiate a connection from the egress node to this resource.
+	Hostname string `json:"hostname"`
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// The password to authenticate with.
+	Password string `json:"password"`
 	// The local port used by clients to connect to this resource. It is automatically generated if not provided on create and may be re-generated on update by specifying a value of -1.
 	PortOverride int32 `json:"portOverride"`
 	// ID of the proxy cluster for this resource, if any.
@@ -11040,6 +11100,114 @@ func (m *MCP) GetBindInterface() string {
 
 // SetBindInterface sets the bind interface of the MCP.
 func (m *MCP) SetBindInterface(v string) {
+	m.BindInterface = v
+}
+func (*MCPGatewayNoAuth) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the MCPGatewayNoAuth.
+func (m *MCPGatewayNoAuth) GetID() string { return m.ID }
+
+// GetName returns the name of the MCPGatewayNoAuth.
+func (m *MCPGatewayNoAuth) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the MCPGatewayNoAuth.
+func (m *MCPGatewayNoAuth) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the MCPGatewayNoAuth.
+func (m *MCPGatewayNoAuth) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the MCPGatewayNoAuth.
+func (m *MCPGatewayNoAuth) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the MCPGatewayNoAuth.
+func (m *MCPGatewayNoAuth) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the MCPGatewayNoAuth.
+func (m *MCPGatewayNoAuth) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+
+// GetEgressFilter returns the egress filter of the MCPGatewayNoAuth.
+func (m *MCPGatewayNoAuth) GetEgressFilter() string {
+	return m.EgressFilter
+}
+
+// SetEgressFilter sets the egress filter of the MCPGatewayNoAuth.
+func (m *MCPGatewayNoAuth) SetEgressFilter(v string) {
+	m.EgressFilter = v
+}
+
+// GetBindInterface returns the bind interface of the MCPGatewayNoAuth.
+func (m *MCPGatewayNoAuth) GetBindInterface() string {
+	return m.BindInterface
+}
+
+// SetBindInterface sets the bind interface of the MCPGatewayNoAuth.
+func (m *MCPGatewayNoAuth) SetBindInterface(v string) {
+	m.BindInterface = v
+}
+func (*MCPGatewayPAT) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the MCPGatewayPAT.
+func (m *MCPGatewayPAT) GetID() string { return m.ID }
+
+// GetName returns the name of the MCPGatewayPAT.
+func (m *MCPGatewayPAT) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the MCPGatewayPAT.
+func (m *MCPGatewayPAT) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the MCPGatewayPAT.
+func (m *MCPGatewayPAT) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the MCPGatewayPAT.
+func (m *MCPGatewayPAT) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the MCPGatewayPAT.
+func (m *MCPGatewayPAT) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the MCPGatewayPAT.
+func (m *MCPGatewayPAT) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+
+// GetEgressFilter returns the egress filter of the MCPGatewayPAT.
+func (m *MCPGatewayPAT) GetEgressFilter() string {
+	return m.EgressFilter
+}
+
+// SetEgressFilter sets the egress filter of the MCPGatewayPAT.
+func (m *MCPGatewayPAT) SetEgressFilter(v string) {
+	m.EgressFilter = v
+}
+
+// GetBindInterface returns the bind interface of the MCPGatewayPAT.
+func (m *MCPGatewayPAT) GetBindInterface() string {
+	return m.BindInterface
+}
+
+// SetBindInterface sets the bind interface of the MCPGatewayPAT.
+func (m *MCPGatewayPAT) SetBindInterface(v string) {
 	m.BindInterface = v
 }
 func (*MCPDCR) isOneOf_Resource() {}

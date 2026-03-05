@@ -13396,6 +13396,138 @@ func convertRepeatedMCPDCRToPorcelain(plumbings []*proto.MCPDCR) (
 	}
 	return items, nil
 }
+func convertMCPGatewayNoAuthToPorcelain(plumbing *proto.MCPGatewayNoAuth) (*MCPGatewayNoAuth, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &MCPGatewayNoAuth{}
+	porcelain.BindInterface = plumbing.BindInterface
+	porcelain.EgressFilter = plumbing.EgressFilter
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.ProxyClusterID = plumbing.ProxyClusterId
+	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Subdomain = plumbing.Subdomain
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	return porcelain, nil
+}
+
+func convertMCPGatewayNoAuthToPlumbing(porcelain *MCPGatewayNoAuth) *proto.MCPGatewayNoAuth {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.MCPGatewayNoAuth{}
+	plumbing.BindInterface = (porcelain.BindInterface)
+	plumbing.EgressFilter = (porcelain.EgressFilter)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.ProxyClusterId = (porcelain.ProxyClusterID)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Subdomain = (porcelain.Subdomain)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedMCPGatewayNoAuthToPlumbing(
+	porcelains []*MCPGatewayNoAuth,
+) []*proto.MCPGatewayNoAuth {
+	var items []*proto.MCPGatewayNoAuth
+	for _, porcelain := range porcelains {
+		items = append(items, convertMCPGatewayNoAuthToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedMCPGatewayNoAuthToPorcelain(plumbings []*proto.MCPGatewayNoAuth) (
+	[]*MCPGatewayNoAuth,
+	error,
+) {
+	var items []*MCPGatewayNoAuth
+	for _, plumbing := range plumbings {
+		if v, err := convertMCPGatewayNoAuthToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertMCPGatewayPATToPorcelain(plumbing *proto.MCPGatewayPAT) (*MCPGatewayPAT, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &MCPGatewayPAT{}
+	porcelain.BindInterface = plumbing.BindInterface
+	porcelain.EgressFilter = plumbing.EgressFilter
+	porcelain.Healthy = plumbing.Healthy
+	porcelain.Hostname = plumbing.Hostname
+	porcelain.ID = plumbing.Id
+	porcelain.Name = plumbing.Name
+	porcelain.Password = plumbing.Password
+	porcelain.PortOverride = plumbing.PortOverride
+	porcelain.ProxyClusterID = plumbing.ProxyClusterId
+	porcelain.SecretStoreID = plumbing.SecretStoreId
+	porcelain.Subdomain = plumbing.Subdomain
+	if v, err := convertTagsToPorcelain(plumbing.Tags); err != nil {
+		return nil, fmt.Errorf("error converting field Tags: %v", err)
+	} else {
+		porcelain.Tags = v
+	}
+	return porcelain, nil
+}
+
+func convertMCPGatewayPATToPlumbing(porcelain *MCPGatewayPAT) *proto.MCPGatewayPAT {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.MCPGatewayPAT{}
+	plumbing.BindInterface = (porcelain.BindInterface)
+	plumbing.EgressFilter = (porcelain.EgressFilter)
+	plumbing.Healthy = (porcelain.Healthy)
+	plumbing.Hostname = (porcelain.Hostname)
+	plumbing.Id = (porcelain.ID)
+	plumbing.Name = (porcelain.Name)
+	plumbing.Password = (porcelain.Password)
+	plumbing.PortOverride = (porcelain.PortOverride)
+	plumbing.ProxyClusterId = (porcelain.ProxyClusterID)
+	plumbing.SecretStoreId = (porcelain.SecretStoreID)
+	plumbing.Subdomain = (porcelain.Subdomain)
+	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	return plumbing
+}
+func convertRepeatedMCPGatewayPATToPlumbing(
+	porcelains []*MCPGatewayPAT,
+) []*proto.MCPGatewayPAT {
+	var items []*proto.MCPGatewayPAT
+	for _, porcelain := range porcelains {
+		items = append(items, convertMCPGatewayPATToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedMCPGatewayPATToPorcelain(plumbings []*proto.MCPGatewayPAT) (
+	[]*MCPGatewayPAT,
+	error,
+) {
+	var items []*MCPGatewayPAT
+	for _, plumbing := range plumbings {
+		if v, err := convertMCPGatewayPATToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertMTLSMysqlToPorcelain(plumbing *proto.MTLSMysql) (*MTLSMysql, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -20033,6 +20165,10 @@ func convertResourceToPlumbing(porcelain Resource) *proto.Resource {
 		plumbing.Resource = &proto.Resource_Maria{Maria: convertMariaToPlumbing(v)}
 	case *MCP:
 		plumbing.Resource = &proto.Resource_Mcp{Mcp: convertMCPToPlumbing(v)}
+	case *MCPGatewayNoAuth:
+		plumbing.Resource = &proto.Resource_McpGatewayNoAuth{McpGatewayNoAuth: convertMCPGatewayNoAuthToPlumbing(v)}
+	case *MCPGatewayPAT:
+		plumbing.Resource = &proto.Resource_McpGatewayPat{McpGatewayPat: convertMCPGatewayPATToPlumbing(v)}
 	case *MCPDCR:
 		plumbing.Resource = &proto.Resource_Mcpdcr{Mcpdcr: convertMCPDCRToPlumbing(v)}
 	case *Memcached:
@@ -20339,6 +20475,12 @@ func convertResourceToPorcelain(plumbing *proto.Resource) (Resource, error) {
 	}
 	if plumbing.GetMcp() != nil {
 		return convertMCPToPorcelain(plumbing.GetMcp())
+	}
+	if plumbing.GetMcpGatewayNoAuth() != nil {
+		return convertMCPGatewayNoAuthToPorcelain(plumbing.GetMcpGatewayNoAuth())
+	}
+	if plumbing.GetMcpGatewayPat() != nil {
+		return convertMCPGatewayPATToPorcelain(plumbing.GetMcpGatewayPat())
 	}
 	if plumbing.GetMcpdcr() != nil {
 		return convertMCPDCRToPorcelain(plumbing.GetMcpdcr())
