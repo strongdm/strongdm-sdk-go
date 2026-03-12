@@ -196,11 +196,11 @@ const (
 
 	ResourceTypeKubernetesUserImpersonation ResourceType = "RESOURCE_TYPE_KUBERNETES_USER_IMPERSONATION"
 
+	ResourceTypeMcpNoAuth ResourceType = "RESOURCE_TYPE_MCP_NO_AUTH"
+
 	ResourceTypeMcp ResourceType = "RESOURCE_TYPE_MCP"
 
 	ResourceTypeMcpdcr ResourceType = "RESOURCE_TYPE_MCPDCR"
-
-	ResourceTypeMcpNoAuth ResourceType = "RESOURCE_TYPE_MCP_NO_AUTH"
 
 	ResourceTypeMcppat ResourceType = "RESOURCE_TYPE_MCPPAT"
 
@@ -635,6 +635,8 @@ type AWSConsole struct {
 	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// This option enforces HTTPS on the client, not resource connection.
+	UseHttps bool `json:"useHttps"`
 }
 
 type AWSConsoleStaticKeyPair struct {
@@ -674,6 +676,8 @@ type AWSConsoleStaticKeyPair struct {
 	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// This option enforces HTTPS on the client, not resource connection
+	UseHttps bool `json:"useHttps"`
 }
 
 type AWSInstanceProfile struct {
@@ -4320,6 +4324,8 @@ type HTTPAuth struct {
 	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// This option enforces HTTPS on the client, not resource connection.
+	TlsRequired bool `json:"tlsRequired"`
 	// The base address of your website without the path.
 	Url string `json:"url"`
 }
@@ -4357,6 +4363,8 @@ type HTTPBasicAuth struct {
 	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// This option enforces HTTPS on the client, not resource connection.
+	TlsRequired bool `json:"tlsRequired"`
 	// The base address of your website without the path.
 	Url string `json:"url"`
 	// The username to authenticate with.
@@ -4394,6 +4402,8 @@ type HTTPNoAuth struct {
 	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// This option enforces HTTPS on the client, not resource connection.
+	TlsRequired bool `json:"tlsRequired"`
 	// The base address of your website without the path.
 	Url string `json:"url"`
 }
@@ -4916,9 +4926,32 @@ type LogConfig struct {
 	PublicKey string `json:"publicKey"`
 }
 
-// MCP is currently unstable, and its API may change, or it may be removed,
-// without a major version bump.
-type MCP struct {
+type MCPGatewayNoAuth struct {
+	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided and may also be set to one of the ResourceIPAllocationMode constants to select between VNM, loopback, or default allocation.
+	BindInterface string `json:"bindInterface"`
+	// A filter applied to the routing logic to pin datasource to nodes.
+	EgressFilter string `json:"egressFilter"`
+	// True if the datasource is reachable and the credentials are valid.
+	Healthy bool `json:"healthy"`
+	// The host to dial to initiate a connection from the egress node to this resource.
+	Hostname string `json:"hostname"`
+	// Unique identifier of the Resource.
+	ID string `json:"id"`
+	// Unique human-readable name of the Resource.
+	Name string `json:"name"`
+	// The local port used by clients to connect to this resource. It is automatically generated if not provided on create and may be re-generated on update by specifying a value of -1.
+	PortOverride int32 `json:"portOverride"`
+	// ID of the proxy cluster for this resource, if any.
+	ProxyClusterID string `json:"proxyClusterId"`
+	// ID of the secret store containing credentials for this resource, if any.
+	SecretStoreID string `json:"secretStoreId"`
+	// DNS subdomain through which this resource may be accessed on clients.  (e.g. "app-prod1" allows the resource to be accessed at "app-prod1.your-org-name.sdm-proxy-domain"). Only applicable to HTTP-based resources or resources using virtual networking mode.
+	Subdomain string `json:"subdomain"`
+	// Tags is a map of key, value pairs.
+	Tags Tags `json:"tags"`
+}
+
+type MCPGatewayOAuth struct {
 	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided and may also be set to one of the ResourceIPAllocationMode constants to select between VNM, loopback, or default allocation.
 	BindInterface string `json:"bindInterface"`
 	// A filter applied to the routing logic to pin datasource to nodes.
@@ -4953,9 +4986,9 @@ type MCP struct {
 	Username string `json:"username"`
 }
 
-// MCPDCR is currently unstable, and its API may change, or it may be removed,
+// MCPGatewayOAuthDCR is currently unstable, and its API may change, or it may be removed,
 // without a major version bump.
-type MCPDCR struct {
+type MCPGatewayOAuthDCR struct {
 	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided and may also be set to one of the ResourceIPAllocationMode constants to select between VNM, loopback, or default allocation.
 	BindInterface string `json:"bindInterface"`
 	// A filter applied to the routing logic to pin datasource to nodes.
@@ -4988,35 +5021,6 @@ type MCPDCR struct {
 	Tags Tags `json:"tags"`
 }
 
-// MCPGatewayNoAuth is currently unstable, and its API may change, or it may be removed,
-// without a major version bump.
-type MCPGatewayNoAuth struct {
-	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided and may also be set to one of the ResourceIPAllocationMode constants to select between VNM, loopback, or default allocation.
-	BindInterface string `json:"bindInterface"`
-	// A filter applied to the routing logic to pin datasource to nodes.
-	EgressFilter string `json:"egressFilter"`
-	// True if the datasource is reachable and the credentials are valid.
-	Healthy bool `json:"healthy"`
-	// The host to dial to initiate a connection from the egress node to this resource.
-	Hostname string `json:"hostname"`
-	// Unique identifier of the Resource.
-	ID string `json:"id"`
-	// Unique human-readable name of the Resource.
-	Name string `json:"name"`
-	// The local port used by clients to connect to this resource. It is automatically generated if not provided on create and may be re-generated on update by specifying a value of -1.
-	PortOverride int32 `json:"portOverride"`
-	// ID of the proxy cluster for this resource, if any.
-	ProxyClusterID string `json:"proxyClusterId"`
-	// ID of the secret store containing credentials for this resource, if any.
-	SecretStoreID string `json:"secretStoreId"`
-	// DNS subdomain through which this resource may be accessed on clients.  (e.g. "app-prod1" allows the resource to be accessed at "app-prod1.your-org-name.sdm-proxy-domain"). Only applicable to HTTP-based resources or resources using virtual networking mode.
-	Subdomain string `json:"subdomain"`
-	// Tags is a map of key, value pairs.
-	Tags Tags `json:"tags"`
-}
-
-// MCPGatewayPAT is currently unstable, and its API may change, or it may be removed,
-// without a major version bump.
 type MCPGatewayPAT struct {
 	// The bind interface is the IP address to which the port override of a resource is bound (for example, 127.0.0.1). It is automatically generated if not provided and may also be set to one of the ResourceIPAllocationMode constants to select between VNM, loopback, or default allocation.
 	BindInterface string `json:"bindInterface"`
@@ -11050,60 +11054,6 @@ func (m *Maria) GetBindInterface() string {
 func (m *Maria) SetBindInterface(v string) {
 	m.BindInterface = v
 }
-func (*MCP) isOneOf_Resource() {}
-
-// GetID returns the unique identifier of the MCP.
-func (m *MCP) GetID() string { return m.ID }
-
-// GetName returns the name of the MCP.
-func (m *MCP) GetName() string {
-	return m.Name
-}
-
-// SetName sets the name of the MCP.
-func (m *MCP) SetName(v string) {
-	m.Name = v
-}
-
-// GetTags returns the tags of the MCP.
-func (m *MCP) GetTags() Tags {
-	return m.Tags.clone()
-}
-
-// SetTags sets the tags of the MCP.
-func (m *MCP) SetTags(v Tags) {
-	m.Tags = v.clone()
-}
-
-// GetSecretStoreID returns the secret store id of the MCP.
-func (m *MCP) GetSecretStoreID() string {
-	return m.SecretStoreID
-}
-
-// SetSecretStoreID sets the secret store id of the MCP.
-func (m *MCP) SetSecretStoreID(v string) {
-	m.SecretStoreID = v
-}
-
-// GetEgressFilter returns the egress filter of the MCP.
-func (m *MCP) GetEgressFilter() string {
-	return m.EgressFilter
-}
-
-// SetEgressFilter sets the egress filter of the MCP.
-func (m *MCP) SetEgressFilter(v string) {
-	m.EgressFilter = v
-}
-
-// GetBindInterface returns the bind interface of the MCP.
-func (m *MCP) GetBindInterface() string {
-	return m.BindInterface
-}
-
-// SetBindInterface sets the bind interface of the MCP.
-func (m *MCP) SetBindInterface(v string) {
-	m.BindInterface = v
-}
 func (*MCPGatewayNoAuth) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MCPGatewayNoAuth.
@@ -11158,6 +11108,114 @@ func (m *MCPGatewayNoAuth) GetBindInterface() string {
 func (m *MCPGatewayNoAuth) SetBindInterface(v string) {
 	m.BindInterface = v
 }
+func (*MCPGatewayOAuth) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the MCPGatewayOAuth.
+func (m *MCPGatewayOAuth) GetID() string { return m.ID }
+
+// GetName returns the name of the MCPGatewayOAuth.
+func (m *MCPGatewayOAuth) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the MCPGatewayOAuth.
+func (m *MCPGatewayOAuth) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the MCPGatewayOAuth.
+func (m *MCPGatewayOAuth) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the MCPGatewayOAuth.
+func (m *MCPGatewayOAuth) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the MCPGatewayOAuth.
+func (m *MCPGatewayOAuth) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the MCPGatewayOAuth.
+func (m *MCPGatewayOAuth) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+
+// GetEgressFilter returns the egress filter of the MCPGatewayOAuth.
+func (m *MCPGatewayOAuth) GetEgressFilter() string {
+	return m.EgressFilter
+}
+
+// SetEgressFilter sets the egress filter of the MCPGatewayOAuth.
+func (m *MCPGatewayOAuth) SetEgressFilter(v string) {
+	m.EgressFilter = v
+}
+
+// GetBindInterface returns the bind interface of the MCPGatewayOAuth.
+func (m *MCPGatewayOAuth) GetBindInterface() string {
+	return m.BindInterface
+}
+
+// SetBindInterface sets the bind interface of the MCPGatewayOAuth.
+func (m *MCPGatewayOAuth) SetBindInterface(v string) {
+	m.BindInterface = v
+}
+func (*MCPGatewayOAuthDCR) isOneOf_Resource() {}
+
+// GetID returns the unique identifier of the MCPGatewayOAuthDCR.
+func (m *MCPGatewayOAuthDCR) GetID() string { return m.ID }
+
+// GetName returns the name of the MCPGatewayOAuthDCR.
+func (m *MCPGatewayOAuthDCR) GetName() string {
+	return m.Name
+}
+
+// SetName sets the name of the MCPGatewayOAuthDCR.
+func (m *MCPGatewayOAuthDCR) SetName(v string) {
+	m.Name = v
+}
+
+// GetTags returns the tags of the MCPGatewayOAuthDCR.
+func (m *MCPGatewayOAuthDCR) GetTags() Tags {
+	return m.Tags.clone()
+}
+
+// SetTags sets the tags of the MCPGatewayOAuthDCR.
+func (m *MCPGatewayOAuthDCR) SetTags(v Tags) {
+	m.Tags = v.clone()
+}
+
+// GetSecretStoreID returns the secret store id of the MCPGatewayOAuthDCR.
+func (m *MCPGatewayOAuthDCR) GetSecretStoreID() string {
+	return m.SecretStoreID
+}
+
+// SetSecretStoreID sets the secret store id of the MCPGatewayOAuthDCR.
+func (m *MCPGatewayOAuthDCR) SetSecretStoreID(v string) {
+	m.SecretStoreID = v
+}
+
+// GetEgressFilter returns the egress filter of the MCPGatewayOAuthDCR.
+func (m *MCPGatewayOAuthDCR) GetEgressFilter() string {
+	return m.EgressFilter
+}
+
+// SetEgressFilter sets the egress filter of the MCPGatewayOAuthDCR.
+func (m *MCPGatewayOAuthDCR) SetEgressFilter(v string) {
+	m.EgressFilter = v
+}
+
+// GetBindInterface returns the bind interface of the MCPGatewayOAuthDCR.
+func (m *MCPGatewayOAuthDCR) GetBindInterface() string {
+	return m.BindInterface
+}
+
+// SetBindInterface sets the bind interface of the MCPGatewayOAuthDCR.
+func (m *MCPGatewayOAuthDCR) SetBindInterface(v string) {
+	m.BindInterface = v
+}
 func (*MCPGatewayPAT) isOneOf_Resource() {}
 
 // GetID returns the unique identifier of the MCPGatewayPAT.
@@ -11210,60 +11268,6 @@ func (m *MCPGatewayPAT) GetBindInterface() string {
 
 // SetBindInterface sets the bind interface of the MCPGatewayPAT.
 func (m *MCPGatewayPAT) SetBindInterface(v string) {
-	m.BindInterface = v
-}
-func (*MCPDCR) isOneOf_Resource() {}
-
-// GetID returns the unique identifier of the MCPDCR.
-func (m *MCPDCR) GetID() string { return m.ID }
-
-// GetName returns the name of the MCPDCR.
-func (m *MCPDCR) GetName() string {
-	return m.Name
-}
-
-// SetName sets the name of the MCPDCR.
-func (m *MCPDCR) SetName(v string) {
-	m.Name = v
-}
-
-// GetTags returns the tags of the MCPDCR.
-func (m *MCPDCR) GetTags() Tags {
-	return m.Tags.clone()
-}
-
-// SetTags sets the tags of the MCPDCR.
-func (m *MCPDCR) SetTags(v Tags) {
-	m.Tags = v.clone()
-}
-
-// GetSecretStoreID returns the secret store id of the MCPDCR.
-func (m *MCPDCR) GetSecretStoreID() string {
-	return m.SecretStoreID
-}
-
-// SetSecretStoreID sets the secret store id of the MCPDCR.
-func (m *MCPDCR) SetSecretStoreID(v string) {
-	m.SecretStoreID = v
-}
-
-// GetEgressFilter returns the egress filter of the MCPDCR.
-func (m *MCPDCR) GetEgressFilter() string {
-	return m.EgressFilter
-}
-
-// SetEgressFilter sets the egress filter of the MCPDCR.
-func (m *MCPDCR) SetEgressFilter(v string) {
-	m.EgressFilter = v
-}
-
-// GetBindInterface returns the bind interface of the MCPDCR.
-func (m *MCPDCR) GetBindInterface() string {
-	return m.BindInterface
-}
-
-// SetBindInterface sets the bind interface of the MCPDCR.
-func (m *MCPDCR) SetBindInterface(v string) {
 	m.BindInterface = v
 }
 func (*Memcached) isOneOf_Resource() {}
@@ -15387,6 +15391,8 @@ type Snowsight struct {
 	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// This option enforces HTTPS on the client, not resource connection.
+	UseHttps bool `json:"useHttps"`
 }
 
 type SqlserverEngine struct {
