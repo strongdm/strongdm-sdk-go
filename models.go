@@ -7174,6 +7174,18 @@ type ReplayChunkEvent struct {
 	Duration time.Duration `json:"duration"`
 }
 
+// RequestableAccountEntitlement represents an individual resource that an Account is permitted to request access to.
+type RequestableAccountEntitlement struct {
+	// The unique identifier of the group associated with this entitlement, if any.
+	GroupID string `json:"groupId"`
+	// The mapped identity privileges for this entitlement, such as Kubernetes group memberships.
+	MappedIdentities *MappedIdentities `json:"mappedIdentities"`
+	// The unique identifier of the origin of this entitlement (e.g., an Access Workflow ID).
+	OriginID string `json:"originId"`
+	// The unique identifier of the Resource to which access can be requested.
+	ResourceID string `json:"resourceId"`
+}
+
 // RequestableResource is a resource that can be requested via an AccessRequestConfig
 type RequestableResource struct {
 	// The current state of the user's access to the resources
@@ -7190,6 +7202,30 @@ type RequestableResource struct {
 	Tags Tags `json:"tags"`
 	// The resource type
 	Type string `json:"type"`
+}
+
+// RequestableResourceEntitlement represents an individual account that is permitted to request access to a Resource.
+type RequestableResourceEntitlement struct {
+	// The unique identifier of the Account that can request access to this resource.
+	AccountID string `json:"accountId"`
+	// The unique identifier of the group associated with this entitlement, if any.
+	GroupID string `json:"groupId"`
+	// The mapped identity privileges for this entitlement, such as Kubernetes group memberships.
+	MappedIdentities *MappedIdentities `json:"mappedIdentities"`
+	// The unique identifier of the origin of this entitlement (e.g., an Access Workflow ID).
+	OriginID string `json:"originId"`
+}
+
+// RequestableRoleEntitlement represents an individual resource that a Role permits its members to request access to.
+type RequestableRoleEntitlement struct {
+	// The unique identifier of the group associated with this entitlement, if any.
+	GroupID string `json:"groupId"`
+	// The mapped identity privileges for this entitlement, such as Kubernetes group memberships.
+	MappedIdentities *MappedIdentities `json:"mappedIdentities"`
+	// The unique identifier of the origin of this entitlement (e.g., an Access Workflow ID).
+	OriginID string `json:"originId"`
+	// The unique identifier of the Resource to which access can be requested through this role.
+	ResourceID string `json:"resourceId"`
 }
 
 // A Resource is a database, server, cluster, website, or cloud that strongDM
@@ -17085,6 +17121,57 @@ type ReplayChunkIterator interface {
 	Next() bool
 	// Value returns the current item, if one is available.
 	Value() *ReplayChunk
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// RequestableAccountEntitlementIterator provides read access to a list of RequestableAccountEntitlement.
+// Use it like so:
+//
+//	for iterator.Next() {
+//	    requestableAccountEntitlement := iterator.Value()
+//	    // ...
+//	}
+type RequestableAccountEntitlementIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *RequestableAccountEntitlement
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// RequestableResourceEntitlementIterator provides read access to a list of RequestableResourceEntitlement.
+// Use it like so:
+//
+//	for iterator.Next() {
+//	    requestableResourceEntitlement := iterator.Value()
+//	    // ...
+//	}
+type RequestableResourceEntitlementIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *RequestableResourceEntitlement
+	// Err returns the first error encountered during iteration, if any.
+	Err() error
+}
+
+// RequestableRoleEntitlementIterator provides read access to a list of RequestableRoleEntitlement.
+// Use it like so:
+//
+//	for iterator.Next() {
+//	    requestableRoleEntitlement := iterator.Value()
+//	    // ...
+//	}
+type RequestableRoleEntitlementIterator interface {
+	// Next advances the iterator to the next item in the list. It returns
+	// true if an item is available to retrieve via the `Value()` function.
+	Next() bool
+	// Value returns the current item, if one is available.
+	Value() *RequestableRoleEntitlement
 	// Err returns the first error encountered during iteration, if any.
 	Err() error
 }

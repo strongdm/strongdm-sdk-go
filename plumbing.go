@@ -19969,6 +19969,57 @@ func convertRepeatedReplayChunkEventToPorcelain(plumbings []*proto.ReplayChunkEv
 	}
 	return items, nil
 }
+func convertRequestableAccountEntitlementToPorcelain(plumbing *proto.RequestableAccountEntitlement) (*RequestableAccountEntitlement, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &RequestableAccountEntitlement{}
+	porcelain.GroupID = plumbing.GroupId
+	if v, err := convertMappedIdentitiesToPorcelain(plumbing.MappedIdentities); err != nil {
+		return nil, fmt.Errorf("error converting field MappedIdentities: %v", err)
+	} else {
+		porcelain.MappedIdentities = v
+	}
+	porcelain.OriginID = plumbing.OriginId
+	porcelain.ResourceID = plumbing.ResourceId
+	return porcelain, nil
+}
+
+func convertRequestableAccountEntitlementToPlumbing(porcelain *RequestableAccountEntitlement) *proto.RequestableAccountEntitlement {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RequestableAccountEntitlement{}
+	plumbing.GroupId = (porcelain.GroupID)
+	plumbing.MappedIdentities = convertMappedIdentitiesToPlumbing(porcelain.MappedIdentities)
+	plumbing.OriginId = (porcelain.OriginID)
+	plumbing.ResourceId = (porcelain.ResourceID)
+	return plumbing
+}
+func convertRepeatedRequestableAccountEntitlementToPlumbing(
+	porcelains []*RequestableAccountEntitlement,
+) []*proto.RequestableAccountEntitlement {
+	var items []*proto.RequestableAccountEntitlement
+	for _, porcelain := range porcelains {
+		items = append(items, convertRequestableAccountEntitlementToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedRequestableAccountEntitlementToPorcelain(plumbings []*proto.RequestableAccountEntitlement) (
+	[]*RequestableAccountEntitlement,
+	error,
+) {
+	var items []*RequestableAccountEntitlement
+	for _, plumbing := range plumbings {
+		if v, err := convertRequestableAccountEntitlementToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
 func convertRequestableResourceToPorcelain(plumbing *proto.RequestableResource) (*RequestableResource, error) {
 	if plumbing == nil {
 		return nil, nil
@@ -20019,6 +20070,108 @@ func convertRepeatedRequestableResourceToPorcelain(plumbings []*proto.Requestabl
 	var items []*RequestableResource
 	for _, plumbing := range plumbings {
 		if v, err := convertRequestableResourceToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertRequestableResourceEntitlementToPorcelain(plumbing *proto.RequestableResourceEntitlement) (*RequestableResourceEntitlement, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &RequestableResourceEntitlement{}
+	porcelain.AccountID = plumbing.AccountId
+	porcelain.GroupID = plumbing.GroupId
+	if v, err := convertMappedIdentitiesToPorcelain(plumbing.MappedIdentities); err != nil {
+		return nil, fmt.Errorf("error converting field MappedIdentities: %v", err)
+	} else {
+		porcelain.MappedIdentities = v
+	}
+	porcelain.OriginID = plumbing.OriginId
+	return porcelain, nil
+}
+
+func convertRequestableResourceEntitlementToPlumbing(porcelain *RequestableResourceEntitlement) *proto.RequestableResourceEntitlement {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RequestableResourceEntitlement{}
+	plumbing.AccountId = (porcelain.AccountID)
+	plumbing.GroupId = (porcelain.GroupID)
+	plumbing.MappedIdentities = convertMappedIdentitiesToPlumbing(porcelain.MappedIdentities)
+	plumbing.OriginId = (porcelain.OriginID)
+	return plumbing
+}
+func convertRepeatedRequestableResourceEntitlementToPlumbing(
+	porcelains []*RequestableResourceEntitlement,
+) []*proto.RequestableResourceEntitlement {
+	var items []*proto.RequestableResourceEntitlement
+	for _, porcelain := range porcelains {
+		items = append(items, convertRequestableResourceEntitlementToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedRequestableResourceEntitlementToPorcelain(plumbings []*proto.RequestableResourceEntitlement) (
+	[]*RequestableResourceEntitlement,
+	error,
+) {
+	var items []*RequestableResourceEntitlement
+	for _, plumbing := range plumbings {
+		if v, err := convertRequestableResourceEntitlementToPorcelain(plumbing); err != nil {
+			return nil, err
+		} else {
+			items = append(items, v)
+		}
+	}
+	return items, nil
+}
+func convertRequestableRoleEntitlementToPorcelain(plumbing *proto.RequestableRoleEntitlement) (*RequestableRoleEntitlement, error) {
+	if plumbing == nil {
+		return nil, nil
+	}
+	porcelain := &RequestableRoleEntitlement{}
+	porcelain.GroupID = plumbing.GroupId
+	if v, err := convertMappedIdentitiesToPorcelain(plumbing.MappedIdentities); err != nil {
+		return nil, fmt.Errorf("error converting field MappedIdentities: %v", err)
+	} else {
+		porcelain.MappedIdentities = v
+	}
+	porcelain.OriginID = plumbing.OriginId
+	porcelain.ResourceID = plumbing.ResourceId
+	return porcelain, nil
+}
+
+func convertRequestableRoleEntitlementToPlumbing(porcelain *RequestableRoleEntitlement) *proto.RequestableRoleEntitlement {
+	if porcelain == nil {
+		return nil
+	}
+	plumbing := &proto.RequestableRoleEntitlement{}
+	plumbing.GroupId = (porcelain.GroupID)
+	plumbing.MappedIdentities = convertMappedIdentitiesToPlumbing(porcelain.MappedIdentities)
+	plumbing.OriginId = (porcelain.OriginID)
+	plumbing.ResourceId = (porcelain.ResourceID)
+	return plumbing
+}
+func convertRepeatedRequestableRoleEntitlementToPlumbing(
+	porcelains []*RequestableRoleEntitlement,
+) []*proto.RequestableRoleEntitlement {
+	var items []*proto.RequestableRoleEntitlement
+	for _, porcelain := range porcelains {
+		items = append(items, convertRequestableRoleEntitlementToPlumbing(porcelain))
+	}
+	return items
+}
+
+func convertRepeatedRequestableRoleEntitlementToPorcelain(plumbings []*proto.RequestableRoleEntitlement) (
+	[]*RequestableRoleEntitlement,
+	error,
+) {
+	var items []*RequestableRoleEntitlement
+	for _, plumbing := range plumbings {
+		if v, err := convertRequestableRoleEntitlementToPorcelain(plumbing); err != nil {
 			return nil, err
 		} else {
 			items = append(items, v)
@@ -28931,6 +29084,141 @@ func (r *replayChunkIteratorImpl) Value() *ReplayChunk {
 }
 
 func (r *replayChunkIteratorImpl) Err() error {
+	return r.err
+}
+
+type requestableAccountEntitlementIteratorImplFetchFunc func() (
+	[]*RequestableAccountEntitlement,
+	bool, error)
+type requestableAccountEntitlementIteratorImpl struct {
+	buffer      []*RequestableAccountEntitlement
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       requestableAccountEntitlementIteratorImplFetchFunc
+}
+
+func newRequestableAccountEntitlementIteratorImpl(f requestableAccountEntitlementIteratorImplFetchFunc) *requestableAccountEntitlementIteratorImpl {
+	return &requestableAccountEntitlementIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *requestableAccountEntitlementIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *requestableAccountEntitlementIteratorImpl) Value() *RequestableAccountEntitlement {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *requestableAccountEntitlementIteratorImpl) Err() error {
+	return r.err
+}
+
+type requestableResourceEntitlementIteratorImplFetchFunc func() (
+	[]*RequestableResourceEntitlement,
+	bool, error)
+type requestableResourceEntitlementIteratorImpl struct {
+	buffer      []*RequestableResourceEntitlement
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       requestableResourceEntitlementIteratorImplFetchFunc
+}
+
+func newRequestableResourceEntitlementIteratorImpl(f requestableResourceEntitlementIteratorImplFetchFunc) *requestableResourceEntitlementIteratorImpl {
+	return &requestableResourceEntitlementIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *requestableResourceEntitlementIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *requestableResourceEntitlementIteratorImpl) Value() *RequestableResourceEntitlement {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *requestableResourceEntitlementIteratorImpl) Err() error {
+	return r.err
+}
+
+type requestableRoleEntitlementIteratorImplFetchFunc func() (
+	[]*RequestableRoleEntitlement,
+	bool, error)
+type requestableRoleEntitlementIteratorImpl struct {
+	buffer      []*RequestableRoleEntitlement
+	index       int
+	hasNextPage bool
+	err         error
+	fetch       requestableRoleEntitlementIteratorImplFetchFunc
+}
+
+func newRequestableRoleEntitlementIteratorImpl(f requestableRoleEntitlementIteratorImplFetchFunc) *requestableRoleEntitlementIteratorImpl {
+	return &requestableRoleEntitlementIteratorImpl{
+		hasNextPage: true,
+		fetch:       f,
+	}
+}
+
+func (r *requestableRoleEntitlementIteratorImpl) Next() bool {
+	if r.index < len(r.buffer)-1 {
+		r.index++
+		return true
+	}
+
+	// reached end of buffer
+	if !r.hasNextPage {
+		return false
+	}
+
+	r.index = 0
+	r.buffer, r.hasNextPage, r.err = r.fetch()
+	return len(r.buffer) > 0
+}
+
+func (r *requestableRoleEntitlementIteratorImpl) Value() *RequestableRoleEntitlement {
+	if r.index >= len(r.buffer) {
+		return nil
+	}
+	return r.buffer[r.index]
+}
+
+func (r *requestableRoleEntitlementIteratorImpl) Err() error {
 	return r.err
 }
 
