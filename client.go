@@ -44,7 +44,7 @@ import (
 const (
 	defaultAPIHost   = "app.strongdm.com:443"
 	apiVersion       = "2025-04-14"
-	defaultUserAgent = "strongdm-sdk-go/16.21.0"
+	defaultUserAgent = "strongdm-sdk-go/16.22.0"
 )
 
 var _ = metadata.Pairs
