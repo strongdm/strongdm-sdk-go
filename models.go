@@ -5146,6 +5146,8 @@ type ManagedSecret struct {
 	ID string `json:"id"`
 	// Timestamp of when secret was last rotated
 	LastRotatedAt time.Time `json:"lastRotatedAt"`
+	// Whether the secret requires a lock to access
+	LockRequired bool `json:"lockRequired"`
 	// Unique human-readable name of the Managed Secret.
 	Name string `json:"name"`
 	// Password and rotation policy for the secret

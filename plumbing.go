@@ -13725,6 +13725,7 @@ func convertManagedSecretToPorcelain(plumbing *proto.ManagedSecret) (*ManagedSec
 	} else {
 		porcelain.LastRotatedAt = v
 	}
+	porcelain.LockRequired = plumbing.LockRequired
 	porcelain.Name = plumbing.Name
 	if v, err := convertManagedSecretPolicyToPorcelain(plumbing.Policy); err != nil {
 		return nil, fmt.Errorf("error converting field Policy: %v", err)
@@ -13751,6 +13752,7 @@ func convertManagedSecretToPlumbing(porcelain *ManagedSecret) *proto.ManagedSecr
 	plumbing.ExpiresAt = convertTimestampToPlumbing(porcelain.ExpiresAt)
 	plumbing.Id = (porcelain.ID)
 	plumbing.LastRotatedAt = convertTimestampToPlumbing(porcelain.LastRotatedAt)
+	plumbing.LockRequired = (porcelain.LockRequired)
 	plumbing.Name = (porcelain.Name)
 	plumbing.Policy = convertManagedSecretPolicyToPlumbing(porcelain.Policy)
 	plumbing.SecretEngineId = (porcelain.SecretEngineID)
