@@ -4949,6 +4949,8 @@ type MCPGatewayNoAuth struct {
 	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// The URL to dial to initiate a connection from the egress node to this resource.
+	Url string `json:"url"`
 }
 
 type MCPGatewayOAuth struct {
@@ -4982,6 +4984,8 @@ type MCPGatewayOAuth struct {
 	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// The URL to dial to initiate a connection from the egress node to this resource.
+	Url string `json:"url"`
 	// OAuth App Client ID
 	Username string `json:"username"`
 }
@@ -5019,6 +5023,8 @@ type MCPGatewayOAuthDCR struct {
 	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// The URL to dial to initiate a connection from the egress node to this resource.
+	Url string `json:"url"`
 }
 
 type MCPGatewayPAT struct {
@@ -5046,6 +5052,8 @@ type MCPGatewayPAT struct {
 	Subdomain string `json:"subdomain"`
 	// Tags is a map of key, value pairs.
 	Tags Tags `json:"tags"`
+	// The URL to dial to initiate a connection from the egress node to this resource.
+	Url string `json:"url"`
 }
 
 type MTLSMysql struct {

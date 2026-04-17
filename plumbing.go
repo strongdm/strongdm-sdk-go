@@ -20,7 +20,7 @@ package sdm
 import (
 	"encoding/json"
 	"fmt"
-	proto "github.com/strongdm/strongdm-sdk-go/v16/internal/v1"
+	proto "github.com/strongdm/strongdm-sdk-go/v17/internal/v1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/durationpb"
@@ -13280,6 +13280,7 @@ func convertMCPGatewayNoAuthToPorcelain(plumbing *proto.MCPGatewayNoAuth) (*MCPG
 	} else {
 		porcelain.Tags = v
 	}
+	porcelain.Url = plumbing.Url
 	return porcelain, nil
 }
 
@@ -13299,6 +13300,7 @@ func convertMCPGatewayNoAuthToPlumbing(porcelain *MCPGatewayNoAuth) *proto.MCPGa
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Subdomain = (porcelain.Subdomain)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Url = (porcelain.Url)
 	return plumbing
 }
 func convertRepeatedMCPGatewayNoAuthToPlumbing(
@@ -13349,6 +13351,7 @@ func convertMCPGatewayOAuthToPorcelain(plumbing *proto.MCPGatewayOAuth) (*MCPGat
 	} else {
 		porcelain.Tags = v
 	}
+	porcelain.Url = plumbing.Url
 	porcelain.Username = plumbing.Username
 	return porcelain, nil
 }
@@ -13373,6 +13376,7 @@ func convertMCPGatewayOAuthToPlumbing(porcelain *MCPGatewayOAuth) *proto.MCPGate
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Subdomain = (porcelain.Subdomain)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Url = (porcelain.Url)
 	plumbing.Username = (porcelain.Username)
 	return plumbing
 }
@@ -13424,6 +13428,7 @@ func convertMCPGatewayOAuthDCRToPorcelain(plumbing *proto.MCPGatewayOAuthDCR) (*
 	} else {
 		porcelain.Tags = v
 	}
+	porcelain.Url = plumbing.Url
 	return porcelain, nil
 }
 
@@ -13447,6 +13452,7 @@ func convertMCPGatewayOAuthDCRToPlumbing(porcelain *MCPGatewayOAuthDCR) *proto.M
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Subdomain = (porcelain.Subdomain)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Url = (porcelain.Url)
 	return plumbing
 }
 func convertRepeatedMCPGatewayOAuthDCRToPlumbing(
@@ -13494,6 +13500,7 @@ func convertMCPGatewayPATToPorcelain(plumbing *proto.MCPGatewayPAT) (*MCPGateway
 	} else {
 		porcelain.Tags = v
 	}
+	porcelain.Url = plumbing.Url
 	return porcelain, nil
 }
 
@@ -13514,6 +13521,7 @@ func convertMCPGatewayPATToPlumbing(porcelain *MCPGatewayPAT) *proto.MCPGatewayP
 	plumbing.SecretStoreId = (porcelain.SecretStoreID)
 	plumbing.Subdomain = (porcelain.Subdomain)
 	plumbing.Tags = convertTagsToPlumbing(porcelain.Tags)
+	plumbing.Url = (porcelain.Url)
 	return plumbing
 }
 func convertRepeatedMCPGatewayPATToPlumbing(
