@@ -21803,6 +21803,8 @@ func convertSQLServerKerberosADToPorcelain(plumbing *proto.SQLServerKerberosAD) 
 	porcelain.Healthy = plumbing.Healthy
 	porcelain.Hostname = plumbing.Hostname
 	porcelain.ID = plumbing.Id
+	porcelain.IdentityAliasHealthcheckUsername = plumbing.IdentityAliasHealthcheckUsername
+	porcelain.IdentitySetID = plumbing.IdentitySetId
 	porcelain.Keytab = plumbing.Keytab
 	porcelain.KrbConfig = plumbing.KrbConfig
 	porcelain.Name = plumbing.Name
@@ -21836,6 +21838,8 @@ func convertSQLServerKerberosADToPlumbing(porcelain *SQLServerKerberosAD) *proto
 	plumbing.Healthy = (porcelain.Healthy)
 	plumbing.Hostname = (porcelain.Hostname)
 	plumbing.Id = (porcelain.ID)
+	plumbing.IdentityAliasHealthcheckUsername = (porcelain.IdentityAliasHealthcheckUsername)
+	plumbing.IdentitySetId = (porcelain.IdentitySetID)
 	plumbing.Keytab = (porcelain.Keytab)
 	plumbing.KrbConfig = (porcelain.KrbConfig)
 	plumbing.Name = (porcelain.Name)
