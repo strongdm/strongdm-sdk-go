@@ -14003,6 +14003,8 @@ type SQLServerKerberosAD struct {
 	Name string `json:"name"`
 	// If set, the database configured cannot be changed by users. This setting is not recommended for most use cases, as some clients will insist their database has changed when it has not, leading to user confusion.
 	OverrideDatabase bool `json:"overrideDatabase"`
+	// The password to authenticate with.
+	Password string `json:"password"`
 	// The port to dial to initiate a connection from the egress node to this resource.
 	Port int32 `json:"port"`
 	// The local port used by clients to connect to this resource. It is automatically generated if not provided on create and may be re-generated on update by specifying a value of -1.

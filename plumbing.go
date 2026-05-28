@@ -22146,6 +22146,7 @@ func convertSQLServerKerberosADToPorcelain(plumbing *proto.SQLServerKerberosAD) 
 	porcelain.KrbConfig = plumbing.KrbConfig
 	porcelain.Name = plumbing.Name
 	porcelain.OverrideDatabase = plumbing.OverrideDatabase
+	porcelain.Password = plumbing.Password
 	porcelain.Port = plumbing.Port
 	porcelain.PortOverride = plumbing.PortOverride
 	porcelain.ProxyClusterID = plumbing.ProxyClusterId
@@ -22181,6 +22182,7 @@ func convertSQLServerKerberosADToPlumbing(porcelain *SQLServerKerberosAD) *proto
 	plumbing.KrbConfig = (porcelain.KrbConfig)
 	plumbing.Name = (porcelain.Name)
 	plumbing.OverrideDatabase = (porcelain.OverrideDatabase)
+	plumbing.Password = (porcelain.Password)
 	plumbing.Port = (porcelain.Port)
 	plumbing.PortOverride = (porcelain.PortOverride)
 	plumbing.ProxyClusterId = (porcelain.ProxyClusterID)
