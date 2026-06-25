@@ -24,8 +24,9 @@ import (
 // An AccessRule grants access to a set of Resources. There are two kinds of
 // AccessRules:
 //
-// - Dynamic: a rule which identifies Resources based on their type or tags
-// - Static: a rule which contains an explicit list of Resource IDs
+//   - Dynamic: a rule which identifies Resources based on their type, tags, or a
+//     tag query
+//   - Static: a rule which contains an explicit list of Resource IDs
 type AccessRule struct {
 
 	// IDs is a list of Resource IDs granted by this AccessRule. If this field
@@ -47,6 +48,16 @@ type AccessRule struct {
 	// You can also use it in conjunction with the Type field to further narrow
 	// down the scope of Resources granted.
 	Tags Tags `json:"tags,omitempty"`
+
+	// Query is a boolean tag query that identifies the Resources granted by
+	// this AccessRule. It combines tag conditions with the AND, OR, and NOT
+	// operators and parentheses for grouping, e.g.
+	// `env=prod AND (region=us OR region=eu) AND NOT deprecated`. Operator
+	// precedence, from highest to lowest, is: parentheses, NOT, AND, OR. A bare
+	// tag (`env`) matches any Resource carrying that tag regardless of value;
+	// `env=prod` matches a specific value. Query is mutually exclusive with the
+	// IDs, Type, and Tags fields.
+	Query string `json:"query,omitempty"`
 
 	// Privileges specify different privilege levels one can utilize with a set
 	// of resources.
