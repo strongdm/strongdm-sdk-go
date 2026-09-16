@@ -81,10 +81,15 @@ type Privileges struct {
 	// that a Principal should be put in, within Okta,
 	// via access to an Okta Groups resource.
 	OktaGroups OktaGroupsPrivileges `json:"oktaGroups,omitempty,omitzero"`
+
+	// GoogleGroups specifies a collection of Groups
+	// that a Principal should be put in, within Google Workspace,
+	// via access to a Google Groups resource. Values are group email addresses.
+	GoogleGroups GoogleGroupsPrivileges `json:"googleGroups,omitempty,omitzero"`
 }
 
 func (p Privileges) IsZero() bool {
-	return p.K8s.IsZero() && p.EntraGroups.IsZero() && p.OktaGroups.IsZero()
+	return p.K8s.IsZero() && p.EntraGroups.IsZero() && p.OktaGroups.IsZero() && p.GoogleGroups.IsZero()
 }
 
 // K8sPrivileges specifies different privilege level constructs
@@ -116,6 +121,16 @@ type OktaGroupsPrivileges struct {
 }
 
 func (p OktaGroupsPrivileges) IsZero() bool {
+	return len(p.Groups) == 0
+}
+
+type GoogleGroupsPrivileges struct {
+	// Groups is the list of Google Group email addresses one will be added to
+	// when granted access to a Google Groups resource.
+	Groups []string `json:"groups,omitempty"`
+}
+
+func (p GoogleGroupsPrivileges) IsZero() bool {
 	return len(p.Groups) == 0
 }
 
