@@ -4661,6 +4661,22 @@ type IdentitySetUpdateResponse struct {
 	RateLimit *RateLimitMetadata `json:"rateLimit"`
 }
 
+// An Initiator describes who established the connection to the resource, as classified by
+// the local StrongDM client.
+type Initiator struct {
+	// A stable identifier of the AI Agent that established the connection, e.g. "claude-code".
+	// Empty unless type is "ai_agent".
+	AIAgent string `json:"aiAgent"`
+	// Indicates whether the initiator detection is trusted, meaning it cannot be spoofed by the end user.
+	Trusted bool `json:"trusted"`
+	// The kind of initiator, one of the InitiatorType constants: "ai_agent" when a supported AI
+	// Agent was detected, "human" when no supported AI Agent was detected, or "unknown" when the
+	// client could not determine the initiator.
+	Type string `json:"type"`
+	// The version of the AI Agent, when it could be determined.
+	Version string `json:"version"`
+}
+
 type KeyValueEngine struct {
 	// Unique identifier of the Secret Engine.
 	ID string `json:"id"`
@@ -6762,6 +6778,9 @@ type Query struct {
 	ID string `json:"id"`
 	// The username of the IdentityAlias used to access the Resource.
 	IdentityAliasUsername string `json:"identityAliasUsername"`
+	// Who established the connection to the resource, as classified by the local StrongDM client.
+	// Absent when the initiator was not recorded or the organization does not have AI Agent controls.
+	Initiator *Initiator `json:"initiator"`
 	// Driver specific metadata associated with this query.
 	MetadataJSON string `json:"metadataJson"`
 	// The captured content of the Query.

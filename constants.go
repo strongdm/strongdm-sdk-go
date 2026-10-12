@@ -576,6 +576,13 @@ const (
 	APIHostEU = "app.eu.strongdm.com:443"
 )
 
+// InitiatorType defines who established a connection to a resource, as classified by the local StrongDM client.
+const (
+	InitiatorTypeAIAgent = "ai_agent"
+	InitiatorTypeHuman   = "human"
+	InitiatorTypeUnknown = "unknown"
+)
+
 // ApproverReference defines the type for approver references.
 const (
 	ApproverReferenceNone                        = ""
@@ -946,6 +953,16 @@ var AllDeviceTrustProvider = []string{
 
 func DeviceTrustProviderIsValid(v string) bool {
 	return slices.Contains(AllDeviceTrustProvider, v)
+}
+
+var AllInitiatorType = []string{
+	InitiatorTypeAIAgent,
+	InitiatorTypeHuman,
+	InitiatorTypeUnknown,
+}
+
+func InitiatorTypeIsValid(v string) bool {
+	return slices.Contains(AllInitiatorType, v)
 }
 
 var AllLogLocalEncoder = []string{
