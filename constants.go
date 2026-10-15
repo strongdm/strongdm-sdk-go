@@ -380,8 +380,6 @@ const (
 	PermissionAccessRequestRequester       = "accessrequest:requester"
 	PermissionAccountGroupRead             = "accountgroup:read"
 	PermissionAccountGroupWrite            = "accountgroup:write"
-	PermissionAdminRoleRead                = "adminrole:read"
-	PermissionAdminRoleWrite               = "adminrole:write"
 	PermissionApprovalFlowEdit             = "approvalflow:edit"
 	PermissionApprovalFlowList             = "approvalflow:list"
 	PermissionBillingRead                  = "billing:read"
@@ -437,6 +435,8 @@ const (
 	PermissionOrgEditSettings              = "organization:edit_settings"
 	PermissionOrgListChildren              = "organization:list_children"
 	PermissionOrgViewSettings              = "organization:view_settings"
+	PermissionPermissionSetRead            = "permissionset:read"
+	PermissionPermissionSetWrite           = "permissionset:write"
 	PermissionPolicyRead                   = "policy:read"
 	PermissionPolicyWrite                  = "policy:write"
 	PermissionRelayCreate                  = "relay:create"
@@ -1047,8 +1047,6 @@ var AllPermission = []string{
 	PermissionAccessRequestRequester,
 	PermissionAccountGroupRead,
 	PermissionAccountGroupWrite,
-	PermissionAdminRoleRead,
-	PermissionAdminRoleWrite,
 	PermissionApprovalFlowEdit,
 	PermissionApprovalFlowList,
 	PermissionBillingRead,
@@ -1104,6 +1102,8 @@ var AllPermission = []string{
 	PermissionOrgEditSettings,
 	PermissionOrgListChildren,
 	PermissionOrgViewSettings,
+	PermissionPermissionSetRead,
+	PermissionPermissionSetWrite,
 	PermissionPolicyRead,
 	PermissionPolicyWrite,
 	PermissionRelayCreate,
