@@ -3052,6 +3052,7 @@ func convertActiveDirectoryEngineToPorcelain(plumbing *proto.ActiveDirectoryEngi
 	}
 	porcelain.Name = plumbing.Name
 	porcelain.NodeSelector = plumbing.NodeSelector
+	porcelain.PathCredentials = plumbing.PathCredentials
 	if v, err := convertSecretEnginePolicyToPorcelain(plumbing.Policy); err != nil {
 		return nil, fmt.Errorf("error converting field Policy: %v", err)
 	} else {
@@ -3095,6 +3096,7 @@ func convertActiveDirectoryEngineToPlumbing(porcelain *ActiveDirectoryEngine) *p
 	plumbing.MaxBackoffDuration = convertDurationToPlumbing(porcelain.MaxBackoffDuration)
 	plumbing.Name = (porcelain.Name)
 	plumbing.NodeSelector = (porcelain.NodeSelector)
+	plumbing.PathCredentials = (porcelain.PathCredentials)
 	plumbing.Policy = convertSecretEnginePolicyToPlumbing(porcelain.Policy)
 	plumbing.PublicKey = (porcelain.PublicKey)
 	plumbing.RequestTimeout = (porcelain.RequestTimeout)
@@ -15901,6 +15903,7 @@ func convertMysqlEngineToPorcelain(plumbing *proto.MysqlEngine) (*MysqlEngine, e
 	porcelain.Name = plumbing.Name
 	porcelain.NodeSelector = plumbing.NodeSelector
 	porcelain.Password = plumbing.Password
+	porcelain.PathCredentials = plumbing.PathCredentials
 	if v, err := convertSecretEnginePolicyToPorcelain(plumbing.Policy); err != nil {
 		return nil, fmt.Errorf("error converting field Policy: %v", err)
 	} else {
@@ -15939,6 +15942,7 @@ func convertMysqlEngineToPlumbing(porcelain *MysqlEngine) *proto.MysqlEngine {
 	plumbing.Name = (porcelain.Name)
 	plumbing.NodeSelector = (porcelain.NodeSelector)
 	plumbing.Password = (porcelain.Password)
+	plumbing.PathCredentials = (porcelain.PathCredentials)
 	plumbing.Policy = convertSecretEnginePolicyToPlumbing(porcelain.Policy)
 	plumbing.Port = (porcelain.Port)
 	plumbing.PublicKey = (porcelain.PublicKey)
@@ -18451,6 +18455,7 @@ func convertPostgresEngineToPorcelain(plumbing *proto.PostgresEngine) (*Postgres
 	porcelain.Name = plumbing.Name
 	porcelain.NodeSelector = plumbing.NodeSelector
 	porcelain.Password = plumbing.Password
+	porcelain.PathCredentials = plumbing.PathCredentials
 	if v, err := convertSecretEnginePolicyToPorcelain(plumbing.Policy); err != nil {
 		return nil, fmt.Errorf("error converting field Policy: %v", err)
 	} else {
@@ -18488,6 +18493,7 @@ func convertPostgresEngineToPlumbing(porcelain *PostgresEngine) *proto.PostgresE
 	plumbing.Name = (porcelain.Name)
 	plumbing.NodeSelector = (porcelain.NodeSelector)
 	plumbing.Password = (porcelain.Password)
+	plumbing.PathCredentials = (porcelain.PathCredentials)
 	plumbing.Policy = convertSecretEnginePolicyToPlumbing(porcelain.Policy)
 	plumbing.Port = (porcelain.Port)
 	plumbing.PublicKey = (porcelain.PublicKey)
@@ -24396,6 +24402,7 @@ func convertSqlserverEngineToPorcelain(plumbing *proto.SqlserverEngine) (*Sqlser
 	porcelain.Name = plumbing.Name
 	porcelain.NodeSelector = plumbing.NodeSelector
 	porcelain.Password = plumbing.Password
+	porcelain.PathCredentials = plumbing.PathCredentials
 	if v, err := convertSecretEnginePolicyToPorcelain(plumbing.Policy); err != nil {
 		return nil, fmt.Errorf("error converting field Policy: %v", err)
 	} else {
@@ -24434,6 +24441,7 @@ func convertSqlserverEngineToPlumbing(porcelain *SqlserverEngine) *proto.Sqlserv
 	plumbing.Name = (porcelain.Name)
 	plumbing.NodeSelector = (porcelain.NodeSelector)
 	plumbing.Password = (porcelain.Password)
+	plumbing.PathCredentials = (porcelain.PathCredentials)
 	plumbing.Policy = convertSecretEnginePolicyToPlumbing(porcelain.Policy)
 	plumbing.Port = (porcelain.Port)
 	plumbing.PublicKey = (porcelain.PublicKey)
